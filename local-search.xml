@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>mac-iTerm2</title>
+    <link href="/2021/11/15/mac-iTerm2/"/>
+    <url>/2021/11/15/mac-iTerm2/</url>
+    
+    <content type="html"><![CDATA[<h2 id="mac-air-m1-终端配置记录"><a href="#mac-air-m1-终端配置记录" class="headerlink" title="mac air m1 终端配置记录"></a>mac air m1 终端配置记录</h2><span id="more"></span><h3 id="安装Homebrew"><a href="#安装Homebrew" class="headerlink" title="安装Homebrew"></a>安装Homebrew</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/bin/</span>bash -c <span class="hljs-string">&quot;$(curl -fsSL https://cdn.jsdelivr.net/gh/ineo6/homebrew-install/install.sh)&quot;</span><br></code></pre></td></tr></table></figure><p>将以上命令粘贴至终端。脚本内置 中科大镜像，所以能让Homebrew安装的更快。</p><h3 id="安装-oh-my-zsh"><a href="#安装-oh-my-zsh" class="headerlink" title="安装 oh-my-zsh"></a>安装 oh-my-zsh</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sh -c <span class="hljs-string">&quot;<span class="hljs-subst">$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)</span>&quot;</span><br></code></pre></td></tr></table></figure><h3 id="配置-oh-my-zsh"><a href="#配置-oh-my-zsh" class="headerlink" title="配置 oh-my-zsh"></a>配置 oh-my-zsh</h3><p>参考 <a href="https://www.dazhuanlan.com/lyuuawa0508/topics/1599354">https://www.dazhuanlan.com/lyuuawa0508/topics/1599354</a><br>注：其中有些命令可能因为版本问题不一致，主要是cask相关，按照提示修改即可<br>比如 安装 iTerm2 的命令是现在这样</p><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">brew</span> tap homebrew/cask<br><span class="hljs-attribute">brew</span> install iterm<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure><h3 id="brew-安装-nvm"><a href="#brew-安装-nvm" class="headerlink" title="brew 安装 nvm"></a>brew 安装 nvm</h3><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs clean">brew install nvm<br>mkdir ~/.nvm<br>vi ~/.zshrc<br>#################### 将下面内容添加到 ~/.zshrc 中 #############################<br><span class="hljs-keyword">export</span> NVM_DIR=<span class="hljs-string">&quot;$HOME/.nvm&quot;</span><br>[ -s <span class="hljs-string">&quot;/opt/homebrew/opt/nvm/nvm.sh&quot;</span> ] &amp;&amp; . <span class="hljs-string">&quot;/opt/homebrew/opt/nvm/nvm.sh&quot;</span> # This loads nvm<br>[ -s <span class="hljs-string">&quot;/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm&quot;</span> ] &amp;&amp; . <span class="hljs-string">&quot;/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm&quot;</span> # This loads nvm bash_completion<br>###############################################################################<br>source ~/.zshrc<br></code></pre></td></tr></table></figure><h3 id="github-加速"><a href="#github-加速" class="headerlink" title="github 加速"></a>github 加速</h3><p>参考 <a href="https://brew.idayer.com/guide/github">https://brew.idayer.com/guide/github</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Mac</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>玩</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>科学上网</title>
     <link href="/2021/11/07/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
     <url>/2021/11/07/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</url>

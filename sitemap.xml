@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://shubihu.github.io/2021/11/15/mac-iTerm2/</loc>
+    
+    <lastmod>2021-11-15</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://shubihu.github.io/2021/10/20/%E6%A0%B8%E9%85%B8%E6%A3%80%E6%B5%8B%E6%9C%BA%E6%9E%84%E5%9C%B0%E5%9B%BE%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/</loc>
     
     <lastmod>2021-11-15</lastmod>
@@ -259,6 +266,13 @@
   
   <url>
     <loc>https://shubihu.github.io/categories/Working/</loc>
+    <lastmod>2021-11-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/categories/Mac/</loc>
     <lastmod>2021-11-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
