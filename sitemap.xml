@@ -30,7 +30,7 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/2021/08/20/%E6%B0%B4%E4%B8%80%E7%AF%87/</loc>
+    <loc>https://shubihu.github.io/2021/08/20/TroubleNoShoot/</loc>
     
     <lastmod>2021-11-15</lastmod>
     
@@ -44,21 +44,14 @@
   </url>
   
   <url>
+    <loc>https://shubihu.github.io/2021/08/20/%E6%B0%B4%E4%B8%80%E7%AF%87/</loc>
+    
+    <lastmod>2021-11-15</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://shubihu.github.io/2021/08/12/%E7%9F%A5%E7%BD%91%E7%BE%8A%E6%AF%9B/</loc>
-    
-    <lastmod>2021-11-15</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/2021/08/20/TroubleNoShoot/</loc>
-    
-    <lastmod>2021-11-15</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/2021/08/11/Python_%E5%BC%82%E6%AD%A5/</loc>
     
     <lastmod>2021-11-15</lastmod>
     
@@ -72,14 +65,7 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/2021/08/20/WeAreSVIP/</loc>
-    
-    <lastmod>2021-11-15</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/2021/09/16/Pytorch-learning/</loc>
+    <loc>https://shubihu.github.io/2021/08/11/Python_%E5%BC%82%E6%AD%A5/</loc>
     
     <lastmod>2021-11-15</lastmod>
     
@@ -93,7 +79,21 @@
   </url>
   
   <url>
+    <loc>https://shubihu.github.io/2021/08/20/WeAreSVIP/</loc>
+    
+    <lastmod>2021-11-15</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://shubihu.github.io/2021/09/27/iPhone%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4%E8%87%AA%E5%8A%A8%E6%89%93%E5%BC%80%E4%BD%8E%E7%94%B5%E9%87%8F%E6%A8%A1%E5%BC%8F/</loc>
+    
+    <lastmod>2021-11-15</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/2021/09/16/Pytorch-learning/</loc>
     
     <lastmod>2021-11-15</lastmod>
     
@@ -151,6 +151,13 @@
   </url>
   
   <url>
+    <loc>https://shubihu.github.io/tags/Linux/</loc>
+    <lastmod>2021-11-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://shubihu.github.io/tags/Pyecharts/</loc>
     <lastmod>2021-11-15</lastmod>
     <changefreq>daily</changefreq>
@@ -165,14 +172,7 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/tags/%E8%96%85%E7%BE%8A%E6%AF%9B/</loc>
-    <lastmod>2021-11-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/tags/Pytorch/</loc>
+    <loc>https://shubihu.github.io/tags/TroubleShoot/</loc>
     <lastmod>2021-11-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -186,21 +186,7 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/tags/Linux/</loc>
-    <lastmod>2021-11-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/tags/%E5%88%92%E6%B0%B4%E6%91%B8%E9%B1%BC/</loc>
-    <lastmod>2021-11-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</loc>
+    <loc>https://shubihu.github.io/tags/%E8%96%85%E7%BE%8A%E6%AF%9B/</loc>
     <lastmod>2021-11-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -214,7 +200,21 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/tags/TroubleShoot/</loc>
+    <loc>https://shubihu.github.io/tags/%E5%88%92%E6%B0%B4%E6%91%B8%E9%B1%BC/</loc>
+    <lastmod>2021-11-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/tags/Pytorch/</loc>
+    <lastmod>2021-11-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</loc>
     <lastmod>2021-11-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -224,6 +224,13 @@
   
   <url>
     <loc>https://shubihu.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2021-11-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/categories/Linux/</loc>
     <lastmod>2021-11-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -251,7 +258,7 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/categories/Linux/</loc>
+    <loc>https://shubihu.github.io/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
     <lastmod>2021-11-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -259,13 +266,6 @@
   
   <url>
     <loc>https://shubihu.github.io/categories/Working/</loc>
-    <lastmod>2021-11-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
     <lastmod>2021-11-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
