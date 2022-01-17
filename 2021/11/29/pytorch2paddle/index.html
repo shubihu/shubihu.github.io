@@ -1,0 +1,560 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="如题">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="description" content="如题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pytorch模型转paddle模型踩坑记录">
+<meta property="og:url" content="https://shubihu.github.io/2021/11/29/pytorch2paddle/index.html">
+<meta property="og:site_name" content="梳碧湖">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-29T09:52:31.000Z">
+<meta property="article:modified_time" content="2022-01-17T01:28:20.624Z">
+<meta property="article:tag" content="TroubleShoot">
+<meta name="twitter:card" content="summary">
+  
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"> <script src="/js/lantern.js"></script>
+  
+  <title>pytorch模型转paddle模型踩坑记录 - 梳碧湖</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"shubihu.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"&#x1f496","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"FOWqJriwiUxghpNnDaD7X3ao-gzGzoHsz","app_key":"wgi1Wsw2eg7be0kqLc6vhVHj","server_url":"https://fowqjriw.lc-cn-n1-shared.com"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>梳碧湖</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/cat/">
+                <i class="iconfont icon-brush"></i>
+                撸猫
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/yahaha.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="pytorch模型转paddle模型踩坑记录">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-11-29 17:52" pubdate>
+        2021年11月29日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.1k 字
+    </span>
+  
+
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">pytorch模型转paddle模型踩坑记录</h1>
+            
+              <p class="note note-info">
+                
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：26 分钟前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h2 id="如题"><a href="#如题" class="headerlink" title="如题"></a>如题</h2><span id="more"></span>
+<h5 id="踩坑1"><a href="#踩坑1" class="headerlink" title="踩坑1"></a>踩坑1</h5><p>网上有很多使用x2paddle把pytorch转paddle的文章，不过大不部分也都是采用的迂回路线，就是先转ONNX，再转paddle，试了下水，果然没有那么简单的事情，一直报错，最后好像报了个 model not support，，，，遂放弃。</p>
+<h5 id="踩坑2"><a href="#踩坑2" class="headerlink" title="踩坑2"></a>踩坑2</h5><p>使用工具不行只有一步一步慢慢转，这也是最开始使用的方法，起初报错没解决才找到x2paddle的，没想到又回归到最原始的方法了。<br>转换的过程一直卡在网络这块，所以就先把网络这块拿出来记录下。</p>
+<h6 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h6><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs clean">######################### torch 版  ############################<br><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><span class="hljs-keyword">class</span> SeqNet(nn.Module):<br>    def __init__(self):<br>        super(SeqNet, self).__init__()<br>        # input <br>        self.conv1 = nn.Conv1d(<span class="hljs-number">12</span>, <span class="hljs-number">10</span>, <span class="hljs-number">50</span>)<br>        self.conv2 = nn.Conv1d(<span class="hljs-number">12</span>, <span class="hljs-number">10</span>, <span class="hljs-number">200</span>)<br>        self.conv3 = nn.Conv1d(<span class="hljs-number">12</span>, <span class="hljs-number">10</span>, <span class="hljs-number">500</span>)<br>        self.conv4 = nn.Conv1d(<span class="hljs-number">12</span>, <span class="hljs-number">10</span>, <span class="hljs-number">1000</span>)<br>        self.pooling = nn.MaxPool2d((<span class="hljs-number">1</span>, <span class="hljs-number">200</span>))<br>        self.fc1 = nn.Linear(<span class="hljs-number">900</span>, <span class="hljs-number">64</span>)<br>        self.fc2 = nn.Linear(<span class="hljs-number">64</span>, <span class="hljs-number">1</span>)<br><br>    def forward(self, x):<br>        batch_size = x.size(<span class="hljs-number">0</span>)<br>        <br>        out1 = self.pooling(F.relu(self.conv1(x)))<br>        out2 = self.pooling(F.relu(self.conv2(x)))<br>        out3 = self.pooling(F.relu(self.conv3(x)))<br>        out4 = self.pooling(F.relu(self.conv4(x)))<br><br>        out = torch.cat([out1, out2, out3, out4], <span class="hljs-number">2</span>)<br>        out = out.view(batch_size, <span class="hljs-number">-1</span>)<br>        out = self.fc1(out)<br>        out = F.relu(out)<br>        # out = F.dropout(out, p=<span class="hljs-number">0.2</span>)<br>        out = self.fc2(out)<br>        return out<br></code></pre></td></tr></table></figure>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs clean">######################### paddle 版  ############################<br><span class="hljs-keyword">import</span> paddle<br><span class="hljs-keyword">import</span> paddle.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">import</span> paddle.nn.functional <span class="hljs-keyword">as</span> F<br><br><span class="hljs-keyword">class</span> SeqNet(nn.Layer):<br>    def __init__(self):<br>        super(SeqNet, self).__init__()<br>        # input <br>        self.conv1 = nn.Conv1D(<span class="hljs-number">12</span>, <span class="hljs-number">10</span>, <span class="hljs-number">50</span>)<br>        self.conv2 = nn.Conv1D(<span class="hljs-number">12</span>, <span class="hljs-number">10</span>, <span class="hljs-number">200</span>)<br>        self.conv3 = nn.Conv1D(<span class="hljs-number">12</span>, <span class="hljs-number">10</span>, <span class="hljs-number">500</span>)<br>        self.conv4 = nn.Conv1D(<span class="hljs-number">12</span>, <span class="hljs-number">10</span>, <span class="hljs-number">1000</span>)<br>        # self.pooling = nn.MaxPool2D((<span class="hljs-number">1</span>, <span class="hljs-number">200</span>))   <br>        ### torch版的 nn.MaxPool2D 输入数剧格式为（NCHW 或 CHW）,paddle版的 nn.MaxPool2D 输入数据格式只有 NCHW<br>        ### N代表batch_size， C代表channel，H代表高度，W代表宽度<br>        ### 所以这里用 paddle 的 nn.MaxPool1D 替换了 torch 的 nn.MaxPool2D<br>        self.pooling = nn.MaxPool1D(<span class="hljs-number">200</span>)<br>        self.fc1 = nn.Linear(<span class="hljs-number">900</span>, <span class="hljs-number">64</span>)<br>        self.fc2 = nn.Linear(<span class="hljs-number">64</span>, <span class="hljs-number">1</span>)<br><br>    def forward(self, x):<br>        ### torch.tensor.size 对应 paddle.tensor.shape<br>        batch_size = x.shape[<span class="hljs-number">0</span>]   <br>        <br>        out1 = self.pooling(F.relu(self.conv1(x)))<br>        out2 = self.pooling(F.relu(self.conv2(x)))<br>        out3 = self.pooling(F.relu(self.conv3(x)))<br>        out4 = self.pooling(F.relu(self.conv4(x)))<br>        <br>        ### torch.cat 对应 paddle.concat<br>        # out = torch.cat([out1, out2, out3, out4], <span class="hljs-number">2</span>)  <br>        out = paddle.concat([out1, out2, out3, out4], <span class="hljs-number">2</span>)<br>        ### torch.tensor.view 对应 paddle.tensor.reshape<br>        # out = out.view(batch_size, <span class="hljs-number">-1</span>)<br>        out = paddle.reshape(out, [batch_size, <span class="hljs-number">-1</span>])<br>        out = self.fc1(out)<br>        out = F.relu(out)<br>        # out = F.dropout(out, p=<span class="hljs-number">0.2</span>)<br>        out = self.fc2(out)<br><br>        return out<br></code></pre></td></tr></table></figure>
+<h6 id="对于自定义数据集-paddle和pytorch实现的方法类似"><a href="#对于自定义数据集-paddle和pytorch实现的方法类似" class="headerlink" title="对于自定义数据集 paddle和pytorch实现的方法类似"></a>对于自定义数据集 paddle和pytorch实现的方法类似</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> paddle.io <span class="hljs-keyword">import</span> Dataset<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyDataset</span>(<span class="hljs-params">Dataset</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    步骤一：继承paddle.io.Dataset类</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, mode=<span class="hljs-string">&#x27;train&#x27;</span></span>):</span><br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        步骤二：实现构造函数，定义数据读取方式，划分训练和测试数据集</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-built_in">super</span>(MyDataset, self).__init__()<br><br>        <span class="hljs-keyword">if</span> mode == <span class="hljs-string">&#x27;train&#x27;</span>:<br>            self.data = [<br>                [<span class="hljs-string">&#x27;traindata1&#x27;</span>, <span class="hljs-string">&#x27;label1&#x27;</span>],<br>                [<span class="hljs-string">&#x27;traindata2&#x27;</span>, <span class="hljs-string">&#x27;label2&#x27;</span>],<br>                [<span class="hljs-string">&#x27;traindata3&#x27;</span>, <span class="hljs-string">&#x27;label3&#x27;</span>],<br>                [<span class="hljs-string">&#x27;traindata4&#x27;</span>, <span class="hljs-string">&#x27;label4&#x27;</span>],<br>            ]<br>        <span class="hljs-keyword">else</span>:<br>            self.data = [<br>                [<span class="hljs-string">&#x27;testdata1&#x27;</span>, <span class="hljs-string">&#x27;label1&#x27;</span>],<br>                [<span class="hljs-string">&#x27;testdata2&#x27;</span>, <span class="hljs-string">&#x27;label2&#x27;</span>],<br>                [<span class="hljs-string">&#x27;testdata3&#x27;</span>, <span class="hljs-string">&#x27;label3&#x27;</span>],<br>                [<span class="hljs-string">&#x27;testdata4&#x27;</span>, <span class="hljs-string">&#x27;label4&#x27;</span>],<br>            ]<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__getitem__</span>(<span class="hljs-params">self, index</span>):</span><br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        步骤三：实现__getitem__方法，定义指定index时如何获取数据，并返回单条数据（训练数据，对应的标签）</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        data = self.data[index][<span class="hljs-number">0</span>]<br>        label = self.data[index][<span class="hljs-number">1</span>]<br><br>        <span class="hljs-keyword">return</span> data, label<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__len__</span>(<span class="hljs-params">self</span>):</span><br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        步骤四：实现__len__方法，返回数据集总数目</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(self.data)<br></code></pre></td></tr></table></figure>
+<h6 id="还有就是训练这块"><a href="#还有就是训练这块" class="headerlink" title="还有就是训练这块"></a>还有就是训练这块</h6><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs clean">######################### torch 版  ############################<br><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br>model = SeqNet()<br>model.to(device)<br>optimizer = torch.optim.AdamW(model.parameters(), lr=<span class="hljs-number">1e-4</span> ,weight_decay=<span class="hljs-number">5e-4</span>)<br>scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=max_epoch)<br>criterion = nn.BCEWithLogitsLoss()<br><br>for i, (inputs, labels) <span class="hljs-keyword">in</span> (enumerate(trainloader)):<br>    inputs = inputs.to(device)<br>    labels = labels.float().to(device)<br><br>    out_linear = model(inputs).to(device)<br>    loss = criterion(out_linear, labels.unsqueeze(<span class="hljs-number">1</span>))<br><br>    optimizer.zero_grad()<br>    loss.backward()<br>    optimizer.step()<br></code></pre></td></tr></table></figure>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs clean">######################### paddle 版  ############################<br><span class="hljs-keyword">import</span> paddle<br><span class="hljs-keyword">import</span> paddle.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">import</span> paddle.optimizer <span class="hljs-keyword">as</span> optim<br><br>model = SeqNet()<br>model.to(device)<br>optimizer = optim.AdamW(learning_rate=<span class="hljs-number">1e-4</span>, parameters=model.parameters(),weight_decay=<span class="hljs-number">5e-4</span>)<br>### optimizer = optim.Adam(parameters=model.parameters(), learning_rate=<span class="hljs-number">1e-4</span>)<br>### paddle 版CosineAnnealingDecay接収的是 learning_rate参数<br>scheduler = optim.lr.CosineAnnealingDecay(<span class="hljs-number">1e-4</span>, T_max=max_epoch)<br>criterion = nn.BCEWithLogitsLoss()<br><br>for i, (inputs, labels) <span class="hljs-keyword">in</span> (enumerate(trainloader)):<br>    # inputs = inputs.to(device)<br>    inputs = inputs.cuda()<br>    # labels = labels.float().to(device)<br>    labels = labels.cuda()<br>    # labels = paddle.reshape(labels, (<span class="hljs-number">30</span>, <span class="hljs-number">1</span>))<br>    labels = paddle.cast(labels, dtype=<span class="hljs-string">&#x27;float32&#x27;</span>)  ## 转换数据类型<br><br>    out_linear = model(inputs)<br>    out_linear = paddle.reshape(out_linear, (batch_size,))<br>    loss = criterion(out_linear, labels)<br>    # loss = criterion(out_linear, labels.unsqueeze(<span class="hljs-number">1</span>))<br><br>    # optimizer.zero_grad()<br>    loss.backward()<br>    optimizer.step()<br>    optimizer.clear_grad()<br></code></pre></td></tr></table></figure>
+
+<p>其余剩下就是一些小问题了，直接运行debug改就好了。<br>pytorch 完整版地址：<a target="_blank" rel="noopener" href="https://github.com/shubihu/coggle_learn/blob/main/baseline/pytorch.ipynb">https://github.com/shubihu/coggle_learn/blob/main/baseline/pytorch.ipynb</a><br>paddle 完整版地址：<a target="_blank" rel="noopener" href="https://github.com/shubihu/coggle_learn/blob/main/baseline/paddle.ipynb">https://github.com/shubihu/coggle_learn/blob/main/baseline/paddle.ipynb</a><br>aistudio上项目的地址为：<a target="_blank" rel="noopener" href="https://aistudio.baidu.com/aistudio/projectdetail/2724787?contributionType=1">https://aistudio.baidu.com/aistudio/projectdetail/2724787?contributionType=1</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/TroubleShoot/">TroubleShoot</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/TroubleShoot/">TroubleShoot</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/11/30/jupyter/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JupyterNotebook远程云服务器</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/11/15/mac-iTerm2/">
+                        <span class="hidden-mobile">mac-iTerm2</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"FOWqJriwiUxghpNnDaD7X3ao-gzGzoHsz","appKey":"wgi1Wsw2eg7be0kqLc6vhVHj","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script> <script src="/js/wanko.js"></script>
+        </div>
+      </div>
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="/js/xin.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<!-- hexo injector body_end start -->
+  <div id="aplayer"></div>
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+  <script src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js"></script>
+  <script defer src="/js/aplayer.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>

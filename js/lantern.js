@@ -3,7 +3,7 @@ document.write("<div class=\"deng-box\">");
 document.write("	<div class=\"deng\">");
 document.write("		<div class=\"xian\"><\/div>");
 document.write("		<div class=\"deng-a\">");
-document.write("			<div class=\"deng-b\"><div class=\"deng-t\">国庆<\/div><\/div>");    // 修改新春寄语
+document.write("			<div class=\"deng-b\"><div class=\"deng-t\">新年<\/div><\/div>");    // 修改新春寄语
 // document.write("            <div class=\"deng-b\"><div class=\"deng-t\"><\/div><\/div>");
 document.write("		<\/div>");
 document.write("		<div class=\"shui shui-a\"><div class=\"shui-c\"><\/div><div class=\"shui-b\"><\/div><\/div>");
