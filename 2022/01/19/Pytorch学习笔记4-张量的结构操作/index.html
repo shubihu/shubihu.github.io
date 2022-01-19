@@ -13,26 +13,24 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="如题">
+  <meta name="description" content="张量的操作主要包括张量的结构操作和张量的数学运算">
   <meta name="author" content="">
   <meta name="keywords" content="">
-  <meta name="description" content="如题">
+  <meta name="description" content="张量的操作主要包括张量的结构操作和张量的数学运算">
 <meta property="og:type" content="article">
-<meta property="og:title" content="科学上网">
-<meta property="og:url" content="https://shubihu.github.io/2021/11/07/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/index.html">
+<meta property="og:title" content="Pytorch学习笔记4-张量的结构操作">
+<meta property="og:url" content="https://shubihu.github.io/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04-%E5%BC%A0%E9%87%8F%E7%9A%84%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="梳碧湖">
-<meta property="og:description" content="如题">
+<meta property="og:description" content="张量的操作主要包括张量的结构操作和张量的数学运算">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://shubihu.github.io/img/article/ssr.jpg">
-<meta property="article:published_time" content="2021-11-07T02:01:22.000Z">
-<meta property="article:modified_time" content="2022-01-17T01:28:20.622Z">
-<meta property="article:tag" content="科学上网">
+<meta property="article:published_time" content="2022-01-19T05:22:11.000Z">
+<meta property="article:modified_time" content="2022-01-19T07:12:57.544Z">
+<meta property="article:tag" content="Pytorch">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://shubihu.github.io/img/article/ssr.jpg">
   
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"> <script src="/js/lantern.js"></script>
   
-  <title>科学上网 - 梳碧湖</title>
+  <title>Pytorch学习笔记4-张量的结构操作 - 梳碧湖</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -190,7 +188,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="科学上网">
+            <span class="h2" id="subtitle" title="Pytorch学习笔记4-张量的结构操作">
               
             </span>
 
@@ -200,8 +198,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-11-07 10:01" pubdate>
-        2021年11月7日 上午
+      <time datetime="2022-01-19 13:22" pubdate>
+        2022年1月19日 下午
       </time>
     </span>
   
@@ -211,7 +209,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      177 字
+      2.5k 字
     </span>
   
 
@@ -250,20 +248,48 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">科学上网</h1>
+            <h1 style="display: none">Pytorch学习笔记4-张量的结构操作</h1>
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：2 天前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：3 分钟前
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="如题"><a href="#如题" class="headerlink" title="如题"></a>如题</h2><span id="more"></span>
+              <h2 id="张量的操作主要包括张量的结构操作和张量的数学运算"><a href="#张量的操作主要包括张量的结构操作和张量的数学运算" class="headerlink" title="张量的操作主要包括张量的结构操作和张量的数学运算"></a>张量的操作主要包括张量的结构操作和张量的数学运算</h2><span id="more"></span>
+<p>张量结构操作诸如：张量创建，索引切片，维度变换，合并分割。<br>张量数学运算主要有：标量运算，向量运算，矩阵运算。另外我们会介绍张量运算的广播机制。</p>
+<h5 id="创建张量"><a href="#创建张量" class="headerlink" title="创建张量"></a>创建张量</h5><p>张量创建的许多方法和numpy中创建array的方法很像</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">import numpy as np<br>import torch <br><br>a = torch.tensor([1,2,3],dtype = torch.float)<br>print(a)<br>&#x27;&#x27;&#x27;<br><span class="hljs-code">	tensor([1., 2., 3.])</span><br>&#x27;&#x27;&#x27;<br><br>b = torch.arange(1,10,step = 2)<br>print(b)<br>&#x27;&#x27;&#x27;<br><span class="hljs-code">	tensor([1, 3, 5, 7, 9])</span><br>&#x27;&#x27;&#x27;<br><br>c = torch.linspace(0.0, 2*3.14, 10)<br>print(c)<br>&#x27;&#x27;&#x27;<br><span class="hljs-code">	tensor([0.0000, 0.6978, 1.3956, 2.0933, 2.7911, 3.4889, 4.1867, 4.8844, 5.5822,</span><br><span class="hljs-code">        6.2800])</span><br>&#x27;&#x27;&#x27;<br></code></pre></td></tr></table></figure>
+<p>另外还有 torch.ones()、torch.zero_like()、torch.zeros() 等方法创建</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"># 均匀随机分布<br>torch.manual_seed(0)<br>minval, maxval = 0, 10<br>a = minval + (maxval - minval) * torch.rand([5])<br>print(a)<br>&#x27;&#x27;&#x27;<br><span class="hljs-code">	tensor([4.9626, 7.6822, 0.8848, 1.3203, 3.0742])</span><br>&#x27;&#x27;&#x27;<br></code></pre></td></tr></table></figure>
 
-<h3 id="Mark一下以防不时之需-https-lncn-org"><a href="#Mark一下以防不时之需-https-lncn-org" class="headerlink" title="Mark一下以防不时之需 https://lncn.org/"></a>Mark一下以防不时之需 <a target="_blank" rel="noopener" href="https://lncn.org/">https://lncn.org/</a></h3><p>连接该网站方法如下图所示<br><img src="/img/article/ssr.jpg" srcset="/img/loading.gif" lazyload></p>
-<h3 id="Window-客户端地址"><a href="#Window-客户端地址" class="headerlink" title="Window 客户端地址"></a>Window 客户端地址</h3><p><a target="_blank" rel="noopener" href="https://github.com/shadowsocksrr/shadowsocksr-csharp/releases">https://github.com/shadowsocksrr/shadowsocksr-csharp/releases</a></p>
-<h3 id="Mac-OS-客户端地址"><a href="#Mac-OS-客户端地址" class="headerlink" title="Mac OS 客户端地址"></a>Mac OS 客户端地址</h3><p><a target="_blank" rel="noopener" href="https://github.com/wzdnzd/ShadowsocksX-NG-R/releases">https://github.com/wzdnzd/ShadowsocksX-NG-R/releases</a></p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"># 正太分布随机<br>b = torch.normal(mean = torch.zeros(3,3), std = torch.ones(3,3))<br>print(b)<br>&#x27;&#x27;&#x27;<br><span class="hljs-code">	tensor([[ 0.5507,  0.2704,  0.6472],</span><br><span class="hljs-code">        [ 0.2490, -0.3354,  0.4564],</span><br><span class="hljs-code">        [-0.6255,  0.4539, -1.3740]])</span><br>&#x27;&#x27;&#x27;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"># 整数随机排列<br>d = torch.randperm(20)<br>print(d)<br>&#x27;&#x27;&#x27;<br><span class="hljs-code">	tensor([ 3, 17,  9, 19,  1, 18,  4, 13, 15, 12,  0, 16,  7, 11,  2,  5,  8, 10,</span><br><span class="hljs-code">         6, 14])</span><br>&#x27;&#x27;&#x27;<br></code></pre></td></tr></table></figure>
+<p>此外还有 torch.eye() (单位矩阵) 、 torch.diag() (对角矩阵) 等</p>
+<h5 id="索引切片"><a href="#索引切片" class="headerlink" title="索引切片"></a>索引切片</h5><p>张量的索引切片方式和numpy几乎是一样的。切片时支持缺省参数和省略号。可以通过索引和切片对部分元素进行修改。<br>此外，对于不规则的切片提取,可以使用 torch.index_select, torch.masked_select, torch.take<br>如果要通过修改张量的某些元素得到新的张量，可以使用 torch.where,torch.masked_fill,torch.index_fill</p>
+<ul>
+<li>torch.where可以理解为if的张量版本。</li>
+<li>torch.index_fill的选取元素逻辑和torch.index_select相同。</li>
+<li>torch.masked_fill的选取元素逻辑和torch.masked_select相同。</li>
+</ul>
+<h5 id="维度变换"><a href="#维度变换" class="headerlink" title="维度变换"></a>维度变换</h5><p>维度变换相关函数主要有 torch.reshape(或者调用张量的view方法), torch.squeeze, torch.unsqueeze, torch.transpose</p>
+<ul>
+<li>torch.reshape 可以改变张量的形状。</li>
+<li>torch.squeeze 可以减少维度。</li>
+<li>torch.unsqueeze 可以增加维度。</li>
+<li>torch.transpose 可以交换维度。</li>
+</ul>
+<p>如果张量在某个维度上只有一个元素，利用torch.squeeze可以消除这个维度。<br>torch.unsqueeze的作用和torch.squeeze的作用相反。</p>
+<p>torch.transpose可以交换张量的维度，torch.transpose常用于图片存储格式的变换上。<br>如果是二维的矩阵，通常会调用矩阵的转置方法 matrix.t()，等价于 torch.transpose(matrix,0,1)。</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">minval=0<br>maxval=255<br># Batch,Height,Width,Channel<br>data = torch.floor(minval + (maxval-minval)*torch.rand([100,256,256,4])).int()<br>print(data.shape)<br><br># 转换成 Pytorch默认的图片格式 Batch,Channel,Height,Width <br># 需要交换两次<br>data<span class="hljs-emphasis">_t = torch.transpose(torch.transpose(data,1,2),1,3)</span><br><span class="hljs-emphasis">print(data_</span>t.shape)<br>&#x27;&#x27;&#x27;<br><span class="hljs-code">	torch.Size([100, 256, 256, 4])</span><br><span class="hljs-code">	torch.Size([100, 4, 256, 256])</span><br>&#x27;&#x27;&#x27;<br></code></pre></td></tr></table></figure>
+
+<h5 id="合并分割"><a href="#合并分割" class="headerlink" title="合并分割"></a>合并分割</h5><p>可以用torch.cat方法和torch.stack方法将多个张量合并，可以用torch.split方法把一个张量分割成多个张量。<br>torch.cat和torch.stack有略微的区别，torch.cat是连接，不会增加维度，而torch.stack是堆叠，会增加维度。<br>torch.split是torch.cat的逆运算，可以指定分割份数平均分割，也可以通过指定每份的记录数量进行分割</p>
+<p>搬运自：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.heywhale.com/home/competition/61bff9a84b63a700179b7f8d/content/1">https://www.heywhale.com/home/competition/61bff9a84b63a700179b7f8d/content/1</a></li>
+</ul>
 
             </div>
             <hr>
@@ -273,7 +299,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/TroubleShoot/">TroubleShoot</a>
+                      <a class="hover-with-bg" href="/categories/Pytorch/">Pytorch</a>
                     
                   </div>
                 
@@ -281,7 +307,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/">科学上网</a>
+                      <a class="hover-with-bg" href="/tags/Pytorch/">Pytorch</a>
                     
                   </div>
                 
@@ -298,18 +324,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/11/15/mac-iTerm2/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">mac-iTerm2</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/10/20/%E6%A0%B8%E9%85%B8%E6%A3%80%E6%B5%8B%E6%9C%BA%E6%9E%84%E5%9C%B0%E5%9B%BE%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/">
-                        <span class="hidden-mobile">核酸检测机构地图微信小程序开发</span>
+                      <a href="/2022/01/18/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03-%E5%8A%A8%E6%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE/">
+                        <span class="hidden-mobile">Pytorch学习笔记3-动态计算图</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
