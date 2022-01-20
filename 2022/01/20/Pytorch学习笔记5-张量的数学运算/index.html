@@ -1,0 +1,572 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="张量数学运算主要有：标量运算，向量运算，矩阵运算，以及张量运算的广播机制">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="description" content="张量数学运算主要有：标量运算，向量运算，矩阵运算，以及张量运算的广播机制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pytorch学习笔记5-张量的数学运算">
+<meta property="og:url" content="https://shubihu.github.io/2022/01/20/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B05-%E5%BC%A0%E9%87%8F%E7%9A%84%E6%95%B0%E5%AD%A6%E8%BF%90%E7%AE%97/index.html">
+<meta property="og:site_name" content="梳碧湖">
+<meta property="og:description" content="张量数学运算主要有：标量运算，向量运算，矩阵运算，以及张量运算的广播机制">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-20T03:05:54.000Z">
+<meta property="article:modified_time" content="2022-01-20T05:37:25.934Z">
+<meta property="article:tag" content="Pytorch">
+<meta name="twitter:card" content="summary">
+  
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"> <script src="/js/lantern.js"></script>
+  
+  <title>Pytorch学习笔记5-张量的数学运算 - 梳碧湖</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"shubihu.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"&#x1f496","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"FOWqJriwiUxghpNnDaD7X3ao-gzGzoHsz","app_key":"wgi1Wsw2eg7be0kqLc6vhVHj","server_url":"https://fowqjriw.lc-cn-n1-shared.com"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>梳碧湖</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/cat/">
+                <i class="iconfont icon-brush"></i>
+                撸猫
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/yahaha.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Pytorch学习笔记5-张量的数学运算">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-20 11:05" pubdate>
+        2022年1月20日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Pytorch学习笔记5-张量的数学运算</h1>
+            
+              <p class="note note-info">
+                
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h2 id="张量数学运算主要有：标量运算，向量运算，矩阵运算，以及张量运算的广播机制"><a href="#张量数学运算主要有：标量运算，向量运算，矩阵运算，以及张量运算的广播机制" class="headerlink" title="张量数学运算主要有：标量运算，向量运算，矩阵运算，以及张量运算的广播机制"></a>张量数学运算主要有：标量运算，向量运算，矩阵运算，以及张量运算的广播机制</h2><span id="more"></span>
+
+<h5 id="标量运算"><a href="#标量运算" class="headerlink" title="标量运算"></a>标量运算</h5><p>张量的数学运算符可以分为标量运算符、向量运算符、以及矩阵运算符。<br>加减乘除乘方，以及三角函数，指数，对数等常见函数，逻辑比较运算符等都是标量运算符。<br>标量运算符的特点是对张量实施逐元素运算。<br>有些标量运算符对常用的数学运算符进行了重载。并且支持类似numpy的广播特性。</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"># 幅值裁剪<br>x = torch.tensor([0.9,-0.8,100.0,-20.0,0.7])<br>y = torch.clamp(x,min=-1,max = 1)<br>z = torch.clamp(x,max = 1)<br>print(y)<br>print(z)<br>&#x27;&#x27;&#x27;<br><span class="hljs-code">	tensor([ 0.9000, -0.8000,  1.0000, -1.0000,  0.7000])</span><br><span class="hljs-code">	tensor([  0.9000,  -0.8000,   1.0000, -20.0000,   0.7000])</span><br>&#x27;&#x27;&#x27;<br></code></pre></td></tr></table></figure>
+
+<h5 id="向量运算"><a href="#向量运算" class="headerlink" title="向量运算"></a>向量运算</h5><p>向量运算符只在一个特定轴上运算，将一个向量映射到一个标量或者另外一个向量</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-tag">a</span> = torch<span class="hljs-selector-class">.arange</span>(<span class="hljs-number">1</span>,<span class="hljs-number">10</span>)<span class="hljs-selector-class">.float</span>()<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(torch.sum(a)</span></span>)<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(torch.mean(a)</span></span>)<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(torch.max(a)</span></span>)<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(torch.min(a)</span></span>)<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(torch.prod(a)</span></span>) #累乘<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(torch.std(a)</span></span>)  #标准差<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(torch.var(a)</span></span>)  #方差<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(torch.median(a)</span></span>) #中位数<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus">#指定维度计算统计值<br><span class="hljs-selector-tag">b</span> = <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.view</span>(<span class="hljs-number">3</span>,<span class="hljs-number">3</span>)<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(b)</span></span><br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(torch.max(b,dim = <span class="hljs-number">0</span>)</span></span>)<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(torch.max(b,dim = <span class="hljs-number">1</span>)</span></span>)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment">#torch.sort和torch.topk可以对张量排序</span><br><span class="hljs-attribute">a</span> = torch.tensor([[<span class="hljs-number">9</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>],[<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">4</span>]]).float()<br><span class="hljs-attribute">print</span>(torch.topk(a,<span class="hljs-number">2</span>,dim = <span class="hljs-number">0</span>),<span class="hljs-string">&quot;\n&quot;</span>)<br><span class="hljs-attribute">print</span>(torch.topk(a,<span class="hljs-number">2</span>,dim = <span class="hljs-number">1</span>),<span class="hljs-string">&quot;\n&quot;</span>)<br><span class="hljs-attribute">print</span>(torch.sort(a,dim = <span class="hljs-number">1</span>),<span class="hljs-string">&quot;\n&quot;</span>)<br><br><span class="hljs-comment">#利用torch.topk可以在Pytorch中实现KNN算法</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="矩阵运算"><a href="#矩阵运算" class="headerlink" title="矩阵运算"></a>矩阵运算</h5><p>矩阵必须是二维的。类似torch.tensor([1,2,3])这样的不是矩阵。<br>矩阵运算包括：矩阵乘法，矩阵转置，矩阵逆，矩阵求迹，矩阵范数，矩阵行列式，矩阵求特征值，矩阵分解等运算。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs stylus">#矩阵乘法<br><span class="hljs-selector-tag">a</span> = torch<span class="hljs-selector-class">.tensor</span>(<span class="hljs-selector-attr">[[1,2]</span>,<span class="hljs-selector-attr">[3,4]</span>])<br><span class="hljs-selector-tag">b</span> = torch<span class="hljs-selector-class">.tensor</span>(<span class="hljs-selector-attr">[[2,0]</span>,<span class="hljs-selector-attr">[0,2]</span>])<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(a@b)</span></span>  #等价于torch<span class="hljs-selector-class">.matmul</span>(<span class="hljs-selector-tag">a</span>,b) 或 torch<span class="hljs-selector-class">.mm</span>(<span class="hljs-selector-tag">a</span>,b)<br><br>#矩阵转置<br><span class="hljs-selector-tag">a</span> = torch<span class="hljs-selector-class">.tensor</span>(<span class="hljs-selector-attr">[[1.0,2]</span>,<span class="hljs-selector-attr">[3,4]</span>])<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(a.t()</span></span>)<br><br>#矩阵逆，必须为浮点类型<br><span class="hljs-selector-tag">a</span> = torch<span class="hljs-selector-class">.tensor</span>(<span class="hljs-selector-attr">[[1.0,2]</span>,<span class="hljs-selector-attr">[3,4]</span>])<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(torch.inverse(a)</span></span>)<br><br>#矩阵求trace<br><span class="hljs-selector-tag">a</span> = torch<span class="hljs-selector-class">.tensor</span>(<span class="hljs-selector-attr">[[1.0,2]</span>,<span class="hljs-selector-attr">[3,4]</span>])<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(torch.trace(a)</span></span>)<br><br>#矩阵求范数<br><span class="hljs-selector-tag">a</span> = torch<span class="hljs-selector-class">.tensor</span>(<span class="hljs-selector-attr">[[1.0,2]</span>,<span class="hljs-selector-attr">[3,4]</span>])<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(torch.norm(a)</span></span>)<br><br>#矩阵行列式<br><span class="hljs-selector-tag">a</span> = torch<span class="hljs-selector-class">.tensor</span>(<span class="hljs-selector-attr">[[1.0,2]</span>,<span class="hljs-selector-attr">[3,4]</span>])<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(torch.det(a)</span></span>)<br><br>#矩阵特征值和特征向量<br><span class="hljs-selector-tag">a</span> = torch<span class="hljs-selector-class">.tensor</span>(<span class="hljs-selector-attr">[[1.0,2]</span>,<span class="hljs-selector-attr">[-5,4]</span>],dtype = torch.<span class="hljs-attribute">float</span>)<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(torch.eig(a,eigenvectors=True)</span></span>)<br><br>#两个特征值分别是 -<span class="hljs-number">2.5</span>+<span class="hljs-number">2.7839</span>j, <span class="hljs-number">2.5</span>-<span class="hljs-number">2.7839</span>j <br><br><br>#矩阵QR分解, 将一个方阵分解为一个正交矩阵q和上三角矩阵r<br>#QR分解实际上是对矩阵a实施Schmidt正交化得到<span class="hljs-selector-tag">q</span><br><span class="hljs-selector-tag">a</span>  = torch<span class="hljs-selector-class">.tensor</span>(<span class="hljs-selector-attr">[[1.0,2.0]</span>,<span class="hljs-selector-attr">[3.0,4.0]</span>])<br><span class="hljs-selector-tag">q</span>,r = torch<span class="hljs-selector-class">.qr</span>(a)<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(q,<span class="hljs-string">&quot;\n&quot;</span>)</span></span><br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(r,<span class="hljs-string">&quot;\n&quot;</span>)</span></span><br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(q@r)</span></span><br><br><br>#矩阵svd分解<br>#svd分解可以将任意一个矩阵分解为一个正交矩阵u,一个对角阵s和一个正交矩阵v<span class="hljs-selector-class">.t</span>()的乘积<br>#svd常用于矩阵压缩和降维<br>a=torch<span class="hljs-selector-class">.tensor</span>(<span class="hljs-selector-attr">[[1.0,2.0]</span>,<span class="hljs-selector-attr">[3.0,4.0]</span>,<span class="hljs-selector-attr">[5.0,6.0]</span>])<br><br>u,s,v = torch<span class="hljs-selector-class">.svd</span>(a)<br><br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(u,<span class="hljs-string">&quot;\n&quot;</span>)</span></span><br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(s,<span class="hljs-string">&quot;\n&quot;</span>)</span></span><br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(v,<span class="hljs-string">&quot;\n&quot;</span>)</span></span><br><br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(u@torch.diag(s)</span></span>@v<span class="hljs-selector-class">.t</span>())<br><br>#利用svd分解可以在Pytorch中实现主成分分析降维<br></code></pre></td></tr></table></figure>
+
+<h5 id="广播机制"><a href="#广播机制" class="headerlink" title="广播机制"></a>广播机制</h5><p>Pytorch的广播规则和numpy是一样的:</p>
+<ul>
+<li>1、如果张量的维度不同，将维度较小的张量进行扩展，直到两个张量的维度都一样。</li>
+<li>2、如果两个张量在某个维度上的长度是相同的，或者其中一个张量在该维度上的长度为1，那么我们就说这两个张量在该维度上是相容的。</li>
+<li>3、如果两个张量在所有维度上都是相容的，它们就能使用广播。</li>
+<li>4、广播之后，每个维度的长度将取两个张量在该维度长度的较大值。</li>
+<li>5、在任何一个维度上，如果一个张量的长度为1，另一个张量长度大于1，那么在该维度上，就好像是对第一个张量进行了复制。</li>
+</ul>
+<p>torch.broadcast_tensors可以将多个张量根据广播规则转换成相同的维度。</p>
+<p>搬运自：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.heywhale.com/home/competition/61bff9a84b63a700179b7f8d/content/1">https://www.heywhale.com/home/competition/61bff9a84b63a700179b7f8d/content/1</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Pytorch/">Pytorch</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Pytorch/">Pytorch</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04-%E5%BC%A0%E9%87%8F%E7%9A%84%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C/">
+                        <span class="hidden-mobile">Pytorch学习笔记4-张量的结构操作</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"FOWqJriwiUxghpNnDaD7X3ao-gzGzoHsz","appKey":"wgi1Wsw2eg7be0kqLc6vhVHj","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script> <script src="/js/wanko.js"></script>
+        </div>
+      </div>
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="/js/xin.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<!-- hexo injector body_end start -->
+  <div id="aplayer"></div>
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+  <script src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js"></script>
+  <script defer src="/js/aplayer.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
