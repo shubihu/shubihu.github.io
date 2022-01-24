@@ -13,24 +13,24 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="张量的操作主要包括张量的结构操作和张量的数学运算">
+  <meta name="description" content="深度学习模型一般由各种模型层组合而成">
   <meta name="author" content="">
   <meta name="keywords" content="">
-  <meta name="description" content="张量的操作主要包括张量的结构操作和张量的数学运算">
+  <meta name="description" content="深度学习模型一般由各种模型层组合而成">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Pytorch学习笔记4-张量的结构操作">
-<meta property="og:url" content="https://shubihu.github.io/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04-%E5%BC%A0%E9%87%8F%E7%9A%84%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:title" content="Pytorch学习笔记8-模型层layers">
+<meta property="og:url" content="https://shubihu.github.io/2022/01/24/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B08-%E6%A8%A1%E5%9E%8B%E5%B1%82layers/index.html">
 <meta property="og:site_name" content="梳碧湖">
-<meta property="og:description" content="张量的操作主要包括张量的结构操作和张量的数学运算">
+<meta property="og:description" content="深度学习模型一般由各种模型层组合而成">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-01-19T05:22:11.000Z">
-<meta property="article:modified_time" content="2022-01-19T07:12:57.544Z">
+<meta property="article:published_time" content="2022-01-24T02:28:32.000Z">
+<meta property="article:modified_time" content="2022-01-24T02:56:34.810Z">
 <meta property="article:tag" content="Pytorch">
 <meta name="twitter:card" content="summary">
   
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"> <script src="/js/lantern.js"></script>
   
-  <title>Pytorch学习笔记4-张量的结构操作 - 梳碧湖</title>
+  <title>Pytorch学习笔记8-模型层layers - 梳碧湖</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -188,7 +188,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Pytorch学习笔记4-张量的结构操作">
+            <span class="h2" id="subtitle" title="Pytorch学习笔记8-模型层layers">
               
             </span>
 
@@ -198,8 +198,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-01-19 13:22" pubdate>
-        2022年1月19日 下午
+      <time datetime="2022-01-24 10:28" pubdate>
+        2022年1月24日 上午
       </time>
     </span>
   
@@ -209,7 +209,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.5k 字
+      4.6k 字
     </span>
   
 
@@ -248,44 +248,108 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Pytorch学习笔记4-张量的结构操作</h1>
+            <h1 style="display: none">Pytorch学习笔记8-模型层layers</h1>
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：5 天前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：8 分钟前
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="张量的操作主要包括张量的结构操作和张量的数学运算"><a href="#张量的操作主要包括张量的结构操作和张量的数学运算" class="headerlink" title="张量的操作主要包括张量的结构操作和张量的数学运算"></a>张量的操作主要包括张量的结构操作和张量的数学运算</h2><span id="more"></span>
-<p>张量结构操作诸如：张量创建，索引切片，维度变换，合并分割。<br>张量数学运算主要有：标量运算，向量运算，矩阵运算。另外我们会介绍张量运算的广播机制。</p>
-<h5 id="创建张量"><a href="#创建张量" class="headerlink" title="创建张量"></a>创建张量</h5><p>张量创建的许多方法和numpy中创建array的方法很像</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">import numpy as np<br>import torch <br><br>a = torch.tensor([1,2,3],dtype = torch.float)<br>print(a)<br>&#x27;&#x27;&#x27;<br><span class="hljs-code">	tensor([1., 2., 3.])</span><br>&#x27;&#x27;&#x27;<br><br>b = torch.arange(1,10,step = 2)<br>print(b)<br>&#x27;&#x27;&#x27;<br><span class="hljs-code">	tensor([1, 3, 5, 7, 9])</span><br>&#x27;&#x27;&#x27;<br><br>c = torch.linspace(0.0, 2*3.14, 10)<br>print(c)<br>&#x27;&#x27;&#x27;<br><span class="hljs-code">	tensor([0.0000, 0.6978, 1.3956, 2.0933, 2.7911, 3.4889, 4.1867, 4.8844, 5.5822,</span><br><span class="hljs-code">        6.2800])</span><br>&#x27;&#x27;&#x27;<br></code></pre></td></tr></table></figure>
-<p>另外还有 torch.ones()、torch.zero_like()、torch.zeros() 等方法创建</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"># 均匀随机分布<br>torch.manual_seed(0)<br>minval, maxval = 0, 10<br>a = minval + (maxval - minval) * torch.rand([5])<br>print(a)<br>&#x27;&#x27;&#x27;<br><span class="hljs-code">	tensor([4.9626, 7.6822, 0.8848, 1.3203, 3.0742])</span><br>&#x27;&#x27;&#x27;<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"># 正太分布随机<br>b = torch.normal(mean = torch.zeros(3,3), std = torch.ones(3,3))<br>print(b)<br>&#x27;&#x27;&#x27;<br><span class="hljs-code">	tensor([[ 0.5507,  0.2704,  0.6472],</span><br><span class="hljs-code">        [ 0.2490, -0.3354,  0.4564],</span><br><span class="hljs-code">        [-0.6255,  0.4539, -1.3740]])</span><br>&#x27;&#x27;&#x27;<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"># 整数随机排列<br>d = torch.randperm(20)<br>print(d)<br>&#x27;&#x27;&#x27;<br><span class="hljs-code">	tensor([ 3, 17,  9, 19,  1, 18,  4, 13, 15, 12,  0, 16,  7, 11,  2,  5,  8, 10,</span><br><span class="hljs-code">         6, 14])</span><br>&#x27;&#x27;&#x27;<br></code></pre></td></tr></table></figure>
-<p>此外还有 torch.eye() (单位矩阵) 、 torch.diag() (对角矩阵) 等</p>
-<h5 id="索引切片"><a href="#索引切片" class="headerlink" title="索引切片"></a>索引切片</h5><p>张量的索引切片方式和numpy几乎是一样的。切片时支持缺省参数和省略号。可以通过索引和切片对部分元素进行修改。<br>此外，对于不规则的切片提取,可以使用 torch.index_select, torch.masked_select, torch.take<br>如果要通过修改张量的某些元素得到新的张量，可以使用 torch.where,torch.masked_fill,torch.index_fill</p>
+              <h2 id="深度学习模型一般由各种模型层组合而成"><a href="#深度学习模型一般由各种模型层组合而成" class="headerlink" title="深度学习模型一般由各种模型层组合而成"></a>深度学习模型一般由各种模型层组合而成</h2><span id="more"></span>
+<p>torch.nn中内置了非常丰富的各种模型层。它们都属于nn.Module的子类，具备参数管理功能。<br>例如：</p>
 <ul>
-<li>torch.where可以理解为if的张量版本。</li>
-<li>torch.index_fill的选取元素逻辑和torch.index_select相同。</li>
-<li>torch.masked_fill的选取元素逻辑和torch.masked_select相同。</li>
+<li>nn.Linear, nn.Flatten, nn.Dropout, nn.BatchNorm2d</li>
+<li>nn.Conv2d,nn.AvgPool2d,nn.Conv1d,nn.ConvTranspose2d</li>
+<li>nn.Embedding,nn.GRU,nn.LSTM</li>
+<li>nn.Transformer</li>
 </ul>
-<h5 id="维度变换"><a href="#维度变换" class="headerlink" title="维度变换"></a>维度变换</h5><p>维度变换相关函数主要有 torch.reshape(或者调用张量的view方法), torch.squeeze, torch.unsqueeze, torch.transpose</p>
+<p>如果这些内置模型层不能够满足需求，我们也可以通过继承nn.Module基类构建自定义的模型层。<br>实际上，pytorch不区分模型和模型层，都是通过继承nn.Module进行构建。<br>因此，我们只要继承nn.Module基类并实现forward方法即可自定义模型层。</p>
+<h5 id="内置模型层"><a href="#内置模型层" class="headerlink" title="内置模型层"></a>内置模型层</h5><p>一些常用的内置模型层简单介绍如下。</p>
+<p>基础层</p>
 <ul>
-<li>torch.reshape 可以改变张量的形状。</li>
-<li>torch.squeeze 可以减少维度。</li>
-<li>torch.unsqueeze 可以增加维度。</li>
-<li>torch.transpose 可以交换维度。</li>
+<li>nn.Linear：全连接层。参数个数 = 输入层特征数× 输出层特征数(weight)＋ 输出层特征数(bias)</li>
+<li>nn.Flatten：压平层，用于将多维张量样本压成一维张量样本。</li>
+<li>nn.BatchNorm1d：一维批标准化层。通过线性变换将输入批次缩放平移到稳定的均值和标准差。可以增强模型对输入不同分布的适应性，加快模型训练速度，有轻微正则化效果。一般在激活函数之前使用。可以用afine参数设置该层是否含有可以训练的参数。</li>
+<li>nn.BatchNorm2d：二维批标准化层。</li>
+<li>nn.BatchNorm3d：三维批标准化层。</li>
+<li>nn.Dropout：一维随机丢弃层。一种正则化手段。</li>
+<li>nn.Dropout2d：二维随机丢弃层。</li>
+<li>nn.Dropout3d：三维随机丢弃层。</li>
+<li>nn.Threshold：限幅层。当输入大于或小于阈值范围时，截断之。</li>
+<li>nn.ConstantPad2d： 二维常数填充层。对二维张量样本填充常数扩展长度。</li>
+<li>nn.ReplicationPad1d： 一维复制填充层。对一维张量样本通过复制边缘值填充扩展长度。</li>
+<li>nn.ZeroPad2d：二维零值填充层。对二维张量样本在边缘填充0值.</li>
+<li>nn.GroupNorm：组归一化。一种替代批归一化的方法，将通道分成若干组进行归一。不受batch大小限制，据称性能和效果都优于BatchNorm。</li>
+<li>nn.LayerNorm：层归一化。较少使用。</li>
+<li>nn.InstanceNorm2d: 样本归一化。较少使用。</li>
 </ul>
-<p>如果张量在某个维度上只有一个元素，利用torch.squeeze可以消除这个维度。<br>torch.unsqueeze的作用和torch.squeeze的作用相反。</p>
-<p>torch.transpose可以交换张量的维度，torch.transpose常用于图片存储格式的变换上。<br>如果是二维的矩阵，通常会调用矩阵的转置方法 matrix.t()，等价于 torch.transpose(matrix,0,1)。</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">minval=0<br>maxval=255<br># Batch,Height,Width,Channel<br>data = torch.floor(minval + (maxval-minval)*torch.rand([100,256,256,4])).int()<br>print(data.shape)<br><br># 转换成 Pytorch默认的图片格式 Batch,Channel,Height,Width <br># 需要交换两次<br>data<span class="hljs-emphasis">_t = torch.transpose(torch.transpose(data,1,2),1,3)</span><br><span class="hljs-emphasis">print(data_</span>t.shape)<br>&#x27;&#x27;&#x27;<br><span class="hljs-code">	torch.Size([100, 256, 256, 4])</span><br><span class="hljs-code">	torch.Size([100, 4, 256, 256])</span><br>&#x27;&#x27;&#x27;<br></code></pre></td></tr></table></figure>
+<p>各种归一化技术参考如下知乎文章《FAIR何恺明等人提出组归一化：替代批归一化，不受批量大小限制》</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/34858971">https://zhuanlan.zhihu.com/p/34858971</a></li>
+</ul>
+<p>卷积网络相关层</p>
+<ul>
+<li><p>nn.Conv1d：普通一维卷积，常用于文本。参数个数 = 输入通道数×卷积核尺寸(如3)×卷积核个数 + 卷积核尺寸(如3）</p>
+</li>
+<li><p>nn.Conv2d：普通二维卷积，常用于图像。参数个数 = 输入通道数×卷积核尺寸(如3乘3)×卷积核个数 + 卷积核尺寸(如3乘3)<br>通过调整dilation参数大于1，可以变成空洞卷积，增大卷积核感受野。<br>通过调整groups参数不为1，可以变成分组卷积。分组卷积中不同分组使用相同的卷积核，显著减少参数数量。<br>当groups参数等于通道数时，相当于tensorflow中的二维深度卷积层tf.keras.layers.DepthwiseConv2D。<br>利用分组卷积和1乘1卷积的组合操作，可以构造相当于Keras中的二维深度可分离卷积层tf.keras.layers.SeparableConv2D。</p>
+</li>
+<li><p>nn.Conv3d：普通三维卷积，常用于视频。参数个数 = 输入通道数×卷积核尺寸(如3乘3乘3)×卷积核个数 + 卷积核尺寸(如3乘3乘3) 。</p>
+</li>
+<li><p>nn.MaxPool1d: 一维最大池化。</p>
+</li>
+<li><p>nn.MaxPool2d：二维最大池化。一种下采样方式。没有需要训练的参数。</p>
+</li>
+<li><p>nn.MaxPool3d：三维最大池化。</p>
+</li>
+<li><p>nn.AdaptiveMaxPool2d：二维自适应最大池化。无论输入图像的尺寸如何变化，输出的图像尺寸是固定的。</p>
+</li>
+<li><p>该函数的实现原理，大概是通过输入图像的尺寸和要得到的输出图像的尺寸来反向推算池化算子的padding,stride等参数。</p>
+</li>
+<li><p>nn.FractionalMaxPool2d：二维分数最大池化。普通最大池化通常输入尺寸是输出的整数倍。而分数最大池化则可以不必是整数。分数最大池化使用了一些随机采样策略，有一定的正则效果，可以用它来代替普通最大池化和Dropout层。</p>
+</li>
+<li><p>nn.AvgPool2d：二维平均池化。</p>
+</li>
+<li><p>nn.AdaptiveAvgPool2d：二维自适应平均池化。无论输入的维度如何变化，输出的维度是固定的。</p>
+</li>
+<li><p>nn.ConvTranspose2d：二维卷积转置层，俗称反卷积层。并非卷积的逆操作，但在卷积核相同的情况下，当其输入尺寸是卷积操作输出尺寸的情况下，卷积转置的输出尺寸恰好是卷积操作的输入尺寸。在语义分割中可用于上采样。</p>
+</li>
+<li><p>nn.Upsample：上采样层，操作效果和池化相反。可以通过mode参数控制上采样策略为”nearest”最邻近策略或”linear”线性插值策略。</p>
+</li>
+<li><p>nn.Unfold：滑动窗口提取层。其参数和卷积操作nn.Conv2d相同。实际上，卷积操作可以等价于nn.Unfold和nn.Linear以及nn.Fold的一个组合。<br>其中nn.Unfold操作可以从输入中提取各个滑动窗口的数值矩阵，并将其压平成一维。利用nn.Linear将nn.Unfold的输出和卷积核做乘法后，再使用</p>
+</li>
+<li><p>nn.Fold操作将结果转换成输出图片形状。</p>
+</li>
+<li><p>nn.Fold：逆滑动窗口提取层。</p>
+</li>
+</ul>
+<p>循环网络相关层</p>
+<ul>
+<li>nn.Embedding：嵌入层。一种比Onehot更加有效的对离散特征进行编码的方法。一般用于将输入中的单词映射为稠密向量。嵌入层的参数需要学习。</li>
+<li>nn.LSTM：长短记忆循环网络层【支持多层】。最普遍使用的循环网络层。具有携带轨道，遗忘门，更新门，输出门。可以较为有效地缓解梯度消失问题，从而能够适用长期依赖问题。设置bidirectional = True时可以得到双向LSTM。需要注意的时，默认的输入和输出形状是(seq,batch,feature), 如果需要将batch维度放在第0维，则要设置batch_first参数设置为True。</li>
+<li>nn.GRU：门控循环网络层【支持多层】。LSTM的低配版，不具有携带轨道，参数数量少于LSTM，训练速度更快。</li>
+<li>nn.RNN：简单循环网络层【支持多层】。容易存在梯度消失，不能够适用长期依赖问题。一般较少使用。</li>
+<li>nn.LSTMCell：长短记忆循环网络单元。和nn.LSTM在整个序列上迭代相比，它仅在序列上迭代一步。一般较少使用。</li>
+<li>nn.GRUCell：门控循环网络单元。和nn.GRU在整个序列上迭代相比，它仅在序列上迭代一步。一般较少使用。</li>
+<li>nn.RNNCell：简单循环网络单元。和nn.RNN在整个序列上迭代相比，它仅在序列上迭代一步。一般较少使用。</li>
+</ul>
+<p>Transformer相关层</p>
+<ul>
+<li>nn.Transformer：Transformer网络结构。Transformer网络结构是替代循环网络的一种结构，解决了循环网络难以并行，难以捕捉长期依赖的缺陷。它是目前NLP任务的主流模型的主要构成部分。Transformer网络结构由TransformerEncoder编码器和TransformerDecoder解码器组成。编码器和解码器的核心是MultiheadAttention多头注意力层。</li>
+<li>nn.TransformerEncoder：Transformer编码器结构。由多个 nn.TransformerEncoderLayer编码器层组成。</li>
+<li>nn.TransformerDecoder：Transformer解码器结构。由多个 nn.TransformerDecoderLayer解码器层组成。</li>
+<li>nn.TransformerEncoderLayer：Transformer的编码器层。</li>
+<li>nn.TransformerDecoderLayer：Transformer的解码器层。</li>
+<li>nn.MultiheadAttention：多头注意力层。</li>
+</ul>
+<p>Transformer原理介绍可以参考如下知乎文章《详解Transformer(Attention Is All You Need)》</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/48508221">https://zhuanlan.zhihu.com/p/48508221</a></li>
+</ul>
+<h1 id="自定义模型层"><a href="#自定义模型层" class="headerlink" title="自定义模型层"></a>自定义模型层</h1><p>下面是Pytorch的nn.Linear层的源码，可以仿照它来自定义模型层。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Linear</span>(<span class="hljs-params">nn.Module</span>):</span><br>    __constants__ = [<span class="hljs-string">&#x27;in_features&#x27;</span>, <span class="hljs-string">&#x27;out_features&#x27;</span>]<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, in_features, out_features, bias=<span class="hljs-literal">True</span></span>):</span><br>        <span class="hljs-built_in">super</span>(Linear, self).__init__()<br>        self.in_features = in_features<br>        self.out_features = out_features<br>        self.weight = nn.Parameter(torch.Tensor(out_features, in_features))<br>        <span class="hljs-keyword">if</span> bias:<br>            self.bias = nn.Parameter(torch.Tensor(out_features))<br>        <span class="hljs-keyword">else</span>:<br>            self.register_parameter(<span class="hljs-string">&#x27;bias&#x27;</span>, <span class="hljs-literal">None</span>)<br>        self.reset_parameters()<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reset_parameters</span>(<span class="hljs-params">self</span>):</span><br>        nn.init.kaiming_uniform_(self.weight, a=math.sqrt(<span class="hljs-number">5</span>))<br>        <span class="hljs-keyword">if</span> self.bias <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            fan_in, _ = nn.init._calculate_fan_in_and_fan_out(self.weight)<br>            bound = <span class="hljs-number">1</span> / math.sqrt(fan_in)<br>            nn.init.uniform_(self.bias, -bound, bound)<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, <span class="hljs-built_in">input</span></span>):</span><br>        <span class="hljs-keyword">return</span> F.linear(<span class="hljs-built_in">input</span>, self.weight, self.bias)<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">extra_repr</span>(<span class="hljs-params">self</span>):</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;in_features=&#123;&#125;, out_features=&#123;&#125;, bias=&#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(<br>            self.in_features, self.out_features, self.bias <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span><br>        )<br><br><br>linear = nn.Linear(<span class="hljs-number">20</span>, <span class="hljs-number">30</span>)<br>inputs = torch.randn(<span class="hljs-number">128</span>, <span class="hljs-number">20</span>)<br>output = linear(inputs)<br><span class="hljs-built_in">print</span>(output.size())<br></code></pre></td></tr></table></figure>
 
-<h5 id="合并分割"><a href="#合并分割" class="headerlink" title="合并分割"></a>合并分割</h5><p>可以用torch.cat方法和torch.stack方法将多个张量合并，可以用torch.split方法把一个张量分割成多个张量。<br>torch.cat和torch.stack有略微的区别，torch.cat是连接，不会增加维度，而torch.stack是堆叠，会增加维度。<br>torch.split是torch.cat的逆运算，可以指定分割份数平均分割，也可以通过指定每份的记录数量进行分割</p>
 <p>搬运自：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.heywhale.com/home/competition/61bff9a84b63a700179b7f8d/content/1">https://www.heywhale.com/home/competition/61bff9a84b63a700179b7f8d/content/1</a></li>
@@ -324,18 +388,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/01/20/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B05-%E5%BC%A0%E9%87%8F%E7%9A%84%E6%95%B0%E5%AD%A6%E8%BF%90%E7%AE%97/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Pytorch学习笔记5-张量的数学运算</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/01/18/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03-%E5%8A%A8%E6%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE/">
-                        <span class="hidden-mobile">Pytorch学习笔记3-动态计算图</span>
+                      <a href="/2022/01/21/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B07-Dataset%E5%92%8CDataLoader/">
+                        <span class="hidden-mobile">Pytorch学习笔记7-Dataset和DataLoader</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
