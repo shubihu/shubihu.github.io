@@ -24,7 +24,7 @@
 <meta property="og:description" content="深度学习模型一般由各种模型层组合而成">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-01-24T02:28:32.000Z">
-<meta property="article:modified_time" content="2022-01-24T02:56:34.810Z">
+<meta property="article:modified_time" content="2022-01-24T03:17:36.804Z">
 <meta property="article:tag" content="Pytorch">
 <meta name="twitter:card" content="summary">
   
@@ -252,7 +252,7 @@
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：8 分钟前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：3 天前
                 
               </p>
             
@@ -266,7 +266,7 @@
 <li>nn.Transformer</li>
 </ul>
 <p>如果这些内置模型层不能够满足需求，我们也可以通过继承nn.Module基类构建自定义的模型层。<br>实际上，pytorch不区分模型和模型层，都是通过继承nn.Module进行构建。<br>因此，我们只要继承nn.Module基类并实现forward方法即可自定义模型层。</p>
-<h5 id="内置模型层"><a href="#内置模型层" class="headerlink" title="内置模型层"></a>内置模型层</h5><p>一些常用的内置模型层简单介绍如下。</p>
+<h4 id="内置模型层"><a href="#内置模型层" class="headerlink" title="内置模型层"></a>内置模型层</h4><p>一些常用的内置模型层简单介绍如下。</p>
 <p>基础层</p>
 <ul>
 <li>nn.Linear：全连接层。参数个数 = 输入层特征数× 输出层特征数(weight)＋ 输出层特征数(bias)</li>
@@ -347,7 +347,7 @@
 <ul>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/48508221">https://zhuanlan.zhihu.com/p/48508221</a></li>
 </ul>
-<h1 id="自定义模型层"><a href="#自定义模型层" class="headerlink" title="自定义模型层"></a>自定义模型层</h1><p>下面是Pytorch的nn.Linear层的源码，可以仿照它来自定义模型层。</p>
+<h4 id="自定义模型层"><a href="#自定义模型层" class="headerlink" title="自定义模型层"></a>自定义模型层</h4><p>下面是Pytorch的nn.Linear层的源码，可以仿照它来自定义模型层。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Linear</span>(<span class="hljs-params">nn.Module</span>):</span><br>    __constants__ = [<span class="hljs-string">&#x27;in_features&#x27;</span>, <span class="hljs-string">&#x27;out_features&#x27;</span>]<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, in_features, out_features, bias=<span class="hljs-literal">True</span></span>):</span><br>        <span class="hljs-built_in">super</span>(Linear, self).__init__()<br>        self.in_features = in_features<br>        self.out_features = out_features<br>        self.weight = nn.Parameter(torch.Tensor(out_features, in_features))<br>        <span class="hljs-keyword">if</span> bias:<br>            self.bias = nn.Parameter(torch.Tensor(out_features))<br>        <span class="hljs-keyword">else</span>:<br>            self.register_parameter(<span class="hljs-string">&#x27;bias&#x27;</span>, <span class="hljs-literal">None</span>)<br>        self.reset_parameters()<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reset_parameters</span>(<span class="hljs-params">self</span>):</span><br>        nn.init.kaiming_uniform_(self.weight, a=math.sqrt(<span class="hljs-number">5</span>))<br>        <span class="hljs-keyword">if</span> self.bias <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            fan_in, _ = nn.init._calculate_fan_in_and_fan_out(self.weight)<br>            bound = <span class="hljs-number">1</span> / math.sqrt(fan_in)<br>            nn.init.uniform_(self.bias, -bound, bound)<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, <span class="hljs-built_in">input</span></span>):</span><br>        <span class="hljs-keyword">return</span> F.linear(<span class="hljs-built_in">input</span>, self.weight, self.bias)<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">extra_repr</span>(<span class="hljs-params">self</span>):</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;in_features=&#123;&#125;, out_features=&#123;&#125;, bias=&#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(<br>            self.in_features, self.out_features, self.bias <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span><br>        )<br><br><br>linear = nn.Linear(<span class="hljs-number">20</span>, <span class="hljs-number">30</span>)<br>inputs = torch.randn(<span class="hljs-number">128</span>, <span class="hljs-number">20</span>)<br>output = linear(inputs)<br><span class="hljs-built_in">print</span>(output.size())<br></code></pre></td></tr></table></figure>
 
 <p>搬运自：</p>
@@ -387,6 +387,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/01/27/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B09-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Pytorch学习笔记9-损失函数</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
