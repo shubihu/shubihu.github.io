@@ -1,0 +1,596 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="description" content="如题Pytorch中利用TensorBoard可视化的大概过程如下： 首先在Pytorch中指定一个目录创建一个torch.utils.tensorboard.SummaryWriter日志写入器。 然后根据需要可视化的信息，利用日志写入器将相应信息日志写入我们指定的目录。 最后就可以传入日志目录作为参数启动TensorBoard，然后就可以在TensorBoard中愉快地看片了。 我们主要介绍P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pytorch学习笔记10-TensorBoard可视化">
+<meta property="og:url" content="https://shubihu.github.io/2022/01/29/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B010-TensorBoard%E5%8F%AF%E8%A7%86%E5%8C%96/index.html">
+<meta property="og:site_name" content="梳碧湖">
+<meta property="og:description" content="如题Pytorch中利用TensorBoard可视化的大概过程如下： 首先在Pytorch中指定一个目录创建一个torch.utils.tensorboard.SummaryWriter日志写入器。 然后根据需要可视化的信息，利用日志写入器将相应信息日志写入我们指定的目录。 最后就可以传入日志目录作为参数启动TensorBoard，然后就可以在TensorBoard中愉快地看片了。 我们主要介绍P">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-29T01:58:34.000Z">
+<meta property="article:modified_time" content="2022-01-29T02:20:23.854Z">
+<meta property="article:tag" content="Pytorch">
+<meta name="twitter:card" content="summary">
+  
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"> <script src="/js/lantern.js"></script>
+  
+  <title>Pytorch学习笔记10-TensorBoard可视化 - 梳碧湖</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"shubihu.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"&#x1f496","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"FOWqJriwiUxghpNnDaD7X3ao-gzGzoHsz","app_key":"wgi1Wsw2eg7be0kqLc6vhVHj","server_url":"https://fowqjriw.lc-cn-n1-shared.com"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>梳碧湖</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/cat/">
+                <i class="iconfont icon-brush"></i>
+                撸猫
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/yahaha.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Pytorch学习笔记10-TensorBoard可视化">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-29 09:58" pubdate>
+        2022年1月29日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.8k 字
+    </span>
+  
+
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Pytorch学习笔记10-TensorBoard可视化</h1>
+            
+              <p class="note note-info">
+                
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h2 id="如题"><a href="#如题" class="headerlink" title="如题"></a>如题</h2><p>Pytorch中利用TensorBoard可视化的大概过程如下：</p>
+<p>首先在Pytorch中指定一个目录创建一个torch.utils.tensorboard.SummaryWriter日志写入器。</p>
+<p>然后根据需要可视化的信息，利用日志写入器将相应信息日志写入我们指定的目录。</p>
+<p>最后就可以传入日志目录作为参数启动TensorBoard，然后就可以在TensorBoard中愉快地看片了。</p>
+<p>我们主要介绍Pytorch中利用TensorBoard进行如下方面信息的可视化的方法。</p>
+<ul>
+<li><p>可视化模型结构： writer.add_graph</p>
+</li>
+<li><p>可视化指标变化： writer.add_scalar</p>
+</li>
+<li><p>可视化参数分布： writer.add_histogram</p>
+</li>
+<li><p>可视化原始图像： writer.add_image 或 writer.add_images</p>
+</li>
+<li><p>可视化人工绘图： writer.add_figure</p>
+</li>
+</ul>
+<h4 id="可视化模型结构"><a href="#可视化模型结构" class="headerlink" title="可视化模型结构"></a>可视化模型结构</h4><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-keyword">import</span> torch <br><span class="hljs-title">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-title">from</span> torch.utils.tensorboard <span class="hljs-keyword">import</span> SummaryWriter<br><span class="hljs-title">from</span> torchkeras <span class="hljs-keyword">import</span> Model,summary<br><span class="hljs-class"></span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-type">Net</span>(<span class="hljs-title">nn</span>.<span class="hljs-type">Module</span>):</span><br><span class="hljs-class">    </span><br><span class="hljs-class">    def __init__(<span class="hljs-title">self</span>):</span><br><span class="hljs-class">        super(<span class="hljs-type">Net</span>, <span class="hljs-title">self</span>).__init__()</span><br><span class="hljs-class">        self.conv1 = nn.<span class="hljs-type">Conv2d</span>(<span class="hljs-title">in_channels</span>=3,<span class="hljs-title">out_channels</span>=32,<span class="hljs-title">kernel_size</span> = 3)</span><br><span class="hljs-class">        self.pool = nn.<span class="hljs-type">MaxPool2d</span>(<span class="hljs-title">kernel_size</span> = 2,<span class="hljs-title">stride</span> = 2)</span><br><span class="hljs-class">        self.conv2 = nn.<span class="hljs-type">Conv2d</span>(<span class="hljs-title">in_channels</span>=32,<span class="hljs-title">out_channels</span>=64,<span class="hljs-title">kernel_size</span> = 5)</span><br><span class="hljs-class">        self.dropout = nn.<span class="hljs-type">Dropout2d</span>(<span class="hljs-title">p</span> = 0.1)</span><br><span class="hljs-class">        self.adaptive_pool = nn.<span class="hljs-type">AdaptiveMaxPool2d</span>((1,1))</span><br><span class="hljs-class">        self.flatten = nn.<span class="hljs-type">Flatten</span>()</span><br><span class="hljs-class">        self.linear1 = nn.<span class="hljs-type">Linear</span>(64,32)</span><br><span class="hljs-class">        self.relu = nn.<span class="hljs-type">ReLU</span>()</span><br><span class="hljs-class">        self.linear2 = nn.<span class="hljs-type">Linear</span>(32,1)</span><br><span class="hljs-class">        self.sigmoid = nn.<span class="hljs-type">Sigmoid</span>()</span><br><span class="hljs-class">        </span><br><span class="hljs-class">    def forward(<span class="hljs-title">self</span>,<span class="hljs-title">x</span>):</span><br><span class="hljs-class">        x = self.conv1(<span class="hljs-title">x</span>)</span><br><span class="hljs-class">        x = self.pool(<span class="hljs-title">x</span>)</span><br><span class="hljs-class">        x = self.conv2(<span class="hljs-title">x</span>)</span><br><span class="hljs-class">        x = self.pool(<span class="hljs-title">x</span>)</span><br><span class="hljs-class">        x = self.dropout(<span class="hljs-title">x</span>)</span><br><span class="hljs-class">        x = self.adaptive_pool(<span class="hljs-title">x</span>)</span><br><span class="hljs-class">        x = self.flatten(<span class="hljs-title">x</span>)</span><br><span class="hljs-class">        x = self.linear1(<span class="hljs-title">x</span>)</span><br><span class="hljs-class">        x = self.relu(<span class="hljs-title">x</span>)</span><br><span class="hljs-class">        x = self.linear2(<span class="hljs-title">x</span>)</span><br><span class="hljs-class">        y = self.sigmoid(<span class="hljs-title">x</span>)</span><br><span class="hljs-class">        return y</span><br><span class="hljs-class">        </span><br><span class="hljs-class">net = <span class="hljs-type">Net</span>()</span><br><span class="hljs-class">print(<span class="hljs-title">net</span>)</span><br><span class="hljs-class"></span><br><span class="hljs-class">writer = <span class="hljs-type">SummaryWriter</span>(&#x27;./<span class="hljs-title">data</span>/<span class="hljs-title">tensorboard&#x27;</span>)</span><br><span class="hljs-class">writer.add_graph(<span class="hljs-title">net</span>,<span class="hljs-title">input_to_model</span> = <span class="hljs-title">torch</span>.<span class="hljs-title">rand</span>(1,3,32,32))</span><br><span class="hljs-class">writer.close()</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cos"><span class="hljs-built_in">%load</span>_ext tensorboard<br>#<span class="hljs-built_in">%tensorboard</span> --logdir ./data/tensorboard<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs capnproto"><span class="hljs-keyword">from</span> tensorboard <span class="hljs-keyword">import</span> notebook<br><span class="hljs-comment">#查看启动的tensorboard程序</span><br>notebook.list() <br></code></pre></td></tr></table></figure>
+
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs vala"><span class="hljs-meta">#启动tensorboard程序</span><br>notebook.start(<span class="hljs-string">&quot;--logdir ./data/tensorboard&quot;</span>)<br><span class="hljs-meta">#等价于在命令行中执行 tensorboard --logdir ./data/tensorboard</span><br><span class="hljs-meta">#可以在浏览器中打开 http://localhost:6006/ 查看</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="可视化指标变化"><a href="#可视化指标变化" class="headerlink" title="可视化指标变化"></a>可视化指标变化</h4><p>有时候在训练过程中，如果能够实时动态地查看loss和各种metric的变化曲线，那么无疑可以帮助我们更加直观地了解模型的训练情况。</p>
+<p>注意，writer.add_scalar仅能对标量的值的变化进行可视化。因此它一般用于对loss和metric的变化进行可视化分析。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs nix"><span class="hljs-built_in">import</span> numpy as np <br><span class="hljs-built_in">import</span> torch <br>from torch.utils.tensorboard <span class="hljs-built_in">import</span> SummaryWriter<br><br><span class="hljs-comment"># f(x) = a*x**2 + b*x + c的最小值</span><br><span class="hljs-attr">x</span> = torch.tensor(<span class="hljs-number">0.0</span>,<span class="hljs-attr">requires_grad</span> = True) <span class="hljs-comment"># x需要被求导</span><br><span class="hljs-attr">a</span> = torch.tensor(<span class="hljs-number">1.0</span>)<br><span class="hljs-attr">b</span> = torch.tensor(-<span class="hljs-number">2.0</span>)<br><span class="hljs-attr">c</span> = torch.tensor(<span class="hljs-number">1.0</span>)<br><br><span class="hljs-attr">optimizer</span> = torch.optim.SGD(<span class="hljs-attr">params=[x],lr</span> = <span class="hljs-number">0.01</span>)<br><br><br>def f(x):<br>    <span class="hljs-attr">result</span> = a*torch.pow(x,<span class="hljs-number">2</span>) + b*x + c <br>    return(result)<br><br><span class="hljs-attr">writer</span> = SummaryWriter(&#x27;./data/tensorboard&#x27;)<br>for i <span class="hljs-keyword">in</span> range(<span class="hljs-number">500</span>):<br>    optimizer.zero_grad()<br>    <span class="hljs-attr">y</span> = f(x)<br>    y.backward()<br>    optimizer.step()<br>    writer.add_scalar(<span class="hljs-string">&quot;x&quot;</span>,x.item(),i) <span class="hljs-comment">#日志中记录x在第step i 的值</span><br>    writer.add_scalar(<span class="hljs-string">&quot;y&quot;</span>,y.item(),i) <span class="hljs-comment">#日志中记录y在第step i 的值</span><br><br>writer.close()<br>    <br>print(<span class="hljs-string">&quot;y=&quot;</span>,f(x).data,<span class="hljs-string">&quot;;&quot;</span>,<span class="hljs-string">&quot;x=&quot;</span>,x.data)<br></code></pre></td></tr></table></figure>
+
+<h4 id="可视化参数分布"><a href="#可视化参数分布" class="headerlink" title="可视化参数分布"></a>可视化参数分布</h4><p>如果需要对模型的参数(一般非标量)在训练过程中的变化进行可视化，可以使用 writer.add_histogram。</p>
+<p>它能够观测张量值分布的直方图随训练步骤的变化趋势。</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs maxima">import numpy as <span class="hljs-built_in">np</span> <br>import torch <br>from torch.utils.tensorboard import SummaryWriter<br><br># 创建正态分布的张量模拟参数矩阵<br>def norm(<span class="hljs-built_in">mean</span>,<span class="hljs-built_in">std</span>):<br>    t = <span class="hljs-built_in">std</span>*torch.randn((<span class="hljs-number">100</span>,<span class="hljs-number">20</span>))+<span class="hljs-built_in">mean</span><br>    <span class="hljs-built_in">return</span> t<br><br>writer = SummaryWriter(&#x27;./data/tensorboard&#x27;)<br><span class="hljs-keyword">for</span> <span class="hljs-keyword">step</span>,<span class="hljs-built_in">mean</span> <span class="hljs-keyword">in</span> enumerate(<span class="hljs-built_in">range</span>(-<span class="hljs-number">10</span>,<span class="hljs-number">10</span>,<span class="hljs-number">1</span>)):<br>    w = norm(<span class="hljs-built_in">mean</span>,<span class="hljs-number">1</span>)<br>    writer.add_histogram(<span class="hljs-string">&quot;w&quot;</span>,w, <span class="hljs-keyword">step</span>)<br>    writer.<span class="hljs-built_in">flush</span>()<br>writer.<span class="hljs-built_in">close</span>()<br></code></pre></td></tr></table></figure>
+
+<h4 id="可视化原始图像"><a href="#可视化原始图像" class="headerlink" title="可视化原始图像"></a>可视化原始图像</h4><p>如果我们做图像相关的任务，也可以将原始的图片在tensorboard中进行可视化展示。</p>
+<p>如果只写入一张图片信息，可以使用writer.add_image。</p>
+<p>如果要写入多张图片信息，可以使用writer.add_images。</p>
+<p>也可以用 torchvision.utils.make_grid将多张图片拼成一张图片，然后用writer.add_image写入。</p>
+<p>注意，传入的是代表图片信息的Pytorch中的张量数据。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torchvision<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> Dataset,DataLoader<br><span class="hljs-keyword">from</span> torchvision <span class="hljs-keyword">import</span> transforms,datasets <br><br><br>transform_train = transforms.Compose(<br><span class="hljs-string">    [transforms.ToTensor()]</span>)<br>transform_valid = transforms.Compose(<br><span class="hljs-string">    [transforms.ToTensor()]</span>)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs nix"><span class="hljs-attr">ds_train</span> = datasets.ImageFolder(<span class="hljs-string">&quot;/home/kesci/input/data6936/data/cifar2/train/&quot;</span>,<br>            <span class="hljs-attr">transform</span> = transform_train,<span class="hljs-attr">target_transform=</span> lambda t:torch.tensor([t]).float())<br><span class="hljs-attr">ds_valid</span> = datasets.ImageFolder(<span class="hljs-string">&quot;/home/kesci/input/data6936/data/cifar2/test/&quot;</span>,<br>            <span class="hljs-attr">transform</span> = transform_train,<span class="hljs-attr">target_transform=</span> lambda t:torch.tensor([t]).float())<br><br>print(ds_train.class_to_idx)<br><br><span class="hljs-attr">dl_train</span> = DataLoader(ds_train,<span class="hljs-attr">batch_size</span> = <span class="hljs-number">50</span>,<span class="hljs-attr">shuffle</span> = True,<span class="hljs-attr">num_workers=3)</span><br><span class="hljs-attr">dl_valid</span> = DataLoader(ds_valid,<span class="hljs-attr">batch_size</span> = <span class="hljs-number">50</span>,<span class="hljs-attr">shuffle</span> = True,<span class="hljs-attr">num_workers=3)</span><br><br><span class="hljs-attr">dl_train_iter</span> = iter(dl_train)<br>images, <span class="hljs-attr">labels</span> = dl_train_iter.next()<br><br><span class="hljs-comment"># 仅查看一张图片</span><br><span class="hljs-attr">writer</span> = SummaryWriter(&#x27;/home/kesci/input/data6936/data/tensorboard&#x27;)<br>writer.add_image(&#x27;images[<span class="hljs-number">0</span>]&#x27;, images[<span class="hljs-number">0</span>])<br>writer.close()<br><br><span class="hljs-comment"># 将多张图片拼接成一张图片，中间用黑色网格分割</span><br><span class="hljs-attr">writer</span> = SummaryWriter(&#x27;/home/kesci/input/data6936/data/tensorboard&#x27;)<br><span class="hljs-comment"># create grid of images</span><br><span class="hljs-attr">img_grid</span> = torchvision.utils.make_grid(images)<br>writer.add_image(&#x27;image_grid&#x27;, img_grid)<br>writer.close()<br><br><span class="hljs-comment"># 将多张图片直接写入</span><br><span class="hljs-attr">writer</span> = SummaryWriter(&#x27;/home/kesci/input/data6936/data/tensorboard&#x27;)<br>writer.add_images(<span class="hljs-string">&quot;images&quot;</span>,images,<span class="hljs-attr">global_step</span> = <span class="hljs-number">0</span>)<br>writer.close()<br></code></pre></td></tr></table></figure>
+
+<h4 id="可视化人工绘图"><a href="#可视化人工绘图" class="headerlink" title="可视化人工绘图"></a>可视化人工绘图</h4><p>如果我们将matplotlib绘图的结果再 tensorboard中展示，可以使用 add_figure.</p>
+<p>注意，和writer.add_image不同的是，writer.add_figure需要传入matplotlib的figure对象。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs nix"><span class="hljs-built_in">import</span> torch<br><span class="hljs-built_in">import</span> torchvision<br>from torch <span class="hljs-built_in">import</span> nn<br>from torch.utils.data <span class="hljs-built_in">import</span> Dataset,DataLoader<br>from torchvision <span class="hljs-built_in">import</span> transforms,datasets <br><br><br><span class="hljs-attr">transform_train</span> = transforms.Compose(<br>    [transforms.ToTensor()])<br><span class="hljs-attr">transform_valid</span> = transforms.Compose(<br>    [transforms.ToTensor()])<br><br><span class="hljs-attr">ds_train</span> = datasets.ImageFolder(<span class="hljs-string">&quot;/home/kesci/input/data6936/data/cifar2/train/&quot;</span>,<br>            <span class="hljs-attr">transform</span> = transform_train,<span class="hljs-attr">target_transform=</span> lambda t:torch.tensor([t]).float())<br><span class="hljs-attr">ds_valid</span> = datasets.ImageFolder(<span class="hljs-string">&quot;/home/kesci/input/data6936/data/cifar2/test/&quot;</span>,<br>            <span class="hljs-attr">transform</span> = transform_train,<span class="hljs-attr">target_transform=</span> lambda t:torch.tensor([t]).float())<br><br>print(ds_train.class_to_idx)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">%matplotlib inline<br>%config <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">InlineBackend</span>.</span></span>figure_format = &#x27;svg&#x27;<br>from matplotlib import pyplot <span class="hljs-keyword">as</span> plt <br><br>figure = plt.figure(figsize=(<span class="hljs-number">8</span>,<span class="hljs-number">8</span>)) <br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">9</span>):<br>    img,label = ds_train<span class="hljs-literal">[<span class="hljs-identifier">i</span>]</span><br>    img = img.permute(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">0</span>)<br>    ax=plt.subplot(<span class="hljs-number">3</span>,<span class="hljs-number">3</span>,i+<span class="hljs-number">1</span>)<br>    ax.imshow(img.numpy<span class="hljs-literal">()</span>)<br>    ax.set<span class="hljs-constructor">_title(<span class="hljs-string">&quot;label = %d&quot;</span>%<span class="hljs-params">label</span>.<span class="hljs-params">item</span>()</span>)<br>    ax.set<span class="hljs-constructor">_xticks([])</span><br>    ax.set<span class="hljs-constructor">_yticks([])</span> <br>plt.show<span class="hljs-literal">()</span><br><br>writer = <span class="hljs-constructor">SummaryWriter(&#x27;.<span class="hljs-operator">/</span><span class="hljs-params">data</span><span class="hljs-operator">/</span><span class="hljs-params">tensorboard</span>&#x27;)</span><br>writer.add<span class="hljs-constructor">_figure(&#x27;<span class="hljs-params">figure</span>&#x27;,<span class="hljs-params">figure</span>,<span class="hljs-params">global_step</span>=0)</span><br>writer.close<span class="hljs-literal">()</span><br></code></pre></td></tr></table></figure>
+
+<p>搬运自：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.heywhale.com/home/competition/61bff9a84b63a700179b7f8d/content/1">https://www.heywhale.com/home/competition/61bff9a84b63a700179b7f8d/content/1</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Pytorch/">Pytorch</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Pytorch/">Pytorch</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/27/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B09-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/">
+                        <span class="hidden-mobile">Pytorch学习笔记9-损失函数</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"FOWqJriwiUxghpNnDaD7X3ao-gzGzoHsz","appKey":"wgi1Wsw2eg7be0kqLc6vhVHj","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script> <script src="/js/wanko.js"></script>
+        </div>
+      </div>
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="/js/xin.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<!-- hexo injector body_end start -->
+  <div id="aplayer"></div>
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+  <script src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js"></script>
+  <script defer src="/js/aplayer.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
