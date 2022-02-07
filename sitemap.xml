@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://shubihu.github.io/2022/01/29/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B010-TensorBoard%E5%8F%AF%E8%A7%86%E5%8C%96/</loc>
+    
+    <lastmod>2022-02-07</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://shubihu.github.io/2022/02/07/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B011-%E6%9E%84%E5%BB%BA%E6%A8%A1%E5%9E%8B%E7%9A%843%E7%A7%8D%E6%96%B9%E6%B3%95/</loc>
     
     <lastmod>2022-02-07</lastmod>
@@ -9,9 +16,9 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/2022/01/29/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B010-TensorBoard%E5%8F%AF%E8%A7%86%E5%8C%96/</loc>
+    <loc>https://shubihu.github.io/2022/02/07/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B012-%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E7%9A%843%E7%A7%8D%E6%96%B9%E6%B3%95/</loc>
     
-    <lastmod>2022-01-29</lastmod>
+    <lastmod>2022-02-07</lastmod>
     
   </url>
   
