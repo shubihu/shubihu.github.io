@@ -1,0 +1,576 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Neo4j Flask Echarts">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="description" content="Neo4j Flask Echarts">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图数据库neo4j-Echarts可视化">
+<meta property="og:url" content="https://shubihu.github.io/2022/02/23/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93neo4j-Echarts%E5%8F%AF%E8%A7%86%E5%8C%96/index.html">
+<meta property="og:site_name" content="梳碧湖">
+<meta property="og:description" content="Neo4j Flask Echarts">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-23T07:19:14.000Z">
+<meta property="article:modified_time" content="2022-02-23T08:52:30.832Z">
+<meta property="article:tag" content="Neo4j">
+<meta name="twitter:card" content="summary">
+  
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"> <script src="/js/lantern.js"></script>
+  
+  <title>图数据库neo4j-Echarts可视化 - 梳碧湖</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"shubihu.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"&#x1f496","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"FOWqJriwiUxghpNnDaD7X3ao-gzGzoHsz","app_key":"wgi1Wsw2eg7be0kqLc6vhVHj","server_url":"https://fowqjriw.lc-cn-n1-shared.com"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>梳碧湖</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/cat/">
+                <i class="iconfont icon-brush"></i>
+                撸猫
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/yahaha.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="图数据库neo4j-Echarts可视化">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-02-23 15:19" pubdate>
+        2022年2月23日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.8k 字
+    </span>
+  
+
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">图数据库neo4j-Echarts可视化</h1>
+            
+              <p class="note note-info">
+                
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：2 分钟前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h2 id="Neo4j-Flask-Echarts"><a href="#Neo4j-Flask-Echarts" class="headerlink" title="Neo4j Flask Echarts"></a>Neo4j Flask Echarts</h2><span id="more"></span>
+
+<h5 id="安装-Neo4j"><a href="#安装-Neo4j" class="headerlink" title="安装 Neo4j"></a>安装 Neo4j</h5><p>Neo4j依赖Java环境，所以需要先安装JDK， JDK下载地址如下：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/downloads/">https://www.oracle.com/java/technologies/downloads/</a><br>最新版的Neo4j需要java11版本以上，所以按需求安装对应的版本即可。</li>
+</ul>
+<p>Neo4j下载地址如下：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://neo4j.com/download-center/#community">https://neo4j.com/download-center/#community</a></li>
+</ul>
+<p>社区版是免费的，所以选择社区版安装最新版即可。<br>另：Neo4j 插件 apoc 安装地址如下（插件根据需求安装）：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases">https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases</a><br>插件这里有个小坑，就是版本之间的依赖，如果Neo4j下载的是最新版，插件也最好选择最新版进行安装。<br>下载完后直接放在 neo4j-community-4.4.4/plugins 目录下，并且需要在配置文件里进行设置。</li>
+</ul>
+<h5 id="启动-Neo4j"><a href="#启动-Neo4j" class="headerlink" title="启动 Neo4j"></a>启动 Neo4j</h5><p>如果是桌面端直接运行程序即可，如果是server端配置好环境后运行 neo4j start 即可启动，停止运行命令：neo4j stop<br>启动后可以在浏览器输入 <a target="_blank" rel="noopener" href="http://localhost:7474/">http://localhost:7474/</a> 进入数据库，初始用户名和密码均是：neo4j，第一次进入需要修改密码，自行修改即可。<br>另外neo4j自带的数据库为 system 和 neo4j。如果想创建一个新的数据库需要在配置文件里修改，配置文件地址为：</p>
+<ul>
+<li>neo4j-community-4.4.4/conf/neo4j.conf<br>修改该文件里的 default_database<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">修改默认数据库<br><span class="hljs-meta">#The name of the default database</span><br><span class="hljs-meta">#dbms.default_database=neo4j</span><br>dbms.default_database=test<br><br>修改插件配置<br># A comma separated list <span class="hljs-keyword">of</span> <span class="hljs-keyword">procedures</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">user</span> defined <span class="hljs-keyword">functions</span> that are allowed<br># <span class="hljs-keyword">full</span> <span class="hljs-keyword">access</span> <span class="hljs-keyword">to</span> the <span class="hljs-keyword">database</span> through unsupported/insecure <span class="hljs-type">internal</span> APIs.<br><span class="hljs-meta">#dbms.security.procedures.unrestricted=my.extensions.example,my.procedures.*</span><br>dbms.<span class="hljs-keyword">security</span>.<span class="hljs-keyword">procedures</span>.unrestricted=apoc.*<br><br>修改免密登陆（测试需求）<br># Whether requests <span class="hljs-keyword">to</span> Neo4j are authenticated.<br># <span class="hljs-keyword">To</span> <span class="hljs-keyword">disable</span> authentication, uncomment this <span class="hljs-type">line</span><br>dbms.<span class="hljs-keyword">security</span>.auth_enabled=<span class="hljs-keyword">false</span><br></code></pre></td></tr></table></figure>
+其它配置有需求再进行修改。</li>
+</ul>
+<h5 id="Neo4j-节点和关系创建"><a href="#Neo4j-节点和关系创建" class="headerlink" title="Neo4j 节点和关系创建"></a>Neo4j 节点和关系创建</h5><ul>
+<li>参考教程：<a target="_blank" rel="noopener" href="https://www.w3cschool.cn/neo4j/">https://www.w3cschool.cn/neo4j/</a></li>
+<li>python方法<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs nix"><span class="hljs-comment">## pip install py2neo </span><br>from py2neo <span class="hljs-built_in">import</span> *<br><br><span class="hljs-comment"># 连接neo4j数据库，输入地址、用户名、密码</span><br><span class="hljs-attr">graph</span> = Graph(<span class="hljs-string">&quot;bolt://localhost:7687&quot;</span>, <span class="hljs-attr">auth=(&#x27;neo4j&#x27;,&#x27;neo4j&#x27;))</span><br>graph.delete_all() <span class="hljs-comment">#清除neo4j中原有的结点等所有信息</span><br><br><span class="hljs-comment"># 随机生成100个节点</span><br><span class="hljs-attr">N</span> = <span class="hljs-number">100</span><br><span class="hljs-attr">node_ls</span> = []<br>for i <span class="hljs-keyword">in</span> range(N):<br>	<span class="hljs-attr">random_name</span> = <span class="hljs-string">&quot;P&quot;</span>+str(round(random.random()*N*<span class="hljs-number">2</span>))<br>	<span class="hljs-attr">random_age</span> = round(random.random()*<span class="hljs-number">15</span>)<br>	<span class="hljs-attr">node</span> = Node(<span class="hljs-string">&quot;Person&quot;</span>, <span class="hljs-attr">name=random_name,</span> <span class="hljs-attr">age=random_age)</span><br>	node_ls.append(node)<br><br><span class="hljs-attr">subgraph</span> = Subgraph(node_ls, [])    <span class="hljs-comment">## [] 代表关系为空</span><br><span class="hljs-attr">tx</span> = graph.begin() <br>tx.create(subgraph)<br>graph.commit(tx)<br></code></pre></td></tr></table></figure>
+详情可参考：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/1DnMHOx6jPi0j0GhZwNPqw">https://mp.weixin.qq.com/s/1DnMHOx6jPi0j0GhZwNPqw</a></li>
+</ul>
+<h5 id="Echarts可视化"><a href="#Echarts可视化" class="headerlink" title="Echarts可视化"></a>Echarts可视化</h5><p>neo4j本身有自己的可视化系统，比如browser、Bloom等，但是blowser面向开发者，Bloom又是收费的，所以只能自己动手了。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment">## 主要就是 option的设置</span><br><span class="hljs-string">var</span> <span class="hljs-string">categories</span> <span class="hljs-string">=</span> [&#123;<span class="hljs-string">name:&quot;DrugName&quot;</span>&#125;,&#123;<span class="hljs-string">name:&quot;TargetGene&quot;</span>&#125;,&#123;<span class="hljs-string">name:&quot;DiseaseLabel&quot;</span>&#125;]<span class="hljs-string">;</span><br><br><span class="hljs-string">option</span> <span class="hljs-string">=</span> &#123;<br>    <span class="hljs-string">//</span> <span class="hljs-string">color:</span>[<span class="hljs-string">&#x27;#5470c6&#x27;</span>, <span class="hljs-string">&#x27;#91cc75&#x27;</span>, <span class="hljs-string">&#x27;#fac858&#x27;</span>, <span class="hljs-string">&#x27;#ee6666&#x27;</span>, <span class="hljs-string">&#x27;#73c0de&#x27;</span>, <span class="hljs-string">&#x27;#3ba272&#x27;</span>, <span class="hljs-string">&#x27;#fc8452&#x27;</span>, <span class="hljs-string">&#x27;#9a60b4&#x27;</span>, <span class="hljs-string">&#x27;#ea7ccc&#x27;</span>],<br>    <span class="hljs-attr">tooltip:</span> &#123;<br>     <span class="hljs-attr">trigger:</span> <span class="hljs-string">&#x27;item&#x27;</span>,<br>     <span class="hljs-attr">triggerOn:</span> <span class="hljs-string">&#x27;mousemove&#x27;</span>,<br>         <span class="hljs-string">enterable:true</span>,<span class="hljs-string">//鼠标是否可进入提示框浮层中</span><br>          <span class="hljs-string">formatter:formatterHover</span>,<span class="hljs-string">//修改鼠标悬停显示的内容</span><br>    &#125;,<br>    <span class="hljs-string">color:</span>[<span class="hljs-string">&quot;#c12e34&quot;</span>, <span class="hljs-string">&quot;#e6b600&quot;</span>, <span class="hljs-string">&quot;#0098d9&quot;</span>,],<br>    <span class="hljs-string">textStyle:</span>&#123;<br>        <span class="hljs-attr">fontFamily:</span> <span class="hljs-string">&quot;sans-serif&quot;</span>,<br>        <span class="hljs-attr">fontSize:</span> <span class="hljs-number">12</span>,<br>        <span class="hljs-attr">fontStyle:</span> <span class="hljs-string">&quot;normal&quot;</span>,<br>        <span class="hljs-attr">fontWeight:</span> <span class="hljs-string">&quot;normal&quot;</span>,<br>    &#125;,<br>    <span class="hljs-attr">legend:</span> &#123;<br>        <span class="hljs-attr">data:</span> [<span class="hljs-string">&#x27;DrugName&#x27;</span>, <span class="hljs-string">&#x27;TargetGene&#x27;</span>, <span class="hljs-string">&#x27;DiseaseLabel&#x27;</span>] <span class="hljs-string">//此处的数据必须和关系网类别中name相对应</span>  <br>    &#125;,<br>    <span class="hljs-attr">series:</span> [&#123;<br>        <span class="hljs-attr">type:</span> <span class="hljs-string">&#x27;graph&#x27;</span>,<br>        <span class="hljs-attr">layout:</span> <span class="hljs-string">&#x27;force&#x27;</span>,     <span class="hljs-comment"># 力导图</span><br>        <span class="hljs-attr">animation:</span> <span class="hljs-literal">false</span>,<br>        <span class="hljs-attr">symbolSize:</span> <span class="hljs-number">25</span>,<br>        <span class="hljs-attr">label:</span> &#123;<br>            <span class="hljs-attr">normal:</span> &#123;<br>                <span class="hljs-attr">show:</span> <span class="hljs-literal">false</span>,<br>                <span class="hljs-attr">position:</span> <span class="hljs-string">&#x27;right&#x27;</span>,<br>                <span class="hljs-attr">textStyle:</span> &#123;<br>                    <span class="hljs-attr">fontSize:</span> <span class="hljs-number">10</span><br>                &#125;,<br>            &#125;,<br>        &#125;,<br>        <span class="hljs-attr">labelLayout:</span> &#123;<br>            <span class="hljs-attr">hideOverlap:</span> <span class="hljs-literal">true</span><br>        &#125;,<br>        <span class="hljs-attr">draggable:</span> <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">roam:</span> <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">focusNodeAdjacency:</span> <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">force:</span> &#123;<br>            <span class="hljs-attr">edgeLength:</span> <span class="hljs-number">80</span>, <span class="hljs-string">//连线的长度</span>  <br>            <span class="hljs-attr">repulsion:</span> <span class="hljs-number">100</span>, <span class="hljs-string">//子节点之间的间距</span>  <br>            <span class="hljs-string">//</span> <span class="hljs-attr">gravity:</span> <span class="hljs-number">0.2</span><br>        &#125;,<br>        <span class="hljs-attr">categories:</span> <span class="hljs-string">categories</span>,<br>        <span class="hljs-attr">data:</span> <span class="hljs-string">data.nodes</span>,<br>        <span class="hljs-attr">edges:</span> <span class="hljs-string">data.edges</span>,<br><br>        <span class="hljs-attr">edgeSymbol:</span> [<span class="hljs-string">&#x27;circle&#x27;</span>, <span class="hljs-string">&#x27;arrow&#x27;</span>],<br>        <span class="hljs-attr">edgeSymbolSize:</span> [<span class="hljs-number">4</span>, <span class="hljs-number">4</span>],<br>        <span class="hljs-attr">edgeLabel:</span> &#123;<br>            <span class="hljs-attr">normal:</span> &#123;<br>                <span class="hljs-attr">show:</span> <span class="hljs-literal">false</span>,<br>                <span class="hljs-attr">formatter:</span> <span class="hljs-string">function</span> <span class="hljs-string">(x)</span> &#123;<br>                    <span class="hljs-string">return</span> <span class="hljs-string">x.data.relationship;</span><br>                &#125;,<br>                <span class="hljs-attr">textStyle:</span> &#123;<br>                    <span class="hljs-attr">fontSize:</span> <span class="hljs-number">10</span><br>                &#125;<br>            &#125;<br>        &#125;,<br>        <span class="hljs-attr">lineStyle:</span> &#123;<br>            <span class="hljs-attr">normal:</span> &#123;<br>                <span class="hljs-attr">width:</span> <span class="hljs-number">2</span>,<br>                <span class="hljs-attr">color:</span> <span class="hljs-string">&#x27;#4b565b&#x27;</span>,<br>            &#125;<br>        &#125;,<br>    &#125;]<br>&#125;<span class="hljs-string">;</span><br></code></pre></td></tr></table></figure>
+<p>剩下的就是把 data 和 edges 的数据传人即可。<br>同样可以用python进行请求获取</p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs prolog">import requests<br>import json<br><br>login_url = <span class="hljs-string">&#x27;http://localhost:7474/db/data/transaction/commit&#x27;</span><br>headers = &#123;<span class="hljs-string">&#x27;Content-Type&#x27;</span>:<span class="hljs-string">&#x27;application/json&#x27;</span>&#125;<br>name_pwd = &#123;<span class="hljs-string">&#x27;username&#x27;</span>:<span class="hljs-string">&#x27;neo4j&#x27;</span>,<br>      <span class="hljs-string">&#x27;password&#x27;</span>:<span class="hljs-string">&#x27;neo4j&#x27;</span>,<br>      &#125;<br><br><br>def request_result(login_url, query_cql, headers):<br><br>    nodes, edges = [], []<br><br>    query_json = &#123;<br>        <span class="hljs-string">&quot;statements&quot;</span> : [ &#123;<br>        <span class="hljs-string">&quot;statement&quot;</span> : query_cql,<br>        <span class="hljs-string">&quot;resultDataContents&quot;</span> : [ <span class="hljs-string">&quot;row&quot;</span>, <span class="hljs-string">&quot;graph&quot;</span> ]<br>        &#125;]<br>    &#125;<br><br>    response = requests.post(url=login_url, json= query_json, headers=headers)<br>    print(response.status_code) <br><br>    result = json.loads(response.text)[<span class="hljs-string">&#x27;results&#x27;</span>][<span class="hljs-number">0</span>][<span class="hljs-string">&#x27;data&#x27;</span>]<br>    for i in range(len(result)):<br>        for n in result[i][<span class="hljs-string">&#x27;graph&#x27;</span>][<span class="hljs-string">&#x27;nodes&#x27;</span>]:<br>            if n not in nodes:<br>                nodes.append(n)<br><br>        for r in result[i][<span class="hljs-string">&#x27;graph&#x27;</span>][<span class="hljs-string">&#x27;relationships&#x27;</span>]:<br>            if r not in edges:<br>                edges.append(r)<br><br>    return nodes, edges<br><br><br>def query_all():<br>    query_cql = <span class="hljs-string">&#x27;match p=()--&gt;() return p&#x27;</span><br><br>    nodes, edges = request_result(login_url, query_cql, headers)<br>    <br>    return nodes, edges<br><br><br>query_all()<br><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>参考 <a target="_blank" rel="noopener" href="https://github.com/chizhu/KGQA_HLM">https://github.com/chizhu/KGQA_HLM</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Python/">Python</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Neo4j/">Neo4j</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/09/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B017-%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%E6%B5%81%E7%A8%8B%E8%8C%83%E4%BE%8B/">
+                        <span class="hidden-mobile">Pytorch学习笔记17-时间序列数据建模流程范例</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"FOWqJriwiUxghpNnDaD7X3ao-gzGzoHsz","appKey":"wgi1Wsw2eg7be0kqLc6vhVHj","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script> <script src="/js/wanko.js"></script>
+        </div>
+      </div>
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="/js/xin.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<!-- hexo injector body_end start -->
+  <div id="aplayer"></div>
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+  <script src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js"></script>
+  <script defer src="/js/aplayer.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
