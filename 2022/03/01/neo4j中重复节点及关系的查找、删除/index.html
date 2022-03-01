@@ -24,7 +24,7 @@
 <meta property="og:description" content="Neo4j 查询、删除">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-01T08:59:20.000Z">
-<meta property="article:modified_time" content="2022-03-01T09:17:23.756Z">
+<meta property="article:modified_time" content="2022-03-01T09:21:53.387Z">
 <meta property="article:tag" content="Neo4j">
 <meta name="twitter:card" content="summary">
   
@@ -209,7 +209,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      614 字
+      616 字
     </span>
   
 
@@ -260,18 +260,23 @@
               <h2 id="Neo4j-查询、删除"><a href="#Neo4j-查询、删除" class="headerlink" title="Neo4j 查询、删除"></a>Neo4j 查询、删除</h2><span id="more"></span>
 <h5 id="查询重复节点"><a href="#查询重复节点" class="headerlink" title="查询重复节点"></a>查询重复节点</h5><p>可以分为以下步骤解决：</p>
 <ul>
-<li>1.先查看下某个标签下的节点总数<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">match</span> (n:PERSON) <span class="hljs-keyword">return</span> <span class="hljs-built_in">count</span>(n)<br></code></pre></td></tr></table></figure></li>
-<li><ol start="2">
-<li>比较总数和去重后总数，可判断是否存在相同name的节点<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">match</span> (n:PERSON) <span class="hljs-keyword">return</span> <span class="hljs-built_in">count</span>(<span class="hljs-keyword">distinct</span> n.name)<br></code></pre></td></tr></table></figure>
-若执行步骤1和步骤2，得到的数量相同，则证明没有重复的节点</li>
-</ol>
+<li><p> 1、先查看下某个标签下的节点总数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">match</span> (n:PERSON) <span class="hljs-keyword">return</span> <span class="hljs-built_in">count</span>(n)<br></code></pre></td></tr></table></figure></li>
+<li><p> 2、比较总数和去重后总数，可判断是否存在相同name的节点</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">match</span> (n:PERSON) <span class="hljs-keyword">return</span> <span class="hljs-built_in">count</span>(<span class="hljs-keyword">distinct</span> n.name)<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>若执行步骤1和步骤2，得到的数量相同，则证明没有重复的节点</p>
+<ul>
+<li><p> 3、若重复节点较少，可通过设置id条件进行删除</p>
 </li>
-<li>3.若重复节点较少，可通过设置id条件进行删除</li>
-<li>4.若重复节点较多，可用apoc来进行操作(需要安装apoc插件，地址：<a target="_blank" rel="noopener" href="https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases">https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases</a>)<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">MATCH (n:Tag) <span class="hljs-keyword">WITH</span> n.name <span class="hljs-keyword">AS</span> <span class="hljs-type">name</span>, COLLECT(n) <span class="hljs-keyword">AS</span> nodelist, COUNT(*) <span class="hljs-keyword">AS</span> count <span class="hljs-keyword">WHERE</span> count &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">CALL</span> apoc.refactor.mergeNodes(nodelist) YIELD node <span class="hljs-keyword">RETURN</span> node<br></code></pre></td></tr></table></figure></li>
+<li><p> 4、若重复节点较多，可用apoc来进行操作(需要安装apoc插件，地址：<a target="_blank" rel="noopener" href="https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases">https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases</a>)</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">MATCH (n:Tag) <span class="hljs-keyword">WITH</span> n.name <span class="hljs-keyword">AS</span> <span class="hljs-type">name</span>, COLLECT(n) <span class="hljs-keyword">AS</span> nodelist, COUNT(*) <span class="hljs-keyword">AS</span> count <span class="hljs-keyword">WHERE</span> count &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">CALL</span> apoc.refactor.mergeNodes(nodelist) YIELD node <span class="hljs-keyword">RETURN</span> node<br></code></pre></td></tr></table></figure></li>
 </ul>
 <h5 id="查询重复关系"><a href="#查询重复关系" class="headerlink" title="查询重复关系"></a>查询重复关系</h5><ul>
-<li>查询<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">MATCH (<span class="hljs-keyword">a</span>)-[r]-&gt;(b) <span class="hljs-keyword">with</span> count(type(r)) <span class="hljs-keyword">as</span> <span class="hljs-built_in">num</span>,<span class="hljs-keyword">a</span>,b where <span class="hljs-built_in">num</span> &gt;= <span class="hljs-number">2</span> <span class="hljs-literal">return</span> <span class="hljs-built_in">num</span>,<span class="hljs-keyword">a</span>,b LIMIT <span class="hljs-number">25</span><br></code></pre></td></tr></table></figure></li>
-<li>删除<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">MATCH</span> (a)<span class="hljs-selector-tag">-</span><span class="hljs-selector-attr">[r]</span><span class="hljs-selector-tag">-</span>&gt;(b) <span class="hljs-selector-tag">WITH</span> <span class="hljs-selector-tag">a</span>, <span class="hljs-selector-tag">b</span>, <span class="hljs-selector-tag">TAIL</span> (COLLECT (r)) <span class="hljs-selector-tag">as</span> <span class="hljs-selector-tag">rr</span> <span class="hljs-selector-tag">WHERE</span> <span class="hljs-selector-tag">size</span>(rr)&gt;<span class="hljs-selector-tag">0</span> <span class="hljs-selector-tag">FOREACH</span> (r IN rr | DELETE r)<br></code></pre></td></tr></table></figure></li>
+<li><p>查询</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">MATCH (<span class="hljs-keyword">a</span>)-[r]-&gt;(b) <span class="hljs-keyword">with</span> count(type(r)) <span class="hljs-keyword">as</span> <span class="hljs-built_in">num</span>,<span class="hljs-keyword">a</span>,b where <span class="hljs-built_in">num</span> &gt;= <span class="hljs-number">2</span> <span class="hljs-literal">return</span> <span class="hljs-built_in">num</span>,<span class="hljs-keyword">a</span>,b LIMIT <span class="hljs-number">25</span><br></code></pre></td></tr></table></figure></li>
+<li><p>删除</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">MATCH</span> (a)<span class="hljs-selector-tag">-</span><span class="hljs-selector-attr">[r]</span><span class="hljs-selector-tag">-</span>&gt;(b) <span class="hljs-selector-tag">WITH</span> <span class="hljs-selector-tag">a</span>, <span class="hljs-selector-tag">b</span>, <span class="hljs-selector-tag">TAIL</span> (COLLECT (r)) <span class="hljs-selector-tag">as</span> <span class="hljs-selector-tag">rr</span> <span class="hljs-selector-tag">WHERE</span> <span class="hljs-selector-tag">size</span>(rr)&gt;<span class="hljs-selector-tag">0</span> <span class="hljs-selector-tag">FOREACH</span> (r IN rr | DELETE r)<br></code></pre></td></tr></table></figure></li>
 </ul>
 
             </div>
