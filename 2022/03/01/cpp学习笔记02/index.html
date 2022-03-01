@@ -18,19 +18,19 @@
   <meta name="keywords" content="">
   <meta name="description" content="如题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Pytorch学习笔记13-使用GPU训练模型">
-<meta property="og:url" content="https://shubihu.github.io/2022/02/07/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B013-%E4%BD%BF%E7%94%A8GPU%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:title" content="cpp学习笔记02">
+<meta property="og:url" content="https://shubihu.github.io/2022/03/01/cpp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B002/index.html">
 <meta property="og:site_name" content="梳碧湖">
 <meta property="og:description" content="如题">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-02-07T05:15:43.000Z">
-<meta property="article:modified_time" content="2022-02-07T06:11:05.841Z">
-<meta property="article:tag" content="Pytorch">
+<meta property="article:published_time" content="2022-03-01T06:33:56.000Z">
+<meta property="article:modified_time" content="2022-03-01T06:39:41.738Z">
+<meta property="article:tag" content="CPP">
 <meta name="twitter:card" content="summary">
   
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"> <script src="/js/lantern.js"></script>
   
-  <title>Pytorch学习笔记13-使用GPU训练模型 - 梳碧湖</title>
+  <title>cpp学习笔记02 - 梳碧湖</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -188,7 +188,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Pytorch学习笔记13-使用GPU训练模型">
+            <span class="h2" id="subtitle" title="cpp学习笔记02">
               
             </span>
 
@@ -198,8 +198,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-07 13:15" pubdate>
-        2022年2月7日 下午
+      <time datetime="2022-03-01 14:33" pubdate>
+        2022年3月1日 下午
       </time>
     </span>
   
@@ -209,7 +209,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.1k 字
+      1.6k 字
     </span>
   
 
@@ -248,31 +248,19 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Pytorch学习笔记13-使用GPU训练模型</h1>
+            <h1 style="display: none">cpp学习笔记02</h1>
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：22 天前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：3 分钟前
                 
               </p>
             
             <div class="markdown-body">
               <h2 id="如题"><a href="#如题" class="headerlink" title="如题"></a>如题</h2><span id="more"></span>
-<p>训练过程的耗时主要来自于两个部分，一部分来自数据准备，另一部分来自参数迭代。</p>
-<p>当数据准备过程还是模型训练时间的主要瓶颈时，我们可以使用更多进程来准备数据。</p>
-<p>当参数迭代过程成为训练时间的主要瓶颈时，我们通常的方法是应用GPU来进行加速。</p>
-<p>Pytorch中使用GPU加速模型非常简单，只要将模型和数据移动到GPU上。核心代码只有以下几行。</p>
-<figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs monkey"><span class="hljs-meta"># 定义模型  </span><br>...   <br><br>device = torch.device(<span class="hljs-string">&quot;cuda:0&quot;</span> <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;cpu&quot;</span>)  <br>model.<span class="hljs-keyword">to</span>(device)<span class="hljs-meta"> # 移动模型到cuda  </span><span class="hljs-meta"></span><br><span class="hljs-meta"></span><br><span class="hljs-meta"># 训练模型  </span><br>...  <br><br>features = features.<span class="hljs-keyword">to</span>(device)<span class="hljs-meta"> # 移动数据到cuda  </span><br>labels = labels.<span class="hljs-keyword">to</span>(device)<span class="hljs-meta"> # 或者  labels = labels.cuda() <span class="hljs-meta-keyword">if</span> torch.cuda.is_available() <span class="hljs-meta-keyword">else</span> labels  </span><br>...<br></code></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;string&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><br><span class="hljs-comment">//值传递, 形参不会修饰实参</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap1</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> tmp = a;<br>    a = b;<br>    b = tmp;<br><br>&#125;<br><br><span class="hljs-comment">//地址传递，形参会修饰实参</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap2</span><span class="hljs-params">(<span class="hljs-keyword">int</span> *a, <span class="hljs-keyword">int</span> *b)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> tmp = *a;<br>    *a = *b;<br>    *b = tmp;<br>&#125;<br><br><span class="hljs-comment">//常量引用，用来修饰形参，防止误操作</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showValue</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;val)</span></span><br><span class="hljs-function"></span>&#123;<br>    cout &lt;&lt; val &lt;&lt; endl; <span class="hljs-comment">// val的值无法修改</span><br>&#125;<br><br><br><span class="hljs-comment">//引用的本质是指针常量</span><br><span class="hljs-comment">//引用传递，形参会修饰实参</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap3</span><span class="hljs-params">(<span class="hljs-keyword">int</span> &amp;a, <span class="hljs-keyword">int</span> &amp;b)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> tmp = a;<br>    a = b;<br>    b = tmp;<br>&#125;<br><br><span class="hljs-comment">// 不要返回局部变量的引用</span><br><span class="hljs-comment">// int&amp; test1()</span><br><span class="hljs-comment">// &#123;</span><br><span class="hljs-comment">//  int a = 10; // 局部变量存放在栈区</span><br><span class="hljs-comment">//  // return a; // 返回引用会带来隐患</span><br><span class="hljs-comment">// &#125;</span><br><br><span class="hljs-comment">// 函数的调用可以作为左值</span><br><span class="hljs-function"><span class="hljs-keyword">int</span>&amp; <span class="hljs-title">test2</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> a = <span class="hljs-number">10</span>; <span class="hljs-comment">// 静态变量存放在全局区</span><br>    <span class="hljs-keyword">return</span> a; <br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> <span class="hljs-keyword">const</span> *argv[])</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">//引用的基本使用</span><br>    <span class="hljs-comment">//作用：给变量起别名</span><br>    <span class="hljs-comment">//语法：数据类型 &amp;别名 = 原名</span><br>    <span class="hljs-keyword">int</span> a = <span class="hljs-number">10</span>;<br>    <span class="hljs-comment">// 创建引用</span><br>    <span class="hljs-keyword">int</span> &amp;b = a;   <span class="hljs-comment">// 引用初始化(必须)，初始化后不可改变，b的值也是10</span><br><br>    <span class="hljs-keyword">int</span> &amp;aa = <span class="hljs-built_in">test2</span>();<br>    <span class="hljs-built_in">test2</span>() = <span class="hljs-number">100</span>;       <span class="hljs-comment">// 函数的调用可以作为左值</span><br>    cout &lt;&lt; aa &lt;&lt; endl;<br><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>如果要使用多个GPU训练模型，也非常简单。只需要在将模型设置为数据并行风格模型。<br>则模型移动到GPU上之后，会在每一个GPU上拷贝一个副本，并把数据平分到各个GPU上进行训练。核心代码如下。</p>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs maxima"># 定义模型  <br>...   <br><br><span class="hljs-keyword">if</span> torch.cuda.device_count() &gt; <span class="hljs-number">1</span>:  <br>    model = nn.DataParallel(model) # 包装为并行风格模型  <br><br># 训练模型  <br>...  <br><span class="hljs-built_in">features</span> = <span class="hljs-built_in">features</span>.to(device) # 移动数据到cuda  <br><span class="hljs-built_in">labels</span> = <span class="hljs-built_in">labels</span>.to(device) # 或者 <span class="hljs-built_in">labels</span> = <span class="hljs-built_in">labels</span>.cuda() <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-built_in">labels</span>  <br></code></pre></td></tr></table></figure>
-
-<h4 id="一些和GPU有关的基本操作汇总"><a href="#一些和GPU有关的基本操作汇总" class="headerlink" title="一些和GPU有关的基本操作汇总"></a>一些和GPU有关的基本操作汇总</h4><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs routeros">import torch <br><span class="hljs-keyword">from</span> torch import nn <br><br><span class="hljs-comment"># 1，查看gpu信息</span><br>if_cuda = torch.cuda.is_available()<br><span class="hljs-builtin-name">print</span>(<span class="hljs-string">&quot;if_cuda=&quot;</span>,if_cuda)<br><br>gpu_count = torch.cuda.device_count()<br><span class="hljs-builtin-name">print</span>(<span class="hljs-string">&quot;gpu_count=&quot;</span>,gpu_count)<br><br><br><span class="hljs-comment"># 2，将张量在gpu和cpu间移动</span><br>tensor = torch.rand((100,100))<br>tensor_gpu = tensor.<span class="hljs-keyword">to</span>(<span class="hljs-string">&quot;cuda:0&quot;</span>) # 或者 tensor_gpu = tensor.cuda()<br><span class="hljs-builtin-name">print</span>(tensor_gpu.device)<br><span class="hljs-builtin-name">print</span>(tensor_gpu.is_cuda)<br><br>tensor_cpu = tensor_gpu.<span class="hljs-keyword">to</span>(<span class="hljs-string">&quot;cpu&quot;</span>) # 或者 tensor_cpu = tensor_gpu.cpu() <br><span class="hljs-builtin-name">print</span>(tensor_cpu.device)<br><br><span class="hljs-comment"># 3，将模型中的全部张量移动到gpu上</span><br>net = nn.Linear(2,1)<br><span class="hljs-builtin-name">print</span>(next(net.parameters()).is_cuda)<br>net.<span class="hljs-keyword">to</span>(<span class="hljs-string">&quot;cuda:0&quot;</span>) # 将模型中的全部参数张量依次到GPU上，注意，无需重新赋值为 net = net.<span class="hljs-keyword">to</span>(<span class="hljs-string">&quot;cuda:0&quot;</span>)<br><span class="hljs-comment">#查看模型是否已经移动到GPU上</span><br><span class="hljs-builtin-name">print</span>(<span class="hljs-string">&quot;if on cuda:&quot;</span>,next(net.parameters()).is_cuda)<br><span class="hljs-comment">#print(next(net.parameters()).is_cuda)</span><br><span class="hljs-builtin-name">print</span>(next(net.parameters()).device)<br><br><span class="hljs-comment"># 4，创建支持多个gpu数据并行的模型</span><br>linear = nn.Linear(2,1)<br><span class="hljs-builtin-name">print</span>(next(linear.parameters()).device)<br><br>model = nn.DataParallel(linear)<br><span class="hljs-builtin-name">print</span>(model.device_ids)<br><span class="hljs-builtin-name">print</span>(next(model.module.parameters()).device) <br><br><span class="hljs-comment">#注意保存参数时要指定保存model.module的参数</span><br>torch.save(model.module.state_dict(), <span class="hljs-string">&quot;model_parameter.pkl&quot;</span>) <br><br>linear = nn.Linear(2,1)<br>linear.load_state_dict(torch.load(<span class="hljs-string">&quot;model_parameter.pkl&quot;</span>)) <br><br><br><span class="hljs-comment"># 5，清空cuda缓存</span><br><br><span class="hljs-comment"># 该方法在cuda超内存时十分有用</span><br>torch.cuda.empty_cache()<br></code></pre></td></tr></table></figure>
-
-<p>搬运自：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.heywhale.com/home/competition/61bff9a84b63a700179b7f8d/content/1">https://www.heywhale.com/home/competition/61bff9a84b63a700179b7f8d/content/1</a></li>
-</ul>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-meta">#include&lt;iostream&gt;</span><br><span class="hljs-meta">#include&lt;string&gt;</span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-title">std</span>;<br><br><span class="hljs-comment">//声明和实现只能有一个有默认参数,即如果函数声明有默认参数，函数实现就不能有默认参数，反之亦然</span><br><span class="hljs-comment">//函数声明</span><br><span class="hljs-function"><span class="hljs-built_in">int</span> <span class="hljs-title">func1</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> a, <span class="hljs-built_in">int</span> b=<span class="hljs-number">10</span></span>)</span>;<br><br><span class="hljs-comment">//函数实现</span><br><span class="hljs-function"><span class="hljs-built_in">int</span> <span class="hljs-title">func1</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> a, <span class="hljs-built_in">int</span> b</span>)</span><br>&#123;<br>    <span class="hljs-keyword">return</span> a + b<br>&#125;<br><br><span class="hljs-comment">// 占位参数</span><br><span class="hljs-function"><span class="hljs-built_in">int</span> <span class="hljs-title">func2</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> a, <span class="hljs-built_in">int</span></span>)  <span class="hljs-comment">// 第二个 int 为占位符，占位符也可有默认值, 如 int func2(int a, int = 10);</span></span><br>&#123;<br>    <span class="hljs-keyword">return</span> a<br>&#125;<br><br><span class="hljs-comment">//函数重载</span><br><span class="hljs-comment">//同一个作用域下</span><br><span class="hljs-comment">//函数名称相同</span><br><span class="hljs-comment">//函数参数类型不同，或者个数不同，或者顺序不同</span><br><span class="hljs-comment">// 函数的返回值不可以做为函数重载的条件</span><br><br><span class="hljs-comment">//引用做为重载条件</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">func3</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> &amp;a</span>)</span><br>&#123;<br>    cout &lt;&lt; <span class="hljs-string">&#x27;&#x27;</span> &lt;&lt; endl;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">func3</span>(<span class="hljs-params"><span class="hljs-keyword">const</span> <span class="hljs-built_in">int</span> &amp;a</span>)</span><br>&#123;<br>    cout &lt;&lt; <span class="hljs-string">&#x27;const&#x27;</span> &lt;&lt; endl;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-built_in">int</span> <span class="hljs-title">main</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> argc, <span class="hljs-built_in">char</span> <span class="hljs-keyword">const</span> *argv[]</span>)</span><br>&#123;<br>    func3(<span class="hljs-number">10</span>); <span class="hljs-comment">// 运行 func3(const int &amp;a), 因为 int &amp;a = 10 不合法</span><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -282,7 +270,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Pytorch/">Pytorch</a>
+                      <a class="hover-with-bg" href="/categories/CPP/">CPP</a>
                     
                   </div>
                 
@@ -290,7 +278,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Pytorch/">Pytorch</a>
+                      <a class="hover-with-bg" href="/tags/CPP/">CPP</a>
                     
                   </div>
                 
@@ -307,9 +295,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/02/08/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B014-%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%E6%B5%81%E7%A8%8B%E8%8C%83%E4%BE%8B/">
+                      <a href="/2022/03/01/cpp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B003/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Pytorch学习笔记14-结构化数据建模流程范例</span>
+                        <span class="hidden-mobile">cpp学习笔记03</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -317,8 +305,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/02/07/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B012-%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E7%9A%843%E7%A7%8D%E6%96%B9%E6%B3%95/">
-                        <span class="hidden-mobile">Pytorch学习笔记12-训练模型的3种方法</span>
+                      <a href="/2022/03/01/cpp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/">
+                        <span class="hidden-mobile">cpp学习笔记01</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
