@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://shubihu.github.io/2022/03/01/neo4j%E4%B8%AD%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9%E5%8F%8A%E5%85%B3%E7%B3%BB%E7%9A%84%E6%9F%A5%E6%89%BE%E3%80%81%E5%88%A0%E9%99%A4/</loc>
+    
+    <lastmod>2022-03-01</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://shubihu.github.io/2022/03/01/cpp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B003/</loc>
     
     <lastmod>2022-03-01</lastmod>
@@ -504,6 +511,13 @@
   
   <url>
     <loc>https://shubihu.github.io/categories/CPP/</loc>
+    <lastmod>2022-03-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/categories/Neo4j/</loc>
     <lastmod>2022-03-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
