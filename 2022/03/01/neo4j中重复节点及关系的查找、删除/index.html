@@ -18,19 +18,19 @@
   <meta name="keywords" content="">
   <meta name="description" content="Neo4j 查询、删除">
 <meta property="og:type" content="article">
-<meta property="og:title" content="neo4j中重复节点及关系的查找、删除">
+<meta property="og:title" content="neo4j中节点及关系的查询、删除等">
 <meta property="og:url" content="https://shubihu.github.io/2022/03/01/neo4j%E4%B8%AD%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9%E5%8F%8A%E5%85%B3%E7%B3%BB%E7%9A%84%E6%9F%A5%E6%89%BE%E3%80%81%E5%88%A0%E9%99%A4/index.html">
 <meta property="og:site_name" content="梳碧湖">
 <meta property="og:description" content="Neo4j 查询、删除">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-01T08:59:20.000Z">
-<meta property="article:modified_time" content="2022-03-01T09:21:53.387Z">
+<meta property="article:modified_time" content="2022-03-02T02:17:52.044Z">
 <meta property="article:tag" content="Neo4j">
 <meta name="twitter:card" content="summary">
   
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"> <script src="/js/lantern.js"></script>
   
-  <title>neo4j中重复节点及关系的查找、删除 - 梳碧湖</title>
+  <title>neo4j中节点及关系的查询、删除等 - 梳碧湖</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -188,7 +188,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="neo4j中重复节点及关系的查找、删除">
+            <span class="h2" id="subtitle" title="neo4j中节点及关系的查询、删除等">
               
             </span>
 
@@ -209,7 +209,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      616 字
+      1.1k 字
     </span>
   
 
@@ -248,7 +248,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">neo4j中重复节点及关系的查找、删除</h1>
+            <h1 style="display: none">neo4j中节点及关系的查询、删除等</h1>
             
               <p class="note note-info">
                 
@@ -278,6 +278,30 @@
 <li><p>删除</p>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">MATCH</span> (a)<span class="hljs-selector-tag">-</span><span class="hljs-selector-attr">[r]</span><span class="hljs-selector-tag">-</span>&gt;(b) <span class="hljs-selector-tag">WITH</span> <span class="hljs-selector-tag">a</span>, <span class="hljs-selector-tag">b</span>, <span class="hljs-selector-tag">TAIL</span> (COLLECT (r)) <span class="hljs-selector-tag">as</span> <span class="hljs-selector-tag">rr</span> <span class="hljs-selector-tag">WHERE</span> <span class="hljs-selector-tag">size</span>(rr)&gt;<span class="hljs-selector-tag">0</span> <span class="hljs-selector-tag">FOREACH</span> (r IN rr | DELETE r)<br></code></pre></td></tr></table></figure></li>
 </ul>
+<h5 id="查询某节点深度关系"><a href="#查询某节点深度关系" class="headerlink" title="查询某节点深度关系"></a>查询某节点深度关系</h5><p>变长路径的模式</p>
+<ul>
+<li><p>(a)-[*2]-&gt;(b) : 表示路径长度为2， 起始节点是a，终止节点是b；</p>
+</li>
+<li><p>(a)-[*3..5]-&gt;(b) : 表示路径长度最小为2，最大为5， 起始节点是a，终止节点是b；</p>
+</li>
+<li><p>(a)-[*..5]-&gt;(b) : 表示路径长度最大为5， 起始节点是a，终止节点是b；</p>
+</li>
+<li><p>(a)-[*3..]-&gt;(b) : 表示路径长度最小为3， 起始节点是a，终止节点是b；</p>
+</li>
+<li><p>(a)-[*]-&gt;(b) : 表示不限制路径长度， 起始节点是a，终止节点是b；</p>
+</li>
+</ul>
+<ul>
+<li><p>所有深度</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">match</span><span class="hljs-params">(n:TargetGene&#123;name:<span class="hljs-string">&#x27;TOP2A&#x27;</span>&#125;)</span></span>-<span class="hljs-selector-attr">[r*]</span>-(m) return n,r,m limit <span class="hljs-number">100</span><br></code></pre></td></tr></table></figure></li>
+<li><p>指定深度</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">match</span><span class="hljs-params">(n:TargetGene&#123;name:<span class="hljs-string">&#x27;TOP2A&#x27;</span>&#125;)</span></span>-<span class="hljs-selector-attr">[r*..3]</span>-(m) return n,r,m limit <span class="hljs-number">100</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="查询某两个节点是否有关系"><a href="#查询某两个节点是否有关系" class="headerlink" title="查询某两个节点是否有关系"></a>查询某两个节点是否有关系</h5><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">match (:节点标签<span class="hljs-number">1</span>&#123;<span class="hljs-type">name</span>:<span class="hljs-string">&#x27;xx&#x27;</span>&#125;)-[r]-&gt;(:节点标签<span class="hljs-number">2</span>&#123;<span class="hljs-type">name</span>:<span class="hljs-string">&#x27;xx&#x27;</span>&#125;) <span class="hljs-keyword">return</span> r,<span class="hljs-keyword">type</span>(r)<br></code></pre></td></tr></table></figure>
+
+
+
+
 
             </div>
             <hr>
