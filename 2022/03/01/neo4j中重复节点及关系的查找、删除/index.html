@@ -24,7 +24,7 @@
 <meta property="og:description" content="Neo4j 查询、删除">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-01T08:59:20.000Z">
-<meta property="article:modified_time" content="2022-03-08T02:18:35.105Z">
+<meta property="article:modified_time" content="2022-03-08T07:02:43.354Z">
 <meta property="article:tag" content="Neo4j">
 <meta name="twitter:card" content="summary">
   
@@ -276,9 +276,9 @@
 </ul>
 <h5 id="查询重复关系"><a href="#查询重复关系" class="headerlink" title="查询重复关系"></a>查询重复关系</h5><ul>
 <li><p>查询</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">MATCH (<span class="hljs-keyword">a</span>)-[r]-&gt;(b) <br><span class="hljs-keyword">with</span> count(type(r)) <span class="hljs-keyword">as</span> <span class="hljs-built_in">num</span>,<span class="hljs-keyword">a</span>,b <br>where <span class="hljs-built_in">num</span> &gt;= <span class="hljs-number">2</span> <span class="hljs-literal">return</span> <span class="hljs-built_in">num</span>,<span class="hljs-keyword">a</span>,b LIMIT <span class="hljs-number">25</span><br></code></pre></td></tr></table></figure></li>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">MATCH (<span class="hljs-keyword">a</span>)-[r]-(b) <br><span class="hljs-keyword">with</span> count(type(r)) <span class="hljs-keyword">as</span> <span class="hljs-built_in">num</span>,<span class="hljs-keyword">a</span>,b <br>where <span class="hljs-built_in">num</span> &gt;= <span class="hljs-number">2</span> <span class="hljs-literal">return</span> <span class="hljs-built_in">num</span>,<span class="hljs-keyword">a</span>,b LIMIT <span class="hljs-number">25</span><br></code></pre></td></tr></table></figure></li>
 <li><p>删除</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">MATCH</span> (a)<span class="hljs-selector-tag">-</span><span class="hljs-selector-attr">[r]</span><span class="hljs-selector-tag">-</span>&gt;(b) <br><span class="hljs-selector-tag">WITH</span> <span class="hljs-selector-tag">a</span>, <span class="hljs-selector-tag">b</span>, <span class="hljs-selector-tag">TAIL</span> (COLLECT (r)) <span class="hljs-selector-tag">as</span> <span class="hljs-selector-tag">rr</span> <br><span class="hljs-selector-tag">WHERE</span> <span class="hljs-selector-tag">size</span>(rr)&gt;<span class="hljs-selector-tag">0</span> <br><span class="hljs-selector-tag">FOREACH</span> (r IN rr | DELETE r)<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">MATCH</span> (a)<span class="hljs-selector-tag">-</span><span class="hljs-selector-attr">[r]</span><span class="hljs-selector-tag">-</span>(b) <br><span class="hljs-selector-tag">WITH</span> <span class="hljs-selector-tag">a</span>, <span class="hljs-selector-tag">b</span>, <span class="hljs-selector-tag">TAIL</span> (COLLECT (r)) <span class="hljs-selector-tag">as</span> <span class="hljs-selector-tag">rr</span> <br><span class="hljs-selector-tag">WHERE</span> <span class="hljs-selector-tag">size</span>(rr)&gt;<span class="hljs-selector-tag">0</span> <br><span class="hljs-selector-tag">FOREACH</span> (r IN rr | DELETE r)<br></code></pre></td></tr></table></figure></li>
 </ul>
 <h5 id="查询某节点深度关系"><a href="#查询某节点深度关系" class="headerlink" title="查询某节点深度关系"></a>查询某节点深度关系</h5><p>变长路径的模式</p>
 <ul>
