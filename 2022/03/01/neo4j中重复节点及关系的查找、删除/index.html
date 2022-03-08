@@ -24,7 +24,7 @@
 <meta property="og:description" content="Neo4j 查询、删除">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-01T08:59:20.000Z">
-<meta property="article:modified_time" content="2022-03-07T03:55:39.893Z">
+<meta property="article:modified_time" content="2022-03-08T02:18:35.105Z">
 <meta property="article:tag" content="Neo4j">
 <meta name="twitter:card" content="summary">
   
@@ -314,7 +314,11 @@
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">MATCH (<span class="hljs-built_in">r</span>) DETACH DELETE <span class="hljs-built_in">r</span><br></code></pre></td></tr></table></figure></li>
 <li><p>删除一个标签中所有的节点</p>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">MATCH</span> (<span class="hljs-attribute">r</span>:Loc) <span class="hljs-selector-tag">DETACH</span> <span class="hljs-selector-tag">DELETE</span> <span class="hljs-selector-tag">r</span><br></code></pre></td></tr></table></figure></li>
+<li><p>删除标签</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clean">:schema    ### 查询标签所对应的索引<br></code></pre></td></tr></table></figure></li>
 </ul>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">drop</span> <span class="hljs-keyword">index</span> <span class="hljs-keyword">on</span> 索引名字<br></code></pre></td></tr></table></figure>
+<p>参考：<a target="_blank" rel="noopener" href="https://python.iitter.com/other/191720.html">https://python.iitter.com/other/191720.html</a></p>
 
             </div>
             <hr>
