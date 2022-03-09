@@ -1,569 +1,168 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
-  <link rel="icon" href="/img/avatar.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="自动微分机制">
-  <meta name="author" content="">
-  <meta name="keywords" content="">
-  <meta name="description" content="自动微分机制">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Pytorch学习笔记2-自动微分机制 | 梳碧湖</title><meta name="keywords" content="Pytorch"><meta name="author"><meta name="copyright"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="自动微分机制">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pytorch学习笔记2-自动微分机制">
 <meta property="og:url" content="https://shubihu.github.io/2022/01/18/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02-%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="梳碧湖">
 <meta property="og:description" content="自动微分机制">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
 <meta property="article:published_time" content="2022-01-18T06:05:15.000Z">
 <meta property="article:modified_time" content="2022-01-18T07:46:42.346Z">
 <meta property="article:tag" content="Pytorch">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://shubihu.github.io/2022/01/18/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02-%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86%E6%9C%BA%E5%88%B6/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Pytorch学习笔记2-自动微分机制',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-18 15:46:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
-    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"> <script src="/js/lantern.js"></script>
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
   
-  <title>Pytorch学习笔记2-自动微分机制 - 梳碧湖</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
     
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
     
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"shubihu.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"&#x1f496","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"FOWqJriwiUxghpNnDaD7X3ao-gzGzoHsz","app_key":"wgi1Wsw2eg7be0kqLc6vhVHj","server_url":"https://fowqjriw.lc-cn-n1-shared.com"}},"search_path":"/local-search.xml"};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>梳碧湖</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/cat/">
-                <i class="iconfont icon-brush"></i>
-                撸猫
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
-            </a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/yahaha.jpg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Pytorch学习笔记2-自动微分机制">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-01-18 14:05" pubdate>
-        2022年1月18日 下午
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      3.4k 字
-    </span>
-  
-
-  
-
-  
-  
-    
-      <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-page-views"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">Pytorch学习笔记2-自动微分机制</h1>
-            
-              <p class="note note-info">
-                
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：2 个月前
-                
-              </p>
-            
-            <div class="markdown-body">
-              <h2 id="自动微分机制"><a href="#自动微分机制" class="headerlink" title="自动微分机制"></a>自动微分机制</h2><span id="more"></span>
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">梳碧湖</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Pytorch学习笔记2-自动微分机制</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-18T06:05:15.000Z" title="发表于 2022-01-18 14:05:15">2022-01-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-18T07:46:42.346Z" title="更新于 2022-01-18 15:46:42">2022-01-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Pytorch/">Pytorch</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Pytorch学习笔记2-自动微分机制"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="自动微分机制"><a href="#自动微分机制" class="headerlink" title="自动微分机制"></a>自动微分机制</h2><span id="more"></span>
 <p>神经网络通常依赖反向传播求梯度来更新网络参数，求梯度过程通常是一件非常复杂而容易出错的事情。而深度学习框架可以帮助我们自动地完成这种求梯度运算。<br>Pytorch一般通过反向传播 backward 方法 实现这种求梯度计算。该方法求得的梯度将存在对应自变量张量的grad属性下。除此之外，也能够调用torch.autograd.grad 函数来实现求梯度计算。这就是Pytorch的自动微分机制。</p>
 <h5 id="利用backward方法求导数"><a href="#利用backward方法求导数" class="headerlink" title="利用backward方法求导数"></a>利用backward方法求导数</h5><p>backward 方法通常在一个标量张量上调用，该方法求得的梯度将存在对应自变量张量的grad属性下。如果调用的张量非标量，则要传入一个和它同形状 的gradient参数张量。相当于用该gradient参数张量与调用张量作向量点乘，得到的标量结果再反向传播。</p>
-<h6 id="标量的反向传播"><a href="#标量的反向传播" class="headerlink" title="标量的反向传播"></a>标量的反向传播</h6><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">import numpy as np <br>import torch <br><br># f(x) = a*x**2 <span class="hljs-code">+ b*x +</span> c的导数<br><br>x = torch.tensor(0.0,requires_grad = True) # x需要被求导<br>a = torch.tensor(1.0)<br>b = torch.tensor(-2.0)<br>c = torch.tensor(1.0)<br>y = a*torch.pow(x,2) <span class="hljs-code">+ b*x +</span> c <br><br>y.backward()<br>dy<span class="hljs-emphasis">_dx = x.grad</span><br><span class="hljs-emphasis">print(dy_</span>dx)<br><br>&#x27;&#x27;&#x27;<br><span class="hljs-code">	tensor(-2.)</span><br>&#x27;&#x27;&#x27;<br></code></pre></td></tr></table></figure>
+<h6 id="标量的反向传播"><a href="#标量的反向传播" class="headerlink" title="标量的反向传播"></a>标量的反向传播</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np </span><br><span class="line">import torch </span><br><span class="line"></span><br><span class="line"># f(x) = a*x**2 + b*x + c的导数</span><br><span class="line"></span><br><span class="line">x = torch.tensor(0.0,requires_grad = True) # x需要被求导</span><br><span class="line">a = torch.tensor(1.0)</span><br><span class="line">b = torch.tensor(-2.0)</span><br><span class="line">c = torch.tensor(1.0)</span><br><span class="line">y = a*torch.pow(x,2) + b*x + c </span><br><span class="line"></span><br><span class="line">y.backward()</span><br><span class="line">dy_dx = x.grad</span><br><span class="line">print(dy_dx)</span><br><span class="line"></span><br><span class="line">&#x27;&#x27;&#x27;</span><br><span class="line">	tensor(-2.)</span><br><span class="line">&#x27;&#x27;&#x27;</span><br></pre></td></tr></table></figure>
 
-<h6 id="非标量的反向传播"><a href="#非标量的反向传播" class="headerlink" title="非标量的反向传播"></a>非标量的反向传播</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <br><span class="hljs-keyword">import</span> torch <br><br><span class="hljs-comment"># f(x) = a*x**2 + b*x + c</span><br><br>x = torch.tensor([[<span class="hljs-number">0.0</span>,<span class="hljs-number">0.0</span>],[<span class="hljs-number">1.0</span>,<span class="hljs-number">2.0</span>]],requires_grad = <span class="hljs-literal">True</span>) <span class="hljs-comment"># x需要被求导</span><br>a = torch.tensor(<span class="hljs-number">1.0</span>)<br>b = torch.tensor(-<span class="hljs-number">2.0</span>)<br>c = torch.tensor(<span class="hljs-number">1.0</span>)<br>y = a*torch.<span class="hljs-built_in">pow</span>(x,<span class="hljs-number">2</span>) + b*x + c <br><br>gradient = torch.tensor([[<span class="hljs-number">1.0</span>,<span class="hljs-number">1.0</span>],[<span class="hljs-number">1.0</span>,<span class="hljs-number">1.0</span>]])<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;x:\n&quot;</span>,x)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;y:\n&quot;</span>,y)<br>y.backward(gradient = gradient)<br>x_grad = x.grad<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;x_grad:\n&quot;</span>,x_grad)<br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">	x:</span><br><span class="hljs-string">	 tensor([[0., 0.],</span><br><span class="hljs-string">	        [1., 2.]], requires_grad=True)</span><br><span class="hljs-string">	y:</span><br><span class="hljs-string">	 tensor([[1., 1.],</span><br><span class="hljs-string">	        [0., 1.]], grad_fn=&lt;AddBackward0&gt;)</span><br><span class="hljs-string">	x_grad:</span><br><span class="hljs-string">	 tensor([[-2., -2.],</span><br><span class="hljs-string">	        [ 0.,  2.]])</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
+<h6 id="非标量的反向传播"><a href="#非标量的反向传播" class="headerlink" title="非标量的反向传播"></a>非标量的反向传播</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np </span><br><span class="line">import torch </span><br><span class="line"></span><br><span class="line"># f(x) = a*x**2 + b*x + c</span><br><span class="line"></span><br><span class="line">x = torch.tensor([[0.0,0.0],[1.0,2.0]],requires_grad = True) # x需要被求导</span><br><span class="line">a = torch.tensor(1.0)</span><br><span class="line">b = torch.tensor(-2.0)</span><br><span class="line">c = torch.tensor(1.0)</span><br><span class="line">y = a*torch.pow(x,2) + b*x + c </span><br><span class="line"></span><br><span class="line">gradient = torch.tensor([[1.0,1.0],[1.0,1.0]])</span><br><span class="line"></span><br><span class="line">print(&quot;x:\n&quot;,x)</span><br><span class="line">print(&quot;y:\n&quot;,y)</span><br><span class="line">y.backward(gradient = gradient)</span><br><span class="line">x_grad = x.grad</span><br><span class="line">print(&quot;x_grad:\n&quot;,x_grad)</span><br><span class="line"></span><br><span class="line">&#x27;&#x27;&#x27;</span><br><span class="line">	x:</span><br><span class="line">	 tensor([[0., 0.],</span><br><span class="line">	        [1., 2.]], requires_grad=True)</span><br><span class="line">	y:</span><br><span class="line">	 tensor([[1., 1.],</span><br><span class="line">	        [0., 1.]], grad_fn=&lt;AddBackward0&gt;)</span><br><span class="line">	x_grad:</span><br><span class="line">	 tensor([[-2., -2.],</span><br><span class="line">	        [ 0.,  2.]])</span><br><span class="line">&#x27;&#x27;&#x27;</span><br></pre></td></tr></table></figure>
 
-<h6 id="非标量的反向传播可以用标量的反向传播实现"><a href="#非标量的反向传播可以用标量的反向传播实现" class="headerlink" title="非标量的反向传播可以用标量的反向传播实现"></a>非标量的反向传播可以用标量的反向传播实现</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <br><span class="hljs-keyword">import</span> torch <br><br><span class="hljs-comment"># f(x) = a*x**2 + b*x + c</span><br><br>x = torch.tensor([[<span class="hljs-number">0.0</span>,<span class="hljs-number">0.0</span>],[<span class="hljs-number">1.0</span>,<span class="hljs-number">2.0</span>]],requires_grad = <span class="hljs-literal">True</span>) <span class="hljs-comment"># x需要被求导</span><br>a = torch.tensor(<span class="hljs-number">1.0</span>)<br>b = torch.tensor(-<span class="hljs-number">2.0</span>)<br>c = torch.tensor(<span class="hljs-number">1.0</span>)<br>y = a*torch.<span class="hljs-built_in">pow</span>(x,<span class="hljs-number">2</span>) + b*x + c <br><br>gradient = torch.tensor([[<span class="hljs-number">1.0</span>,<span class="hljs-number">1.0</span>],[<span class="hljs-number">1.0</span>,<span class="hljs-number">1.0</span>]])<br>z = torch.<span class="hljs-built_in">sum</span>(y*gradient)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;x:&quot;</span>,x)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;y:&quot;</span>,y)<br>z.backward()<br>x_grad = x.grad<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;x_grad:\n&quot;</span>,x_grad)<br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">	x: tensor([[0., 0.],</span><br><span class="hljs-string">	        [1., 2.]], requires_grad=True)</span><br><span class="hljs-string">	y: tensor([[1., 1.],</span><br><span class="hljs-string">	        [0., 1.]], grad_fn=&lt;AddBackward0&gt;)</span><br><span class="hljs-string">	x_grad:</span><br><span class="hljs-string">	 tensor([[-2., -2.],</span><br><span class="hljs-string">	        [ 0.,  2.]])</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
+<h6 id="非标量的反向传播可以用标量的反向传播实现"><a href="#非标量的反向传播可以用标量的反向传播实现" class="headerlink" title="非标量的反向传播可以用标量的反向传播实现"></a>非标量的反向传播可以用标量的反向传播实现</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np </span><br><span class="line">import torch </span><br><span class="line"></span><br><span class="line"># f(x) = a*x**2 + b*x + c</span><br><span class="line"></span><br><span class="line">x = torch.tensor([[0.0,0.0],[1.0,2.0]],requires_grad = True) # x需要被求导</span><br><span class="line">a = torch.tensor(1.0)</span><br><span class="line">b = torch.tensor(-2.0)</span><br><span class="line">c = torch.tensor(1.0)</span><br><span class="line">y = a*torch.pow(x,2) + b*x + c </span><br><span class="line"></span><br><span class="line">gradient = torch.tensor([[1.0,1.0],[1.0,1.0]])</span><br><span class="line">z = torch.sum(y*gradient)</span><br><span class="line"></span><br><span class="line">print(&quot;x:&quot;,x)</span><br><span class="line">print(&quot;y:&quot;,y)</span><br><span class="line">z.backward()</span><br><span class="line">x_grad = x.grad</span><br><span class="line">print(&quot;x_grad:\n&quot;,x_grad)</span><br><span class="line"></span><br><span class="line">&#x27;&#x27;&#x27;</span><br><span class="line">	x: tensor([[0., 0.],</span><br><span class="line">	        [1., 2.]], requires_grad=True)</span><br><span class="line">	y: tensor([[1., 1.],</span><br><span class="line">	        [0., 1.]], grad_fn=&lt;AddBackward0&gt;)</span><br><span class="line">	x_grad:</span><br><span class="line">	 tensor([[-2., -2.],</span><br><span class="line">	        [ 0.,  2.]])</span><br><span class="line">&#x27;&#x27;&#x27;</span><br></pre></td></tr></table></figure>
 
-<h5 id="利用autograd-grad方法求导数"><a href="#利用autograd-grad方法求导数" class="headerlink" title="利用autograd.grad方法求导数"></a>利用autograd.grad方法求导数</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <br><span class="hljs-keyword">import</span> torch <br><br><span class="hljs-comment"># f(x) = a*x**2 + b*x + c的导数</span><br><br>x = torch.tensor(<span class="hljs-number">0.0</span>,requires_grad = <span class="hljs-literal">True</span>) <span class="hljs-comment"># x需要被求导</span><br>a = torch.tensor(<span class="hljs-number">1.0</span>)<br>b = torch.tensor(-<span class="hljs-number">2.0</span>)<br>c = torch.tensor(<span class="hljs-number">1.0</span>)<br>y = a*torch.<span class="hljs-built_in">pow</span>(x,<span class="hljs-number">2</span>) + b*x + c<br><br><br><span class="hljs-comment"># create_graph 设置为 True 将允许创建更高阶的导数 </span><br>dy_dx = torch.autograd.grad(y,x,create_graph=<span class="hljs-literal">True</span>)[<span class="hljs-number">0</span>]<br><span class="hljs-built_in">print</span>(dy_dx.data)<br><br><span class="hljs-comment"># 求二阶导数</span><br>dy2_dx2 = torch.autograd.grad(dy_dx,x)[<span class="hljs-number">0</span>] <br><br><span class="hljs-built_in">print</span>(dy2_dx2.data)<br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">	tensor(-2.)</span><br><span class="hljs-string">	tensor(2.)</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
+<h5 id="利用autograd-grad方法求导数"><a href="#利用autograd-grad方法求导数" class="headerlink" title="利用autograd.grad方法求导数"></a>利用autograd.grad方法求导数</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np </span><br><span class="line">import torch </span><br><span class="line"></span><br><span class="line"># f(x) = a*x**2 + b*x + c的导数</span><br><span class="line"></span><br><span class="line">x = torch.tensor(0.0,requires_grad = True) # x需要被求导</span><br><span class="line">a = torch.tensor(1.0)</span><br><span class="line">b = torch.tensor(-2.0)</span><br><span class="line">c = torch.tensor(1.0)</span><br><span class="line">y = a*torch.pow(x,2) + b*x + c</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># create_graph 设置为 True 将允许创建更高阶的导数 </span><br><span class="line">dy_dx = torch.autograd.grad(y,x,create_graph=True)[0]</span><br><span class="line">print(dy_dx.data)</span><br><span class="line"></span><br><span class="line"># 求二阶导数</span><br><span class="line">dy2_dx2 = torch.autograd.grad(dy_dx,x)[0] </span><br><span class="line"></span><br><span class="line">print(dy2_dx2.data)</span><br><span class="line"></span><br><span class="line">&#x27;&#x27;&#x27;</span><br><span class="line">	tensor(-2.)</span><br><span class="line">	tensor(2.)</span><br><span class="line">&#x27;&#x27;&#x27;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">import numpy as np <br>import torch <br><br>x1 = torch.tensor(1.0,requires<span class="hljs-emphasis">_grad = True) # x需要被求导</span><br><span class="hljs-emphasis">x2 = torch.tensor(2.0,requires_</span>grad = True)<br><br>y1 = x1*x2<br>y2 = x1+x2<br><br><br># 允许同时对多个自变量求导数<br>(dy1<span class="hljs-emphasis">_dx1,dy1_dx2) = torch.autograd.grad(outputs=y1,inputs = [x1,x2],retain_graph = True)</span><br><span class="hljs-emphasis">print(dy1_dx1,dy1_</span>dx2)<br><br># 如果有多个因变量，相当于把多个因变量的梯度结果求和<br>(dy12<span class="hljs-emphasis">_dx1,dy12_dx2) = torch.autograd.grad(outputs=[y1,y2],inputs = [x1,x2])</span><br><span class="hljs-emphasis">print(dy12_dx1,dy12_</span>dx2)<br><br>&#x27;&#x27;&#x27;<br><span class="hljs-code">	tensor(2.) tensor(1.)</span><br><span class="hljs-code">	tensor(3.) tensor(2.)</span><br>&#x27;&#x27;&#x27;<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np </span><br><span class="line">import torch </span><br><span class="line"></span><br><span class="line">x1 = torch.tensor(1.0,requires_grad = True) # x需要被求导</span><br><span class="line">x2 = torch.tensor(2.0,requires_grad = True)</span><br><span class="line"></span><br><span class="line">y1 = x1*x2</span><br><span class="line">y2 = x1+x2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 允许同时对多个自变量求导数</span><br><span class="line">(dy1_dx1,dy1_dx2) = torch.autograd.grad(outputs=y1,inputs = [x1,x2],retain_graph = True)</span><br><span class="line">print(dy1_dx1,dy1_dx2)</span><br><span class="line"></span><br><span class="line"># 如果有多个因变量，相当于把多个因变量的梯度结果求和</span><br><span class="line">(dy12_dx1,dy12_dx2) = torch.autograd.grad(outputs=[y1,y2],inputs = [x1,x2])</span><br><span class="line">print(dy12_dx1,dy12_dx2)</span><br><span class="line"></span><br><span class="line">&#x27;&#x27;&#x27;</span><br><span class="line">	tensor(2.) tensor(1.)</span><br><span class="line">	tensor(3.) tensor(2.)</span><br><span class="line">&#x27;&#x27;&#x27;</span><br></pre></td></tr></table></figure>
 
-<h5 id="利用自动微分和优化器求最小值"><a href="#利用自动微分和优化器求最小值" class="headerlink" title="利用自动微分和优化器求最小值"></a>利用自动微分和优化器求最小值</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <br><span class="hljs-keyword">import</span> torch <br><br><span class="hljs-comment"># f(x) = a*x**2 + b*x + c的最小值</span><br><br>x = torch.tensor(<span class="hljs-number">0.0</span>,requires_grad = <span class="hljs-literal">True</span>) <span class="hljs-comment"># x需要被求导</span><br>a = torch.tensor(<span class="hljs-number">1.0</span>)<br>b = torch.tensor(-<span class="hljs-number">2.0</span>)<br>c = torch.tensor(<span class="hljs-number">1.0</span>)<br><br>optimizer = torch.optim.SGD(params=[x],lr = <span class="hljs-number">0.01</span>)<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">f</span>(<span class="hljs-params">x</span>):</span><br>    result = a*torch.<span class="hljs-built_in">pow</span>(x,<span class="hljs-number">2</span>) + b*x + c <br>    <span class="hljs-keyword">return</span>(result)<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">500</span>):<br>    optimizer.zero_grad()<br>    y = f(x)<br>    y.backward()<br>    optimizer.step()<br>   <br>    <br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;y=&quot;</span>,f(x).data,<span class="hljs-string">&quot;;&quot;</span>,<span class="hljs-string">&quot;x=&quot;</span>,x.data)<br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">	y= tensor(0.) ; x= tensor(1.0000)</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
+<h5 id="利用自动微分和优化器求最小值"><a href="#利用自动微分和优化器求最小值" class="headerlink" title="利用自动微分和优化器求最小值"></a>利用自动微分和优化器求最小值</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np </span><br><span class="line">import torch </span><br><span class="line"></span><br><span class="line"># f(x) = a*x**2 + b*x + c的最小值</span><br><span class="line"></span><br><span class="line">x = torch.tensor(0.0,requires_grad = True) # x需要被求导</span><br><span class="line">a = torch.tensor(1.0)</span><br><span class="line">b = torch.tensor(-2.0)</span><br><span class="line">c = torch.tensor(1.0)</span><br><span class="line"></span><br><span class="line">optimizer = torch.optim.SGD(params=[x],lr = 0.01)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def f(x):</span><br><span class="line">    result = a*torch.pow(x,2) + b*x + c </span><br><span class="line">    return(result)</span><br><span class="line"></span><br><span class="line">for i in range(500):</span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    y = f(x)</span><br><span class="line">    y.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">   </span><br><span class="line">    </span><br><span class="line">print(&quot;y=&quot;,f(x).data,&quot;;&quot;,&quot;x=&quot;,x.data)</span><br><span class="line"></span><br><span class="line">&#x27;&#x27;&#x27;</span><br><span class="line">	y= tensor(0.) ; x= tensor(1.0000)</span><br><span class="line">&#x27;&#x27;&#x27;</span><br></pre></td></tr></table></figure>
 
 <p>搬运自：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.heywhale.com/home/competition/61bff9a84b63a700179b7f8d/content/1">https://www.heywhale.com/home/competition/61bff9a84b63a700179b7f8d/content/1</a></li>
 </ul>
-
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Pytorch/">Pytorch</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Pytorch/">Pytorch</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">
-                  
-                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
-                  
-                </p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2022/01/18/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03-%E5%8A%A8%E6%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Pytorch学习笔记3-动态计算图</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2022/01/18/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01-%E5%BC%A0%E9%87%8F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                        <span class="hidden-mobile">Pytorch学习笔记1-张量数据结构</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments" lazyload>
-                
-                  
-                
-                
-  <div id="valine"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#valine', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
-        var options = Object.assign(
-          {"appId":"FOWqJriwiUxghpNnDaD7X3ao-gzGzoHsz","appKey":"wgi1Wsw2eg7be0kqLc6vhVHj","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
-          {
-            el: "#valine",
-            path: window.location.pathname
-          }
-        )
-        new Valine(options);
-        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
-          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
-        })
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-      </div>
-    
-  </div>
-</div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
-      <div class="col-lg-7 mx-auto nopadding-x-md">
-        <div class="container custom mx-auto">
-          <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script> <script src="/js/wanko.js"></script>
-        </div>
-      </div>
-    
-  </main>
-
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- LeanCloud 统计PV -->
-        <span id="leancloud-site-pv-container" style="display: none">
-            总访问量 
-            <span id="leancloud-site-pv"></span>
-             次
-          </span>
-      
-      
-        <!-- LeanCloud 统计UV -->
-        <span id="leancloud-site-uv-container" style="display: none">
-            总访客数 
-            <span id="leancloud-site-uv"></span>
-             人
-          </span>
-      
-
-    
-  </div>
-
-
-  
-
-  
-</footer>
-
-
-  <!-- SCRIPTS -->
-  
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-  
-
-
-
-  
-    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
-  
-  
-    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-  
-  
-    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
-  
-  
-    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
-  
-
-
-
-
-  <script defer src="/js/leancloud.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-
-  
-<script src="/js/xin.js"></script>
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
-
-
-<!-- hexo injector body_end start -->
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined"></a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://shubihu.github.io/2022/01/18/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02-%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86%E6%9C%BA%E5%88%B6/">https://shubihu.github.io/2022/01/18/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02-%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86%E6%9C%BA%E5%88%B6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://shubihu.github.io" target="_blank">梳碧湖</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Pytorch/">Pytorch</a></div><div class="post_share"><div class="social-share" data-image="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/01/18/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03-%E5%8A%A8%E6%80%81%E8%AE%A1%E7%AE%97%E5%9B%BE/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Pytorch学习笔记3-动态计算图</div></div></a></div><div class="next-post pull-right"><a href="/2022/01/18/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01-%E5%BC%A0%E9%87%8F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Pytorch学习笔记1-张量数据结构</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/09/16/Pytorch-learning/" title="Pytorch 学习入门"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-09-16</div><div class="title">Pytorch 学习入门</div></div></a></div><div><a href="/2022/02/07/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B011-%E6%9E%84%E5%BB%BA%E6%A8%A1%E5%9E%8B%E7%9A%843%E7%A7%8D%E6%96%B9%E6%B3%95/" title="Pytorch学习笔记11-构建模型的3种方法"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">Pytorch学习笔记11-构建模型的3种方法</div></div></a></div><div><a href="/2022/01/29/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B010-TensorBoard%E5%8F%AF%E8%A7%86%E5%8C%96/" title="Pytorch学习笔记10-TensorBoard可视化"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-29</div><div class="title">Pytorch学习笔记10-TensorBoard可视化</div></div></a></div><div><a href="/2022/01/18/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01-%E5%BC%A0%E9%87%8F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" title="Pytorch学习笔记1-张量数据结构"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-18</div><div class="title">Pytorch学习笔记1-张量数据结构</div></div></a></div><div><a href="/2022/02/08/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B014-%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%E6%B5%81%E7%A8%8B%E8%8C%83%E4%BE%8B/" title="Pytorch学习笔记14-结构化数据建模流程范例"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-08</div><div class="title">Pytorch学习笔记14-结构化数据建模流程范例</div></div></a></div><div><a href="/2022/02/07/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B012-%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E7%9A%843%E7%A7%8D%E6%96%B9%E6%B3%95/" title="Pytorch学习笔记12-训练模型的3种方法"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">Pytorch学习笔记12-训练模型的3种方法</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name"></div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86%E6%9C%BA%E5%88%B6"><span class="toc-number">1.</span> <span class="toc-text">自动微分机制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A9%E7%94%A8backward%E6%96%B9%E6%B3%95%E6%B1%82%E5%AF%BC%E6%95%B0"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">利用backward方法求导数</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%A0%87%E9%87%8F%E7%9A%84%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="toc-number">1.0.0.1.1.</span> <span class="toc-text">标量的反向传播</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%9D%9E%E6%A0%87%E9%87%8F%E7%9A%84%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="toc-number">1.0.0.1.2.</span> <span class="toc-text">非标量的反向传播</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%9D%9E%E6%A0%87%E9%87%8F%E7%9A%84%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%A0%87%E9%87%8F%E7%9A%84%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.0.0.1.3.</span> <span class="toc-text">非标量的反向传播可以用标量的反向传播实现</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A9%E7%94%A8autograd-grad%E6%96%B9%E6%B3%95%E6%B1%82%E5%AF%BC%E6%95%B0"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">利用autograd.grad方法求导数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86%E5%92%8C%E4%BC%98%E5%8C%96%E5%99%A8%E6%B1%82%E6%9C%80%E5%B0%8F%E5%80%BC"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">利用自动微分和优化器求最小值</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/01/neo4j%E4%B8%AD%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9%E5%8F%8A%E5%85%B3%E7%B3%BB%E7%9A%84%E6%9F%A5%E6%89%BE%E3%80%81%E5%88%A0%E9%99%A4/" title="neo4j中节点及关系的查询、删除等"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="neo4j中节点及关系的查询、删除等"/></a><div class="content"><a class="title" href="/2022/03/01/neo4j%E4%B8%AD%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9%E5%8F%8A%E5%85%B3%E7%B3%BB%E7%9A%84%E6%9F%A5%E6%89%BE%E3%80%81%E5%88%A0%E9%99%A4/" title="neo4j中节点及关系的查询、删除等">neo4j中节点及关系的查询、删除等</a><time datetime="2022-03-01T08:59:20.000Z" title="发表于 2022-03-01 16:59:20">2022-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/01/cpp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B003/" title="cpp学习笔记03"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="cpp学习笔记03"/></a><div class="content"><a class="title" href="/2022/03/01/cpp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B003/" title="cpp学习笔记03">cpp学习笔记03</a><time datetime="2022-03-01T06:40:11.000Z" title="发表于 2022-03-01 14:40:11">2022-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/01/cpp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B002/" title="cpp学习笔记02"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="cpp学习笔记02"/></a><div class="content"><a class="title" href="/2022/03/01/cpp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B002/" title="cpp学习笔记02">cpp学习笔记02</a><time datetime="2022-03-01T06:33:56.000Z" title="发表于 2022-03-01 14:33:56">2022-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/01/cpp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/" title="cpp学习笔记01"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="cpp学习笔记01"/></a><div class="content"><a class="title" href="/2022/03/01/cpp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/" title="cpp学习笔记01">cpp学习笔记01</a><time datetime="2022-03-01T06:27:38.000Z" title="发表于 2022-03-01 14:27:38">2022-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/23/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93neo4j-Echarts%E5%8F%AF%E8%A7%86%E5%8C%96/" title="图数据库neo4j-Echarts可视化"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图数据库neo4j-Echarts可视化"/></a><div class="content"><a class="title" href="/2022/02/23/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93neo4j-Echarts%E5%8F%AF%E8%A7%86%E5%8C%96/" title="图数据库neo4j-Echarts可视化">图数据库neo4j-Echarts可视化</a><time datetime="2022-02-23T07:19:14.000Z" title="发表于 2022-02-23 15:19:14">2022-02-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By null</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start -->
   <div id="aplayer"></div>
   <link defer rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
   <script src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js"></script>
   <script defer src="/js/aplayer.js"></script>
-<!-- hexo injector body_end end --></body>
-</html>
+<!-- hexo injector body_end end --></body></html>

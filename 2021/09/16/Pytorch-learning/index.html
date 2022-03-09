@@ -1,281 +1,165 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
-  <link rel="icon" href="/img/avatar.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="Pytorch Learning Note">
-  <meta name="author" content="">
-  <meta name="keywords" content="">
-  <meta name="description" content="Pytorch Learning Note">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Pytorch 学习入门 | 梳碧湖</title><meta name="keywords" content="Pytorch"><meta name="author"><meta name="copyright"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Pytorch Learning Note">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pytorch 学习入门">
 <meta property="og:url" content="https://shubihu.github.io/2021/09/16/Pytorch-learning/index.html">
 <meta property="og:site_name" content="梳碧湖">
 <meta property="og:description" content="Pytorch Learning Note">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
 <meta property="article:published_time" content="2021-09-16T06:22:40.000Z">
 <meta property="article:modified_time" content="2022-01-17T01:28:20.623Z">
 <meta property="article:tag" content="Pytorch">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://shubihu.github.io/2021/09/16/Pytorch-learning/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Pytorch 学习入门',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-17 09:28:20'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
-    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"> <script src="/js/lantern.js"></script>
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
   
-  <title>Pytorch 学习入门 - 梳碧湖</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
     
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
     
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"shubihu.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"&#x1f496","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"FOWqJriwiUxghpNnDaD7X3ao-gzGzoHsz","app_key":"wgi1Wsw2eg7be0kqLc6vhVHj","server_url":"https://fowqjriw.lc-cn-n1-shared.com"}},"search_path":"/local-search.xml"};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>梳碧湖</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/cat/">
-                <i class="iconfont icon-brush"></i>
-                撸猫
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
-            </a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/yahaha.jpg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Pytorch 学习入门">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-09-16 14:22" pubdate>
-        2021年9月16日 下午
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      9.6k 字
-    </span>
-  
-
-  
-
-  
-  
-    
-      <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-page-views"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">Pytorch 学习入门</h1>
-            
-              <p class="note note-info">
-                
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：2 个月前
-                
-              </p>
-            
-            <div class="markdown-body">
-              <h2 id="Pytorch-Learning-Note"><a href="#Pytorch-Learning-Note" class="headerlink" title="Pytorch Learning Note"></a>Pytorch Learning Note</h2><span id="more"></span>
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">梳碧湖</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Pytorch 学习入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-09-16T06:22:40.000Z" title="发表于 2021-09-16 14:22:40">2021-09-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-17T01:28:20.623Z" title="更新于 2022-01-17 09:28:20">2022-01-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Python/">Python</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Pytorch 学习入门"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Pytorch-Learning-Note"><a href="#Pytorch-Learning-Note" class="headerlink" title="Pytorch Learning Note"></a>Pytorch Learning Note</h2><span id="more"></span>
 <h5 id="torch-nn"><a href="#torch-nn" class="headerlink" title="torch.nn"></a>torch.nn</h5><p>Module：创建一个行为类似于函数的可调用对象，但也可以包含状态（例如神经网络层权重）。 它知道其中包含的 Parameter ，并且可以将其所有坡度归零，遍历它们以进行权重更新等。<br>Parameter：张量的包装器，用于告知 Module 具有在反向传播期间需要更新的权重。 仅更新具有require_grad属性集的张量<br>functional：一个模块（通常按照惯例导入到 F 名称空间中），其中包含激活函数，损失函数等。 以及卷积和线性层等层的无状态版本。</p>
 <h5 id="torch-optim"><a href="#torch-optim" class="headerlink" title="torch.optim"></a>torch.optim</h5><p>包含诸如 SGD 的优化程序，这些优化程序在后退步骤</p>
 <h5 id="Dataset"><a href="#Dataset" class="headerlink" title="Dataset"></a>Dataset</h5><p>更新 Parameter 的权重。 具有__len__和__getitem__的对象，包括 Pytorch 提供的类，例如 TensorDataset</p>
 <h5 id="DataLoader"><a href="#DataLoader" class="headerlink" title="DataLoader"></a>DataLoader</h5><p>获取任何 Dataset 并创建一个迭代器，该迭代器返回批量数据。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> Path<br><span class="hljs-keyword">import</span> requests<br><br>DATA_PATH = Path(<span class="hljs-string">&quot;data&quot;</span>)<br>PATH = DATA_PATH / <span class="hljs-string">&quot;mnist&quot;</span><br><br>PATH.mkdir(parents=<span class="hljs-literal">True</span>, exist_ok=<span class="hljs-literal">True</span>)<br><br>URL = <span class="hljs-string">&quot;https://github.com/pytorch/tutorials/raw/master/_static/&quot;</span><br>FILENAME = <span class="hljs-string">&quot;mnist.pkl.gz&quot;</span><br><br><span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> (PATH / FILENAME).exists():<br>        content = requests.get(URL + FILENAME).content<br>        (PATH / FILENAME).<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;wb&quot;</span>).write(content)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">DATA_PATH = Path(<span class="string">&quot;data&quot;</span>)</span><br><span class="line">PATH = DATA_PATH / <span class="string">&quot;mnist&quot;</span></span><br><span class="line"></span><br><span class="line">PATH.mkdir(parents=<span class="literal">True</span>, exist_ok=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">URL = <span class="string">&quot;https://github.com/pytorch/tutorials/raw/master/_static/&quot;</span></span><br><span class="line">FILENAME = <span class="string">&quot;mnist.pkl.gz&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> (PATH / FILENAME).exists():</span><br><span class="line">        content = requests.get(URL + FILENAME).content</span><br><span class="line">        (PATH / FILENAME).<span class="built_in">open</span>(<span class="string">&quot;wb&quot;</span>).write(content)</span><br></pre></td></tr></table></figure>
 
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pickle<br><span class="hljs-keyword">import</span> gzip<br><br><span class="hljs-keyword">with</span> gzip.<span class="hljs-built_in">open</span>((PATH / FILENAME).as_posix(), <span class="hljs-string">&quot;rb&quot;</span>) <span class="hljs-keyword">as</span> f:<br>        ((x_train, y_train), (x_valid, y_valid), _) = pickle.load(f, encoding=<span class="hljs-string">&quot;latin-1&quot;</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> gzip</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> gzip.<span class="built_in">open</span>((PATH / FILENAME).as_posix(), <span class="string">&quot;rb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        ((x_train, y_train), (x_valid, y_valid), _) = pickle.load(f, encoding=<span class="string">&quot;latin-1&quot;</span>)</span><br></pre></td></tr></table></figure>
 
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> matplotlib <span class="hljs-keyword">import</span> pyplot<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br>pyplot.imshow(x_train[<span class="hljs-number">0</span>].reshape((<span class="hljs-number">28</span>, <span class="hljs-number">28</span>)), cmap=<span class="hljs-string">&quot;gray&quot;</span>)<br><span class="hljs-built_in">print</span>(x_train.shape)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">pyplot.imshow(x_train[<span class="number">0</span>].reshape((<span class="number">28</span>, <span class="number">28</span>)), cmap=<span class="string">&quot;gray&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(x_train.shape)</span><br></pre></td></tr></table></figure>
 
 <pre><code>(50000, 784)
 </code></pre>
 <!-- ![png](output_2_1.png) -->
 
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><br>x_train, y_train, x_valid, y_valid = <span class="hljs-built_in">map</span>(<br>    torch.tensor, (x_train, y_train, x_valid, y_valid)<br>)<br>n, c = x_train.shape<br>x_train, x_train.shape, y_train.<span class="hljs-built_in">min</span>(), y_train.<span class="hljs-built_in">max</span>()<br><span class="hljs-built_in">print</span>(x_train, y_train)<br><span class="hljs-built_in">print</span>(x_train.shape)<br><span class="hljs-built_in">print</span>(y_train.<span class="hljs-built_in">min</span>(), y_train.<span class="hljs-built_in">max</span>())<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line">x_train, y_train, x_valid, y_valid = <span class="built_in">map</span>(</span><br><span class="line">    torch.tensor, (x_train, y_train, x_valid, y_valid)</span><br><span class="line">)</span><br><span class="line">n, c = x_train.shape</span><br><span class="line">x_train, x_train.shape, y_train.<span class="built_in">min</span>(), y_train.<span class="built_in">max</span>()</span><br><span class="line"><span class="built_in">print</span>(x_train, y_train)</span><br><span class="line"><span class="built_in">print</span>(x_train.shape)</span><br><span class="line"><span class="built_in">print</span>(y_train.<span class="built_in">min</span>(), y_train.<span class="built_in">max</span>())</span><br></pre></td></tr></table></figure>
 
 <pre><code>tensor([[0., 0., 0.,  ..., 0., 0., 0.],
         [0., 0., 0.,  ..., 0., 0., 0.],
@@ -287,7 +171,7 @@
 torch.Size([50000, 784])
 tensor(0) tensor(9)
 </code></pre>
-<h5 id="从0构建神经网络线性模型"><a href="#从0构建神经网络线性模型" class="headerlink" title="从0构建神经网络线性模型"></a>从0构建神经网络线性模型</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> math<br><br>weights = torch.randn(<span class="hljs-number">784</span>, <span class="hljs-number">10</span>) / math.sqrt(<span class="hljs-number">784</span>)<br>weights.requires_grad_()<br>bias = torch.zeros(<span class="hljs-number">10</span>, requires_grad=<span class="hljs-literal">True</span>)<br><br><span class="hljs-comment">## softmax激活函数</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">log_softmax</span>(<span class="hljs-params">x</span>):</span><br>    <span class="hljs-keyword">return</span> x - x.exp().<span class="hljs-built_in">sum</span>(-<span class="hljs-number">1</span>).log().unsqueeze(-<span class="hljs-number">1</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">model</span>(<span class="hljs-params">xb</span>):</span><br>    <span class="hljs-keyword">return</span> log_softmax(xb @ weights + bias)  <span class="hljs-comment">#  @代表点积运算</span><br><br>bs = <span class="hljs-number">64</span>  <span class="hljs-comment"># batch size</span><br><br>xb = x_train[<span class="hljs-number">0</span>:bs]  <span class="hljs-comment"># a mini-batch from x</span><br>preds = model(xb)  <span class="hljs-comment"># predictions</span><br>preds[<span class="hljs-number">0</span>], preds.shape<br><span class="hljs-built_in">print</span>(preds[<span class="hljs-number">0</span>], preds.shape)<br><br><span class="hljs-comment">## 损失函数</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">nll</span>(<span class="hljs-params"><span class="hljs-built_in">input</span>, target</span>):</span><br>    <span class="hljs-keyword">return</span> -<span class="hljs-built_in">input</span>[<span class="hljs-built_in">range</span>(target.shape[<span class="hljs-number">0</span>]), target].mean()<br><br>loss_func = nll<br><br>yb = y_train[<span class="hljs-number">0</span>:bs]<br><span class="hljs-built_in">print</span>(loss_func(preds, yb))<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">accuracy</span>(<span class="hljs-params">out, yb</span>):</span><br>    preds = torch.argmax(out, dim=<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> (preds == yb).<span class="hljs-built_in">float</span>().mean()<br><br><span class="hljs-built_in">print</span>(accuracy(preds, yb))<br><br><span class="hljs-keyword">from</span> IPython.core.debugger <span class="hljs-keyword">import</span> set_trace<br><br>lr = <span class="hljs-number">0.5</span>  <span class="hljs-comment"># learning rate</span><br>epochs = <span class="hljs-number">2</span>  <span class="hljs-comment"># how many epochs to train for</span><br><br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>((n - <span class="hljs-number">1</span>) // bs + <span class="hljs-number">1</span>):<br>        <span class="hljs-comment">#         set_trace()</span><br>        start_i = i * bs<br>        end_i = start_i + bs<br>        xb = x_train[start_i:end_i]<br>        yb = y_train[start_i:end_i]<br>        pred = model(xb)<br>        loss = loss_func(pred, yb)<br><br>        loss.backward()<br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            weights -= weights.grad * lr<br>            bias -= bias.grad * lr<br>            weights.grad.zero_()<br>            bias.grad.zero_()<br>            <br><span class="hljs-built_in">print</span>(loss_func(model(xb), yb), accuracy(model(xb), yb))<br><br></code></pre></td></tr></table></figure>
+<h5 id="从0构建神经网络线性模型"><a href="#从0构建神经网络线性模型" class="headerlink" title="从0构建神经网络线性模型"></a>从0构建神经网络线性模型</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line">weights = torch.randn(<span class="number">784</span>, <span class="number">10</span>) / math.sqrt(<span class="number">784</span>)</span><br><span class="line">weights.requires_grad_()</span><br><span class="line">bias = torch.zeros(<span class="number">10</span>, requires_grad=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">## softmax激活函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log_softmax</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> x - x.exp().<span class="built_in">sum</span>(-<span class="number">1</span>).log().unsqueeze(-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">model</span>(<span class="params">xb</span>):</span></span><br><span class="line">    <span class="keyword">return</span> log_softmax(xb @ weights + bias)  <span class="comment">#  @代表点积运算</span></span><br><span class="line"></span><br><span class="line">bs = <span class="number">64</span>  <span class="comment"># batch size</span></span><br><span class="line"></span><br><span class="line">xb = x_train[<span class="number">0</span>:bs]  <span class="comment"># a mini-batch from x</span></span><br><span class="line">preds = model(xb)  <span class="comment"># predictions</span></span><br><span class="line">preds[<span class="number">0</span>], preds.shape</span><br><span class="line"><span class="built_in">print</span>(preds[<span class="number">0</span>], preds.shape)</span><br><span class="line"></span><br><span class="line"><span class="comment">## 损失函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nll</span>(<span class="params"><span class="built_in">input</span>, target</span>):</span></span><br><span class="line">    <span class="keyword">return</span> -<span class="built_in">input</span>[<span class="built_in">range</span>(target.shape[<span class="number">0</span>]), target].mean()</span><br><span class="line"></span><br><span class="line">loss_func = nll</span><br><span class="line"></span><br><span class="line">yb = y_train[<span class="number">0</span>:bs]</span><br><span class="line"><span class="built_in">print</span>(loss_func(preds, yb))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">accuracy</span>(<span class="params">out, yb</span>):</span></span><br><span class="line">    preds = torch.argmax(out, dim=<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> (preds == yb).<span class="built_in">float</span>().mean()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(accuracy(preds, yb))</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> IPython.core.debugger <span class="keyword">import</span> set_trace</span><br><span class="line"></span><br><span class="line">lr = <span class="number">0.5</span>  <span class="comment"># learning rate</span></span><br><span class="line">epochs = <span class="number">2</span>  <span class="comment"># how many epochs to train for</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(epochs):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>((n - <span class="number">1</span>) // bs + <span class="number">1</span>):</span><br><span class="line">        <span class="comment">#         set_trace()</span></span><br><span class="line">        start_i = i * bs</span><br><span class="line">        end_i = start_i + bs</span><br><span class="line">        xb = x_train[start_i:end_i]</span><br><span class="line">        yb = y_train[start_i:end_i]</span><br><span class="line">        pred = model(xb)</span><br><span class="line">        loss = loss_func(pred, yb)</span><br><span class="line"></span><br><span class="line">        loss.backward()</span><br><span class="line">        <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">            weights -= weights.grad * lr</span><br><span class="line">            bias -= bias.grad * lr</span><br><span class="line">            weights.grad.zero_()</span><br><span class="line">            bias.grad.zero_()</span><br><span class="line">            </span><br><span class="line"><span class="built_in">print</span>(loss_func(model(xb), yb), accuracy(model(xb), yb))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <pre><code>tensor([-2.5487, -2.8346, -2.7262, -2.1794, -2.1199, -2.1041, -1.9327, -2.1947,
         -2.5637, -2.2133], grad_fn=&lt;SelectBackward&gt;) torch.Size([64, 10])
@@ -295,352 +179,67 @@ tensor(2.3308, grad_fn=&lt;NegBackward&gt;)
 tensor(0.1094)
 tensor(0.0806, grad_fn=&lt;NegBackward&gt;) tensor(1.)
 </code></pre>
-<h5 id="使用torch-nn-functional-重构"><a href="#使用torch-nn-functional-重构" class="headerlink" title="使用torch.nn.functional 重构"></a>使用torch.nn.functional 重构</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br>loss_func = F.cross_entropy<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">model</span>(<span class="hljs-params">xb</span>):</span><br>    <span class="hljs-keyword">return</span> xb @ weights + bias<br><br><span class="hljs-built_in">print</span>(loss_func(model(xb), yb), accuracy(model(xb), yb))<br><br></code></pre></td></tr></table></figure>
+<h5 id="使用torch-nn-functional-重构"><a href="#使用torch-nn-functional-重构" class="headerlink" title="使用torch.nn.functional 重构"></a>使用torch.nn.functional 重构</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line">loss_func = F.cross_entropy</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">model</span>(<span class="params">xb</span>):</span></span><br><span class="line">    <span class="keyword">return</span> xb @ weights + bias</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(loss_func(model(xb), yb), accuracy(model(xb), yb))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <pre><code>tensor(0.0806, grad_fn=&lt;NllLossBackward&gt;) tensor(1.)
 </code></pre>
-<h5 id="使用nn-Module重构"><a href="#使用nn-Module重构" class="headerlink" title="使用nn.Module重构"></a>使用nn.Module重构</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Mnist_Logistic</span>(<span class="hljs-params">nn.Module</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span><br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.weights = nn.Parameter(torch.randn(<span class="hljs-number">784</span>, <span class="hljs-number">10</span>) / math.sqrt(<span class="hljs-number">784</span>))<br>        self.bias = nn.Parameter(torch.zeros(<span class="hljs-number">10</span>))<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, xb</span>):</span><br>        <span class="hljs-keyword">return</span> xb @ self.weights + self.bias<br>    <br>model = Mnist_Logistic()<br><span class="hljs-built_in">print</span>(loss_func(model(xb), yb))<br><br>    <br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fit</span>():</span><br>    <span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>((n - <span class="hljs-number">1</span>) // bs + <span class="hljs-number">1</span>):<br>            start_i = i * bs<br>            end_i = start_i + bs<br>            xb = x_train[start_i:end_i]<br>            yb = y_train[start_i:end_i]<br>            pred = model(xb)<br>            loss = loss_func(pred, yb)<br><br>            loss.backward()<br>            <span class="hljs-keyword">with</span> torch.no_grad():<br>                <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> model.parameters():<br>                    p -= p.grad * lr<br>                model.zero_grad()<br><br>fit()<br><span class="hljs-built_in">print</span>(loss_func(model(xb), yb))<br><br></code></pre></td></tr></table></figure>
+<h5 id="使用nn-Module重构"><a href="#使用nn-Module重构" class="headerlink" title="使用nn.Module重构"></a>使用nn.Module重构</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mnist_Logistic</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.weights = nn.Parameter(torch.randn(<span class="number">784</span>, <span class="number">10</span>) / math.sqrt(<span class="number">784</span>))</span><br><span class="line">        self.bias = nn.Parameter(torch.zeros(<span class="number">10</span>))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, xb</span>):</span></span><br><span class="line">        <span class="keyword">return</span> xb @ self.weights + self.bias</span><br><span class="line">    </span><br><span class="line">model = Mnist_Logistic()</span><br><span class="line"><span class="built_in">print</span>(loss_func(model(xb), yb))</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fit</span>():</span></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(epochs):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>((n - <span class="number">1</span>) // bs + <span class="number">1</span>):</span><br><span class="line">            start_i = i * bs</span><br><span class="line">            end_i = start_i + bs</span><br><span class="line">            xb = x_train[start_i:end_i]</span><br><span class="line">            yb = y_train[start_i:end_i]</span><br><span class="line">            pred = model(xb)</span><br><span class="line">            loss = loss_func(pred, yb)</span><br><span class="line"></span><br><span class="line">            loss.backward()</span><br><span class="line">            <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">                <span class="keyword">for</span> p <span class="keyword">in</span> model.parameters():</span><br><span class="line">                    p -= p.grad * lr</span><br><span class="line">                model.zero_grad()</span><br><span class="line"></span><br><span class="line">fit()</span><br><span class="line"><span class="built_in">print</span>(loss_func(model(xb), yb))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <pre><code>tensor(2.4222, grad_fn=&lt;NllLossBackward&gt;)
 tensor(0.0817, grad_fn=&lt;NllLossBackward&gt;)
 </code></pre>
-<h5 id="使用nn-Linear重构"><a href="#使用nn-Linear重构" class="headerlink" title="使用nn.Linear重构"></a>使用nn.Linear重构</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Mnist_Logistic</span>(<span class="hljs-params">nn.Module</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span><br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.lin = nn.Linear(<span class="hljs-number">784</span>, <span class="hljs-number">10</span>)<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, xb</span>):</span><br>        <span class="hljs-keyword">return</span> self.lin(xb)<br>    <br>model = Mnist_Logistic()<br><span class="hljs-built_in">print</span>(loss_func(model(xb), yb))<br>fit()<br><br><span class="hljs-built_in">print</span>(loss_func(model(xb), yb))<br></code></pre></td></tr></table></figure>
+<h5 id="使用nn-Linear重构"><a href="#使用nn-Linear重构" class="headerlink" title="使用nn.Linear重构"></a>使用nn.Linear重构</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mnist_Logistic</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.lin = nn.Linear(<span class="number">784</span>, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, xb</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.lin(xb)</span><br><span class="line">    </span><br><span class="line">model = Mnist_Logistic()</span><br><span class="line"><span class="built_in">print</span>(loss_func(model(xb), yb))</span><br><span class="line">fit()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(loss_func(model(xb), yb))</span><br></pre></td></tr></table></figure>
 
 <pre><code>tensor(2.3090, grad_fn=&lt;NllLossBackward&gt;)
 tensor(0.0824, grad_fn=&lt;NllLossBackward&gt;)
 </code></pre>
-<h5 id="使用optim重构"><a href="#使用optim重构" class="headerlink" title="使用optim重构"></a>使用optim重构</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> optim<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_model</span>():</span><br>    model = Mnist_Logistic()<br>    <span class="hljs-keyword">return</span> model, optim.SGD(model.parameters(), lr=lr)<br><br>model, opt = get_model()<br><span class="hljs-built_in">print</span>(loss_func(model(xb), yb))<br><br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>((n - <span class="hljs-number">1</span>) // bs + <span class="hljs-number">1</span>):<br>        start_i = i * bs<br>        end_i = start_i + bs<br>        xb = x_train[start_i:end_i]<br>        yb = y_train[start_i:end_i]<br>        pred = model(xb)<br>        loss = loss_func(pred, yb)<br><br>        loss.backward()<br>        opt.step()<br>        opt.zero_grad()<br><br><span class="hljs-built_in">print</span>(loss_func(model(xb), yb))<br></code></pre></td></tr></table></figure>
+<h5 id="使用optim重构"><a href="#使用optim重构" class="headerlink" title="使用optim重构"></a>使用optim重构</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> optim</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_model</span>():</span></span><br><span class="line">    model = Mnist_Logistic()</span><br><span class="line">    <span class="keyword">return</span> model, optim.SGD(model.parameters(), lr=lr)</span><br><span class="line"></span><br><span class="line">model, opt = get_model()</span><br><span class="line"><span class="built_in">print</span>(loss_func(model(xb), yb))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(epochs):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>((n - <span class="number">1</span>) // bs + <span class="number">1</span>):</span><br><span class="line">        start_i = i * bs</span><br><span class="line">        end_i = start_i + bs</span><br><span class="line">        xb = x_train[start_i:end_i]</span><br><span class="line">        yb = y_train[start_i:end_i]</span><br><span class="line">        pred = model(xb)</span><br><span class="line">        loss = loss_func(pred, yb)</span><br><span class="line"></span><br><span class="line">        loss.backward()</span><br><span class="line">        opt.step()</span><br><span class="line">        opt.zero_grad()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(loss_func(model(xb), yb))</span><br></pre></td></tr></table></figure>
 
 <pre><code>tensor(2.2990, grad_fn=&lt;NllLossBackward&gt;)
 tensor(0.0805, grad_fn=&lt;NllLossBackward&gt;)
 </code></pre>
-<h5 id="使用Dataset重构"><a href="#使用Dataset重构" class="headerlink" title="使用Dataset重构"></a>使用Dataset重构</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> TensorDataset<br><br>train_ds = TensorDataset(x_train, y_train)<br>xb,yb = train_ds[i*bs : i*bs+bs]<br>model, opt = get_model()<br><br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>((n - <span class="hljs-number">1</span>) // bs + <span class="hljs-number">1</span>):<br>        xb, yb = train_ds[i * bs: i * bs + bs]<br>        pred = model(xb)<br>        loss = loss_func(pred, yb)<br><br>        loss.backward()<br>        opt.step()<br>        opt.zero_grad()<br><br><span class="hljs-built_in">print</span>(loss_func(model(xb), yb))<br></code></pre></td></tr></table></figure>
+<h5 id="使用Dataset重构"><a href="#使用Dataset重构" class="headerlink" title="使用Dataset重构"></a>使用Dataset重构</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> TensorDataset</span><br><span class="line"></span><br><span class="line">train_ds = TensorDataset(x_train, y_train)</span><br><span class="line">xb,yb = train_ds[i*bs : i*bs+bs]</span><br><span class="line">model, opt = get_model()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(epochs):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>((n - <span class="number">1</span>) // bs + <span class="number">1</span>):</span><br><span class="line">        xb, yb = train_ds[i * bs: i * bs + bs]</span><br><span class="line">        pred = model(xb)</span><br><span class="line">        loss = loss_func(pred, yb)</span><br><span class="line"></span><br><span class="line">        loss.backward()</span><br><span class="line">        opt.step()</span><br><span class="line">        opt.zero_grad()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(loss_func(model(xb), yb))</span><br></pre></td></tr></table></figure>
 
 <pre><code>tensor(0.0817, grad_fn=&lt;NllLossBackward&gt;)
 </code></pre>
-<h5 id="使用DataLoader重构"><a href="#使用DataLoader重构" class="headerlink" title="使用DataLoader重构"></a>使用DataLoader重构</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> DataLoader<br><br>train_ds = TensorDataset(x_train, y_train)<br>train_dl = DataLoader(train_ds, batch_size=bs)<br><br>model, opt = get_model()<br><br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):<br>    <span class="hljs-keyword">for</span> xb, yb <span class="hljs-keyword">in</span> train_dl:<br>        pred = model(xb)<br>        loss = loss_func(pred, yb)<br><br>        loss.backward()<br>        opt.step()<br>        opt.zero_grad()<br><br><span class="hljs-built_in">print</span>(loss_func(model(xb), yb))<br></code></pre></td></tr></table></figure>
+<h5 id="使用DataLoader重构"><a href="#使用DataLoader重构" class="headerlink" title="使用DataLoader重构"></a>使用DataLoader重构</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line"></span><br><span class="line">train_ds = TensorDataset(x_train, y_train)</span><br><span class="line">train_dl = DataLoader(train_ds, batch_size=bs)</span><br><span class="line"></span><br><span class="line">model, opt = get_model()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(epochs):</span><br><span class="line">    <span class="keyword">for</span> xb, yb <span class="keyword">in</span> train_dl:</span><br><span class="line">        pred = model(xb)</span><br><span class="line">        loss = loss_func(pred, yb)</span><br><span class="line"></span><br><span class="line">        loss.backward()</span><br><span class="line">        opt.step()</span><br><span class="line">        opt.zero_grad()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(loss_func(model(xb), yb))</span><br></pre></td></tr></table></figure>
 
 <pre><code>tensor(0.0803, grad_fn=&lt;NllLossBackward&gt;)
 </code></pre>
-<h5 id="添加验证"><a href="#添加验证" class="headerlink" title="添加验证"></a>添加验证</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python">train_ds = TensorDataset(x_train, y_train)<br>train_dl = DataLoader(train_ds, batch_size=bs, shuffle=<span class="hljs-literal">True</span>)<br><br>valid_ds = TensorDataset(x_valid, y_valid)<br>valid_dl = DataLoader(valid_ds, batch_size=bs * <span class="hljs-number">2</span>)<br><br>model, opt = get_model()<br><br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):<br>    model.train()<br>    <span class="hljs-keyword">for</span> xb, yb <span class="hljs-keyword">in</span> train_dl:<br>        pred = model(xb)<br>        loss = loss_func(pred, yb)<br><br>        loss.backward()<br>        opt.step()<br>        opt.zero_grad()<br><br>    model.<span class="hljs-built_in">eval</span>()<br>    <span class="hljs-keyword">with</span> torch.no_grad():<br>        valid_loss = <span class="hljs-built_in">sum</span>(loss_func(model(xb), yb) <span class="hljs-keyword">for</span> xb, yb <span class="hljs-keyword">in</span> valid_dl)<br><br>    <span class="hljs-built_in">print</span>(epoch, valid_loss / <span class="hljs-built_in">len</span>(valid_dl))<br></code></pre></td></tr></table></figure>
+<h5 id="添加验证"><a href="#添加验证" class="headerlink" title="添加验证"></a>添加验证</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">train_ds = TensorDataset(x_train, y_train)</span><br><span class="line">train_dl = DataLoader(train_ds, batch_size=bs, shuffle=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">valid_ds = TensorDataset(x_valid, y_valid)</span><br><span class="line">valid_dl = DataLoader(valid_ds, batch_size=bs * <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">model, opt = get_model()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(epochs):</span><br><span class="line">    model.train()</span><br><span class="line">    <span class="keyword">for</span> xb, yb <span class="keyword">in</span> train_dl:</span><br><span class="line">        pred = model(xb)</span><br><span class="line">        loss = loss_func(pred, yb)</span><br><span class="line"></span><br><span class="line">        loss.backward()</span><br><span class="line">        opt.step()</span><br><span class="line">        opt.zero_grad()</span><br><span class="line"></span><br><span class="line">    model.<span class="built_in">eval</span>()</span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        valid_loss = <span class="built_in">sum</span>(loss_func(model(xb), yb) <span class="keyword">for</span> xb, yb <span class="keyword">in</span> valid_dl)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(epoch, valid_loss / <span class="built_in">len</span>(valid_dl))</span><br></pre></td></tr></table></figure>
 
 <pre><code>0 tensor(0.3093)
 1 tensor(0.3198)
 </code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">## 创建fit()和get_data()</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">loss_batch</span>(<span class="hljs-params">model, loss_func, xb, yb, opt=<span class="hljs-literal">None</span></span>):</span><br>    loss = loss_func(model(xb), yb)<br><br>    <span class="hljs-keyword">if</span> opt <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>        loss.backward()<br>        opt.step()<br>        opt.zero_grad()<br><br>    <span class="hljs-keyword">return</span> loss.item(), <span class="hljs-built_in">len</span>(xb)<br><br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fit</span>(<span class="hljs-params">epochs, model, loss_func, opt, train_dl, valid_dl</span>):</span><br>    <span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):<br>        model.train()<br>        <span class="hljs-keyword">for</span> xb, yb <span class="hljs-keyword">in</span> train_dl:<br>            loss_batch(model, loss_func, xb, yb, opt)<br><br>        model.<span class="hljs-built_in">eval</span>()<br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            losses, nums = <span class="hljs-built_in">zip</span>(<br>                *[loss_batch(model, loss_func, xb, yb) <span class="hljs-keyword">for</span> xb, yb <span class="hljs-keyword">in</span> valid_dl]<br>            )<br>        val_loss = np.<span class="hljs-built_in">sum</span>(np.multiply(losses, nums)) / np.<span class="hljs-built_in">sum</span>(nums)<br><br>        <span class="hljs-built_in">print</span>(epoch, val_loss)<br>        <br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_data</span>(<span class="hljs-params">train_ds, valid_ds, bs</span>):</span><br>    <span class="hljs-keyword">return</span> (<br>        DataLoader(train_ds, batch_size=bs, shuffle=<span class="hljs-literal">True</span>),<br>        DataLoader(valid_ds, batch_size=bs * <span class="hljs-number">2</span>),<br>    )<br><br>train_dl, valid_dl = get_data(train_ds, valid_ds, bs)<br>model, opt = get_model()<br>fit(epochs, model, loss_func, opt, train_dl, valid_dl)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 创建fit()和get_data()</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loss_batch</span>(<span class="params">model, loss_func, xb, yb, opt=<span class="literal">None</span></span>):</span></span><br><span class="line">    loss = loss_func(model(xb), yb)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> opt <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        loss.backward()</span><br><span class="line">        opt.step()</span><br><span class="line">        opt.zero_grad()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> loss.item(), <span class="built_in">len</span>(xb)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fit</span>(<span class="params">epochs, model, loss_func, opt, train_dl, valid_dl</span>):</span></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(epochs):</span><br><span class="line">        model.train()</span><br><span class="line">        <span class="keyword">for</span> xb, yb <span class="keyword">in</span> train_dl:</span><br><span class="line">            loss_batch(model, loss_func, xb, yb, opt)</span><br><span class="line"></span><br><span class="line">        model.<span class="built_in">eval</span>()</span><br><span class="line">        <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">            losses, nums = <span class="built_in">zip</span>(</span><br><span class="line">                *[loss_batch(model, loss_func, xb, yb) <span class="keyword">for</span> xb, yb <span class="keyword">in</span> valid_dl]</span><br><span class="line">            )</span><br><span class="line">        val_loss = np.<span class="built_in">sum</span>(np.multiply(losses, nums)) / np.<span class="built_in">sum</span>(nums)</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(epoch, val_loss)</span><br><span class="line">        </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_data</span>(<span class="params">train_ds, valid_ds, bs</span>):</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        DataLoader(train_ds, batch_size=bs, shuffle=<span class="literal">True</span>),</span><br><span class="line">        DataLoader(valid_ds, batch_size=bs * <span class="number">2</span>),</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">train_dl, valid_dl = get_data(train_ds, valid_ds, bs)</span><br><span class="line">model, opt = get_model()</span><br><span class="line">fit(epochs, model, loss_func, opt, train_dl, valid_dl)</span><br></pre></td></tr></table></figure>
 
 <pre><code>0 0.3313611475586891
 1 0.35820939881801606
 </code></pre>
-<h5 id="切换到-CNN"><a href="#切换到-CNN" class="headerlink" title="切换到 CNN"></a>切换到 CNN</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Mnist_CNN</span>(<span class="hljs-params">nn.Module</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span><br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.conv1 = nn.Conv2d(<span class="hljs-number">1</span>, <span class="hljs-number">16</span>, kernel_size=<span class="hljs-number">3</span>, stride=<span class="hljs-number">2</span>, padding=<span class="hljs-number">1</span>)<br>        self.conv2 = nn.Conv2d(<span class="hljs-number">16</span>, <span class="hljs-number">16</span>, kernel_size=<span class="hljs-number">3</span>, stride=<span class="hljs-number">2</span>, padding=<span class="hljs-number">1</span>)<br>        self.conv3 = nn.Conv2d(<span class="hljs-number">16</span>, <span class="hljs-number">10</span>, kernel_size=<span class="hljs-number">3</span>, stride=<span class="hljs-number">2</span>, padding=<span class="hljs-number">1</span>)<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, xb</span>):</span><br>        xb = xb.view(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">28</span>, <span class="hljs-number">28</span>)<br>        xb = F.relu(self.conv1(xb))<br>        xb = F.relu(self.conv2(xb))<br>        xb = F.relu(self.conv3(xb))<br>        xb = F.avg_pool2d(xb, <span class="hljs-number">4</span>)<br>        <span class="hljs-keyword">return</span> xb.view(-<span class="hljs-number">1</span>, xb.size(<span class="hljs-number">1</span>))<br><br>lr = <span class="hljs-number">0.1</span><br><br>model = Mnist_CNN()<br>opt = optim.SGD(model.parameters(), lr=lr, momentum=<span class="hljs-number">0.9</span>)<br><br>fit(epochs, model, loss_func, opt, train_dl, valid_dl)<br></code></pre></td></tr></table></figure>
+<h5 id="切换到-CNN"><a href="#切换到-CNN" class="headerlink" title="切换到 CNN"></a>切换到 CNN</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mnist_CNN</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">1</span>, <span class="number">16</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>)</span><br><span class="line">        self.conv2 = nn.Conv2d(<span class="number">16</span>, <span class="number">16</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>)</span><br><span class="line">        self.conv3 = nn.Conv2d(<span class="number">16</span>, <span class="number">10</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, xb</span>):</span></span><br><span class="line">        xb = xb.view(-<span class="number">1</span>, <span class="number">1</span>, <span class="number">28</span>, <span class="number">28</span>)</span><br><span class="line">        xb = F.relu(self.conv1(xb))</span><br><span class="line">        xb = F.relu(self.conv2(xb))</span><br><span class="line">        xb = F.relu(self.conv3(xb))</span><br><span class="line">        xb = F.avg_pool2d(xb, <span class="number">4</span>)</span><br><span class="line">        <span class="keyword">return</span> xb.view(-<span class="number">1</span>, xb.size(<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">lr = <span class="number">0.1</span></span><br><span class="line"></span><br><span class="line">model = Mnist_CNN()</span><br><span class="line">opt = optim.SGD(model.parameters(), lr=lr, momentum=<span class="number">0.9</span>)</span><br><span class="line"></span><br><span class="line">fit(epochs, model, loss_func, opt, train_dl, valid_dl)</span><br></pre></td></tr></table></figure>
 
 <pre><code>0 0.2936670451879501
 1 0.21561954822540283
 </code></pre>
-<h5 id="nn-Sequential-Sequential对象以顺序方式运行其中包含的每个模块。"><a href="#nn-Sequential-Sequential对象以顺序方式运行其中包含的每个模块。" class="headerlink" title="nn.Sequential   Sequential对象以顺序方式运行其中包含的每个模块。"></a>nn.Sequential   Sequential对象以顺序方式运行其中包含的每个模块。</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Lambda</span>(<span class="hljs-params">nn.Module</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, func</span>):</span><br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.func = func<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, x</span>):</span><br>        <span class="hljs-keyword">return</span> self.func(x)<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">preprocess</span>(<span class="hljs-params">x</span>):</span><br>    <span class="hljs-keyword">return</span> x.view(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">28</span>, <span class="hljs-number">28</span>)<br><br>model = nn.Sequential(<br>    Lambda(preprocess),<br>    nn.Conv2d(<span class="hljs-number">1</span>, <span class="hljs-number">16</span>, kernel_size=<span class="hljs-number">3</span>, stride=<span class="hljs-number">2</span>, padding=<span class="hljs-number">1</span>),<br>    nn.ReLU(),<br>    nn.Conv2d(<span class="hljs-number">16</span>, <span class="hljs-number">16</span>, kernel_size=<span class="hljs-number">3</span>, stride=<span class="hljs-number">2</span>, padding=<span class="hljs-number">1</span>),<br>    nn.ReLU(),<br>    nn.Conv2d(<span class="hljs-number">16</span>, <span class="hljs-number">10</span>, kernel_size=<span class="hljs-number">3</span>, stride=<span class="hljs-number">2</span>, padding=<span class="hljs-number">1</span>),<br>    nn.ReLU(),<br>    nn.AvgPool2d(<span class="hljs-number">4</span>),<br>    Lambda(<span class="hljs-keyword">lambda</span> x: x.view(x.size(<span class="hljs-number">0</span>), -<span class="hljs-number">1</span>)),<br>)<br><br>opt = optim.SGD(model.parameters(), lr=lr, momentum=<span class="hljs-number">0.9</span>)<br><br>fit(epochs, model, loss_func, opt, train_dl, valid_dl)<br></code></pre></td></tr></table></figure>
+<h5 id="nn-Sequential-Sequential对象以顺序方式运行其中包含的每个模块。"><a href="#nn-Sequential-Sequential对象以顺序方式运行其中包含的每个模块。" class="headerlink" title="nn.Sequential   Sequential对象以顺序方式运行其中包含的每个模块。"></a>nn.Sequential   Sequential对象以顺序方式运行其中包含的每个模块。</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Lambda</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, func</span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.func = func</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.func(x)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">preprocess</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> x.view(-<span class="number">1</span>, <span class="number">1</span>, <span class="number">28</span>, <span class="number">28</span>)</span><br><span class="line"></span><br><span class="line">model = nn.Sequential(</span><br><span class="line">    Lambda(preprocess),</span><br><span class="line">    nn.Conv2d(<span class="number">1</span>, <span class="number">16</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    nn.Conv2d(<span class="number">16</span>, <span class="number">16</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    nn.Conv2d(<span class="number">16</span>, <span class="number">10</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    nn.AvgPool2d(<span class="number">4</span>),</span><br><span class="line">    Lambda(<span class="keyword">lambda</span> x: x.view(x.size(<span class="number">0</span>), -<span class="number">1</span>)),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">opt = optim.SGD(model.parameters(), lr=lr, momentum=<span class="number">0.9</span>)</span><br><span class="line"></span><br><span class="line">fit(epochs, model, loss_func, opt, train_dl, valid_dl)</span><br></pre></td></tr></table></figure>
 
 <pre><code>0 0.4037924102306366
 1 0.25595326462984086
 </code></pre>
-<h5 id="包装DataLoader"><a href="#包装DataLoader" class="headerlink" title="包装DataLoader"></a>包装DataLoader</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">preprocess</span>(<span class="hljs-params">x, y</span>):</span><br>    <span class="hljs-keyword">return</span> x.view(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">28</span>, <span class="hljs-number">28</span>), y<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WrappedDataLoader</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, dl, func</span>):</span><br>        self.dl = dl<br>        self.func = func<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__len__</span>(<span class="hljs-params">self</span>):</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(self.dl)<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__iter__</span>(<span class="hljs-params">self</span>):</span><br>        batches = <span class="hljs-built_in">iter</span>(self.dl)<br>        <span class="hljs-keyword">for</span> b <span class="hljs-keyword">in</span> batches:<br>            <span class="hljs-keyword">yield</span> (self.func(*b))<br><br>train_dl, valid_dl = get_data(train_ds, valid_ds, bs)<br>train_dl = WrappedDataLoader(train_dl, preprocess)<br>valid_dl = WrappedDataLoader(valid_dl, preprocess)<br><br>model = nn.Sequential(<br>    nn.Conv2d(<span class="hljs-number">1</span>, <span class="hljs-number">16</span>, kernel_size=<span class="hljs-number">3</span>, stride=<span class="hljs-number">2</span>, padding=<span class="hljs-number">1</span>),<br>    nn.ReLU(),<br>    nn.Conv2d(<span class="hljs-number">16</span>, <span class="hljs-number">16</span>, kernel_size=<span class="hljs-number">3</span>, stride=<span class="hljs-number">2</span>, padding=<span class="hljs-number">1</span>),<br>    nn.ReLU(),<br>    nn.Conv2d(<span class="hljs-number">16</span>, <span class="hljs-number">10</span>, kernel_size=<span class="hljs-number">3</span>, stride=<span class="hljs-number">2</span>, padding=<span class="hljs-number">1</span>),<br>    nn.ReLU(),<br>    nn.AdaptiveAvgPool2d(<span class="hljs-number">1</span>),<br>    Lambda(<span class="hljs-keyword">lambda</span> x: x.view(x.size(<span class="hljs-number">0</span>), -<span class="hljs-number">1</span>)),<br>)<br><br>opt = optim.SGD(model.parameters(), lr=lr, momentum=<span class="hljs-number">0.9</span>)<br><br>fit(epochs, model, loss_func, opt, train_dl, valid_dl)<br><br></code></pre></td></tr></table></figure>
+<h5 id="包装DataLoader"><a href="#包装DataLoader" class="headerlink" title="包装DataLoader"></a>包装DataLoader</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">preprocess</span>(<span class="params">x, y</span>):</span></span><br><span class="line">    <span class="keyword">return</span> x.view(-<span class="number">1</span>, <span class="number">1</span>, <span class="number">28</span>, <span class="number">28</span>), y</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WrappedDataLoader</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, dl, func</span>):</span></span><br><span class="line">        self.dl = dl</span><br><span class="line">        self.func = func</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.dl)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span>(<span class="params">self</span>):</span></span><br><span class="line">        batches = <span class="built_in">iter</span>(self.dl)</span><br><span class="line">        <span class="keyword">for</span> b <span class="keyword">in</span> batches:</span><br><span class="line">            <span class="keyword">yield</span> (self.func(*b))</span><br><span class="line"></span><br><span class="line">train_dl, valid_dl = get_data(train_ds, valid_ds, bs)</span><br><span class="line">train_dl = WrappedDataLoader(train_dl, preprocess)</span><br><span class="line">valid_dl = WrappedDataLoader(valid_dl, preprocess)</span><br><span class="line"></span><br><span class="line">model = nn.Sequential(</span><br><span class="line">    nn.Conv2d(<span class="number">1</span>, <span class="number">16</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    nn.Conv2d(<span class="number">16</span>, <span class="number">16</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    nn.Conv2d(<span class="number">16</span>, <span class="number">10</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    nn.AdaptiveAvgPool2d(<span class="number">1</span>),</span><br><span class="line">    Lambda(<span class="keyword">lambda</span> x: x.view(x.size(<span class="number">0</span>), -<span class="number">1</span>)),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">opt = optim.SGD(model.parameters(), lr=lr, momentum=<span class="number">0.9</span>)</span><br><span class="line"></span><br><span class="line">fit(epochs, model, loss_func, opt, train_dl, valid_dl)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <pre><code>0 0.31396417818069455
 1 0.2551067463874817
 </code></pre>
-<h5 id="使用GPU，，，如果有"><a href="#使用GPU，，，如果有" class="headerlink" title="使用GPU，，，如果有"></a>使用GPU，，，如果有</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(torch.cuda.is_available())<br>dev = torch.device(<br>    <span class="hljs-string">&quot;cuda&quot;</span>) <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> torch.device(<span class="hljs-string">&quot;cpu&quot;</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">preprocess</span>(<span class="hljs-params">x, y</span>):</span><br>    <span class="hljs-keyword">return</span> x.view(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">28</span>, <span class="hljs-number">28</span>).to(dev), y.to(dev)<br><br>train_dl, valid_dl = get_data(train_ds, valid_ds, bs)<br>train_dl = WrappedDataLoader(train_dl, preprocess)<br>valid_dl = WrappedDataLoader(valid_dl, preprocess)<br><br>model.to(dev)<br>opt = optim.SGD(model.parameters(), lr=lr, momentum=<span class="hljs-number">0.9</span>)<br>fit(epochs, model, loss_func, opt, train_dl, valid_dl)<br><br></code></pre></td></tr></table></figure>
+<h5 id="使用GPU，，，如果有"><a href="#使用GPU，，，如果有" class="headerlink" title="使用GPU，，，如果有"></a>使用GPU，，，如果有</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(torch.cuda.is_available())</span><br><span class="line">dev = torch.device(</span><br><span class="line">    <span class="string">&quot;cuda&quot;</span>) <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> torch.device(<span class="string">&quot;cpu&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">preprocess</span>(<span class="params">x, y</span>):</span></span><br><span class="line">    <span class="keyword">return</span> x.view(-<span class="number">1</span>, <span class="number">1</span>, <span class="number">28</span>, <span class="number">28</span>).to(dev), y.to(dev)</span><br><span class="line"></span><br><span class="line">train_dl, valid_dl = get_data(train_ds, valid_ds, bs)</span><br><span class="line">train_dl = WrappedDataLoader(train_dl, preprocess)</span><br><span class="line">valid_dl = WrappedDataLoader(valid_dl, preprocess)</span><br><span class="line"></span><br><span class="line">model.to(dev)</span><br><span class="line">opt = optim.SGD(model.parameters(), lr=lr, momentum=<span class="number">0.9</span>)</span><br><span class="line">fit(epochs, model, loss_func, opt, train_dl, valid_dl)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <pre><code>False
 0 0.22373724069595338
 1 0.2494806985616684
 </code></pre>
-
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Python/">Python</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Pytorch/">Pytorch</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">
-                  
-                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
-                  
-                </p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/09/27/Pyecharts%E4%B8%8D%E5%90%8C%E9%A2%9C%E8%89%B2%E7%BB%98%E5%88%B6%E6%AD%A3%E8%B4%9F%E6%9F%B1%E7%8A%B6%E5%9B%BE/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Pyecharts 不同颜色绘制正负柱状图</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/09/10/iPhone/">
-                        <span class="hidden-mobile">iPhone 快捷指令上下班半自动打卡</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments" lazyload>
-                
-                  
-                
-                
-  <div id="valine"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#valine', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
-        var options = Object.assign(
-          {"appId":"FOWqJriwiUxghpNnDaD7X3ao-gzGzoHsz","appKey":"wgi1Wsw2eg7be0kqLc6vhVHj","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
-          {
-            el: "#valine",
-            path: window.location.pathname
-          }
-        )
-        new Valine(options);
-        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
-          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
-        })
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-      </div>
-    
-  </div>
-</div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
-      <div class="col-lg-7 mx-auto nopadding-x-md">
-        <div class="container custom mx-auto">
-          <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script> <script src="/js/wanko.js"></script>
-        </div>
-      </div>
-    
-  </main>
-
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- LeanCloud 统计PV -->
-        <span id="leancloud-site-pv-container" style="display: none">
-            总访问量 
-            <span id="leancloud-site-pv"></span>
-             次
-          </span>
-      
-      
-        <!-- LeanCloud 统计UV -->
-        <span id="leancloud-site-uv-container" style="display: none">
-            总访客数 
-            <span id="leancloud-site-uv"></span>
-             人
-          </span>
-      
-
-    
-  </div>
-
-
-  
-
-  
-</footer>
-
-
-  <!-- SCRIPTS -->
-  
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-  
-
-
-
-  
-    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
-  
-  
-    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-  
-  
-    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
-  
-  
-    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
-  
-
-
-
-
-  <script defer src="/js/leancloud.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-
-  
-<script src="/js/xin.js"></script>
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
-
-
-<!-- hexo injector body_end start -->
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined"></a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://shubihu.github.io/2021/09/16/Pytorch-learning/">https://shubihu.github.io/2021/09/16/Pytorch-learning/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://shubihu.github.io" target="_blank">梳碧湖</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Pytorch/">Pytorch</a></div><div class="post_share"><div class="social-share" data-image="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/09/27/Pyecharts%E4%B8%8D%E5%90%8C%E9%A2%9C%E8%89%B2%E7%BB%98%E5%88%B6%E6%AD%A3%E8%B4%9F%E6%9F%B1%E7%8A%B6%E5%9B%BE/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Pyecharts 不同颜色绘制正负柱状图</div></div></a></div><div class="next-post pull-right"><a href="/2021/09/10/iPhone/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">iPhone 快捷指令上下班半自动打卡</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/02/07/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B011-%E6%9E%84%E5%BB%BA%E6%A8%A1%E5%9E%8B%E7%9A%843%E7%A7%8D%E6%96%B9%E6%B3%95/" title="Pytorch学习笔记11-构建模型的3种方法"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">Pytorch学习笔记11-构建模型的3种方法</div></div></a></div><div><a href="/2022/01/29/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B010-TensorBoard%E5%8F%AF%E8%A7%86%E5%8C%96/" title="Pytorch学习笔记10-TensorBoard可视化"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-29</div><div class="title">Pytorch学习笔记10-TensorBoard可视化</div></div></a></div><div><a href="/2022/01/18/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01-%E5%BC%A0%E9%87%8F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" title="Pytorch学习笔记1-张量数据结构"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-18</div><div class="title">Pytorch学习笔记1-张量数据结构</div></div></a></div><div><a href="/2022/02/08/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B014-%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%E6%B5%81%E7%A8%8B%E8%8C%83%E4%BE%8B/" title="Pytorch学习笔记14-结构化数据建模流程范例"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-08</div><div class="title">Pytorch学习笔记14-结构化数据建模流程范例</div></div></a></div><div><a href="/2022/02/07/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B012-%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E7%9A%843%E7%A7%8D%E6%96%B9%E6%B3%95/" title="Pytorch学习笔记12-训练模型的3种方法"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">Pytorch学习笔记12-训练模型的3种方法</div></div></a></div><div><a href="/2022/01/18/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02-%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86%E6%9C%BA%E5%88%B6/" title="Pytorch学习笔记2-自动微分机制"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-18</div><div class="title">Pytorch学习笔记2-自动微分机制</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name"></div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Pytorch-Learning-Note"><span class="toc-number">1.</span> <span class="toc-text">Pytorch Learning Note</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#torch-nn"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">torch.nn</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#torch-optim"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">torch.optim</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Dataset"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">Dataset</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#DataLoader"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">DataLoader</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%8E0%E6%9E%84%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">从0构建神经网络线性模型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8torch-nn-functional-%E9%87%8D%E6%9E%84"><span class="toc-number">1.0.0.6.</span> <span class="toc-text">使用torch.nn.functional 重构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8nn-Module%E9%87%8D%E6%9E%84"><span class="toc-number">1.0.0.7.</span> <span class="toc-text">使用nn.Module重构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8nn-Linear%E9%87%8D%E6%9E%84"><span class="toc-number">1.0.0.8.</span> <span class="toc-text">使用nn.Linear重构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8optim%E9%87%8D%E6%9E%84"><span class="toc-number">1.0.0.9.</span> <span class="toc-text">使用optim重构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Dataset%E9%87%8D%E6%9E%84"><span class="toc-number">1.0.0.10.</span> <span class="toc-text">使用Dataset重构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8DataLoader%E9%87%8D%E6%9E%84"><span class="toc-number">1.0.0.11.</span> <span class="toc-text">使用DataLoader重构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E9%AA%8C%E8%AF%81"><span class="toc-number">1.0.0.12.</span> <span class="toc-text">添加验证</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E5%88%B0-CNN"><span class="toc-number">1.0.0.13.</span> <span class="toc-text">切换到 CNN</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nn-Sequential-Sequential%E5%AF%B9%E8%B1%A1%E4%BB%A5%E9%A1%BA%E5%BA%8F%E6%96%B9%E5%BC%8F%E8%BF%90%E8%A1%8C%E5%85%B6%E4%B8%AD%E5%8C%85%E5%90%AB%E7%9A%84%E6%AF%8F%E4%B8%AA%E6%A8%A1%E5%9D%97%E3%80%82"><span class="toc-number">1.0.0.14.</span> <span class="toc-text">nn.Sequential   Sequential对象以顺序方式运行其中包含的每个模块。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8C%85%E8%A3%85DataLoader"><span class="toc-number">1.0.0.15.</span> <span class="toc-text">包装DataLoader</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8GPU%EF%BC%8C%EF%BC%8C%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%9C%89"><span class="toc-number">1.0.0.16.</span> <span class="toc-text">使用GPU，，，如果有</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/01/neo4j%E4%B8%AD%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9%E5%8F%8A%E5%85%B3%E7%B3%BB%E7%9A%84%E6%9F%A5%E6%89%BE%E3%80%81%E5%88%A0%E9%99%A4/" title="neo4j中节点及关系的查询、删除等"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="neo4j中节点及关系的查询、删除等"/></a><div class="content"><a class="title" href="/2022/03/01/neo4j%E4%B8%AD%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9%E5%8F%8A%E5%85%B3%E7%B3%BB%E7%9A%84%E6%9F%A5%E6%89%BE%E3%80%81%E5%88%A0%E9%99%A4/" title="neo4j中节点及关系的查询、删除等">neo4j中节点及关系的查询、删除等</a><time datetime="2022-03-01T08:59:20.000Z" title="发表于 2022-03-01 16:59:20">2022-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/01/cpp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B003/" title="cpp学习笔记03"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="cpp学习笔记03"/></a><div class="content"><a class="title" href="/2022/03/01/cpp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B003/" title="cpp学习笔记03">cpp学习笔记03</a><time datetime="2022-03-01T06:40:11.000Z" title="发表于 2022-03-01 14:40:11">2022-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/01/cpp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B002/" title="cpp学习笔记02"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="cpp学习笔记02"/></a><div class="content"><a class="title" href="/2022/03/01/cpp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B002/" title="cpp学习笔记02">cpp学习笔记02</a><time datetime="2022-03-01T06:33:56.000Z" title="发表于 2022-03-01 14:33:56">2022-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/01/cpp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/" title="cpp学习笔记01"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="cpp学习笔记01"/></a><div class="content"><a class="title" href="/2022/03/01/cpp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/" title="cpp学习笔记01">cpp学习笔记01</a><time datetime="2022-03-01T06:27:38.000Z" title="发表于 2022-03-01 14:27:38">2022-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/23/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93neo4j-Echarts%E5%8F%AF%E8%A7%86%E5%8C%96/" title="图数据库neo4j-Echarts可视化"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图数据库neo4j-Echarts可视化"/></a><div class="content"><a class="title" href="/2022/02/23/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93neo4j-Echarts%E5%8F%AF%E8%A7%86%E5%8C%96/" title="图数据库neo4j-Echarts可视化">图数据库neo4j-Echarts可视化</a><time datetime="2022-02-23T07:19:14.000Z" title="发表于 2022-02-23 15:19:14">2022-02-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By null</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start -->
   <div id="aplayer"></div>
   <link defer rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
   <script src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js"></script>
   <script defer src="/js/aplayer.js"></script>
-<!-- hexo injector body_end end --></body>
-</html>
+<!-- hexo injector body_end end --></body></html>
