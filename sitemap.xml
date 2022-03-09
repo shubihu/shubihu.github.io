@@ -340,14 +340,14 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/tags/Python/</loc>
+    <loc>https://shubihu.github.io/tags/Pyecharts/</loc>
     <lastmod>2022-03-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/tags/Pyecharts/</loc>
+    <loc>https://shubihu.github.io/tags/Python/</loc>
     <lastmod>2022-03-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -403,6 +403,13 @@
   </url>
   
   <url>
+    <loc>https://shubihu.github.io/tags/Neo4j/</loc>
+    <lastmod>2022-03-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://shubihu.github.io/tags/%E6%A0%B8%E9%85%B8%E6%A3%80%E6%B5%8B/</loc>
     <lastmod>2022-03-09</lastmod>
     <changefreq>daily</changefreq>
@@ -430,13 +437,6 @@
     <priority>0.6</priority>
   </url>
   
-  <url>
-    <loc>https://shubihu.github.io/tags/Neo4j/</loc>
-    <lastmod>2022-03-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
 
   
   <url>
@@ -454,14 +454,14 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <loc>https://shubihu.github.io/categories/Pytorch/</loc>
     <lastmod>2022-03-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/categories/Pytorch/</loc>
+    <loc>https://shubihu.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2022-03-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -503,6 +503,13 @@
   </url>
   
   <url>
+    <loc>https://shubihu.github.io/categories/Neo4j/</loc>
+    <lastmod>2022-03-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://shubihu.github.io/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
     <lastmod>2022-03-09</lastmod>
     <changefreq>daily</changefreq>
@@ -511,13 +518,6 @@
   
   <url>
     <loc>https://shubihu.github.io/categories/Working/</loc>
-    <lastmod>2022-03-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/categories/Neo4j/</loc>
     <lastmod>2022-03-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
