@@ -79,14 +79,14 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/2021/11/30/jupyter/</loc>
+    <loc>https://shubihu.github.io/2021/12/28/leetcode/</loc>
     
     <lastmod>2022-03-09</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/2021/12/28/leetcode/</loc>
+    <loc>https://shubihu.github.io/2021/11/30/jupyter/</loc>
     
     <lastmod>2022-03-09</lastmod>
     
@@ -275,14 +275,14 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/2021/08/16/PythonSortAlgorithm/</loc>
+    <loc>https://shubihu.github.io/2021/02/02/Python-Notes/</loc>
     
     <lastmod>2022-03-09</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/2021/02/02/Python-Notes/</loc>
+    <loc>https://shubihu.github.io/2021/08/16/PythonSortAlgorithm/</loc>
     
     <lastmod>2022-03-09</lastmod>
     
@@ -361,7 +361,7 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/tags/Pyecharts/</loc>
+    <loc>https://shubihu.github.io/tags/Pytorch/</loc>
     <lastmod>2022-03-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -375,7 +375,7 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/tags/Pytorch/</loc>
+    <loc>https://shubihu.github.io/tags/Pyecharts/</loc>
     <lastmod>2022-03-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -410,13 +410,6 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/tags/jupyter/</loc>
-    <lastmod>2022-03-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://shubihu.github.io/tags/Neo4j/</loc>
     <lastmod>2022-03-09</lastmod>
     <changefreq>daily</changefreq>
@@ -424,7 +417,21 @@
   </url>
   
   <url>
+    <loc>https://shubihu.github.io/tags/jupyter/</loc>
+    <lastmod>2022-03-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://shubihu.github.io/tags/%E6%A0%B8%E9%85%B8%E6%A3%80%E6%B5%8B/</loc>
+    <lastmod>2022-03-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</loc>
     <lastmod>2022-03-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -439,13 +446,6 @@
   
   <url>
     <loc>https://shubihu.github.io/tags/python/</loc>
-    <lastmod>2022-03-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</loc>
     <lastmod>2022-03-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -503,13 +503,6 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/categories/Mac/</loc>
-    <lastmod>2022-03-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://shubihu.github.io/categories/leetcode/</loc>
     <lastmod>2022-03-09</lastmod>
     <changefreq>daily</changefreq>
@@ -518,6 +511,13 @@
   
   <url>
     <loc>https://shubihu.github.io/categories/Neo4j/</loc>
+    <lastmod>2022-03-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/categories/Mac/</loc>
     <lastmod>2022-03-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
