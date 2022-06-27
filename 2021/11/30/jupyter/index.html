@@ -24,7 +24,7 @@
 <meta property="og:description" content="搭建Jupyter Notebook远程云服务器">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-30T08:08:28.000Z">
-<meta property="article:modified_time" content="2022-03-10T01:41:13.957Z">
+<meta property="article:modified_time" content="2022-06-27T07:53:41.602Z">
 <meta property="article:tag" content="jupyter">
 <meta name="twitter:card" content="summary">
   
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      753 字
+      801 字
     </span>
   
 
@@ -240,19 +240,21 @@
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：10 分钟前
                 
               </p>
             
             <div class="markdown-body">
               <h2 id="搭建Jupyter-Notebook远程云服务器"><a href="#搭建Jupyter-Notebook远程云服务器" class="headerlink" title="搭建Jupyter Notebook远程云服务器"></a>搭建Jupyter Notebook远程云服务器</h2><span id="more"></span>
 <h5 id="安装Jupyter"><a href="#安装Jupyter" class="headerlink" title="安装Jupyter"></a>安装Jupyter</h5><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs verilog">pip install Jupyter<br>jupyter notebook --<span class="hljs-keyword">generate</span>-<span class="hljs-keyword">config</span><br></code></pre></td></tr></table></figure>
-<h5 id="设置密码用于设置服务器配置，以及登录Jupyter。打开Python终端，输入以下："><a href="#设置密码用于设置服务器配置，以及登录Jupyter。打开Python终端，输入以下：" class="headerlink" title="设置密码用于设置服务器配置，以及登录Jupyter。打开Python终端，输入以下："></a>设置密码用于设置服务器配置，以及登录Jupyter。打开Python终端，输入以下：</h5><figure class="highlight ldif"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ldif"><span class="hljs-attribute">In [1]</span>: from IPython.lib import passwd<br><span class="hljs-attribute">In [2]</span>: passwd()<br><span class="hljs-attribute">Enter password</span>: <br><span class="hljs-attribute">Verify password</span>: <br><span class="hljs-attribute">Out[2]</span>: &#x27;这里是密码&#x27;<br></code></pre></td></tr></table></figure>
+<h5 id="设置密码用于设置服务器配置，以及登录Jupyter。打开Python终端，输入以下："><a href="#设置密码用于设置服务器配置，以及登录Jupyter。打开Python终端，输入以下：" class="headerlink" title="设置密码用于设置服务器配置，以及登录Jupyter。打开Python终端，输入以下："></a>设置密码用于设置服务器配置，以及登录Jupyter。打开Python终端，输入以下：</h5><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">jupyter notebook password</span><br></code></pre></td></tr></table></figure>
 <h5 id="设置服务器配置文件"><a href="#设置服务器配置文件" class="headerlink" title="设置服务器配置文件"></a>设置服务器配置文件</h5><figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">vim ~<span class="hljs-regexp">/.jupyter/</span>jupyter_notebook_config.py<br></code></pre></td></tr></table></figure>
 <p>在末尾增加以下几行配置信息</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">c.NotebookApp.ip</span> = <span class="hljs-string">&#x27;*&#x27;</span> <span class="hljs-comment">#所有绑定服务器的IP都能访问，若想只在特定ip访问，输入ip地址即可</span><br><span class="hljs-attr">c.NotebookApp.port</span> = <span class="hljs-number">8888</span> <span class="hljs-comment">#将端口设置为自己喜欢的吧，默认是8888</span><br><span class="hljs-attr">c.NotebookApp.open_browser</span> = <span class="hljs-literal">False</span> <span class="hljs-comment">#我们并不想在服务器上直接打开Jupyter Notebook，所以设置成False</span><br><span class="hljs-attr">c.NotebookApp.notebook_dir</span> = <span class="hljs-string">&#x27;/root/jupyter_projects&#x27;</span> <span class="hljs-comment">#这里是设置Jupyter的根目录，若不设置将默认root的根目录，不安全</span><br><span class="hljs-attr">c.NotebookApp.allow_root</span> = <span class="hljs-literal">True</span> <span class="hljs-comment"># 为了安全，Jupyter默认不允许以root权限启动jupyter </span><br></code></pre></td></tr></table></figure>
 <h5 id="启动Jupyter-远程服务器"><a href="#启动Jupyter-远程服务器" class="headerlink" title="启动Jupyter 远程服务器"></a>启动Jupyter 远程服务器</h5><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">jupyter notebook</span><br></code></pre></td></tr></table></figure>
 <p>至此，Jupyter远程服务器以搭建完毕。在本地浏览器上，输入 ip地址:8888，将会打开远程Jupyter。接下来就可以像在本地一样使用服务器上的Jupyter。</p>
+<p>如果出现不能连接的情况，多半是防火墙的问题。<br>简单粗暴一劳永逸的就是关闭防火墙，当然也可进行设置。参考 <a target="_blank" rel="noopener" href="https://www.codeleading.com/article/10462087431/">https://www.codeleading.com/article/10462087431/</a></p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">systemctl stop firewalld.service<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>

@@ -24,7 +24,7 @@
 <meta property="og:description" content="Neo4j 查询、删除">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-01T08:59:20.000Z">
-<meta property="article:modified_time" content="2022-03-10T01:41:13.961Z">
+<meta property="article:modified_time" content="2022-06-27T08:03:43.068Z">
 <meta property="article:tag" content="Neo4j">
 <meta name="twitter:card" content="summary">
   
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.1k 字
+      3.5k 字
     </span>
   
 
@@ -267,6 +267,16 @@
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">MATCH (<span class="hljs-keyword">a</span>)-[r]-(b) <br><span class="hljs-keyword">with</span> count(type(r)) <span class="hljs-keyword">as</span> <span class="hljs-built_in">num</span>,<span class="hljs-keyword">a</span>,b <br>where <span class="hljs-built_in">num</span> &gt;= <span class="hljs-number">2</span> <span class="hljs-literal">return</span> <span class="hljs-built_in">num</span>,<span class="hljs-keyword">a</span>,b LIMIT <span class="hljs-number">25</span><br></code></pre></td></tr></table></figure></li>
 <li><p>删除</p>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">MATCH</span> (a)<span class="hljs-selector-tag">-</span><span class="hljs-selector-attr">[r]</span><span class="hljs-selector-tag">-</span>(b) <br><span class="hljs-selector-tag">WITH</span> <span class="hljs-selector-tag">a</span>, <span class="hljs-selector-tag">b</span>, <span class="hljs-selector-tag">TAIL</span> (COLLECT (r)) <span class="hljs-selector-tag">as</span> <span class="hljs-selector-tag">rr</span> <br><span class="hljs-selector-tag">WHERE</span> <span class="hljs-selector-tag">size</span>(rr)&gt;<span class="hljs-selector-tag">0</span> <br><span class="hljs-selector-tag">FOREACH</span> (r IN rr | DELETE r)<br></code></pre></td></tr></table></figure></li>
+<li><p>修改节点的 label ，可以先新加 label ，再删除旧的的label</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs oxygene">match (n:<span class="hljs-keyword">old</span>) <span class="hljs-keyword">set</span> n:<span class="hljs-keyword">NEW</span> <span class="hljs-keyword">remove</span> n:<span class="hljs-keyword">old</span><br></code></pre></td></tr></table></figure></li>
+<li><p>修改关系的 label</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">MATCH</span> (<span class="hljs-attribute">n</span>:drug)<span class="hljs-selector-tag">-</span><span class="hljs-selector-attr">[r:indication]</span><span class="hljs-selector-tag">-</span>(<span class="hljs-attribute">m</span>:disease)<br><span class="hljs-selector-tag">CREATE</span> (n)<span class="hljs-selector-tag">-</span><span class="hljs-selector-attr">[r2:drug_disease]</span><span class="hljs-selector-tag">-</span>&gt;(m)<br><span class="hljs-selector-tag">DELETE</span> <span class="hljs-selector-tag">r</span><br></code></pre></td></tr></table></figure></li>
+<li><p>删除某个节点及对应的关系</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">MATCH (n:Disease)-[r]-() <span class="hljs-keyword">where</span> n.name=&quot;&#123;f&#125;&quot; <span class="hljs-keyword">DELETE</span> n,r<br></code></pre></td></tr></table></figure></li>
+<li><p>节点添加属性</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">MATCH (n &#123; <span class="hljs-type">name</span>: <span class="hljs-string">&#x27;Andres&#x27;</span> &#125;) <span class="hljs-keyword">SET</span> n.surname = <span class="hljs-string">&#x27;Taylor&#x27;</span> <span class="hljs-keyword">RETURN</span> n.name, n.surname<br></code></pre></td></tr></table></figure></li>
+<li><p>关系添加属性</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sas">MATCH p=()-[r:`尾部`]-&gt;() <span class="hljs-meta">SET</span> r=&#123;<span class="hljs-meta">title</span>:<span class="hljs-string">&quot;尾部&quot;</span>&#125; <span class="hljs-meta">RETURN</span> p<br></code></pre></td></tr></table></figure></li>
 </ul>
 <h5 id="查询某节点深度关系"><a href="#查询某节点深度关系" class="headerlink" title="查询某节点深度关系"></a>查询某节点深度关系</h5><p>变长路径的模式</p>
 <ul>
@@ -291,6 +301,20 @@
 </ul>
 <h5 id="查询某两个节点是否有关系"><a href="#查询某两个节点是否有关系" class="headerlink" title="查询某两个节点是否有关系"></a>查询某两个节点是否有关系</h5><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">match (:节点标签<span class="hljs-number">1</span>&#123;<span class="hljs-type">name</span>:<span class="hljs-string">&#x27;xx&#x27;</span>&#125;)-[r]-(:节点标签<span class="hljs-number">2</span>&#123;<span class="hljs-type">name</span>:<span class="hljs-string">&#x27;xx&#x27;</span>&#125;) <span class="hljs-keyword">return</span> r,<span class="hljs-keyword">type</span>(r)<br></code></pre></td></tr></table></figure>
 
+<ul>
+<li><p>查询深度关系（r*3表示3级）</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">match p=(n:TargetGene&#123;<span class="hljs-type">name</span>:<span class="hljs-string">&#x27;MIR7-1&#x27;</span>&#125;)-[r*<span class="hljs-number">3</span>]-(m:Disease&#123;<span class="hljs-type">name</span>:<span class="hljs-string">&#x27;breast cancer&#x27;</span>&#125;) <span class="hljs-keyword">return</span> p<br></code></pre></td></tr></table></figure></li>
+<li><p>使用where进行查询</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">match p=(n:TargetGene)-[r*<span class="hljs-number">3</span>]-(m:Disease) <span class="hljs-keyword">where</span> n.<span class="hljs-built_in">name</span>=<span class="hljs-string">&quot;MIR7-1&quot;</span> <span class="hljs-keyword">and</span> m.<span class="hljs-built_in">name</span>=<span class="hljs-string">&quot;breast cancer&quot;</span> <span class="hljs-literal">return</span> p<br></code></pre></td></tr></table></figure></li>
+<li><p>使用正则忽略大小写  <del>“(?i)strings”  其语法为 : =</del> “regexp”  区分大小写的模糊匹配; =~”(?i)regexp” 不区分大小写的模糊匹配</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">match p=(n:TargetGene)-[r*<span class="hljs-number">3</span>]-(m:Disease) <span class="hljs-keyword">where</span> n.<span class="hljs-built_in">name</span>=~<span class="hljs-string">&quot;(?i)mir7-1&quot;</span> <span class="hljs-keyword">and</span> m.<span class="hljs-built_in">name</span>=<span class="hljs-string">&quot;breast cancer&quot;</span> <span class="hljs-literal">return</span> p<br></code></pre></td></tr></table></figure></li>
+<li><p>最短路径查询<br>方法一：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">match p=shortestPath((<span class="hljs-name">n</span><span class="hljs-symbol">:TargetGene</span>&#123;name:<span class="hljs-string">&quot;MIR7-1&quot;</span>&#125;)-[r*]-(<span class="hljs-name">m</span><span class="hljs-symbol">:Disease</span>&#123;name:<span class="hljs-string">&quot;breast cancer&quot;</span>&#125;))  return p<br></code></pre></td></tr></table></figure>
+<p>方法二：<br>加入了忽略大小写</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs applescript">match (n:TargetGene),(m:Disease) <span class="hljs-keyword">where</span> n.<span class="hljs-built_in">name</span>=~<span class="hljs-string">&quot;(?i)mir7-1&quot;</span> <span class="hljs-keyword">and</span> m.<span class="hljs-built_in">name</span>=<span class="hljs-string">&quot;breast cancer&quot;</span><br><span class="hljs-keyword">with</span> n,m match p=shortestpath((n)-[r*]-(m)) <span class="hljs-literal">return</span> p;<br></code></pre></td></tr></table></figure></li>
+<li><p>查询多个药物与某个疾病的最短路径</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coq"><span class="hljs-keyword">match</span> (m:Drug), (n:Disease) <span class="hljs-keyword">where</span> m.name=~&#x27;(?i)DOXYLAMINE|<span class="hljs-type">FESOTERODINE</span>|<span class="hljs-type">TROPICAMIDE</span>|<span class="hljs-type">Dexmedetomidine</span>&#x27; and n.name=~&#x27;(?i)Systemic sclerosis&#x27; <span class="hljs-built_in">with</span> n,m <span class="hljs-keyword">match</span> p=shortestpath((n)-[r*]-(m)) <span class="hljs-keyword">return</span> p<br></code></pre></td></tr></table></figure></li>
+</ul>
 <h5 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h5><ul>
 <li><p>通过 name 属性  删除这一个节点</p>
 <figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs excel"><span class="hljs-built_in">MATCH</span> (<span class="hljs-symbol">n:TE</span>ST1&#123;<span class="hljs-built_in">na</span><span class="hljs-symbol">me:</span>&#x27;temp&#x27;&#125;) delete <span class="hljs-built_in">n</span><br></code></pre></td></tr></table></figure></li>
@@ -305,7 +329,7 @@
 <li><p>删除标签</p>
 <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clean">:schema    ### 查询标签所对应的索引<br></code></pre></td></tr></table></figure></li>
 </ul>
-<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">drop</span> <span class="hljs-keyword">index</span> <span class="hljs-keyword">on</span> 索引名字<br></code></pre></td></tr></table></figure>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">drop</span> <span class="hljs-keyword">index</span> 索引名字<br></code></pre></td></tr></table></figure>
 <p>参考：<a target="_blank" rel="noopener" href="https://python.iitter.com/other/191720.html">https://python.iitter.com/other/191720.html</a></p>
 
             </div>
