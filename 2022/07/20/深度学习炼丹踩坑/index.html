@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://shubihu.github.io/img/article/DL1.jpg">
 <meta property="og:image" content="https://shubihu.github.io/img/article/DL2.jpg">
 <meta property="article:published_time" content="2022-07-20T07:44:09.000Z">
-<meta property="article:modified_time" content="2022-07-20T08:32:50.351Z">
+<meta property="article:modified_time" content="2022-07-20T08:51:01.959Z">
 <meta property="article:tag" content="DL">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://shubihu.github.io/img/article/DL1.jpg">
@@ -243,13 +243,13 @@
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：2 分钟前
                 
               </p>
             
             <div class="markdown-body">
               <h2 id="如题"><a href="#如题" class="headerlink" title="如题"></a>如题</h2><span id="more"></span>
-<h4 id="GPU显存"><a href="#GPU显存" class="headerlink" title="GPU显存"></a>GPU显存</h4><p>使用GPU进行炼丹的时候，发现了些ghost进程，如图中所示<br><img src="/img/article/DL1.jpg" srcset="/img/loading.gif" lazyload><br>这些不仅进程占用了大量的GPU显存，而且使用 ps 查询该进程的时候竟然都查不到。<br>好在互联网上查到了解决的办法</p>
+<h4 id="GPU显存"><a href="#GPU显存" class="headerlink" title="GPU显存"></a>GPU显存</h4><p>使用GPU进行炼丹的时候，发现了些ghost进程，如图中所示<br><img src="/img/article/DL1.jpg" srcset="/img/loading.gif" lazyload><br>这些进程不仅占用了大量的GPU显存，而且使用 ps 查询该进程的时候竟然都查不到。<br>好在互联网上查到了解决的办法</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo fuser -v <span class="hljs-regexp">/dev/</span>nvidia*<br></code></pre></td></tr></table></figure>
 <p>使用该命令查询出所有在GPU显卡上的进程，然后kill掉已经不存在的进程即可释放显存。</p>
 <h4 id="learning-rate"><a href="#learning-rate" class="headerlink" title="learning rate"></a>learning rate</h4><p>在网上找了张图<br><img src="/img/article/DL2.jpg" srcset="/img/loading.gif" lazyload><br>LR在优化算法中更新网络权重的幅度大小，同时也是深度学习中需要调的第一大参数了吧。一般学习率从0.1或0.01开始尝试，如果太大loss会很震荡甚至直接NA，太小了收敛就会很慢。学习率一般要随着训练进行衰减。衰减系数设0.1，0.3，0.5均可，衰减时机，可以是验证集准确率不再上升时，或固定训练多少个周期以后自动进行衰减。当然了也可以一个学习率走到底（不衰减）。</p>
