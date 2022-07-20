@@ -13,24 +13,27 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="搭建Jupyter Notebook远程云服务器">
+  <meta name="description" content="如题">
   <meta name="author" content="">
   <meta name="keywords" content="">
-  <meta name="description" content="搭建Jupyter Notebook远程云服务器">
+  <meta name="description" content="如题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JupyterNotebook远程云服务器">
-<meta property="og:url" content="https://shubihu.github.io/2021/11/30/jupyter/index.html">
+<meta property="og:title" content="深度学习炼丹踩坑">
+<meta property="og:url" content="https://shubihu.github.io/2022/07/20/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%82%BC%E4%B8%B9%E8%B8%A9%E5%9D%91/index.html">
 <meta property="og:site_name" content="梳碧湖">
-<meta property="og:description" content="搭建Jupyter Notebook远程云服务器">
+<meta property="og:description" content="如题">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-11-30T08:08:28.000Z">
-<meta property="article:modified_time" content="2022-06-27T07:53:41.602Z">
-<meta property="article:tag" content="jupyter">
+<meta property="og:image" content="https://shubihu.github.io/img/article/DL1.jpg">
+<meta property="og:image" content="https://shubihu.github.io/img/article/DL2.jpg">
+<meta property="article:published_time" content="2022-07-20T07:44:09.000Z">
+<meta property="article:modified_time" content="2022-07-20T08:29:17.120Z">
+<meta property="article:tag" content="DL">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shubihu.github.io/img/article/DL1.jpg">
   
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"> <script src="/js/lantern.js"></script>
   
-  <title>JupyterNotebook远程云服务器 - 梳碧湖</title>
+  <title>深度学习炼丹踩坑 - 梳碧湖</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -176,7 +179,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="JupyterNotebook远程云服务器">
+            <span class="h2" id="subtitle" title="深度学习炼丹踩坑">
               
             </span>
 
@@ -186,8 +189,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-11-30 16:08" pubdate>
-        2021年11月30日 下午
+      <time datetime="2022-07-20 15:44" pubdate>
+        2022年7月20日 下午
       </time>
     </span>
   
@@ -197,7 +200,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      801 字
+      820 字
     </span>
   
 
@@ -236,25 +239,23 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">JupyterNotebook远程云服务器</h1>
+            <h1 style="display: none">深度学习炼丹踩坑</h1>
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：23 天前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="搭建Jupyter-Notebook远程云服务器"><a href="#搭建Jupyter-Notebook远程云服务器" class="headerlink" title="搭建Jupyter Notebook远程云服务器"></a>搭建Jupyter Notebook远程云服务器</h2><span id="more"></span>
-<h5 id="安装Jupyter"><a href="#安装Jupyter" class="headerlink" title="安装Jupyter"></a>安装Jupyter</h5><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs verilog">pip install Jupyter<br>jupyter notebook --<span class="hljs-keyword">generate</span>-<span class="hljs-keyword">config</span><br></code></pre></td></tr></table></figure>
-<h5 id="设置密码用于设置服务器配置，以及登录Jupyter。打开Python终端，输入以下："><a href="#设置密码用于设置服务器配置，以及登录Jupyter。打开Python终端，输入以下：" class="headerlink" title="设置密码用于设置服务器配置，以及登录Jupyter。打开Python终端，输入以下："></a>设置密码用于设置服务器配置，以及登录Jupyter。打开Python终端，输入以下：</h5><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">jupyter notebook password</span><br></code></pre></td></tr></table></figure>
-<h5 id="设置服务器配置文件"><a href="#设置服务器配置文件" class="headerlink" title="设置服务器配置文件"></a>设置服务器配置文件</h5><figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">vim ~<span class="hljs-regexp">/.jupyter/</span>jupyter_notebook_config.py<br></code></pre></td></tr></table></figure>
-<p>在末尾增加以下几行配置信息</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">c.NotebookApp.ip</span> = <span class="hljs-string">&#x27;*&#x27;</span> <span class="hljs-comment">#所有绑定服务器的IP都能访问，若想只在特定ip访问，输入ip地址即可</span><br><span class="hljs-attr">c.NotebookApp.port</span> = <span class="hljs-number">8888</span> <span class="hljs-comment">#将端口设置为自己喜欢的吧，默认是8888</span><br><span class="hljs-attr">c.NotebookApp.open_browser</span> = <span class="hljs-literal">False</span> <span class="hljs-comment">#我们并不想在服务器上直接打开Jupyter Notebook，所以设置成False</span><br><span class="hljs-attr">c.NotebookApp.notebook_dir</span> = <span class="hljs-string">&#x27;/root/jupyter_projects&#x27;</span> <span class="hljs-comment">#这里是设置Jupyter的根目录，若不设置将默认root的根目录，不安全</span><br><span class="hljs-attr">c.NotebookApp.allow_root</span> = <span class="hljs-literal">True</span> <span class="hljs-comment"># 为了安全，Jupyter默认不允许以root权限启动jupyter </span><br></code></pre></td></tr></table></figure>
-<h5 id="启动Jupyter-远程服务器"><a href="#启动Jupyter-远程服务器" class="headerlink" title="启动Jupyter 远程服务器"></a>启动Jupyter 远程服务器</h5><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">jupyter notebook</span><br></code></pre></td></tr></table></figure>
-<p>至此，Jupyter远程服务器以搭建完毕。在本地浏览器上，输入 ip地址:8888，将会打开远程Jupyter。接下来就可以像在本地一样使用服务器上的Jupyter。</p>
-<p>如果出现不能连接的情况，多半是防火墙的问题。<br>简单粗暴一劳永逸的就是关闭防火墙，当然也可进行设置。参考 <a target="_blank" rel="noopener" href="https://www.codeleading.com/article/10462087431/">https://www.codeleading.com/article/10462087431/</a></p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">systemctl stop firewalld.service<br></code></pre></td></tr></table></figure>
+              <h2 id="如题"><a href="#如题" class="headerlink" title="如题"></a>如题</h2><span id="more"></span>
+<h4 id="GPU显存"><a href="#GPU显存" class="headerlink" title="GPU显存"></a>GPU显存</h4><p>使用GPU进行炼丹的时候，发现了些ghost进程，如图中所示<br><img src="/img/article/DL1.jpg" srcset="/img/loading.gif" lazyload><br>这些不仅进程占用了大量的GPU显存，而且使用 ps 查询该进程的时候竟然都查不到。<br>好在互联网上查到了解决的办法</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo fuser -v <span class="hljs-regexp">/dev/</span>nvidia*<br></code></pre></td></tr></table></figure>
+<p>使用该命令查询出所有在GPU显卡上的进程，然后kill掉已经不存在的进程即可释放显存。</p>
+<h4 id="learning-rate"><a href="#learning-rate" class="headerlink" title="learning rate"></a>learning rate</h4><p>在网上找了张图<br><img src="/img/article/DL2.jpg" srcset="/img/loading.gif" lazyload><br>LR在优化算法中更新网络权重的幅度大小，同时也是深度学习中需要调的第一大参数了吧。一般学习率从0.1或0.01开始尝试，如果太大loss会很震荡甚至直接NA，太小了收敛就会很慢。学习率一般要随着训练进行衰减。衰减系数设0.1，0.3，0.5均可，衰减时机，可以是验证集准确率不再上升时，或固定训练多少个周期以后自动进行衰减。当然了也可以一个学习率走到底（不衰减）。</p>
+<h4 id="batch-size"><a href="#batch-size" class="headerlink" title="batch size"></a>batch size</h4><p>深度学习中一直都有一些参数有着玄学般的存在，比如 random seed = 42，batch size 设置为 2 的倍数，或者 8 的倍数等等。但是最近有大佬对 batch size 这个玄学问题做了实验，结果呢就是也不用非要按 2 的倍数这样去设置。既然玄学被打破那就随心好了，在GPU显存允许的范围内可以尽量设置大点，这样可以节约不少时间。当然了也不能盲目的使用一个大的batch size，如果模型效果不好，该改还是要改的，毕竟玄学终究是玄学。</p>
+<h4 id="optimizer"><a href="#optimizer" class="headerlink" title="optimizer"></a>optimizer</h4><p>目前的优化器有 Adagrad, Adadelta, RMSprop, Adam等，这么多该怎么选呢，整体来讲，Adam是最好的选择，也就是像我这样的小白直接无脑 Adam 就好了。大佬请随意。</p>
+<p>当然了还有一些其他的参数，比如 weight decay, epoch, drop out 等等，epoch 主要就是训练的轮数，只要没过拟合，loss没收敛，那epoch就只能往大了改。如果过拟合了就可以增加 weight decay, drop out的参数，或者使用其他的正则化或者减少过拟合的方法。</p>
 
             </div>
             <hr>
@@ -264,7 +265,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Python/">Python</a>
+                      <a class="hover-with-bg" href="/categories/Deep-Learning/">Deep Learning</a>
                     
                   </div>
                 
@@ -272,7 +273,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/jupyter/">jupyter</a>
+                      <a class="hover-with-bg" href="/tags/DL/">DL</a>
                     
                   </div>
                 
@@ -289,18 +290,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/12/24/VIP%E8%A7%86%E9%A2%91%E8%A7%A3%E6%9E%90%E6%89%8B%E6%9C%BA%E7%AB%AF/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">VIP视频解析手机端</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/11/29/pytorch2paddle/">
-                        <span class="hidden-mobile">pytorch模型转paddle模型踩坑记录</span>
+                      <a href="/2022/03/01/neo4j%E4%B8%AD%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9%E5%8F%8A%E5%85%B3%E7%B3%BB%E7%9A%84%E6%9F%A5%E6%89%BE%E3%80%81%E5%88%A0%E9%99%A4/">
+                        <span class="hidden-mobile">neo4j中节点及关系的查询、删除等</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
