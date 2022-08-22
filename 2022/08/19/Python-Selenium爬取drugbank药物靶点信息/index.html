@@ -24,7 +24,7 @@
 <meta property="og:description" content="Selenium爬虫">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-19T09:35:40.000Z">
-<meta property="article:modified_time" content="2022-08-19T09:46:49.236Z">
+<meta property="article:modified_time" content="2022-08-22T04:53:13.340Z">
 <meta property="article:tag" content="爬虫">
 <meta name="twitter:card" content="summary">
   
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.5k 字
+      2.4k 字
     </span>
   
 
@@ -240,7 +240,7 @@
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：3 天前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
                 
               </p>
             
@@ -261,7 +261,47 @@
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">driver</span><span class="hljs-selector-class">.find_elements</span>(By.CLASS_NAME, <span class="hljs-string">&#x27;col-md-7&#x27;</span>)<br># 这里<span class="hljs-selector-tag">targets</span>的信息如下(如果targets有多个，可能位置索引就会变，而不是<span class="hljs-number">8</span>了)<br><span class="hljs-selector-tag">driver</span><span class="hljs-selector-class">.find_elements</span>(By.CLASS_NAME, <span class="hljs-string">&#x27;col-md-7&#x27;</span>)<span class="hljs-selector-attr">[8]</span><span class="hljs-selector-class">.text</span><br></code></pre></td></tr></table></figure>
 
 <p>以上获取的是所有class名字为col-md-7 的所有内容，还需要手动确认列表中哪一项是自己需要的。当然了，以这种方式获取可能会存在bug，因为不能保证自己需要的信息一定在列表中的某一固定位置。</p>
-<p>以下是定位方式与 By 中的属性对应清单：<br>|  定位方式   | By  |<br>|  —-  | —-  |<br>| id  | By.ID |<br>| name  | By.NAME |<br>| class_name  | By.CLASS_NAME |<br>| tag_name  | By.TAG_NAME |<br>| link_text  | By.LINK_TEXT |<br>| partial_link_text  | By.PARTIAL_LINK_TEXT |<br>| css_selector  | By.CSS_SELECTOR |<br>| xpath  | By.XPATH |</p>
+<p>以下是定位方式与 By 中的属性对应清单：</p>
+<table>
+<thead>
+<tr>
+<th>定位方式</th>
+<th>By</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>By.ID</td>
+</tr>
+<tr>
+<td>name</td>
+<td>By.NAME</td>
+</tr>
+<tr>
+<td>class_name</td>
+<td>By.CLASS_NAME</td>
+</tr>
+<tr>
+<td>tag_name</td>
+<td>By.TAG_NAME</td>
+</tr>
+<tr>
+<td>link_text</td>
+<td>By.LINK_TEXT</td>
+</tr>
+<tr>
+<td>partial_link_text</td>
+<td>By.PARTIAL_LINK_TEXT</td>
+</tr>
+<tr>
+<td>css_selector</td>
+<td>By.CSS_SELECTOR</td>
+</tr>
+<tr>
+<td>xpath</td>
+<td>By.XPATH</td>
+</tr>
+</tbody></table>
 <p>顺便贴一下另一个数据库网站（药智数据，应该是这个公司自己整理的数据库，只对人民币玩家开放，所以只能不厚道了）的代码</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 该公司的数据库可输入drug的名字进行查询</span><br><span class="hljs-attribute">drugName</span> = &#x27;Esmolol&#x27;<br><span class="hljs-attribute">site</span> = &#x27;https://db.yaozh.com/targets?durg_name=&#x27; + drugName + &#x27;&amp;type=%E<span class="hljs-number">5</span>%<span class="hljs-number">85</span>%A<span class="hljs-number">8</span>%E<span class="hljs-number">9</span>%<span class="hljs-number">83</span>%A<span class="hljs-number">8</span>&amp;durg_targets=&amp;groups=%E<span class="hljs-number">5</span>%<span class="hljs-number">85</span>%A<span class="hljs-number">8</span>%E<span class="hljs-number">9</span>%<span class="hljs-number">83</span>%A<span class="hljs-number">8</span>&amp;durg_indication=&amp;cas=&#x27;<br><span class="hljs-attribute">driver</span> = webdriver.Chrome(chromedriver)<br><span class="hljs-attribute">driver</span>.get(site)<br><span class="hljs-comment">#th = driver.find_elements(By.TAG_NAME, &#x27;th&#x27;)</span><br><span class="hljs-attribute">td</span> = driver.find_elements(By.TAG_NAME, &#x27;td&#x27;)<br><span class="hljs-attribute">target</span> = td[<span class="hljs-number">3</span>].text<br><span class="hljs-attribute">driver</span>.close()<br><br></code></pre></td></tr></table></figure>
 
