@@ -13,24 +13,24 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="如题">
+  <meta name="description" content="吭">
   <meta name="author" content="">
   <meta name="keywords" content="">
-  <meta name="description" content="如题">
+  <meta name="description" content="吭">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jupyterhub配置conda环境">
-<meta property="og:url" content="https://shubihu.github.io/2022/08/15/jupyterhub%E9%85%8D%E7%BD%AEconda%E7%8E%AF%E5%A2%83/index.html">
+<meta property="og:title" content="jupyterhub踩坑">
+<meta property="og:url" content="https://shubihu.github.io/2022/08/30/jupyterhub%E8%B8%A9%E5%9D%91/index.html">
 <meta property="og:site_name" content="梳碧湖">
-<meta property="og:description" content="如题">
+<meta property="og:description" content="吭">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-08-15T07:19:37.000Z">
-<meta property="article:modified_time" content="2022-08-15T07:24:35.698Z">
+<meta property="article:published_time" content="2022-08-30T05:35:22.000Z">
+<meta property="article:modified_time" content="2022-08-30T05:59:52.263Z">
 <meta property="article:tag" content="jupyter">
 <meta name="twitter:card" content="summary">
   
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"> <script src="/js/lantern.js"></script>
   
-  <title>jupyterhub配置conda环境 - 梳碧湖</title>
+  <title>jupyterhub踩坑 - 梳碧湖</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -176,7 +176,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="jupyterhub配置conda环境">
+            <span class="h2" id="subtitle" title="jupyterhub踩坑">
               
             </span>
 
@@ -186,8 +186,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-08-15 15:19" pubdate>
-        2022年8月15日 下午
+      <time datetime="2022-08-30 13:35" pubdate>
+        2022年8月30日 下午
       </time>
     </span>
   
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      668 字
+      1.8k 字
     </span>
   
 
@@ -236,24 +236,32 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">jupyterhub配置conda环境</h1>
+            <h1 style="display: none">jupyterhub踩坑</h1>
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：15 天前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="如题"><a href="#如题" class="headerlink" title="如题"></a>如题</h2><span id="more"></span>
-<p>JupyterHub是一个支持多用户的Notebook服务器，用于创建、管理和代理多个Jupyter Notebook实例。<br>jupyter notebook 配置conda环境可参考 <a target="_blank" rel="noopener" href="https://shixiangwang.github.io/blog/4-jupyter-notebook-conda/">https://shixiangwang.github.io/blog/4-jupyter-notebook-conda/</a></p>
-<p>使用jupyterhub 配置conda环境与使用jupyter notebook 配置conda环境大体一致。<br>如果是管理员使用jupyterhub配置的conda环境，其它用户都可以使用，如果是普通用户自己配置的conda环境，则只能该用户自己使用。<br>1、首先使用conda创建环境</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">conda</span> create -n py<span class="hljs-number">38</span> python=<span class="hljs-number">3</span>.<span class="hljs-number">8</span><br></code></pre></td></tr></table></figure>
-<p>2、环境建好以后进入环境</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">source</span> activate py<span class="hljs-number">38</span><br></code></pre></td></tr></table></figure>
-<p>3、进入环境后安装和配置ipykernel</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs gradle">conda install -c conda-forge ipykernel<br>python -m ipykernel install --name=py38 --prefix=<span class="hljs-regexp">/home/</span>xxx/.local<br># --prefix 指定安装路径<br># 管理员可安装到 <span class="hljs-regexp">/usr/</span>local 下或者其他自定义路径<br># 比如 <span class="hljs-regexp">/share/</span>apps<span class="hljs-regexp">/miniconda3/</span>envs<span class="hljs-regexp">/py38/</span><br></code></pre></td></tr></table></figure>
-<p>现在打开jupyterhub进入自己的lab就可以看到多了一个conda的kernel。<br>参考：<a target="_blank" rel="noopener" href="https://jupyterhub.readthedocs.io/en/stable/reference/config-user-env.html">https://jupyterhub.readthedocs.io/en/stable/reference/config-user-env.html</a></p>
+              <h2 id="吭"><a href="#吭" class="headerlink" title="吭"></a>吭</h2><span id="more"></span>
+<h5 id="安装Jupyterhub"><a href="#安装Jupyterhub" class="headerlink" title="安装Jupyterhub"></a>安装Jupyterhub</h5><p>使用 conda 安装，另外官网提供了pip安装方法，参考：<a target="_blank" rel="noopener" href="https://jupyterhub.readthedocs.io/en/latest/quickstart.html#prerequisites">https://jupyterhub.readthedocs.io/en/latest/quickstart.html#prerequisites</a></p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">conda <span class="hljs-keyword">install </span>-c conda-forge <span class="hljs-keyword">jupyterhub </span> <span class="hljs-comment"># installs jupyterhub and proxy</span><br>conda <span class="hljs-keyword">install </span><span class="hljs-keyword">jupyterlab </span>notebook  <span class="hljs-comment"># needed if running the notebook servers in the same environment</span><br></code></pre></td></tr></table></figure>
+<p>测试安装是否成功</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">jupyterhub -h</span><br><span class="hljs-attribute">configurable-http-proxy -h</span><br></code></pre></td></tr></table></figure>
+<h5 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h5><p>使用sudo权限启动，这样可以多用户使用jupyter</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs verilog">jupyterhub --<span class="hljs-keyword">generate</span>-<span class="hljs-keyword">config</span> #生成配置文件<br>sudo jupyterhub<br></code></pre></td></tr></table></figure>
+<p>如果有坑，就需要对配置文件进行修改<br>我这里遇到的坑也是对conda升级造成的，即 conda update conda, 所以没啥事还是不要升级的好。</p>
+<h5 id="conda-版本回退"><a href="#conda-版本回退" class="headerlink" title="conda 版本回退"></a>conda 版本回退</h5><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">conda list <span class="hljs-comment">--revisions</span><br></code></pre></td></tr></table></figure>
+<p>可以显示之前所有的安装版本，以及相应的时间，然后选择一个正常的版本进行回退(我这里选择第16个版本)</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">conda install <span class="hljs-comment">--revision 16</span><br></code></pre></td></tr></table></figure>
+<p>参考：<a target="_blank" rel="noopener" href="https://chowdera.com/2022/01/202201151540272854.html">https://chowdera.com/2022/01/202201151540272854.html</a></p>
+<h5 id="各种坑"><a href="#各种坑" class="headerlink" title="各种坑"></a>各种坑</h5><p>最开始一直遇到的问题是<br>    Spawn failed:Server at xxxxxxxxx respond in 30 seconds<br>经过不断测试（一天过去了）<br>配置文件里添加了这几项</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">c.JupyterHub.authenticator_class</span> = <span class="hljs-string">&#x27;jupyterhub.auth.DummyAuthenticator&#x27;</span><br><span class="hljs-attr">c.JupyterHub.spawner_class</span> = <span class="hljs-string">&#x27;jupyterhub.spawner.SimpleLocalProcessSpawner&#x27;</span><br><span class="hljs-attr">c.Spawner.notebook_dir</span> = <span class="hljs-string">&#x27;/share/home/&#123;username&#125;&#x27;</span>   <span class="hljs-comment"># 用户登录系统的家目录</span><br><span class="hljs-attr">c.Spawner.args</span> = [<span class="hljs-string">&#x27;--allow-root&#x27;</span>]<br></code></pre></td></tr></table></figure>
+<p>当然了坑不止这一个，总之一言难尽，最后整体一个配置如下：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">c.PAMAuthenticator.encoding</span> = <span class="hljs-string">&#x27;utf8&#x27;</span><br><span class="hljs-attr">c.LocalAuthenticator.create_system_users</span> = <span class="hljs-literal">True</span><br><span class="hljs-attr">c.Authenticator.admin_users</span> = &#123;<span class="hljs-string">&#x27;dg&#x27;</span>&#125;<br><span class="hljs-attr">c.Authenticator.allowed_users</span> = &#123;<span class="hljs-string">&#x27;dg&#x27;</span>&#125;<br><span class="hljs-attr">c.JupyterHub.authenticator_class</span> = <span class="hljs-string">&#x27;dummyauthenticator.DummyAuthenticator&#x27;</span><br><span class="hljs-attr">c.JupyterHub.authenticator_class</span> = <span class="hljs-string">&#x27;jupyterhub.auth.DummyAuthenticator&#x27;</span><br><span class="hljs-attr">c.JupyterHub.spawner_class</span> = <span class="hljs-string">&#x27;jupyterhub.spawner.SimpleLocalProcessSpawner&#x27;</span><br><br><span class="hljs-attr">c.Spawner.notebook_dir</span> = <span class="hljs-string">&#x27;/share/home/&#123;username&#125;&#x27;</span><br><span class="hljs-attr">c.Spawner.args</span> = [<span class="hljs-string">&#x27;--allow-root&#x27;</span>]<br><span class="hljs-attr">c.LabBuildApp.minimize</span> = <span class="hljs-literal">False</span><br><span class="hljs-attr">c.LabBuildApp.dev_build</span> = <span class="hljs-literal">False</span><br><br><span class="hljs-comment">### 这几项应该没啥用 ###</span><br><span class="hljs-comment">#c.Spawner.cmd=[&#x27;jupyterhub-singleuser&#x27;]</span><br><span class="hljs-comment">#c.JupyterHub.admin_access = True</span><br><span class="hljs-comment">#c.PAMAuthenticator.open_sessions = False</span><br></code></pre></td></tr></table></figure>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/childheart/p/15570915.html">https://www.cnblogs.com/childheart/p/15570915.html</a></p>
 
             </div>
             <hr>
@@ -288,18 +296,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/08/16/Rstudio-Server%E8%AE%BE%E7%BD%AE%E5%85%AC%E5%85%B1%E5%BA%93/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Rstudio Server设置公共库</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/07/20/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%82%BC%E4%B8%B9%E8%B8%A9%E5%9D%91/">
-                        <span class="hidden-mobile">深度学习炼丹踩坑</span>
+                      <a href="/2022/08/19/Python-Selenium%E7%88%AC%E5%8F%96drugbank%E8%8D%AF%E7%89%A9%E9%9D%B6%E7%82%B9%E4%BF%A1%E6%81%AF/">
+                        <span class="hidden-mobile">Python + Selenium爬取drugbank药物靶点信息</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
