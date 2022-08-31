@@ -24,7 +24,7 @@
 <meta property="og:description" content="坑">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-30T05:35:22.000Z">
-<meta property="article:modified_time" content="2022-08-30T07:12:10.646Z">
+<meta property="article:modified_time" content="2022-08-31T09:02:35.914Z">
 <meta property="article:tag" content="jupyter">
 <meta name="twitter:card" content="summary">
   
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2k 字
+      1.9k 字
     </span>
   
 
@@ -240,7 +240,7 @@
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：1 分钟前
                 
               </p>
             
@@ -257,10 +257,13 @@
 <p>可以显示之前所有的安装版本，以及相应的时间，然后选择一个正常的版本进行回退(我这里选择第16个版本)</p>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">conda install <span class="hljs-comment">--revision 16</span><br></code></pre></td></tr></table></figure>
 <p>参考：<a target="_blank" rel="noopener" href="https://chowdera.com/2022/01/202201151540272854.html">https://chowdera.com/2022/01/202201151540272854.html</a></p>
-<h5 id="各种坑"><a href="#各种坑" class="headerlink" title="各种坑"></a>各种坑</h5><p>最开始一直遇到的问题是<br>    Spawn failed:Server at xxxxxxxxx respond in 30 seconds<br>经过不断测试（一天过去了）<br>配置文件里添加了这几项</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">c.JupyterHub.authenticator_class</span> = <span class="hljs-string">&#x27;jupyterhub.auth.DummyAuthenticator&#x27;</span><br><span class="hljs-attr">c.JupyterHub.spawner_class</span> = <span class="hljs-string">&#x27;jupyterhub.spawner.SimpleLocalProcessSpawner&#x27;</span><br><span class="hljs-attr">c.Spawner.notebook_dir</span> = <span class="hljs-string">&#x27;/share/home/&#123;username&#125;&#x27;</span>   <span class="hljs-comment"># 用户登录系统的家目录</span><br><span class="hljs-attr">c.Spawner.args</span> = [<span class="hljs-string">&#x27;--allow-root&#x27;</span>]<br></code></pre></td></tr></table></figure>
+<h5 id="各种坑"><a href="#各种坑" class="headerlink" title="各种坑"></a>各种坑</h5><p>最开始一直遇到的问题是<br>    Spawn failed:Server at xxxxxxxxx respond in 30 seconds<br>经过不断测试（一天过去了）<br>配置文件里添加了个参数，如下，倒是可以运行了，但是后来发现这个参数是给到root权限了，所以坚决去掉，不然太危险了。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">c<span class="hljs-selector-class">.Spawner</span><span class="hljs-selector-class">.args</span> = <span class="hljs-selector-attr">[<span class="hljs-string">&#x27;--allow-root&#x27;</span>]</span><br></code></pre></td></tr></table></figure>
+<p>后来在 <a target="_blank" rel="noopener" href="https://github.com/jupyterhub/jupyterhub/issues/294">https://github.com/jupyterhub/jupyterhub/issues/294</a> 这里找到了答案<br>原来是用户家目录的 .jupyter 目录惹的祸， 删除或者改个名字就OK了。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">rm -rf ~<span class="hljs-string">/.jupyter</span><br></code></pre></td></tr></table></figure>
+
 <p>当然了坑不止这一个，总之一言难尽，最后整体一个配置如下：</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">c.PAMAuthenticator.encoding</span> = <span class="hljs-string">&#x27;utf8&#x27;</span><br><span class="hljs-attr">c.LocalAuthenticator.create_system_users</span> = <span class="hljs-literal">True</span><br><span class="hljs-attr">c.Authenticator.admin_users</span> = &#123;<span class="hljs-string">&#x27;dg&#x27;</span>&#125;<br><span class="hljs-attr">c.Authenticator.allowed_users</span> = &#123;<span class="hljs-string">&#x27;dg&#x27;</span>&#125;<br><span class="hljs-attr">c.JupyterHub.authenticator_class</span> = <span class="hljs-string">&#x27;dummyauthenticator.DummyAuthenticator&#x27;</span><br><span class="hljs-attr">c.JupyterHub.authenticator_class</span> = <span class="hljs-string">&#x27;jupyterhub.auth.DummyAuthenticator&#x27;</span><br><span class="hljs-attr">c.JupyterHub.spawner_class</span> = <span class="hljs-string">&#x27;jupyterhub.spawner.SimpleLocalProcessSpawner&#x27;</span><br><br><span class="hljs-attr">c.Spawner.notebook_dir</span> = <span class="hljs-string">&#x27;/share/home/&#123;username&#125;&#x27;</span><br><span class="hljs-attr">c.Spawner.args</span> = [<span class="hljs-string">&#x27;--allow-root&#x27;</span>]<br><span class="hljs-attr">c.LabBuildApp.minimize</span> = <span class="hljs-literal">False</span><br><span class="hljs-attr">c.LabBuildApp.dev_build</span> = <span class="hljs-literal">False</span><br><br><span class="hljs-comment">### 这几项应该没啥用 ###</span><br><span class="hljs-comment">#c.Spawner.cmd=[&#x27;jupyterhub-singleuser&#x27;]</span><br><span class="hljs-comment">#c.JupyterHub.admin_access = True</span><br><span class="hljs-comment">#c.PAMAuthenticator.open_sessions = False</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">c.PAMAuthenticator.encoding</span> = <span class="hljs-string">&#x27;utf8&#x27;</span><br><span class="hljs-attr">c.LocalAuthenticator.create_system_users</span> = <span class="hljs-literal">True</span><br><span class="hljs-attr">c.Authenticator.admin_users</span> = &#123;<span class="hljs-string">&#x27;dg&#x27;</span>&#125;<br><span class="hljs-attr">c.Authenticator.allowed_users</span> = &#123;<span class="hljs-string">&#x27;dg&#x27;</span>&#125;<br><span class="hljs-attr">c.JupyterHub.authenticator_class</span> = <span class="hljs-string">&#x27;dummyauthenticator.DummyAuthenticator&#x27;</span><br><span class="hljs-comment">#c.JupyterHub.authenticator_class = &#x27;jupyterhub.auth.DummyAuthenticator&#x27;</span><br><span class="hljs-comment">#c.JupyterHub.spawner_class = &#x27;jupyterhub.spawner.SimpleLocalProcessSpawner&#x27;</span><br><span class="hljs-attr">c.LocalProcessSpawner.shell_cmd</span> = [<span class="hljs-string">&quot;bash&quot;</span>, <span class="hljs-string">&quot;-l&quot;</span>, <span class="hljs-string">&quot;-c&quot;</span>]<br><span class="hljs-attr">c.Spawner.notebook_dir</span> = <span class="hljs-string">&#x27;/share/home/&#123;username&#125;&#x27;</span><br><span class="hljs-attr">c.LabBuildApp.minimize</span> = <span class="hljs-literal">False</span><br><span class="hljs-attr">c.LabBuildApp.dev_build</span> = <span class="hljs-literal">False</span><br><br><span class="hljs-comment">### 这几项应该没啥用 ###</span><br><span class="hljs-comment">#c.Spawner.cmd=[&#x27;jupyterhub-singleuser&#x27;]</span><br><span class="hljs-comment">#c.JupyterHub.admin_access = True</span><br><span class="hljs-comment">#c.PAMAuthenticator.open_sessions = False</span><br></code></pre></td></tr></table></figure>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/childheart/p/15570915.html">https://www.cnblogs.com/childheart/p/15570915.html</a></p>
 <p>另外关于conda</p>
 <h4 id="切换不同的镜像站点时记得清除缓存"><a href="#切换不同的镜像站点时记得清除缓存" class="headerlink" title="切换不同的镜像站点时记得清除缓存"></a>切换不同的镜像站点时记得清除缓存</h4><p>删除索引缓存、锁定文件、未使用过的包和tar包</p>
