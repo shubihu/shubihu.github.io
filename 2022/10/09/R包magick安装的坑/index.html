@@ -24,7 +24,7 @@
 <meta property="og:description" content="Magick">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-10-09T08:30:43.000Z">
-<meta property="article:modified_time" content="2022-10-09T08:53:44.373Z">
+<meta property="article:modified_time" content="2022-10-09T09:02:45.820Z">
 <meta property="article:tag" content="TroubleShoot">
 <meta name="twitter:card" content="summary">
   
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2k 字
+      2.1k 字
     </span>
   
 
@@ -250,8 +250,7 @@
 <figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs smali">Configuration failed to find the Magick++ library. Try installing:<br> - deb: libmagick++-dev (Debian, Ubuntu)<br> - rpm: ImageMagick-c++-devel (Fedora, CentOS, RHEL)<br> - csw: imagemagick_dev (Solaris)<br> - brew imagemagick@6 (MacOS)<br>For Ubuntu versions Trusty (14.04)<span class="hljs-built_in"> and </span>Xenial (16.04) use our PPA:<br>   sudo<span class="hljs-built_in"> add-apt-repository </span>-y ppa:cran/imagemagick<br>   sudo apt-get update<br>   sudo apt-get install -y libmagick++-dev<br>If Magick++ is already installed,<span class="hljs-built_in"> check </span>that &#x27;pkg-config&#x27; is in your<br>PATH<span class="hljs-built_in"> and </span>PKG_CONFIG_PATH contains a Magick++.pc file. If pkg-config<br>is unavailable you can set INCLUDE_DIR<span class="hljs-built_in"> and </span>LIB_DIR manually via:<br>R CMD INSTALL --configure-vars=&#x27;INCLUDE_DIR=... LIB_DIR=...&#x27;<br></code></pre></td></tr></table></figure>
 <p>解决方法：按照对应的系统安装 ImageMagick</p>
 <p>这个问题好解决，但是事情往往没这么简单。</p>
-<p>终极问题：</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gradle">Error: <span class="hljs-keyword">package</span> or namespace load failed <span class="hljs-keyword">for</span> ‘magick’ in dyn.load(<span class="hljs-keyword">file</span>, DLLpath = DLLpath, ...):<br> unable to load shared object <span class="hljs-string">&#x27;/share/apps/R/R-4.2.1/library/00LOCK-magick/00new/magick/libs/magick.so&#x27;</span>:<br>  <span class="hljs-regexp">/share/</span>apps<span class="hljs-regexp">/R/</span>R-<span class="hljs-number">4.2</span>.<span class="hljs-number">1</span><span class="hljs-regexp">/library/</span><span class="hljs-number">00</span>LOCK-magick<span class="hljs-regexp">/00new/m</span>agick<span class="hljs-regexp">/libs/m</span>agick.so: undefined symbol: _ZN6Magick5Image5writeEPNS_4BlobERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEm<br></code></pre></td></tr></table></figure>
+<h5 id="终极问题："><a href="#终极问题：" class="headerlink" title="终极问题："></a>终极问题：</h5><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gradle">Error: <span class="hljs-keyword">package</span> or namespace load failed <span class="hljs-keyword">for</span> ‘magick’ in dyn.load(<span class="hljs-keyword">file</span>, DLLpath = DLLpath, ...):<br> unable to load shared object <span class="hljs-string">&#x27;/share/apps/R/R-4.2.1/library/00LOCK-magick/00new/magick/libs/magick.so&#x27;</span>:<br>  <span class="hljs-regexp">/share/</span>apps<span class="hljs-regexp">/R/</span>R-<span class="hljs-number">4.2</span>.<span class="hljs-number">1</span><span class="hljs-regexp">/library/</span><span class="hljs-number">00</span>LOCK-magick<span class="hljs-regexp">/00new/m</span>agick<span class="hljs-regexp">/libs/m</span>agick.so: undefined symbol: _ZN6Magick5Image5writeEPNS_4BlobERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEm<br></code></pre></td></tr></table></figure>
 
 <p>就这个问题网上找了好多办法都没解决，也可能是之前自己搜的关键词不对，最开始检索的错误信息（Error: package or namespace load failed for ‘magick’ in dyn.load(file, DLLpath = DLLpath, …)），挖了半天一直试错。最后通过检索（magick.so: undefined symbol: _ZN6Magick5Image5wri)找到了解决方法。</p>
 <p>解决方法(如果没有该目录请提前创建)：</p>
@@ -259,7 +258,8 @@
 <p>这个方法还是在github上的一个issue上看到的，按方法中所说应该是g++版本的问题，更改编译的g++即可。<br>地址如下：<br><a target="_blank" rel="noopener" href="https://github.com/ropensci/magick/issues/300">https://github.com/ropensci/magick/issues/300</a></p>
 <p>最后的安装命令（下载的源码进行安装的，应该也可以直接安装不用提前下载源码）</p>
 <figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lasso">install.packages(<span class="hljs-string">&quot;magick_2.7.3.tar.gz&quot;</span>,repos=<span class="hljs-built_in">NULL</span>,<span class="hljs-keyword">type</span>=<span class="hljs-string">&quot;source&quot;</span>)<br></code></pre></td></tr></table></figure>
-<p>其他错误：usr/bin/ld: cannot find 错误解决方法<br>通常在软件编译时出现的usr/bin/ld: cannot find -lxxx的错误，主要的原因是库文件并没有导入的ld检索目录中。<br>解决方式：<br>1。确认库文件是否存在，比如-l123, 在/usr/lib, /usr/local/lib,或者其他自定义的lib下有无lib123.so, 如果只是存在lib123.so.1,<br>   那么可以通过ln -sv lib123.so.1   lib123.so，建立一个连接重建lib123.so.<br>2。检查/etc/ld.so.conf中的库文件路径是否正确，如果库文件不是使用系统路径，/usr/lib, /usr/local/lib, 那么必须在文件中加入。<br>3。ldconfig 重建ld.so.cache文件，ld的库文件检索目录存放文件。尤其刚刚编译安装的软件，必须运行ldconfig，才能将新安装的库文件导入ld.so.cache</p>
+<h6 id="其他错误：usr-bin-ld-cannot-find-错误解决方法"><a href="#其他错误：usr-bin-ld-cannot-find-错误解决方法" class="headerlink" title="其他错误：usr/bin/ld: cannot find 错误解决方法"></a>其他错误：usr/bin/ld: cannot find 错误解决方法</h6><p>通常在软件编译时出现的usr/bin/ld: cannot find -lxxx的错误，主要的原因是库文件并没有导入的ld检索目录中。<br>其中xxx即表示函式库文件名称，如上例的：libc.so、libltdl.so、libXtst.so。<br>其命名规则是：lib+库名(即xxx)+.so。<br>会发生这样的原因有以下三种情形：<br>1 系统没有安装相对应的lib<br>2 相对应的lib版本不对<br>3 lib(.so档)的symbolic link 不正确，没有连结到正确的函式库文件(.so)</p>
+<p>解决方式：<br>1。确认库文件是否存在，比如-l123, 在/usr/lib, /usr/local/lib,或者其他自定义的lib下有无lib123.so, 如果只是存在lib123.so.1,<br>   那么可以通过ln -sv lib123.so.1   lib123.so，建立一个连接重建lib123.so.<br>2。检查/etc/ld.so.conf中的库文件路径是否正确，如果库文件不是使用系统路径，/usr/lib, /usr/local/lib, 那么必须在文件中加入。<br>3。ldconfig 重建ld.so.cache文件，ld的库文件检索目录存放文件。尤其刚刚编译安装的软件，必须运行ldconfig，才能将新安装的库文件导入ld.so.cache</p>
 
             </div>
             <hr>
