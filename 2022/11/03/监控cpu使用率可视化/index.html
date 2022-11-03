@@ -18,19 +18,19 @@
   <meta name="keywords" content="">
   <meta name="description" content="如题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="英伟达(nvida)驱动安装的坑">
-<meta property="og:url" content="https://shubihu.github.io/2022/09/02/%E8%8B%B1%E4%BC%9F%E8%BE%BE-nvida-%E9%A9%B1%E5%8A%A8%E5%AE%89%E8%A3%85%E7%9A%84%E5%9D%91/index.html">
+<meta property="og:title" content="监控cpu使用率可视化">
+<meta property="og:url" content="https://shubihu.github.io/2022/11/03/%E7%9B%91%E6%8E%A7cpu%E4%BD%BF%E7%94%A8%E7%8E%87%E5%8F%AF%E8%A7%86%E5%8C%96/index.html">
 <meta property="og:site_name" content="梳碧湖">
 <meta property="og:description" content="如题">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-09-02T07:29:26.000Z">
-<meta property="article:modified_time" content="2022-09-02T08:16:35.975Z">
-<meta property="article:tag" content="TroubleShoot">
+<meta property="article:published_time" content="2022-11-03T03:10:59.000Z">
+<meta property="article:modified_time" content="2022-11-03T03:24:10.866Z">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
   
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   
-  <title>英伟达(nvida)驱动安装的坑 - 梳碧湖</title>
+  <title>监控cpu使用率可视化 - 梳碧湖</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -176,7 +176,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="英伟达(nvida)驱动安装的坑">
+            <span class="h2" id="subtitle" title="监控cpu使用率可视化">
               
             </span>
 
@@ -186,8 +186,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-09-02 15:29" pubdate>
-        2022年9月2日 下午
+      <time datetime="2022-11-03 11:10" pubdate>
+        2022年11月3日 上午
       </time>
     </span>
   
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      2.7k 字
     </span>
   
 
@@ -236,31 +236,21 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">英伟达(nvida)驱动安装的坑</h1>
+            <h1 style="display: none">监控cpu使用率可视化</h1>
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：2 个月前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
                 
               </p>
             
             <div class="markdown-body">
               <h2 id="如题"><a href="#如题" class="headerlink" title="如题"></a>如题</h2><span id="more"></span>
-<p>本来服务器上的驱动没有问题的，因为之前的cudatookits是通过conda安装的，现在需要管理员在全局安装。<br>cudatoolkits下载 <a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-toolkit-archive">https://developer.nvidia.com/cuda-toolkit-archive</a><br>根据自己的系统选择对应的文件下载。注意：这里尽量选择runfile文件下载，因为runfile文件安装的时候可以进行选择哪些安装哪些不安装，如果选择rpm包下载安装可能就是全家桶了，包括显卡驱动。我就是下的rpm包安装的(没留神下成最新的版本了)，然后驱动就更新了，随之显卡就悲催的不能用了。<br>没办法只能重新安装驱动<br>查看显卡版本</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">cat <span class="hljs-regexp">/proc/</span>driver<span class="hljs-regexp">/nvidia/</span>version<br></code></pre></td></tr></table></figure>
-<p>下载驱动 <a target="_blank" rel="noopener" href="http://www.nvidia.com/Download/Find.aspx">http://www.nvidia.com/Download/Find.aspx</a><br>选择和显卡版本一致的驱动版本，我这里的版本和安装命令如下，另外kernel的目录3.10.0-1062.18.1.el7.x86_64改成自己的</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># NVIDIA-Linux-x86_64-515.57.run</span><br><span class="hljs-attribute">chmod</span> +x NVIDIA-Linux-x<span class="hljs-number">86</span>_<span class="hljs-number">64</span>-<span class="hljs-number">515</span>.<span class="hljs-number">57</span>.run<br><span class="hljs-attribute">sudo</span> ./NVIDIA-Linux-x<span class="hljs-number">86</span>_<span class="hljs-number">64</span>-<span class="hljs-number">515</span>.<span class="hljs-number">57</span>.run --kernel-source-path=/usr/src/kernels/<span class="hljs-number">3</span>.<span class="hljs-number">10</span>.<span class="hljs-number">0</span>-<span class="hljs-number">1062</span>.<span class="hljs-number">18</span>.<span class="hljs-number">1</span>.el<span class="hljs-number">7</span>.x<span class="hljs-number">86</span>_<span class="hljs-number">64</span> -k $(uname -r)<br></code></pre></td></tr></table></figure>
+<p>可视化使用的echarts</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">var</span> <span class="hljs-string">myChart</span> <span class="hljs-string">=</span> <span class="hljs-string">echarts.init(document.getElementById(&#x27;main&#x27;));</span><br><span class="hljs-string">var</span> <span class="hljs-string">data</span> <span class="hljs-string">=</span> <span class="hljs-string">parseInt(res.data);</span><br><span class="hljs-string">//</span> <span class="hljs-string">指定图表的配置项和数据</span><br><span class="hljs-string">var</span> <span class="hljs-string">option</span> <span class="hljs-string">=</span> &#123;<br>  <span class="hljs-attr">dark:</span> <span class="hljs-literal">true</span>,<br>  <span class="hljs-attr">backgroundColor:</span> <span class="hljs-string">&#x27;#001122&#x27;</span>,<br>  <span class="hljs-attr">series:</span> [<br>    &#123;<br>      <span class="hljs-attr">type:</span> <span class="hljs-string">&#x27;gauge&#x27;</span>,<br>      <span class="hljs-attr">progress:</span> &#123;<br>        <span class="hljs-attr">show:</span> <span class="hljs-literal">false</span>,<br>        <span class="hljs-attr">width:</span> <span class="hljs-number">5</span>,<br>        <span class="hljs-attr">itemStyle:</span> &#123;<br>          <span class="hljs-attr">color:</span> &#123;<br>            <span class="hljs-attr">type:</span> <span class="hljs-string">&#x27;radial&#x27;</span>,<br>            <span class="hljs-attr">global:</span> <span class="hljs-literal">true</span>,<br>            <span class="hljs-string">//</span> <span class="hljs-attr">x:</span> <span class="hljs-number">1</span>,<br>            <span class="hljs-string">//</span> <span class="hljs-attr">y:</span> <span class="hljs-number">0.5</span>,<br>            <span class="hljs-string">//</span> <span class="hljs-attr">r:</span> <span class="hljs-number">0.5</span>,<br>            <span class="hljs-attr">colorStops:</span> [<br>              &#123;<br>                <span class="hljs-attr">offset:</span> <span class="hljs-number">0</span>,<br>                <span class="hljs-attr">color:</span> <span class="hljs-string">&#x27;transparent&#x27;</span>,<br>              &#125;,<br>              &#123;<br>                <span class="hljs-attr">offset:</span> <span class="hljs-number">0.7</span>,<br>                <span class="hljs-attr">color:</span> <span class="hljs-string">&#x27;transparent&#x27;</span>,<br>              &#125;,<br>              &#123;<br>                <span class="hljs-attr">offset:</span> <span class="hljs-number">0.95</span>,<br>                <span class="hljs-attr">color:</span> <span class="hljs-string">&#x27;rgba(150, 200, 255, 0.5)&#x27;</span>,<br>              &#125;,<br>              &#123;<br>                <span class="hljs-attr">offset:</span> <span class="hljs-number">0.98</span>,<br>                <span class="hljs-attr">color:</span> <span class="hljs-string">&#x27;rgba(230, 250, 255, 0.9)&#x27;</span>,<br>              &#125;,<br>              &#123;<br>                <span class="hljs-attr">offset:</span> <span class="hljs-number">1</span>,<br>                <span class="hljs-attr">color:</span> <span class="hljs-string">&#x27;rgba(255,255,255,1)&#x27;</span>,<br>              &#125;,<br>            ],<br>          &#125;,<br>        &#125;,<br>      &#125;,<br>      <span class="hljs-attr">axisLine:</span> &#123;<br>        <span class="hljs-attr">lineStyle:</span> &#123;<br>          <span class="hljs-attr">width:</span> <span class="hljs-number">2</span>,<br>          <span class="hljs-attr">color:</span> [<br>            [<span class="hljs-number">0.8</span>, <span class="hljs-string">&#x27;#fff&#x27;</span>],<br>            [<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;red&#x27;</span>],<br>          ],<br>        &#125;,<br>      &#125;,<br>      <span class="hljs-attr">axisTick:</span> &#123;<br>        <span class="hljs-attr">lineStyle:</span> &#123;<br>            <span class="hljs-attr">color:</span> <span class="hljs-string">&#x27;#fff&#x27;</span>,<br>          &#125;,<br>      &#125;,<br>      <span class="hljs-attr">splitLine:</span> &#123;<br>        <span class="hljs-attr">length:</span> <span class="hljs-number">15</span>,<br>        <span class="hljs-attr">lineStyle:</span> &#123;<br>          <span class="hljs-attr">width:</span> <span class="hljs-number">2</span>,<br>          <span class="hljs-attr">color:</span> <span class="hljs-string">&#x27;#999&#x27;</span><br>        &#125;<br>      &#125;,<br>      <span class="hljs-attr">axisLabel:</span> &#123;<br>        <span class="hljs-attr">color:</span> <span class="hljs-string">&#x27;#fff&#x27;</span>,<br>        <span class="hljs-attr">fontSize:</span> <span class="hljs-number">20</span>,<br>      &#125;,<br>      <span class="hljs-attr">anchor:</span> &#123;<br>        <span class="hljs-attr">show:</span> <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">size:</span> <span class="hljs-number">60</span>,<br>        <span class="hljs-attr">showAbove:</span> <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">itemStyle:</span> &#123;<br>          <span class="hljs-attr">color:</span> <span class="hljs-string">&#x27;#001122&#x27;</span>,<br>          <span class="hljs-attr">opacity:</span> <span class="hljs-number">0.9</span>,<br>          <span class="hljs-attr">borderColor:</span> <span class="hljs-string">&#x27;rgba(255,255,255,0.8)&#x27;</span>,<br>          <span class="hljs-attr">borderWidth:</span> <span class="hljs-number">1</span>,<br>          <span class="hljs-attr">shadowBlur:</span> <span class="hljs-number">30</span>,<br>          <span class="hljs-attr">shadowColor:</span> <span class="hljs-string">&#x27;rgba(255, 255, 255, 0.5)&#x27;</span>,<br>        &#125;,<br>      &#125;,<br>      <span class="hljs-attr">pointer:</span> &#123;<br>        <span class="hljs-attr">offsetCenter:</span> [<span class="hljs-number">0</span>, <span class="hljs-string">&#x27;20%&#x27;</span>],<br>        <span class="hljs-attr">icon:</span> <span class="hljs-string">&#x27;path://M2090.36389,615.30999 L2090.36389,615.30999 C2091.48372,615.30999 2092.40383,616.194028 2092.44859,617.312956 L2096.90698,728.755929 C2097.05155,732.369577 2094.2393,735.416212 2090.62566,735.56078 C2090.53845,735.564269 2090.45117,735.566014 2090.36389,735.566014 L2090.36389,735.566014 C2086.74736,735.566014 2083.81557,732.63423 2083.81557,729.017692 C2083.81557,728.930412 2083.81732,728.84314 2083.82081,728.755929 L2088.2792,617.312956 C2088.32396,616.194028 2089.24407,615.30999 2090.36389,615.30999 Z&#x27;</span>,<br>        <span class="hljs-attr">length:</span> <span class="hljs-string">&#x27;110%&#x27;</span>,<br>        <span class="hljs-attr">itemStyle:</span> &#123;<br>          <span class="hljs-attr">color:</span> <span class="hljs-string">&#x27;rgba(255,255,255,0.9)&#x27;</span>,<br>        &#125;,<br>      &#125;,<br>      <span class="hljs-attr">title:</span> &#123;<br>        <span class="hljs-attr">show:</span> <span class="hljs-literal">false</span><br>      &#125;,<br>      <span class="hljs-attr">detail:</span> &#123;<br>        <span class="hljs-attr">valueAnimation:</span> <span class="hljs-literal">true</span>,<br>          <span class="hljs-string">//</span> <span class="hljs-attr">formatter:</span> <span class="hljs-string">&#x27;&#123;value&#125;\n&#123;unit|km / h&#125;&#x27;</span>,<br>          <span class="hljs-attr">offsetCenter:</span> [<span class="hljs-number">0</span>, <span class="hljs-string">&#x27;50%&#x27;</span>],<br>          <span class="hljs-attr">rich:</span> &#123;<br>            <span class="hljs-attr">unit:</span> &#123;<br>              <span class="hljs-attr">lineHeight:</span> <span class="hljs-number">80</span>,<br>              <span class="hljs-attr">color:</span> <span class="hljs-string">&#x27;#fff&#x27;</span>,<br>              <span class="hljs-attr">fontSize:</span> <span class="hljs-number">30</span>,<br>            &#125;,<br>          &#125;,<br>          <span class="hljs-attr">fontSize:</span> <span class="hljs-number">50</span>,<br>          <span class="hljs-attr">color:</span> <span class="hljs-string">&#x27;#fff&#x27;</span>,<br>      &#125;,<br>      <span class="hljs-attr">data:</span> [<br>        &#123;<br>          <span class="hljs-attr">value:</span> <span class="hljs-string">data</span><br>        &#125;<br>      ]<br>    &#125;<br>  ]<br>&#125;<span class="hljs-string">;</span><br><br><span class="hljs-string">//</span> <span class="hljs-string">使用刚指定的配置项和数据显示图表。</span><br><span class="hljs-string">myChart.setOption(option);</span><br><span class="hljs-string">&#125;);</span><br></code></pre></td></tr></table></figure>
 
-<p>以为一切很顺利，然后就报错了。</p>
-<h5 id="第一个坑"><a href="#第一个坑" class="headerlink" title="第一个坑"></a>第一个坑</h5><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">ERROR: You appear to be running an X server; please <span class="hljs-keyword">exit</span> X before            <br>         installing.  For further details, please see the section INSTALLING   <br>         THE NVIDIA DRIVER <span class="hljs-keyword">in</span> the README available on the Linux driver         <br>         download page at www.nvidia.com.<br></code></pre></td></tr></table></figure>
-<p>网上扒了半天扒了一个有效的方法：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/25668/how-to-close-x-server-to-avoid-errors-while-updating-nvidia-driver">https://unix.stackexchange.com/questions/25668/how-to-close-x-server-to-avoid-errors-while-updating-nvidia-driver</a></p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> init <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
-
-<h5 id="第二个坑"><a href="#第二个坑" class="headerlink" title="第二个坑"></a>第二个坑</h5><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs applescript">ERROR: An NVIDIA kernel module &#x27;nvidia-uvm&#x27; appears <span class="hljs-keyword">to</span> already be loaded <span class="hljs-keyword">in</span> your kernel.  This may be because <span class="hljs-keyword">it</span> <span class="hljs-keyword">is</span> <br><span class="hljs-keyword">in</span> use (<span class="hljs-keyword">for</span> example, <span class="hljs-keyword">by</span> an X server, a CUDA program, <span class="hljs-keyword">or</span> <span class="hljs-keyword">the</span> NVIDIA Persistence Daemon), <span class="hljs-keyword">but</span> this may also happen <span class="hljs-keyword">if</span> <br>your kernel was configured <span class="hljs-keyword">without</span> support <span class="hljs-keyword">for</span> module unloading.  Please be sure <span class="hljs-keyword">to</span> <span class="hljs-keyword">exit</span> any programs <span class="hljs-keyword">that</span> may be us<br>ing <span class="hljs-keyword">the</span> GPU(s) <span class="hljs-keyword">before</span> attempting <span class="hljs-keyword">to</span> upgrade your driver.  If no GPU-based programs are <span class="hljs-built_in">running</span>, you know <span class="hljs-keyword">that</span> your k<br>ernel supports module unloading, <span class="hljs-keyword">and</span> you still receive this message, <span class="hljs-keyword">then</span> an <span class="hljs-keyword">error</span> may have occurred <span class="hljs-keyword">that</span> has corrup<br>ted an NVIDIA kernel module&#x27;s usage <span class="hljs-built_in">count</span>, <span class="hljs-keyword">for</span> which <span class="hljs-keyword">the</span> simplest remedy <span class="hljs-keyword">is</span> <span class="hljs-keyword">to</span> reboot your computer.<br></code></pre></td></tr></table></figure>
-<p>解决方法参考 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/1016391912pm/p/16494815.html">https://www.cnblogs.com/1016391912pm/p/16494815.html</a></p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 查看显卡上的进程 </span><br>lsof <span class="hljs-regexp">/dev/</span>nvidia*<br><span class="hljs-comment"># kill 掉所有进程</span><br>kill -<span class="hljs-number">9</span> xxx<br></code></pre></td></tr></table></figure>
-<p>再次运行安装显卡驱动命令终于可以往下进行了。</p>
-<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/gollong/p/12655424.html">https://www.cnblogs.com/gollong/p/12655424.html</a><br>    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/shenggang/p/12133220.html">https://www.cnblogs.com/shenggang/p/12133220.html</a><br>    <a target="_blank" rel="noopener" href="https://eipi10.cn/deep-learning/2019/11/28/centos_cuda_cudnn/">https://eipi10.cn/deep-learning/2019/11/28/centos_cuda_cudnn/</a></p>
+<p>完整代码见：<a target="_blank" rel="noopener" href="https://github.com/shubihu/Tools/tree/master/cpuMonitor">https://github.com/shubihu/Tools/tree/master/cpuMonitor</a></p>
+<h3 id="抄代码参考"><a href="#抄代码参考" class="headerlink" title="抄代码参考"></a>抄代码参考</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/joson1234567890/article/details/106572536">https://blog.csdn.net/joson1234567890/article/details/106572536</a><br><a target="_blank" rel="noopener" href="https://www.delftstack.com/zh/howto/python/get-cpu-usage-in-python/">https://www.delftstack.com/zh/howto/python/get-cpu-usage-in-python/</a></p>
 
             </div>
             <hr>
@@ -270,7 +260,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/TroubleShoot/">TroubleShoot</a>
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
                     
                   </div>
                 
@@ -278,7 +268,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/TroubleShoot/">TroubleShoot</a>
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
                     
                   </div>
                 
@@ -295,18 +285,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/09/R%E5%8C%85magick%E5%AE%89%E8%A3%85%E7%9A%84%E5%9D%91/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">R包magick安装的坑</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/08/30/jupyterhub%E8%B8%A9%E5%9D%91/">
-                        <span class="hidden-mobile">jupyterhub踩坑</span>
+                      <a href="/2022/10/09/R%E5%8C%85magick%E5%AE%89%E8%A3%85%E7%9A%84%E5%9D%91/">
+                        <span class="hidden-mobile">R包magick安装的坑</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
