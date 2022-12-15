@@ -1,0 +1,548 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="如题">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="description" content="如题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="异质图链接预测">
+<meta property="og:url" content="https://shubihu.github.io/2022/12/15/%E5%BC%82%E8%B4%A8%E5%9B%BE%E9%93%BE%E6%8E%A5%E9%A2%84%E6%B5%8B/index.html">
+<meta property="og:site_name" content="梳碧湖">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-15T06:04:13.000Z">
+<meta property="article:modified_time" content="2022-12-15T06:33:01.299Z">
+<meta property="article:tag" content="异质图">
+<meta name="twitter:card" content="summary">
+  
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+  
+  <title>异质图链接预测 - 梳碧湖</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"shubihu.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"&#x1f496","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"FOWqJriwiUxghpNnDaD7X3ao-gzGzoHsz","app_key":"wgi1Wsw2eg7be0kqLc6vhVHj","server_url":"https://fowqjriw.lc-cn-n1-shared.com"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>梳碧湖</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/cat/">
+                <i class="iconfont icon-brush"></i>
+                撸猫
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/yahaha.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="异质图链接预测">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-12-15 14:04" pubdate>
+        2022年12月15日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.1k 字
+    </span>
+  
+
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">异质图链接预测</h1>
+            
+              <p class="note note-info">
+                
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：6 分钟前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h2 id="如题"><a href="#如题" class="headerlink" title="如题"></a>如题</h2><span id="more"></span>
+
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><span class="hljs-title">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">import</span> copy<br><br><span class="hljs-title">from</span> torch_geometric.nn <span class="hljs-keyword">import</span> RGCNConv<br><span class="hljs-title">from</span> tqdm.notebook <span class="hljs-keyword">import</span> tqdm<br><span class="hljs-title">from</span> torch_geometric.utils <span class="hljs-keyword">import</span> negative_sampling<br><span class="hljs-title">from</span> sklearn.metrics <span class="hljs-keyword">import</span> roc_auc_score<br><span class="hljs-title">from</span> torch_geometric.<span class="hljs-class"><span class="hljs-keyword">data</span> import <span class="hljs-type">HeteroData</span></span><br><span class="hljs-title">from</span> torch_geometric.datasets <span class="hljs-keyword">import</span> DBLP<br><br><br><span class="hljs-title">dataset</span> = <span class="hljs-type">DBLP</span>(root=&#x27;./<span class="hljs-type">DBLP&#x27;</span>)<br><span class="hljs-title">graph</span> = dataset[<span class="hljs-number">0</span>]<br><br></code></pre></td></tr></table></figure>
+<p>HeteroData(<br>  author={<br>    x=[4057, 334],<br>    y=[4057],<br>    train_mask=[4057],<br>    val_mask=[4057],<br>    test_mask=[4057]<br>  },<br>  paper={ x=[14328, 4231] },<br>  term={ x=[7723, 50] },<br>  conference={ num_nodes=20 },<br>  (author, to, paper)={ edge_index=[2, 19645] },<br>  (paper, to, author)={ edge_index=[2, 19645] },<br>  (paper, to, term)={ edge_index=[2, 85810] },<br>  (paper, to, conference)={ edge_index=[2, 14328] },<br>  (term, to, paper)={ edge_index=[2, 85810] },<br>  (conference, to, paper)={ edge_index=[2, 14328] }<br>)</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment"># # 因为conference节点没有特征信息，所以将conference节点的特征初始化为1</span><br>graph[<span class="hljs-string">&#x27;conference&#x27;</span>].x = torch.ones(graph[<span class="hljs-string">&#x27;conference&#x27;</span>].num_nodes, 1)<br>graph<br><br>node_types, edge_types = graph.metadata()<br><span class="hljs-builtin-name">print</span>(<span class="hljs-string">&#x27;node_types:&#x27;</span>, node_types)<br><span class="hljs-builtin-name">print</span>(<span class="hljs-string">&#x27;edge_types:&#x27;</span>, edge_types)<br>num_relations = len(edge_types)<br><span class="hljs-builtin-name">print</span>(<span class="hljs-string">&#x27;num_relations:&#x27;</span>, num_relations)<br>init_sizes = [graph[x].x.shape[1] <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> node_types]<br><span class="hljs-builtin-name">print</span>(init_sizes)<br>device = torch.device(<span class="hljs-string">&#x27;cpu&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs routeros">train_data, val_data, test_data = T.RandomLinkSplit(<br>        <span class="hljs-attribute">num_val</span>=0.1,<br>        <span class="hljs-attribute">num_test</span>=0.1,<br>        <span class="hljs-attribute">is_undirected</span>=<span class="hljs-literal">True</span>,<br>        <span class="hljs-attribute">add_negative_train_samples</span>=<span class="hljs-literal">False</span>,<br>        <span class="hljs-attribute">disjoint_train_ratio</span>=0,<br>        edge_types=[(<span class="hljs-string">&#x27;author&#x27;</span>, <span class="hljs-string">&#x27;to&#x27;</span>, <span class="hljs-string">&#x27;paper&#x27;</span>), (<span class="hljs-string">&#x27;paper&#x27;</span>, <span class="hljs-string">&#x27;to&#x27;</span>, <span class="hljs-string">&#x27;term&#x27;</span>),<br>                    (<span class="hljs-string">&#x27;paper&#x27;</span>, <span class="hljs-string">&#x27;to&#x27;</span>, <span class="hljs-string">&#x27;conference&#x27;</span>)],<br>        rev_edge_types=[(<span class="hljs-string">&#x27;paper&#x27;</span>, <span class="hljs-string">&#x27;to&#x27;</span>, <span class="hljs-string">&#x27;author&#x27;</span>), (<span class="hljs-string">&#x27;term&#x27;</span>, <span class="hljs-string">&#x27;to&#x27;</span>, <span class="hljs-string">&#x27;paper&#x27;</span>),<br>                        (<span class="hljs-string">&#x27;conference&#x27;</span>, <span class="hljs-string">&#x27;to&#x27;</span>, <span class="hljs-string">&#x27;paper&#x27;</span>)]<br>    )(graph.to_homogeneous())<br>train_data<br></code></pre></td></tr></table></figure>
+<p>Data(edge_index=[2, 191654], node_type=[26128], edge_type=[191654], edge_label=[95827], edge_label_index=[2, 95827])</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-title">def</span> negative_sample(<span class="hljs-class"><span class="hljs-keyword">data</span>):</span><br>    # 从训练集中采样与正边相同数量的负边<br>    neg_edge_index = negative_sampling(<br>        edge_index=<span class="hljs-class"><span class="hljs-keyword">data</span>.edge_index, num_nodes=<span class="hljs-keyword">data</span>.num_nodes,</span><br>        num_neg_samples=<span class="hljs-class"><span class="hljs-keyword">data</span>.edge_label_index.size(1), method=&#x27;sparse&#x27;)</span><br>    # print(neg_edge_index.size(<span class="hljs-number">1</span>))   # <span class="hljs-number">3642</span>条负边，即每次采样与训练集中正边数量一致的负边<br>    edge_label_index = torch.cat(<br>        [<span class="hljs-class"><span class="hljs-keyword">data</span>.edge_label_index, neg_edge_index],</span><br>        dim=<span class="hljs-number">-1</span>,<br>    )<br>    edge_label = torch.cat([<br>        <span class="hljs-class"><span class="hljs-keyword">data</span>.edge_label,</span><br>        <span class="hljs-class"><span class="hljs-keyword">data</span>.edge_label.new_zeros(<span class="hljs-title">neg_edge_index</span>.<span class="hljs-title">size</span>(1))</span><br>    ], dim=<span class="hljs-number">0</span>)<br><br>    return edge_label, edge_label_index<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RGCN_LP</span>(<span class="hljs-title">nn</span>.<span class="hljs-title">Module</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, in_channels, hidden_channels, out_channels)</span></span>:<br>        <span class="hljs-keyword">super</span>(RGCN_LP, <span class="hljs-keyword">self</span>).__init__()<br>        <span class="hljs-keyword">self</span>.conv1 = RGCNConv(in_channels, hidden_channels,<br>                              num_relations=num_relations, num_bases=<span class="hljs-number">30</span>)<br>        <span class="hljs-keyword">self</span>.conv2 = RGCNConv(hidden_channels, out_channels,<br>                              num_relations=num_relations, num_bases=<span class="hljs-number">30</span>)<br>        <span class="hljs-keyword">self</span>.lins = torch.nn.ModuleList()<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(node_types)):<br>            lin = nn.Linear(init_sizes[i], in_channels)<br>            <span class="hljs-keyword">self</span>.lins.append(lin)<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">trans_dimensions</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, g)</span></span>:<br>        data = copy.deepcopy(g)<br>        <span class="hljs-keyword">for</span> node_type, lin <span class="hljs-keyword">in</span> zip(node_types, <span class="hljs-keyword">self</span>.lins):<br>            data[node_type].x = lin(data[node_type].x)<br><br>        <span class="hljs-keyword">return</span> data<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">encode</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, data)</span></span>:<br>        data = <span class="hljs-keyword">self</span>.trans_dimensions(data)<br>        homogeneous_data = data.to_homogeneous()<br>        <span class="hljs-comment"># print(homogeneous_data)</span><br>        edge_index, edge_type = homogeneous_data.edge_index, homogeneous_data.edge_type<br>        <span class="hljs-comment"># print(edge_type)</span><br>        x = <span class="hljs-keyword">self</span>.conv1(homogeneous_data.x, edge_index, edge_type)<br>        x = <span class="hljs-keyword">self</span>.conv2(x, edge_index, edge_type)<br>        <span class="hljs-keyword">return</span> x<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">decode</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, z, edge_label_index)</span></span>:<br>        <span class="hljs-comment"># z所有节点的表示向量</span><br>        src = z[edge_label_index[<span class="hljs-number">0</span>]]<br>        dst = z[edge_label_index[<span class="hljs-number">1</span>]]<br>        <span class="hljs-comment"># print(dst.size())</span><br>        r = (src * dst).sum(dim=-<span class="hljs-number">1</span>)<br>        <span class="hljs-comment"># print(r.size())</span><br>        <span class="hljs-keyword">return</span> r<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, data, edge_label_index)</span></span>:<br>        z = <span class="hljs-keyword">self</span>.encode(data)<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>.decode(z, edge_label_index)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs css">def test(model, data):<br>    model.<span class="hljs-built_in">eval</span>()<br>    with torch.<span class="hljs-built_in">no_grad</span>():<br>        edge_label, edge_label_index = <span class="hljs-built_in">negative_sample</span>(data)<br>        out = <span class="hljs-built_in">model</span>(graph, edge_label_index).<span class="hljs-built_in">view</span>(-<span class="hljs-number">1</span>)<br>        model.<span class="hljs-built_in">train</span>()<br>    return <span class="hljs-built_in">roc_auc_score</span>(edge_label.<span class="hljs-built_in">cpu</span>().<span class="hljs-built_in">numpy</span>(), out.<span class="hljs-built_in">cpu</span>().<span class="hljs-built_in">numpy</span>())<br><br><br><br>model = <span class="hljs-built_in">RGCN_LP</span>(<span class="hljs-number">128</span>, <span class="hljs-number">64</span>, <span class="hljs-number">4</span>).<span class="hljs-built_in">to</span>(device)<br>optimizer = torch.optim.<span class="hljs-built_in">Adam</span>(params=model.<span class="hljs-built_in">parameters</span>(), lr=<span class="hljs-number">0.01</span>)<br>criterion = torch.nn.<span class="hljs-built_in">BCEWithLogitsLoss</span>().<span class="hljs-built_in">to</span>(device)<br>min_epochs = <span class="hljs-number">10</span><br>best_model = None<br>best_val_auc = <span class="hljs-number">0</span><br>final_test_auc = <span class="hljs-number">0</span><br>model.<span class="hljs-built_in">train</span>()<br>for epoch in <span class="hljs-built_in">range</span>(<span class="hljs-number">500</span>):<br>    optimizer.<span class="hljs-built_in">zero_grad</span>()<br>    edge_label, edge_label_index = <span class="hljs-built_in">negative_sample</span>(train_data)<br>    out = <span class="hljs-built_in">model</span>(graph, edge_label_index).<span class="hljs-built_in">view</span>(-<span class="hljs-number">1</span>)<br>    loss = <span class="hljs-built_in">criterion</span>(out, edge_label)<br>    loss.<span class="hljs-built_in">backward</span>()<br>    optimizer.<span class="hljs-built_in">step</span>()<br>    # validation<br>    val_auc = <span class="hljs-built_in">test</span>(model, val_data)<br>    # test_auc = <span class="hljs-built_in">test</span>(model, test_data)<br>    if epoch + <span class="hljs-number">1</span> &gt; min_epochs and val_auc &gt; best_val_auc:<br>        best_val_auc = val_auc<br>        # final_test_auc = test_auc<br>    if epoch % <span class="hljs-number">10</span> == <span class="hljs-number">0</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;epoch &#123;:03d&#125; train_loss &#123;:.8f&#125; val_auc &#123;:.4f&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(epoch, loss.<span class="hljs-built_in">item</span>(), val_auc))<br>        # <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;epoch &#123;:03d&#125; train_loss &#123;:.8f&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(epoch, loss.<span class="hljs-built_in">item</span>()))<br><br></code></pre></td></tr></table></figure>
+
+
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/circle2015/article/details/128004889">https://blog.csdn.net/circle2015/article/details/128004889</a><br>     <a target="_blank" rel="noopener" href="https://blog.csdn.net/Cyril_KI/article/details/126186418?spm=1001.2014.3001.5502">https://blog.csdn.net/Cyril_KI/article/details/126186418?spm=1001.2014.3001.5502</a><br>     <a target="_blank" rel="noopener" href="https://blog.csdn.net/Cyril_KI/article/details/126048682">https://blog.csdn.net/Cyril_KI/article/details/126048682</a><br>     <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/354258797">https://zhuanlan.zhihu.com/p/354258797</a><br>     <a target="_blank" rel="noopener" href="https://blog.csdn.net/PolarisRisingWar/article/details/128130870">https://blog.csdn.net/PolarisRisingWar/article/details/128130870</a><br>     <a target="_blank" rel="noopener" href="https://blog.csdn.net/PolarisRisingWar/article/details/126980943">https://blog.csdn.net/PolarisRisingWar/article/details/126980943</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">图神经网络</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%BC%82%E8%B4%A8%E5%9B%BE/">异质图</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/05/%E5%9C%A8%E7%BA%BF%E8%BF%90%E8%A1%8CVue%E9%A1%B9%E7%9B%AE/">
+                        <span class="hidden-mobile">在线运行Vue项目</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"FOWqJriwiUxghpNnDaD7X3ao-gzGzoHsz","appKey":"wgi1Wsw2eg7be0kqLc6vhVHj","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script> <script src="/js/wanko.js"></script>
+        </div>
+      </div>
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="/js/xin.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<!-- hexo injector body_end start -->
+  <div id="aplayer"></div>
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+  <script src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js"></script>
+  <script defer src="/js/aplayer.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
