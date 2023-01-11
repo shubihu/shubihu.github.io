@@ -424,14 +424,14 @@
 
   
   <url>
-    <loc>https://shubihu.github.io/tags/Linux/</loc>
+    <loc>https://shubihu.github.io/tags/MongoDB/</loc>
     <lastmod>2023-01-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/tags/MongoDB/</loc>
+    <loc>https://shubihu.github.io/tags/Linux/</loc>
     <lastmod>2023-01-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -566,14 +566,14 @@
 
   
   <url>
-    <loc>https://shubihu.github.io/categories/Linux/</loc>
+    <loc>https://shubihu.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2023-01-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <loc>https://shubihu.github.io/categories/Linux/</loc>
     <lastmod>2023-01-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -636,6 +636,13 @@
   </url>
   
   <url>
+    <loc>https://shubihu.github.io/categories/Neo4j/</loc>
+    <lastmod>2023-01-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://shubihu.github.io/categories/%E5%89%8D%E7%AB%AF/</loc>
     <lastmod>2023-01-11</lastmod>
     <changefreq>daily</changefreq>
@@ -644,13 +651,6 @@
   
   <url>
     <loc>https://shubihu.github.io/categories/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</loc>
-    <lastmod>2023-01-11</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/categories/Neo4j/</loc>
     <lastmod>2023-01-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
