@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Python从零生成PDF</title>
+    <link href="/2023/01/13/Python%E4%BB%8E%E9%9B%B6%E7%94%9F%E6%88%90PDF/"/>
+    <url>/2023/01/13/Python%E4%BB%8E%E9%9B%B6%E7%94%9F%E6%88%90PDF/</url>
+    
+    <content type="html"><![CDATA[<h2 id="如题"><a href="#如题" class="headerlink" title="如题"></a>如题</h2><span id="more"></span><p>使用的包为fpdf，可直接使用pip安装</p><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">pip <span class="hljs-keyword">install</span> fpdf<br></code></pre></td></tr></table></figure><h5 id="中文字体下载"><a href="#中文字体下载" class="headerlink" title="中文字体下载"></a>中文字体下载</h5><p>该包默认是不支持中文的，如果想使用中文，需要下载中文字体，可在如下地址下载<br><a href="https://github.com/Haixing-Hu/latex-chinese-fonts">https://github.com/Haixing-Hu/latex-chinese-fonts</a></p><h5 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h5><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-keyword">from</span> fpdf import FPDF<br><br>pdf = FPDF()<br>pdf.add_page()   # 这句必须<br>pdf.set_font(<span class="hljs-string">&#x27;Arial&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, 16)<br>pdf.cell(40, 10, <span class="hljs-string">&#x27;Hello World!&#x27;</span>)<br><span class="hljs-comment"># 添加中文</span><br>pdf.add_font(<span class="hljs-string">&#x27;STSong&#x27;</span>,<span class="hljs-string">&#x27;&#x27;</span>,<span class="hljs-string">&#x27;db/font/黑体/STHeiti.ttf&#x27;</span>,<span class="hljs-literal">True</span>) <br>pdf.set_font(<span class="hljs-string">&#x27;STSong&#x27;</span>,<span class="hljs-attribute">size</span>=25)<br>pdf.cell(0,20,<span class="hljs-string">&#x27;你好&#x27;</span>, <span class="hljs-attribute">ln</span>=1, <span class="hljs-attribute">align</span>=<span class="hljs-string">&#x27;C&#x27;</span>)<br><br><span class="hljs-comment"># 单行、多行插入</span><br>pdf.cell(0,10,<span class="hljs-string">&#x27;单行&#x27;</span>, <span class="hljs-attribute">ln</span>=1) #插入文本框，0表示文档整个横向长度，10是高度, ln是否换行<br>pdf.multi_cell(0,10,<span class="hljs-string">&#x27;多行&#x27;</span><span class="hljs-number">*100</span>)#多行插入<br><br><span class="hljs-comment"># 添加超链接</span><br>pdf.set_text_color(255,0,0) # 更改颜色<br>pdf.cell(0,10, <span class="hljs-attribute">txt</span>=<span class="hljs-string">&#x27;百度&#x27;</span>, <span class="hljs-attribute">link</span>=<span class="hljs-string">&#x27;www.baidu.com&#x27;</span>, <span class="hljs-attribute">ln</span>=1) # 插入链接<br><br>pdf.output(<span class="hljs-string">&#x27;tuto1.pdf&#x27;</span>, <span class="hljs-string">&#x27;F&#x27;</span>)<br></code></pre></td></tr></table></figure><p>参考：<br><a href="https://www.modb.pro/db/598830">https://www.modb.pro/db/598830</a><br><a href="https://pyfpdf.readthedocs.io/en/latest/Tutorial/index.html">https://pyfpdf.readthedocs.io/en/latest/Tutorial/index.html</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>pdf</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>微信公众号文章爬取</title>
     <link href="/2023/01/11/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0%E7%88%AC%E5%8F%96/"/>
     <url>/2023/01/11/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0%E7%88%AC%E5%8F%96/</url>
