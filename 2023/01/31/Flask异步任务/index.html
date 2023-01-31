@@ -13,24 +13,24 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="如题">
+  <meta name="description" content="Flask-Executor实现异步">
   <meta name="author" content="">
   <meta name="keywords" content="">
-  <meta name="description" content="如题">
+  <meta name="description" content="Flask-Executor实现异步">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python从零生成PDF">
-<meta property="og:url" content="https://shubihu.github.io/2023/01/13/Python%E4%BB%8E%E9%9B%B6%E7%94%9F%E6%88%90PDF/index.html">
+<meta property="og:title" content="Flask异步任务">
+<meta property="og:url" content="https://shubihu.github.io/2023/01/31/Flask%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/index.html">
 <meta property="og:site_name" content="梳碧湖">
-<meta property="og:description" content="如题">
+<meta property="og:description" content="Flask-Executor实现异步">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-01-13T06:03:28.000Z">
-<meta property="article:modified_time" content="2023-01-13T06:57:58.325Z">
-<meta property="article:tag" content="pdf">
+<meta property="article:published_time" content="2023-01-31T07:40:37.000Z">
+<meta property="article:modified_time" content="2023-01-31T07:56:17.971Z">
+<meta property="article:tag" content="Flask">
 <meta name="twitter:card" content="summary">
   
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   
-  <title>Python从零生成PDF - 梳碧湖</title>
+  <title>Flask异步任务 - 梳碧湖</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -176,7 +176,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Python从零生成PDF">
+            <span class="h2" id="subtitle" title="Flask异步任务">
               
             </span>
 
@@ -186,8 +186,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2023-01-13 14:03" pubdate>
-        2023年1月13日 下午
+      <time datetime="2023-01-31 15:40" pubdate>
+        2023年1月31日 下午
       </time>
     </span>
   
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      850 字
+      1.5k 字
     </span>
   
 
@@ -236,22 +236,27 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Python从零生成PDF</h1>
+            <h1 style="display: none">Flask异步任务</h1>
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：18 天前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="如题"><a href="#如题" class="headerlink" title="如题"></a>如题</h2><span id="more"></span>
-<p>使用的包为fpdf，可直接使用pip安装</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">pip <span class="hljs-keyword">install</span> fpdf<br></code></pre></td></tr></table></figure>
-<h5 id="中文字体下载"><a href="#中文字体下载" class="headerlink" title="中文字体下载"></a>中文字体下载</h5><p>该包默认是不支持中文的，如果想使用中文，需要下载中文字体，可在如下地址下载<br><a target="_blank" rel="noopener" href="https://github.com/Haixing-Hu/latex-chinese-fonts">https://github.com/Haixing-Hu/latex-chinese-fonts</a></p>
-<h5 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h5><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-keyword">from</span> fpdf import FPDF<br><br>pdf = FPDF()<br>pdf.add_page()   # 这句必须<br>pdf.set_font(<span class="hljs-string">&#x27;Arial&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, 16)<br>pdf.cell(40, 10, <span class="hljs-string">&#x27;Hello World!&#x27;</span>)<br><span class="hljs-comment"># 添加中文</span><br>pdf.add_font(<span class="hljs-string">&#x27;STSong&#x27;</span>,<span class="hljs-string">&#x27;&#x27;</span>,<span class="hljs-string">&#x27;db/font/黑体/STHeiti.ttf&#x27;</span>,<span class="hljs-literal">True</span>) <br>pdf.set_font(<span class="hljs-string">&#x27;STSong&#x27;</span>,<span class="hljs-attribute">size</span>=25)<br>pdf.cell(0,20,<span class="hljs-string">&#x27;你好&#x27;</span>, <span class="hljs-attribute">ln</span>=1, <span class="hljs-attribute">align</span>=<span class="hljs-string">&#x27;C&#x27;</span>)<br><br><span class="hljs-comment"># 单行、多行插入</span><br>pdf.cell(0,10,<span class="hljs-string">&#x27;单行&#x27;</span>, <span class="hljs-attribute">ln</span>=1) #插入文本框，0表示文档整个横向长度，10是高度, ln是否换行<br>pdf.multi_cell(0,10,<span class="hljs-string">&#x27;多行&#x27;</span><span class="hljs-number">*100</span>)#多行插入<br><br><span class="hljs-comment"># 添加超链接</span><br>pdf.set_text_color(255,0,0) # 更改颜色<br>pdf.cell(0,10, <span class="hljs-attribute">txt</span>=<span class="hljs-string">&#x27;百度&#x27;</span>, <span class="hljs-attribute">link</span>=<span class="hljs-string">&#x27;www.baidu.com&#x27;</span>, <span class="hljs-attribute">ln</span>=1) # 插入链接<br><br>pdf.output(<span class="hljs-string">&#x27;tuto1.pdf&#x27;</span>, <span class="hljs-string">&#x27;F&#x27;</span>)<br></code></pre></td></tr></table></figure>
+              <h2 id="Flask-Executor实现异步"><a href="#Flask-Executor实现异步" class="headerlink" title="Flask-Executor实现异步"></a>Flask-Executor实现异步</h2><span id="more"></span>
+<p>Flask 是 Python 中有名的轻量级同步 web 框架，在一些开发中，可能会遇到需要长时间处理的任务，此时就需要使用异步的方式来实现，让长时间任务在后台运行，先将本次请求的响应状态返回给前端，不让前端界面「卡顿」，当异步任务处理好后，如果需要返回状态，再将状态返回。</p>
+<p>网上教程大多是针对 concurrent.futures 的 ThreadPoolExecutor(多线程)和ProcessPoolExecutor(多进程)实现，这里推荐使用<br>Flask-Executor。<br>官方文档介绍：Flask-Executor is a Flask extension that makes it easy to work with concurrent.futures in your application.</p>
+<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">pip <span class="hljs-keyword">install</span> flask-executor<br></code></pre></td></tr></table></figure>
 
-<p>参考：<br><a target="_blank" rel="noopener" href="https://www.modb.pro/db/598830">https://www.modb.pro/db/598830</a><br><a target="_blank" rel="noopener" href="https://pyfpdf.readthedocs.io/en/latest/Tutorial/index.html">https://pyfpdf.readthedocs.io/en/latest/Tutorial/index.html</a></p>
+<h5 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h5><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs clean"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask<br><span class="hljs-keyword">from</span> flask_executor <span class="hljs-keyword">import</span> Executor<br><br>app = Flask(__name__)<br># app.config[<span class="hljs-string">&#x27;EXECUTOR_TYPE&#x27;</span>] = <span class="hljs-string">&#x27;process&#x27;</span><br>app.config[<span class="hljs-string">&#x27;EXECUTOR_TYPE&#x27;</span>] = <span class="hljs-string">&#x27;thread&#x27;</span><br>app.config[<span class="hljs-string">&#x27;EXECUTOR_MAX_WORKERS&#x27;</span>] = <span class="hljs-number">5</span><br>app.config[<span class="hljs-string">&#x27;EXECUTOR_PROPAGATE_EXCEPTIONS&#x27;</span>] = <span class="hljs-literal">True</span>   ## 方便debug<br>executor = Executor(app)<br></code></pre></td></tr></table></figure>
+
+<h5 id="官方小例子："><a href="#官方小例子：" class="headerlink" title="官方小例子："></a>官方小例子：</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span>(<span class="hljs-params">n</span>):</span><br>    <span class="hljs-keyword">if</span> n &lt;= <span class="hljs-number">2</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> fib(n-<span class="hljs-number">1</span>) + fib(n-<span class="hljs-number">2</span>)<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/run_fib&#x27;</span></span>)</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run_fib</span>():</span><br>    executor.submit(fib, <span class="hljs-number">5</span>)<br>    executor.<span class="hljs-built_in">map</span>(fib, <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">6</span>))<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;OK&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="收集异步任务信息"><a href="#收集异步任务信息" class="headerlink" title="收集异步任务信息"></a>收集异步任务信息</h5><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-variable">@app</span>.route(<span class="hljs-string">&#x27;/start-task&#x27;</span>)<br>def start_task():<br>    executor.submit_stored(<span class="hljs-string">&#x27;calc_power&#x27;</span>, pow, <span class="hljs-number">323</span>, <span class="hljs-number">1235</span>)<br>    return jsonify(&#123;<span class="hljs-string">&#x27;result&#x27;</span>:<span class="hljs-string">&#x27;success&#x27;</span>&#125;)<br><br><span class="hljs-variable">@app</span>.route(<span class="hljs-string">&#x27;/get-result&#x27;</span>)<br>def get_result():<br>    if not executor.futures.done(<span class="hljs-string">&#x27;calc_power&#x27;</span>):<br>        return jsonify(&#123;<span class="hljs-string">&#x27;status&#x27;</span>: executor.futures._state(<span class="hljs-string">&#x27;calc_power&#x27;</span>)&#125;)<br>    future = executor.futures.pop(<span class="hljs-string">&#x27;calc_power&#x27;</span>)<br>    return jsonify(&#123;<span class="hljs-string">&#x27;status&#x27;</span>: done, <span class="hljs-string">&#x27;result&#x27;</span>: future.result()&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>详细文档请查阅：<a target="_blank" rel="noopener" href="https://flask-executor.readthedocs.io/en/latest/">https://flask-executor.readthedocs.io/en/latest/</a></p>
 
             </div>
             <hr>
@@ -269,7 +274,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/pdf/">pdf</a>
+                      <a class="hover-with-bg" href="/tags/Flask/">Flask</a>
                     
                   </div>
                 
@@ -286,18 +291,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/01/31/Flask%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Flask异步任务</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/01/11/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0%E7%88%AC%E5%8F%96/">
-                        <span class="hidden-mobile">微信公众号文章爬取</span>
+                      <a href="/2023/01/13/Python%E4%BB%8E%E9%9B%B6%E7%94%9F%E6%88%90PDF/">
+                        <span class="hidden-mobile">Python从零生成PDF</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
