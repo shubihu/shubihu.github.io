@@ -664,13 +664,6 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/categories/leetcode/</loc>
-    <lastmod>2023-02-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://shubihu.github.io/categories/%E5%89%8D%E7%AB%AF/</loc>
     <lastmod>2023-02-07</lastmod>
     <changefreq>daily</changefreq>
@@ -700,6 +693,13 @@
   
   <url>
     <loc>https://shubihu.github.io/categories/Working/</loc>
+    <lastmod>2023-02-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/categories/leetcode/</loc>
     <lastmod>2023-02-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
