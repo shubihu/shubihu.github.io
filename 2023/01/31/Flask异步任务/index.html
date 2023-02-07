@@ -24,7 +24,7 @@
 <meta property="og:description" content="Flask-Executor实现异步">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-01-31T07:40:37.000Z">
-<meta property="article:modified_time" content="2023-02-07T05:16:54.916Z">
+<meta property="article:modified_time" content="2023-02-07T09:37:14.366Z">
 <meta property="article:tag" content="Flask">
 <meta name="twitter:card" content="summary">
   
@@ -240,7 +240,7 @@
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：2 小时前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
                 
               </p>
             
@@ -266,7 +266,7 @@
 <p>解决方案参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/counsellor/article/details/43715007">https://blog.csdn.net/counsellor/article/details/43715007</a></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update</span>(<span class="hljs-params">database, projectId</span>):</span><br>    lock = threading.Lock()<br>    <span class="hljs-keyword">try</span>:<br>        lock.acquire(<span class="hljs-literal">True</span>)<br>        tmp_sql = <span class="hljs-string">&#x27;&#x27;&#x27;update tasks set complete = ? where projectId = ?&#x27;&#x27;&#x27;</span><br>        database.execute_sql(tmp_sql, (<span class="hljs-string">&#x27;Y&#x27;</span>, projectId))<br><br>        input_path = <span class="hljs-string">f&quot;static/project/<span class="hljs-subst">&#123;projectId&#125;</span>/result&quot;</span><br>        output_path = <span class="hljs-string">f&quot;static/project/<span class="hljs-subst">&#123;projectId&#125;</span>/result.zip&quot;</span><br>        zipDir(input_path, output_path)<br><br>        tmp_sql = <span class="hljs-string">&#x27;&#x27;&#x27;update tasks set result = ? where projectId = ?&#x27;&#x27;&#x27;</span><br>        database.execute_sql(tmp_sql, (output_path, projectId))<br>    <span class="hljs-keyword">finally</span>:<br>        lock.release()<br></code></pre></td></tr></table></figure>
 
-
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/briblue/article/details/85220740">https://blog.csdn.net/briblue/article/details/85220740</a></p>
 
             </div>
             <hr>
