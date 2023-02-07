@@ -47,10 +47,11 @@
     r()
 } (window, document);
 
-window.onload = function () {
-    vsubmitLen=document.getElementsByClassName("vsubmit vbtn").length;
-};
+// window.onload = function () {
+//     vsubmitLen=document.getElementsByClassName("vsubmit vbtn").length;
+// };
 
+var vsubmitLen=document.getElementsByClassName("vsubmit vbtn").length;
 var SCKEY_Server="SCT195211TOjCqd93TcS4uFQRwRaeIVhsl";
 if ( vsubmitLen > 0) {
     var ValineButton=document.getElementsByClassName("vsubmit vbtn")[0];

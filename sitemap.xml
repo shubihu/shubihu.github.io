@@ -445,7 +445,7 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/tags/Linux/</loc>
+    <loc>https://shubihu.github.io/tags/MongoDB/</loc>
     <lastmod>2023-02-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -453,13 +453,6 @@
   
   <url>
     <loc>https://shubihu.github.io/tags/Pyecharts/</loc>
-    <lastmod>2023-02-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/tags/MongoDB/</loc>
     <lastmod>2023-02-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -488,6 +481,13 @@
   
   <url>
     <loc>https://shubihu.github.io/tags/Pytorch/</loc>
+    <lastmod>2023-02-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/tags/Linux/</loc>
     <lastmod>2023-02-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -601,13 +601,6 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/categories/Linux/</loc>
-    <lastmod>2023-02-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://shubihu.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2023-02-07</lastmod>
     <changefreq>daily</changefreq>
@@ -616,6 +609,13 @@
   
   <url>
     <loc>https://shubihu.github.io/categories/Pytorch/</loc>
+    <lastmod>2023-02-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/categories/Linux/</loc>
     <lastmod>2023-02-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -650,13 +650,6 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/categories/leetcode/</loc>
-    <lastmod>2023-02-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://shubihu.github.io/categories/Mac/</loc>
     <lastmod>2023-02-07</lastmod>
     <changefreq>daily</changefreq>
@@ -665,6 +658,13 @@
   
   <url>
     <loc>https://shubihu.github.io/categories/Neo4j/</loc>
+    <lastmod>2023-02-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/categories/leetcode/</loc>
     <lastmod>2023-02-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
