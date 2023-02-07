@@ -49,8 +49,10 @@
 
 (function() {
     var SCKEY_Server="SCT195211TOjCqd93TcS4uFQRwRaeIVhsl";
+    console.log('gg');
     if (document.getElementsByClassName("vsubmit vbtn").length > 0) {
-        var ValineButton=document.getElementsByClassName("vsubmit vbtn")[0]; 
+        console.log('hh');
+        var ValineButton=document.getElementsByClassName("vsubmit vbtn")[0];
         function send_valine_Server(){ 
             // var text="desp="; 
             // var pagename=document.title;
