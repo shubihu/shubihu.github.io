@@ -77,4 +77,14 @@
     }
 })(window, document);
 
+window.onload = function () {
+    var len1=document.getElementsByClassName("vsubmit vbtn").length;
+    console.log(len1);
+    console.log('len1加载完毕')
+};
 
+document.addEventListener('DOMContentLoaded', function(event) {
+    var len2=document.getElementsByClassName("vsubmit vbtn").length;
+    console.log(len2);
+    console.log('len2加载完毕')
+});
