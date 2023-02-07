@@ -75,6 +75,6 @@
         }; 
         ValineButton.onclick=send_valine_Server();
     }
-})();
+})(window, document);
 
 
