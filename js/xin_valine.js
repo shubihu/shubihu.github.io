@@ -47,11 +47,9 @@
     r()
 } (window, document);
 
-(function() {
+window.onload = function () {
     var SCKEY_Server="SCT195211TOjCqd93TcS4uFQRwRaeIVhsl";
-    console.log('gg');
     var len=document.getElementsByClassName("vsubmit vbtn").length;
-    console.log(len);
     if ( len > 0) {
         console.log('hh');
         var ValineButton=document.getElementsByClassName("vsubmit vbtn")[0];
@@ -75,16 +73,5 @@
         }; 
         ValineButton.onclick=send_valine_Server();
     }
-})(window, document);
-
-window.onload = function () {
-    var len1=document.getElementsByClassName("vsubmit vbtn").length;
-    console.log(len1);
-    console.log('len1加载完毕')
 };
 
-document.addEventListener('DOMContentLoaded', function(event) {
-    var len2=document.getElementsByClassName("vsubmit vbtn").length;
-    console.log(len2);
-    console.log('len2加载完毕')
-});
