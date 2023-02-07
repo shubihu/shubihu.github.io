@@ -49,13 +49,11 @@
 
 window.onload = function () {
     vsubmitLen=document.getElementsByClassName("vsubmit vbtn").length;
-    if ( vsubmitLen > 0) {
-        ValineButton=document.getElementsByClassName("vsubmit vbtn")[0];
-    }
 };
 
 var SCKEY_Server="SCT195211TOjCqd93TcS4uFQRwRaeIVhsl";
 if ( vsubmitLen > 0) {
+    var ValineButton=document.getElementsByClassName("vsubmit vbtn")[0];
     function send_valine_Server(){ 
         var text="desp="; 
         var pagename=document.title;
