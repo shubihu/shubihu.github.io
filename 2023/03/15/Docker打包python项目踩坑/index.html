@@ -24,7 +24,7 @@
 <meta property="og:description" content="Docker踩坑">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-03-15T09:25:27.000Z">
-<meta property="article:modified_time" content="2023-03-15T09:57:32.806Z">
+<meta property="article:modified_time" content="2023-03-16T03:38:36.734Z">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
   
@@ -209,7 +209,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      2.5k 字
     </span>
   
 
@@ -252,7 +252,7 @@
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：1 分钟前
                 
               </p>
             
@@ -270,13 +270,27 @@
 <li>Dockerfile信息如下<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs vim">FROM <span class="hljs-keyword">python</span>:<span class="hljs-number">3.9</span>-slim<br><br>WORKDIR /frontend<br>COPY requirements.txt requirements.txt<br><br>RUN apt <span class="hljs-keyword">update</span><br>RUN apt install -<span class="hljs-keyword">y</span> gcc g++<br><br>#RUN <span class="hljs-keyword">python</span> -<span class="hljs-keyword">m</span> pip install --quiet --upgrade pip -i http<span class="hljs-variable">s:</span>//pypi.tuna.tsinghua.edu.<span class="hljs-keyword">cn</span>/simple --trusted-host pypi.tuna.tsinghua.edu.<span class="hljs-keyword">cn</span><br>RUN <span class="hljs-keyword">python</span> -<span class="hljs-keyword">m</span> pip install -r requirements.txt -i http<span class="hljs-variable">s:</span>//pypi.tuna.tsinghua.edu.<span class="hljs-keyword">cn</span>/simple --trusted-host pypi.tuna.tsinghua.edu.<span class="hljs-keyword">cn</span><br><br>ADD . .<br><br>CMD [<span class="hljs-string">&quot;python&quot;</span>, <span class="hljs-string">&quot;fapp.py&quot;</span>]<br></code></pre></td></tr></table></figure>
 在以上两个文件的基础下build镜像，测试中发现安装prody需要gcc和g++<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">docker <span class="hljs-keyword">build </span>-t frontend:<span class="hljs-built_in">v1</span> .<br></code></pre></td></tr></table></figure></li>
 </ul>
+<h4 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h4><ul>
+<li>交互式运行<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> run -it -p <span class="hljs-number">5001</span>:<span class="hljs-number">5001</span> frontend:v<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure></li>
+<li>交互式进入镜像<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> run -it -p <span class="hljs-number">5001</span>:<span class="hljs-number">5001</span> frontend:v<span class="hljs-number">1</span> bash<br></code></pre></td></tr></table></figure></li>
+<li>分离模式下运行 docker 容器<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> run -d -p <span class="hljs-number">5001</span>:<span class="hljs-number">5001</span> --name saas frontend:v<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure></li>
+<li>查看运行容器的ip<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> inspect a<span class="hljs-number">7</span>a<span class="hljs-number">17666</span>fdd<span class="hljs-number">9</span> | grep -i ipaddress      # inspect后为容器id或容器name<br></code></pre></td></tr></table></figure></li>
+<li>进入已经运行的容器<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> exec -it a<span class="hljs-number">7</span>a<span class="hljs-number">17666</span>fdd<span class="hljs-number">9</span> bash        # 参数 -it 后为容器id, 另外使用attach也可进入，不过exit的时候容器会停止，而exec不会<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="容器连接宿主机redis"><a href="#容器连接宿主机redis" class="headerlink" title="容器连接宿主机redis"></a>容器连接宿主机redis</h4><p>Docker启动容器的网络模式如下</p>
+<ul>
+<li>Host : 容器将不会虚拟出自己的网卡，配置自己的IP等，而是使用宿主机的IP和端口</li>
+<li>Container : 创建的容器不会创建自己的网卡，配置自己的IP，而是和一个指定的容器共享IP、端口范围</li>
+<li>None : 该模式关闭了容器的网络功能</li>
+<li>Bridge : 默认为该模式，此模式会为每一个容器分配、设置IP等，并将容器连接到一个docker0虚拟网桥，通过docker0网桥以及iptables nat表配置与宿主机通信<br>使用host模式启动容器，以方便连接宿主机redis服务<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">docker <span class="hljs-builtin-name">run</span> -d -p 5001:5001 <span class="hljs-attribute">--net</span>=host --name saas frontend:v1<br></code></pre></td></tr></table></figure></li>
+</ul>
 <h4 id="docker常用命令"><a href="#docker常用命令" class="headerlink" title="docker常用命令"></a>docker常用命令</h4><ul>
 <li>列出所有容器ID，包括停止的<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">docker ps -aq</span><br></code></pre></td></tr></table></figure></li>
 <li>停止所有的container<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">docker stop <span class="hljs-constructor">$(<span class="hljs-params">docker</span> <span class="hljs-params">ps</span> -<span class="hljs-params">aq</span>)</span><br></code></pre></td></tr></table></figure></li>
 <li>删除所有container<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">docker rm <span class="hljs-constructor">$(<span class="hljs-params">docker</span> <span class="hljs-params">ps</span> -<span class="hljs-params">aq</span>)</span><br></code></pre></td></tr></table></figure></li>
 <li>删除tag为none的镜像<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">docker rmi <span class="hljs-constructor">$(<span class="hljs-params">docker</span> <span class="hljs-params">images</span> | <span class="hljs-params">grep</span> <span class="hljs-string">&quot;^&lt;none&gt;&quot;</span> | <span class="hljs-params">awk</span> <span class="hljs-string">&quot;&#123;print $3&#125;&quot;</span>)</span><br></code></pre></td></tr></table></figure></li>
 </ul>
-<p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/430989391">https://zhuanlan.zhihu.com/p/430989391</a><br>    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/orion-orion/p/16268011.html">https://www.cnblogs.com/orion-orion/p/16268011.html</a></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/430989391">https://zhuanlan.zhihu.com/p/430989391</a><br>    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/orion-orion/p/16268011.html">https://www.cnblogs.com/orion-orion/p/16268011.html</a><br>    <a target="_blank" rel="noopener" href="http://www.xiaomaidong.com/?p=1148">http://www.xiaomaidong.com/?p=1148</a></p>
 
             </div>
             <hr>
