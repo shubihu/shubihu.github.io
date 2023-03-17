@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Python远程过程调用RPC小例子</title>
+    <link href="/2023/03/17/%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8RPC%E5%B0%8F%E4%BE%8B%E5%AD%90/"/>
+    <url>/2023/03/17/%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8RPC%E5%B0%8F%E4%BE%8B%E5%AD%90/</url>
+    
+    <content type="html"><![CDATA[<h2 id="RPC-demo"><a href="#RPC-demo" class="headerlink" title="RPC demo"></a>RPC demo</h2><span id="more"></span><h4 id="在B服务器上运行RPC服务"><a href="#在B服务器上运行RPC服务" class="headerlink" title="在B服务器上运行RPC服务"></a>在B服务器上运行RPC服务</h4><ul><li>服务端server.py代码：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># server.py</span><br><span class="hljs-keyword">import</span> Pyro4<br><br><span class="hljs-meta">@Pyro4.expose</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyServer</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">do_something</span>(<span class="hljs-params">self</span>):</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hello from server&quot;</span><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    daemon = Pyro4.Daemon(port=<span class="hljs-number">35721</span>)<br>    uri = daemon.register(MyServer, objectId=<span class="hljs-string">&quot;helloworld&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Ready. Object uri =&quot;</span>, uri)<br>    daemon.requestLoop()<br></code></pre></td></tr></table></figure></li><li>执行程序<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">python</span> server.<span class="hljs-keyword">py</span><br></code></pre></td></tr></table></figure></li></ul><h4 id="在A服务器上运行RPC客户端"><a href="#在A服务器上运行RPC客户端" class="headerlink" title="在A服务器上运行RPC客户端"></a>在A服务器上运行RPC客户端</h4><ul><li>客户端client.py代码<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-meta"># client.py</span><br>import Pyro4<br><br><span class="hljs-meta"># 输入server 端的uri</span><br><span class="hljs-keyword">server</span> = Pyro4.Proxy(<span class="hljs-string">&quot;PYRO:helloworld@localhost:35721&quot;</span>)<br><br>result = <span class="hljs-keyword">server</span>.do_something()<br><span class="hljs-keyword">print</span>(result)<br></code></pre></td></tr></table></figure></li><li>执行程序<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">python</span> client.<span class="hljs-keyword">py</span><br></code></pre></td></tr></table></figure>正常输出：hello from server</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>RPC</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Docker打包python项目踩坑</title>
     <link href="/2023/03/15/Docker%E6%89%93%E5%8C%85python%E9%A1%B9%E7%9B%AE%E8%B8%A9%E5%9D%91/"/>
     <url>/2023/03/15/Docker%E6%89%93%E5%8C%85python%E9%A1%B9%E7%9B%AE%E8%B8%A9%E5%9D%91/</url>
