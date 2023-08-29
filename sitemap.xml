@@ -515,21 +515,28 @@
 
   
   <url>
-    <loc>https://shubihu.github.io/tags/Flask/</loc>
-    <lastmod>2023-08-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/tags/%E5%8D%95%E5%8D%A1%E3%80%81%E5%A4%9A%E8%BF%9B%E7%A8%8B/</loc>
-    <lastmod>2023-08-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://shubihu.github.io/tags/js-3dmol/</loc>
+    <lastmod>2023-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/tags/torch/</loc>
+    <lastmod>2023-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/tags/docker/</loc>
+    <lastmod>2023-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/tags/Flask/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -543,14 +550,7 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/tags/Linux/</loc>
-    <lastmod>2023-08-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/tags/Python/</loc>
+    <loc>https://shubihu.github.io/tags/%E5%8D%95%E5%8D%A1%E3%80%81%E5%A4%9A%E8%BF%9B%E7%A8%8B/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -558,6 +558,13 @@
   
   <url>
     <loc>https://shubihu.github.io/tags/Pyecharts/</loc>
+    <lastmod>2023-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/tags/Python/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -578,14 +585,14 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/tags/torch/</loc>
+    <loc>https://shubihu.github.io/tags/pdf/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/tags/docker/</loc>
+    <loc>https://shubihu.github.io/tags/Linux/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -620,7 +627,14 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/tags/pdf/</loc>
+    <loc>https://shubihu.github.io/tags/centos7/</loc>
+    <lastmod>2023-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/tags/conda/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -628,6 +642,13 @@
   
   <url>
     <loc>https://shubihu.github.io/tags/CPP/</loc>
+    <lastmod>2023-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/tags/github/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -655,20 +676,6 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/tags/centos7/</loc>
-    <lastmod>2023-08-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/tags/conda/</loc>
-    <lastmod>2023-08-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://shubihu.github.io/tags/Vue/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
@@ -683,7 +690,7 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/tags/%E6%A0%B8%E9%85%B8%E6%A3%80%E6%B5%8B/</loc>
+    <loc>https://shubihu.github.io/tags/%E5%BC%82%E8%B4%A8%E5%9B%BE/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -698,6 +705,13 @@
   
   <url>
     <loc>https://shubihu.github.io/tags/%E5%88%92%E6%B0%B4%E6%91%B8%E9%B1%BC/</loc>
+    <lastmod>2023-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/tags/%E6%A0%B8%E9%85%B8%E6%A3%80%E6%B5%8B/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -731,52 +745,10 @@
     <priority>0.6</priority>
   </url>
   
-  <url>
-    <loc>https://shubihu.github.io/tags/%E5%BC%82%E8%B4%A8%E5%9B%BE/</loc>
-    <lastmod>2023-08-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/tags/github/</loc>
-    <lastmod>2023-08-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
 
   
   <url>
-    <loc>https://shubihu.github.io/categories/Python/</loc>
-    <lastmod>2023-08-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/categories/Pytorch/</loc>
-    <lastmod>2023-08-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://shubihu.github.io/categories/%E5%A4%A7%E5%89%8D%E7%AB%AF/</loc>
-    <lastmod>2023-08-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2023-08-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/categories/Linux/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -797,6 +769,34 @@
   </url>
   
   <url>
+    <loc>https://shubihu.github.io/categories/Python/</loc>
+    <lastmod>2023-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2023-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/categories/Pytorch/</loc>
+    <lastmod>2023-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/categories/Linux/</loc>
+    <lastmod>2023-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://shubihu.github.io/categories/R/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
@@ -805,6 +805,20 @@
   
   <url>
     <loc>https://shubihu.github.io/categories/cuda/</loc>
+    <lastmod>2023-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/categories/conda/</loc>
+    <lastmod>2023-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://shubihu.github.io/categories/CI-CD/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -839,13 +853,6 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/categories/conda/</loc>
-    <lastmod>2023-08-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://shubihu.github.io/categories/%E5%89%8D%E7%AB%AF/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
@@ -860,7 +867,7 @@
   </url>
   
   <url>
-    <loc>https://shubihu.github.io/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
+    <loc>https://shubihu.github.io/categories/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -881,21 +888,14 @@
   </url>
   
   <url>
+    <loc>https://shubihu.github.io/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
+    <lastmod>2023-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://shubihu.github.io/categories/Deep-Learning/</loc>
-    <lastmod>2023-08-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/categories/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</loc>
-    <lastmod>2023-08-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://shubihu.github.io/categories/CI-CD/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
