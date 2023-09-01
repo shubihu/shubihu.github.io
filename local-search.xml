@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>v2ray一键搭建梯子</title>
+    <link href="/2023/09/01/v2ray%E4%B8%80%E9%94%AE%E6%90%AD%E5%BB%BA%E6%A2%AF%E5%AD%90/"/>
+    <url>/2023/09/01/v2ray%E4%B8%80%E9%94%AE%E6%90%AD%E5%BB%BA%E6%A2%AF%E5%AD%90/</url>
+    
+    <content type="html"><![CDATA[<h2 id="v2ray-Qv2ray"><a href="#v2ray-Qv2ray" class="headerlink" title="v2ray, Qv2ray"></a>v2ray, Qv2ray</h2><span id="more"></span><p>之前使用酸酸乳，但是每次切换代理的时候读会弹出通知，关也关不掉，就很烦！于是放弃酸酸乳，拥抱v2ray!</p><h4 id="v2ray安装"><a href="#v2ray安装" class="headerlink" title="v2ray安装"></a>v2ray安装</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo bash &lt;(wget -qO- -o- https:<span class="hljs-regexp">//gi</span>t.io/v2ray.sh)<br></code></pre></td></tr></table></figure><p>一键安装一键配置，都不用自己选择了。安装完后会生成配置信息。同时也会生成一个vmess链接。</p><h4 id="Qv2ray-安装"><a href="#Qv2ray-安装" class="headerlink" title="Qv2ray 安装"></a>Qv2ray 安装</h4><p>官网提供的客户端真是多彩多样。地址：<a href="https://www.v2ray.com/awesome/tools.html">https://www.v2ray.com/awesome/tools.html</a><br>我参考的这篇文章下的 Qv2ray， 地址：<a href="https://v2xtls.org/v2ray-mac%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8B%E8%BD%BD/">https://v2xtls.org/v2ray-mac%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8B%E8%BD%BD/</a><br>Qv2ray mac 地址： <a href="https://github.com/Qv2ray/Qv2ray/releases">https://github.com/Qv2ray/Qv2ray/releases</a><br>看这个项目在github上不在维护了，后期也可以试试官网提供的其他软件。<br>另外需要下载 v2ray 的核心模块，地址：<a href="https://github.com/v2ray/v2ray-core/releases">https://github.com/v2ray/v2ray-core/releases</a></p><p>下载完 v2ray core之后要把对应的路径配置到Qv2ray里。<br>配置方法为：Preferences ——&gt; Kernel Settings里分别配置 v2ray 的执行文件（下载后解压目录下的v2ray可执行文件） 和 v2ray assets的目录（下载后解压的目录）</p><p>最后把服务器端生成的 vmess链接 导入即可。</p><p>参考：<br><a href="https://v2xtls.org/qv2ray%e4%b8%8b%e8%bd%bd%e5%8f%8a%e4%bd%bf%e7%94%a8%e6%95%99%e7%a8%8b-v2ray-windows%e5%ae%a2%e6%88%b7%e7%ab%af-%e5%90%8c%e6%97%b6%e6%94%af%e6%8c%81ss-ssr-v2ray-trojan/">https://v2xtls.org/qv2ray%e4%b8%8b%e8%bd%bd%e5%8f%8a%e4%bd%bf%e7%94%a8%e6%95%99%e7%a8%8b-v2ray-windows%e5%ae%a2%e6%88%b7%e7%ab%af-%e5%90%8c%e6%97%b6%e6%94%af%e6%8c%81ss-ssr-v2ray-trojan/</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>TroubleShoot</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>v2ray</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>使用gdb调试程序coredump</title>
     <link href="/2023/09/01/%E4%BD%BF%E7%94%A8gdb%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8Fcoredump/"/>
     <url>/2023/09/01/%E4%BD%BF%E7%94%A8gdb%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8Fcoredump/</url>
