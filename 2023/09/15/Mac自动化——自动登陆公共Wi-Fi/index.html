@@ -13,27 +13,25 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="如题">
+  <meta name="description" content="适用场景：经常需要登陆同一个公共Wi-Fi且用户名和密码不变的">
   <meta name="author" content="">
   <meta name="keywords" content="">
-  <meta name="description" content="如题">
+  <meta name="description" content="适用场景：经常需要登陆同一个公共Wi-Fi且用户名和密码不变的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="科学上网">
-<meta property="og:url" content="https://shubihu.github.io/2021/11/07/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/index.html">
+<meta property="og:title" content="Mac自动化——自动登陆公共Wi-Fi">
+<meta property="og:url" content="https://shubihu.github.io/2023/09/15/Mac%E8%87%AA%E5%8A%A8%E5%8C%96%E2%80%94%E2%80%94%E8%87%AA%E5%8A%A8%E7%99%BB%E9%99%86%E5%85%AC%E5%85%B1Wi-Fi/index.html">
 <meta property="og:site_name" content="梳碧湖">
-<meta property="og:description" content="如题">
+<meta property="og:description" content="适用场景：经常需要登陆同一个公共Wi-Fi且用户名和密码不变的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://shubihu.github.io/img/article/ssr.jpg">
-<meta property="article:published_time" content="2021-11-07T02:01:22.000Z">
-<meta property="article:modified_time" content="2022-03-10T01:41:13.983Z">
-<meta property="article:tag" content="科学上网">
+<meta property="article:published_time" content="2023-09-15T05:49:08.000Z">
+<meta property="article:modified_time" content="2023-09-15T05:58:11.354Z">
+<meta property="article:tag" content="自动化">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://shubihu.github.io/img/article/ssr.jpg">
   
     <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7MWV4M9MY"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date());
 gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?18ed691a6c5a383daf5d728b432c6bcb"; var s = document.getElementsByTagName("script")[0];  s.parentNode.insertBefore(hm, s); })(); </script> <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   
-  <title>科学上网 - 梳碧湖</title>
+  <title>Mac自动化——自动登陆公共Wi-Fi - 梳碧湖</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -191,7 +189,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="科学上网">
+            <span class="h2" id="subtitle" title="Mac自动化——自动登陆公共Wi-Fi">
               
             </span>
 
@@ -201,8 +199,8 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-11-07 10:01" pubdate>
-        2021年11月7日 上午
+      <time datetime="2023-09-15 13:49" pubdate>
+        2023年9月15日 下午
       </time>
     </span>
   
@@ -212,7 +210,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      177 字
+      1.8k 字
     </span>
   
 
@@ -251,20 +249,36 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">科学上网</h1>
+            <h1 style="display: none">Mac自动化——自动登陆公共Wi-Fi</h1>
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：2 年前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="如题"><a href="#如题" class="headerlink" title="如题"></a>如题</h2><span id="more"></span>
-
-<h3 id="Mark一下以防不时之需-https-lncn-org"><a href="#Mark一下以防不时之需-https-lncn-org" class="headerlink" title="Mark一下以防不时之需 https://lncn.org/"></a>Mark一下以防不时之需 <a target="_blank" rel="noopener" href="https://lncn.org/">https://lncn.org/</a></h3><p>连接该网站方法如下图所示<br><img src="/img/article/ssr.jpg" srcset="/img/loading.gif" lazyload></p>
-<h3 id="Window-客户端地址"><a href="#Window-客户端地址" class="headerlink" title="Window 客户端地址"></a>Window 客户端地址</h3><p><a target="_blank" rel="noopener" href="https://github.com/shadowsocksrr/shadowsocksr-csharp/releases">https://github.com/shadowsocksrr/shadowsocksr-csharp/releases</a></p>
-<h3 id="Mac-OS-客户端地址"><a href="#Mac-OS-客户端地址" class="headerlink" title="Mac OS 客户端地址"></a>Mac OS 客户端地址</h3><p><a target="_blank" rel="noopener" href="https://github.com/wzdnzd/ShadowsocksX-NG-R/releases">https://github.com/wzdnzd/ShadowsocksX-NG-R/releases</a></p>
+              <h2 id="适用场景：经常需要登陆同一个公共Wi-Fi且用户名和密码不变的"><a href="#适用场景：经常需要登陆同一个公共Wi-Fi且用户名和密码不变的" class="headerlink" title="适用场景：经常需要登陆同一个公共Wi-Fi且用户名和密码不变的"></a>适用场景：经常需要登陆同一个公共Wi-Fi且用户名和密码不变的</h2><span id="more"></span>
+<p>一般情况登陆公共Wi-Fi后会弹出一个登陆界面供用户登陆，输入用户名和密码即可上网。</p>
+<p>这里介绍两个自动化方法。还有一个是使用hammerspoon+lua+applescript（参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/59e1334b0a5e%EF%BC%89%E3%80%82%E6%9C%80%E5%90%8E%E8%BF%99%E4%B8%AA%E4%B8%80%E7%9C%8B%E5%B0%B1%E5%BE%88%E9%BA%BB%E7%83%A6%E3%80%82">https://www.jianshu.com/p/59e1334b0a5e）。最后这个一看就很麻烦。</a></p>
+<p>虽说是介绍两个其实根本上也算一个吧。主要都是使用脚本进行登陆。只是执行的方法不太一样。</p>
+<p>这里有个前提，就是需要关闭Captive Network Assistant。原因如下：<br>当Captive Network Assistant弹出的时候，网络会被拦截，这个英语翻译成中文的意思强制网络助理。只要有这个弹窗在，网络都会被终止（没有实际性的原理，亲测是网络被拦截）<br>关闭方法：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle">sudo defaults <span class="hljs-keyword">write</span> <span class="hljs-regexp">/Library/</span>Preferences<span class="hljs-regexp">/SystemConfiguration/</span>com.apple.captive.control Active -<span class="hljs-keyword">boolean</span> <span class="hljs-keyword">false</span><br></code></pre></td></tr></table></figure>
+<p>关闭之后就没有什么阻止我们登陆了。</p>
+<p>登陆脚本：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs powershell">wifiName=<span class="hljs-variable">$</span>(networksetup <span class="hljs-literal">-getairportnetwork</span> en0 | cut <span class="hljs-literal">-f2</span> <span class="hljs-literal">-d</span><span class="hljs-string">&#x27;:&#x27;</span>)<br><span class="hljs-comment"># echo $wifiName</span><br><span class="hljs-keyword">if</span> [ <span class="hljs-variable">$wifiName</span> = <span class="hljs-string">&quot;xxxx&quot;</span> ]; then<br>  <span class="hljs-comment"># 使用curl发送登陆请求</span><br>   <span class="hljs-built_in">curl</span> xxxx <br>fi<br></code></pre></td></tr></table></figure>
+<p>保存后并添加执行权限。</p>
+<h5 id="方法1-比较简单，就是更改上述脚本的默认打开方式为终端（必须是mac自带的终端）"><a href="#方法1-比较简单，就是更改上述脚本的默认打开方式为终端（必须是mac自带的终端）" class="headerlink" title="方法1: 比较简单，就是更改上述脚本的默认打开方式为终端（必须是mac自带的终端）"></a>方法1: 比较简单，就是更改上述脚本的默认打开方式为终端（必须是mac自带的终端）</h5><p>然后在系统设置-通用-登陆项里把该脚本添加到登陆时自动打卡。</p>
+<p>这样设置之后登陆后便会自动打开终端执行登陆脚本了。不过有一点不完美的就是会多出个终端的窗口。</p>
+<p>如何让脚本在后台默默把活干了。</p>
+<h5 id="方法2：使用launchctl"><a href="#方法2：使用launchctl" class="headerlink" title="方法2：使用launchctl"></a>方法2：使用launchctl</h5><p>具体概念的东西可参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0886e1510bbb">https://www.jianshu.com/p/0886e1510bbb</a></p>
+<ul>
+<li>首先创建一个后缀为.plist的属性列表文件，例如com.example.myScript.plist，并添加如下内容：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">plist</span> <span class="hljs-meta-keyword">PUBLIC</span> <span class="hljs-meta-string">&quot;-//Apple//DTD PLIST 1.0//EN&quot;</span> <span class="hljs-meta-string">&quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">plist</span> <span class="hljs-attr">version</span>=<span class="hljs-string">&quot;1.0&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dict</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>Label<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>com.example.myScript<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>ProgramArguments<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">array</span>&gt;</span><br>          # 这里换成自己的脚本<br>        <span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>/path/to/your/script.sh<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span> <br>    <span class="hljs-tag">&lt;/<span class="hljs-name">array</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>RunAtLoad<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">true</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dict</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">plist</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li>将这个plist文件保存到~/Library/LaunchAgents目录下（用户级别）或/Library/LaunchAgents目录下（系统级别），然后执行命令：<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">launchctl load ~<span class="hljs-regexp">/Library/</span>LaunchAgents/com.example.myScript.plist<br></code></pre></td></tr></table></figure>
+下次登陆即可在后台自动登陆Wi-Fi了。</li>
+</ul>
+<p>另外：sleepwatcher貌似只能设置睡眠和唤醒后执行的任务，无法做开机登陆的任务。</p>
+<p>参考：<br><a target="_blank" rel="noopener" href="https://discussionschinese.apple.com/thread/44410">https://discussionschinese.apple.com/thread/44410</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0886e1510bbb">https://www.jianshu.com/p/0886e1510bbb</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/59e1334b0a5e">https://www.jianshu.com/p/59e1334b0a5e</a><br><a target="_blank" rel="noopener" href="https://fuzhii.com/2017/10/09/Mac-sleepwatcher/">https://fuzhii.com/2017/10/09/Mac-sleepwatcher/</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/388287366">https://zhuanlan.zhihu.com/p/388287366</a></p>
 
             </div>
             <hr>
@@ -274,7 +288,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/TroubleShoot/">TroubleShoot</a>
+                      <a class="hover-with-bg" href="/categories/Mac/">Mac</a>
                     
                   </div>
                 
@@ -282,7 +296,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/">科学上网</a>
+                      <a class="hover-with-bg" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">自动化</a>
                     
                   </div>
                 
@@ -299,18 +313,12 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/11/15/mac-iTerm2/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">mac-iTerm2</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/10/20/%E6%A0%B8%E9%85%B8%E6%A3%80%E6%B5%8B%E6%9C%BA%E6%9E%84%E5%9C%B0%E5%9B%BE%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/">
-                        <span class="hidden-mobile">核酸检测机构地图微信小程序开发</span>
+                      <a href="/2023/09/01/v2ray%E4%B8%80%E9%94%AE%E6%90%AD%E5%BB%BA%E6%A2%AF%E5%AD%90/">
+                        <span class="hidden-mobile">v2ray一键搭建梯子</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
