@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Python conda环境的小坑</title>
+    <link href="/2023/10/16/Python-conda%E7%8E%AF%E5%A2%83%E7%9A%84%E5%B0%8F%E5%9D%91%EF%BC%8C%E4%BB%A4%E4%BA%BA%E4%B8%8D%E8%A7%A3%E7%9A%84%E5%8C%85%E5%AF%BC%E5%85%A5%E9%A1%BA%E5%BA%8F/"/>
+    <url>/2023/10/16/Python-conda%E7%8E%AF%E5%A2%83%E7%9A%84%E5%B0%8F%E5%9D%91%EF%BC%8C%E4%BB%A4%E4%BA%BA%E4%B8%8D%E8%A7%A3%E7%9A%84%E5%8C%85%E5%AF%BC%E5%85%A5%E9%A1%BA%E5%BA%8F/</url>
+    
+    <content type="html"><![CDATA[<h2 id="令人不解的包导入顺序"><a href="#令人不解的包导入顺序" class="headerlink" title="令人不解的包导入顺序"></a>令人不解的包导入顺序</h2><span id="more"></span><p>这个坑就是conda环境的包导入顺序。具体就是：</p><p>在 Conda 环境中，包的版本决定了其加载的优先级。通常情况下，较高版本的包会优先加载，而不考虑其所在的位置（例如当前环境或家目录的 .local 目录）。<br>如果当前环境中的包版本较低，而家目录的 .local 目录中存在较高版本的包，那么 Python 解释器会优先加载 .local 目录中的较高版本包。这是因为 Python 解释器会根据版本号来决定使用哪个包，而不是根据包所在的位置。<br>这是妥妥的要抛弃低版本的东西啊。</p><p>我使用conda单独创建环境不就是想做隔离确保安全。好家伙直接一个版本号大小就打破了这生殖隔离！果然在隔离上还是容器靠谱点。</p><p>解决方法也有：</p><p>移除较高版本的包：如果 .local 目录中的包版本较高，并且你希望使用当前环境中的较低版本包，可以尝试在 .local 目录中删除较高版本的包文件。<br>简单粗暴，直接把高版本的删了！</p><p>但是我就是想保留我 .local 目录下较高版本的包呢。那就只能更改代码删除python的搜素路径。</p><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xquery"><span class="hljs-keyword">import</span> sys<br>paths_to_remove = <span class="hljs-built_in">[path</span> <span class="hljs-keyword">for</span><span class="hljs-built_in"> path</span> <span class="hljs-keyword">in</span> sys<span class="hljs-built_in">.path</span> <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;.local&#x27;</span> <span class="hljs-keyword">in</span><span class="hljs-built_in"> path</span>]<br><span class="hljs-keyword">for</span><span class="hljs-built_in"> path</span> <span class="hljs-keyword">in</span> paths_to_remove:<br>    sys<span class="hljs-built_in">.path</span><span class="hljs-built_in">.remove</span><span class="hljs-built_in">(path</span>)<br></code></pre></td></tr></table></figure><p>使用pip查看包的安装路径</p><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dart">pip <span class="hljs-keyword">show</span> xxx<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>Python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Conda</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>免费VPN——WARP</title>
     <link href="/2023/09/25/%E5%85%8D%E8%B4%B9VPN%E2%80%94%E2%80%94WARP/"/>
     <url>/2023/09/25/%E5%85%8D%E8%B4%B9VPN%E2%80%94%E2%80%94WARP/</url>
