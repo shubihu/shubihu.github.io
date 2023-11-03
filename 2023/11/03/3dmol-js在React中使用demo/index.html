@@ -13,25 +13,25 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="适用场景：经常需要登陆同一个公共Wi-Fi且用户名和密码不变的">
+  <meta name="description" content="3dmol React Demo">
   <meta name="author" content="">
   <meta name="keywords" content="">
-  <meta name="description" content="适用场景：经常需要登陆同一个公共Wi-Fi且用户名和密码不变的">
+  <meta name="description" content="3dmol React Demo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mac自动化——自动登陆公共Wi-Fi">
-<meta property="og:url" content="https://shubihu.github.io/2023/09/15/Mac%E8%87%AA%E5%8A%A8%E5%8C%96%E2%80%94%E2%80%94%E8%87%AA%E5%8A%A8%E7%99%BB%E9%99%86%E5%85%AC%E5%85%B1Wi-Fi/index.html">
+<meta property="og:title" content="3dmol.js在React中使用demo">
+<meta property="og:url" content="https://shubihu.github.io/2023/11/03/3dmol-js%E5%9C%A8React%E4%B8%AD%E4%BD%BF%E7%94%A8demo/index.html">
 <meta property="og:site_name" content="梳碧湖">
-<meta property="og:description" content="适用场景：经常需要登陆同一个公共Wi-Fi且用户名和密码不变的">
+<meta property="og:description" content="3dmol React Demo">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-09-15T05:49:08.000Z">
-<meta property="article:modified_time" content="2023-09-15T05:58:11.354Z">
-<meta property="article:tag" content="自动化">
+<meta property="article:published_time" content="2023-11-03T09:04:16.000Z">
+<meta property="article:modified_time" content="2023-11-03T09:32:28.767Z">
+<meta property="article:tag" content="3dmol, React">
 <meta name="twitter:card" content="summary">
   
     <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7MWV4M9MY"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date());
 gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?18ed691a6c5a383daf5d728b432c6bcb"; var s = document.getElementsByTagName("script")[0];  s.parentNode.insertBefore(hm, s); })(); </script> <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   
-  <title>Mac自动化——自动登陆公共Wi-Fi - 梳碧湖</title>
+  <title>3dmol.js在React中使用demo - 梳碧湖</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -189,7 +189,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Mac自动化——自动登陆公共Wi-Fi">
+            <span class="h2" id="subtitle" title="3dmol.js在React中使用demo">
               
             </span>
 
@@ -199,8 +199,8 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2023-09-15 13:49" pubdate>
-        2023年9月15日 下午
+      <time datetime="2023-11-03 17:04" pubdate>
+        2023年11月3日 下午
       </time>
     </span>
   
@@ -210,7 +210,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      2.6k 字
     </span>
   
 
@@ -249,36 +249,32 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Mac自动化——自动登陆公共Wi-Fi</h1>
+            <h1 style="display: none">3dmol.js在React中使用demo</h1>
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：2 个月前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：12 分钟前
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="适用场景：经常需要登陆同一个公共Wi-Fi且用户名和密码不变的"><a href="#适用场景：经常需要登陆同一个公共Wi-Fi且用户名和密码不变的" class="headerlink" title="适用场景：经常需要登陆同一个公共Wi-Fi且用户名和密码不变的"></a>适用场景：经常需要登陆同一个公共Wi-Fi且用户名和密码不变的</h2><span id="more"></span>
-<p>一般情况登陆公共Wi-Fi后会弹出一个登陆界面供用户登陆，输入用户名和密码即可上网。</p>
-<p>这里介绍两个自动化方法。还有一个是使用hammerspoon+lua+applescript（参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/59e1334b0a5e%EF%BC%89%E3%80%82%E6%9C%80%E5%90%8E%E8%BF%99%E4%B8%AA%E4%B8%80%E7%9C%8B%E5%B0%B1%E5%BE%88%E9%BA%BB%E7%83%A6%E3%80%82">https://www.jianshu.com/p/59e1334b0a5e）。最后这个一看就很麻烦。</a></p>
-<p>虽说是介绍两个其实根本上也算一个吧。主要都是使用脚本进行登陆。只是执行的方法不太一样。</p>
-<p>这里有个前提，就是需要关闭Captive Network Assistant。原因如下：<br>当Captive Network Assistant弹出的时候，网络会被拦截，这个英语翻译成中文的意思强制网络助理。只要有这个弹窗在，网络都会被终止（没有实际性的原理，亲测是网络被拦截）<br>关闭方法：</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle">sudo defaults <span class="hljs-keyword">write</span> <span class="hljs-regexp">/Library/</span>Preferences<span class="hljs-regexp">/SystemConfiguration/</span>com.apple.captive.control Active -<span class="hljs-keyword">boolean</span> <span class="hljs-keyword">false</span><br></code></pre></td></tr></table></figure>
-<p>关闭之后就没有什么阻止我们登陆了。</p>
-<p>登陆脚本：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs powershell">wifiName=<span class="hljs-variable">$</span>(networksetup <span class="hljs-literal">-getairportnetwork</span> en0 | cut <span class="hljs-literal">-f2</span> <span class="hljs-literal">-d</span><span class="hljs-string">&#x27;:&#x27;</span>)<br><span class="hljs-comment"># echo $wifiName</span><br><span class="hljs-keyword">if</span> [ <span class="hljs-variable">$wifiName</span> = <span class="hljs-string">&quot;xxxx&quot;</span> ]; then<br>  <span class="hljs-comment"># 使用curl发送登陆请求</span><br>   <span class="hljs-built_in">curl</span> xxxx <br>fi<br></code></pre></td></tr></table></figure>
-<p>保存后并添加执行权限。</p>
-<h5 id="方法1-比较简单，就是更改上述脚本的默认打开方式为终端（必须是mac自带的终端）"><a href="#方法1-比较简单，就是更改上述脚本的默认打开方式为终端（必须是mac自带的终端）" class="headerlink" title="方法1: 比较简单，就是更改上述脚本的默认打开方式为终端（必须是mac自带的终端）"></a>方法1: 比较简单，就是更改上述脚本的默认打开方式为终端（必须是mac自带的终端）</h5><p>然后在系统设置-通用-登陆项里把该脚本添加到登陆时自动打卡。</p>
-<p>这样设置之后登陆后便会自动打开终端执行登陆脚本了。不过有一点不完美的就是会多出个终端的窗口。</p>
-<p>如何让脚本在后台默默把活干了。</p>
-<h5 id="方法2：使用launchctl"><a href="#方法2：使用launchctl" class="headerlink" title="方法2：使用launchctl"></a>方法2：使用launchctl</h5><p>具体概念的东西可参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0886e1510bbb">https://www.jianshu.com/p/0886e1510bbb</a></p>
-<ul>
-<li>首先创建一个后缀为.plist的属性列表文件，例如com.example.myScript.plist，并添加如下内容：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">plist</span> <span class="hljs-meta-keyword">PUBLIC</span> <span class="hljs-meta-string">&quot;-//Apple//DTD PLIST 1.0//EN&quot;</span> <span class="hljs-meta-string">&quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">plist</span> <span class="hljs-attr">version</span>=<span class="hljs-string">&quot;1.0&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dict</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>Label<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>com.example.myScript<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>ProgramArguments<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">array</span>&gt;</span><br>          # 这里换成自己的脚本<br>        <span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>/path/to/your/script.sh<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span> <br>    <span class="hljs-tag">&lt;/<span class="hljs-name">array</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>RunAtLoad<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">true</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dict</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">plist</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
-<li>将这个plist文件保存到~/Library/LaunchAgents目录下（用户级别）或/Library/LaunchAgents目录下（系统级别），然后执行命令：<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">launchctl load ~<span class="hljs-regexp">/Library/</span>LaunchAgents/com.example.myScript.plist<br></code></pre></td></tr></table></figure>
-下次登陆即可在后台自动登陆Wi-Fi了。</li>
-</ul>
-<p>另外：sleepwatcher貌似只能设置睡眠和唤醒后执行的任务，无法做开机登陆的任务。</p>
-<p>参考：<br><a target="_blank" rel="noopener" href="https://discussionschinese.apple.com/thread/44410">https://discussionschinese.apple.com/thread/44410</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0886e1510bbb">https://www.jianshu.com/p/0886e1510bbb</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/59e1334b0a5e">https://www.jianshu.com/p/59e1334b0a5e</a><br><a target="_blank" rel="noopener" href="https://fuzhii.com/2017/10/09/Mac-sleepwatcher/">https://fuzhii.com/2017/10/09/Mac-sleepwatcher/</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/388287366">https://zhuanlan.zhihu.com/p/388287366</a></p>
+              <h2 id="3dmol-React-Demo"><a href="#3dmol-React-Demo" class="headerlink" title="3dmol React Demo"></a>3dmol React Demo</h2><span id="more"></span>
+
+<h4 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h4><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">npx</span> <span class="hljs-built_in">create-react-app</span> <br></code></pre></td></tr></table></figure>
+
+<h4 id="导入3dmol-js"><a href="#导入3dmol-js" class="headerlink" title="导入3dmol.js"></a>导入3dmol.js</h4><p>因为3dmol.js只是一个普通的js库，所以这里在index.html中引入，代码如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;icon&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;%PUBLIC_URL%/favicon.ico&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;theme-color&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;#000000&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span></span><br><span class="hljs-tag">      <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;description&quot;</span></span><br><span class="hljs-tag">      <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;Web site created using create-react-app&quot;</span></span><br><span class="hljs-tag">    /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;apple-touch-icon&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;%PUBLIC_URL%/logo192.png&quot;</span> /&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;manifest&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;%PUBLIC_URL%/manifest.json&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.bootcdn.net/ajax/libs/3Dmol/2.0.1/3Dmol-min.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>React App<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">noscript</span>&gt;</span>You need to enable JavaScript to run this app.<span class="hljs-tag">&lt;/<span class="hljs-name">noscript</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;root&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+
+<h4 id="编写APP-js-和-APP-css"><a href="#编写APP-js-和-APP-css" class="headerlink" title="编写APP.js 和 APP.css"></a>编写APP.js 和 APP.css</h4><p>APP.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React, &#123; useRef, useEffect &#125;<span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-keyword">import</span> logo <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./logo.svg&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;./App.css&#x27;</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> containerRef = useRef(<span class="hljs-literal">null</span>);<br>  <span class="hljs-keyword">const</span> $3Dmol = <span class="hljs-built_in">window</span>.$3Dmol;<br><br>  useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> element = containerRef.current;<br>    <span class="hljs-keyword">if</span> (element) &#123;<br>      <span class="hljs-keyword">let</span> viewer = $3Dmol.createViewer(element);<br><br>      $3Dmol.download(<span class="hljs-string">&quot;pdb:1MO8&quot;</span>, viewer, &#123; <span class="hljs-attr">multimodel</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">frames</span>: <span class="hljs-literal">true</span> &#125;, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>        viewer.setStyle(&#123;&#125;, &#123; <span class="hljs-attr">cartoon</span>: &#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&#x27;spectrum&#x27;</span> &#125; &#125;);<br>        viewer.render();<br>      &#125;);<br>    &#125;<br>  &#125;, []);<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;App&quot;</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;display-box&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;protein-box&quot;</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;containerRef&#125;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;<br><br></code></pre></td></tr></table></figure>
+
+<p>APP.css , 主要是 display-box 的样式设置</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.App</span> &#123;<br>  <span class="hljs-attribute">text-align</span>: center;<br>&#125;<br><br><span class="hljs-selector-class">.App-logo</span> &#123;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">40vmin</span>;<br>  <span class="hljs-attribute">pointer-events</span>: none;<br>&#125;<br><span class="hljs-selector-class">.display-box</span>&#123;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">600px</span>;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">800px</span>;<br>  <span class="hljs-attribute">position</span>: relative;<br>&#125;<br><br><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">prefers-reduced-motion</span>: no-preference) &#123;<br>  <span class="hljs-selector-class">.App-logo</span> &#123;<br>    <span class="hljs-attribute">animation</span>: App-logo-spin infinite <span class="hljs-number">20s</span> linear;<br>  &#125;<br>&#125;<br><br><span class="hljs-selector-class">.App-header</span> &#123;<br>  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#282c34</span>;<br>  <span class="hljs-attribute">min-height</span>: <span class="hljs-number">100vh</span>;<br>  <span class="hljs-attribute">display</span>: flex;<br>  <span class="hljs-attribute">flex-direction</span>: column;<br>  <span class="hljs-attribute">align-items</span>: center;<br>  <span class="hljs-attribute">justify-content</span>: center;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-built_in">calc</span>(<span class="hljs-number">10px</span> + <span class="hljs-number">2vmin</span>);<br>  <span class="hljs-attribute">color</span>: white;<br>&#125;<br><br><span class="hljs-selector-class">.App-link</span> &#123;<br>  <span class="hljs-attribute">color</span>: <span class="hljs-number">#61dafb</span>;<br>&#125;<br><br><span class="hljs-keyword">@keyframes</span> App-logo-spin &#123;<br>  <span class="hljs-selector-tag">from</span> &#123;<br>    <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">rotate</span>(<span class="hljs-number">0deg</span>);<br>  &#125;<br>  <span class="hljs-selector-tag">to</span> &#123;<br>    <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">rotate</span>(<span class="hljs-number">360deg</span>);<br>  &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h4><p>执行命令</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">npm <span class="hljs-builtin-name">run</span> start<br></code></pre></td></tr></table></figure>
+<p>就可以在浏览器看到蛋白了。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7118732948328677389">https://juejin.cn/post/7118732948328677389</a></p>
 
             </div>
             <hr>
@@ -288,7 +284,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Mac/">Mac</a>
+                      <a class="hover-with-bg" href="/categories/%E5%A4%A7%E5%89%8D%E7%AB%AF/">大前端</a>
                     
                   </div>
                 
@@ -296,7 +292,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">自动化</a>
+                      <a class="hover-with-bg" href="/tags/3dmol-React/">3dmol, React</a>
                     
                   </div>
                 
@@ -313,18 +309,12 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/16/Python-conda%E7%8E%AF%E5%A2%83%E7%9A%84%E5%B0%8F%E5%9D%91%EF%BC%8C%E4%BB%A4%E4%BA%BA%E4%B8%8D%E8%A7%A3%E7%9A%84%E5%8C%85%E5%AF%BC%E5%85%A5%E9%A1%BA%E5%BA%8F/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Python conda环境的小坑</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/01/v2ray%E4%B8%80%E9%94%AE%E6%90%AD%E5%BB%BA%E6%A2%AF%E5%AD%90/">
-                        <span class="hidden-mobile">v2ray一键搭建梯子</span>
+                      <a href="/2023/10/16/Python-conda%E7%8E%AF%E5%A2%83%E7%9A%84%E5%B0%8F%E5%9D%91%EF%BC%8C%E4%BB%A4%E4%BA%BA%E4%B8%8D%E8%A7%A3%E7%9A%84%E5%8C%85%E5%AF%BC%E5%85%A5%E9%A1%BA%E5%BA%8F/">
+                        <span class="hidden-mobile">Python conda环境的小坑</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
