@@ -13,25 +13,25 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="令人不解的包导入顺序">
+  <meta name="description" content="使用websocket打通 react 和 fastapi">
   <meta name="author" content="">
   <meta name="keywords" content="">
-  <meta name="description" content="令人不解的包导入顺序">
+  <meta name="description" content="使用websocket打通 react 和 fastapi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python conda环境的小坑">
-<meta property="og:url" content="https://shubihu.github.io/2023/10/16/Python-conda%E7%8E%AF%E5%A2%83%E7%9A%84%E5%B0%8F%E5%9D%91%EF%BC%8C%E4%BB%A4%E4%BA%BA%E4%B8%8D%E8%A7%A3%E7%9A%84%E5%8C%85%E5%AF%BC%E5%85%A5%E9%A1%BA%E5%BA%8F/index.html">
+<meta property="og:title" content="react和fastapi实时通信示例">
+<meta property="og:url" content="https://shubihu.github.io/2023/11/13/React%E5%92%8Cfastapi%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1%E7%A4%BA%E4%BE%8B/index.html">
 <meta property="og:site_name" content="梳碧湖">
-<meta property="og:description" content="令人不解的包导入顺序">
+<meta property="og:description" content="使用websocket打通 react 和 fastapi">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-16T01:59:16.000Z">
-<meta property="article:modified_time" content="2023-10-19T08:00:23.414Z">
-<meta property="article:tag" content="Conda">
+<meta property="article:published_time" content="2023-11-13T05:18:54.000Z">
+<meta property="article:modified_time" content="2023-11-13T05:38:20.845Z">
+<meta property="article:tag" content="React, Fastapi, Websocket">
 <meta name="twitter:card" content="summary">
   
     <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7MWV4M9MY"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date());
 gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?18ed691a6c5a383daf5d728b432c6bcb"; var s = document.getElementsByTagName("script")[0];  s.parentNode.insertBefore(hm, s); })(); </script> <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   
-  <title>Python conda环境的小坑 - 梳碧湖</title>
+  <title>react和fastapi实时通信示例 - 梳碧湖</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -189,7 +189,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Python conda环境的小坑">
+            <span class="h2" id="subtitle" title="react和fastapi实时通信示例">
               
             </span>
 
@@ -199,8 +199,8 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2023-10-16 09:59" pubdate>
-        2023年10月16日 上午
+      <time datetime="2023-11-13 13:18" pubdate>
+        2023年11月13日 下午
       </time>
     </span>
   
@@ -210,7 +210,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      585 字
+      2.3k 字
     </span>
   
 
@@ -249,26 +249,24 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Python conda环境的小坑</h1>
+            <h1 style="display: none">react和fastapi实时通信示例</h1>
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：25 天前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="令人不解的包导入顺序"><a href="#令人不解的包导入顺序" class="headerlink" title="令人不解的包导入顺序"></a>令人不解的包导入顺序</h2><span id="more"></span>
-<p>这个坑就是conda环境的包导入顺序。具体就是：</p>
-<p>在 Conda 环境中，包的版本决定了其加载的优先级。通常情况下，较高版本的包会优先加载，而不考虑其所在的位置（例如当前环境或家目录的 .local 目录）。<br>如果当前环境中的包版本较低，而家目录的 .local 目录中存在较高版本的包，那么 Python 解释器会优先加载 .local 目录中的较高版本包。这是因为 Python 解释器会根据版本号来决定使用哪个包，而不是根据包所在的位置。<br>这是妥妥的要抛弃低版本的东西啊。</p>
-<p>我使用conda单独创建环境不就是想做隔离确保安全。好家伙直接一个版本号大小就打破了这生殖隔离！果然在隔离上还是容器靠谱点。</p>
-<p>解决方法也有：</p>
-<p>移除较高版本的包：如果 .local 目录中的包版本较高，并且你希望使用当前环境中的较低版本包，可以尝试在 .local 目录中删除较高版本的包文件。<br>简单粗暴，直接把高版本的删了！</p>
-<p>但是我就是想保留我 .local 目录下较高版本的包呢。那就只能更改代码删除python的搜素路径。</p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xquery"><span class="hljs-keyword">import</span> sys<br>paths_to_remove = <span class="hljs-built_in">[path</span> <span class="hljs-keyword">for</span><span class="hljs-built_in"> path</span> <span class="hljs-keyword">in</span> sys<span class="hljs-built_in">.path</span> <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;.local&#x27;</span> <span class="hljs-keyword">in</span><span class="hljs-built_in"> path</span>]<br><span class="hljs-keyword">for</span><span class="hljs-built_in"> path</span> <span class="hljs-keyword">in</span> paths_to_remove:<br>    sys<span class="hljs-built_in">.path</span><span class="hljs-built_in">.remove</span><span class="hljs-built_in">(path</span>)<br></code></pre></td></tr></table></figure>
+              <h2 id="使用websocket打通-react-和-fastapi"><a href="#使用websocket打通-react-和-fastapi" class="headerlink" title="使用websocket打通 react 和 fastapi"></a>使用websocket打通 react 和 fastapi</h2><span id="more"></span>
 
-<p>使用pip查看包的安装路径</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dart">pip <span class="hljs-keyword">show</span> xxx<br></code></pre></td></tr></table></figure>
+<h4 id="前端代码"><a href="#前端代码" class="headerlink" title="前端代码"></a>前端代码</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React, &#123; useEffect, useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">import</span> io <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;socket.io-client&quot;</span>;<br><br><br><span class="hljs-keyword">const</span> Monitor() = <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> [cpuUsage, setCpuUsage] = useState(<span class="hljs-string">&quot;&quot;</span>);<br>  <span class="hljs-keyword">const</span> socketRef = React.useRef(<span class="hljs-literal">null</span>); <span class="hljs-comment">// Socket引用</span><br>  <br><br>  useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>    socketRef.current = io(<span class="hljs-string">&quot;http://127.0.0.1:1080&quot;</span>); <span class="hljs-comment">// 替换为FastAPI服务器的地址</span><br><br>    socketRef.current.on(<span class="hljs-string">&quot;cpu_usage&quot;</span>, <span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> &#123; <span class="hljs-comment">// 监听 &quot;cpu_usage&quot; 事件</span><br>      setCpuUsage(data);<br>    &#125;);<br><br>    socketRef.current.on(<span class="hljs-string">&quot;connect&quot;</span>, <span class="hljs-function">() =&gt;</span> &#123;          <span class="hljs-comment">// 启动监控</span><br>      socketRef.current.emit(<span class="hljs-string">&quot;start_cpu_monitor&quot;</span>);<br>    &#125;);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> &#123;<br>      socketRef.current.emit(<span class="hljs-string">&quot;stop_cpu_monitor&quot;</span>);<br>      socketRef.current.disconnect(); <span class="hljs-comment">// 在组件卸载时关闭Socket连接</span><br>    &#125;;<br>  &#125;, []);<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;child1-content&quot;</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>CPU Usage: &#123;cpuUsage&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Monitor;<br><br><br></code></pre></td></tr></table></figure>
+
+<h4 id="后端代码-test-py"><a href="#后端代码-test-py" class="headerlink" title="后端代码 test.py"></a>后端代码 test.py</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">import</span> socketio<br><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><span class="hljs-keyword">from</span> fastapi.staticfiles <span class="hljs-keyword">import</span> StaticFiles<br><span class="hljs-keyword">import</span> psutil<br><br>app = FastAPI()<br><br>sio = socketio.AsyncServer(async_mode=<span class="hljs-string">&#x27;asgi&#x27;</span>, cors_allowed_origins=<span class="hljs-string">&#x27;*&#x27;</span>)<br>socket_app = socketio.ASGIApp(sio, static_files=&#123;<br>    <span class="hljs-string">&#x27;/&#x27;</span>: <span class="hljs-string">&#x27;./react-socketio/build&#x27;</span><br>&#125;)<br><br>app.mount(<span class="hljs-string">&quot;/&quot;</span>, socket_app)<br><br><br><span class="hljs-meta">@sio.event</span><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">connect</span>(<span class="hljs-params">sid, environ</span>):</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;connected&#x27;</span>, sid)<br>    cpu_percent = psutil.cpu_percent(interval=<span class="hljs-number">1</span>)  <span class="hljs-comment"># 获取初始CPU使用率</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Initial CPU Usage:&#x27;</span>, cpu_percent)  <span class="hljs-comment"># 打印初始CPU使用率</span><br>    <span class="hljs-keyword">await</span> sio.emit(<span class="hljs-string">&#x27;cpu_usage&#x27;</span>, cpu_percent)  <span class="hljs-comment"># 推送初始CPU使用率给前端</span><br><br><br><span class="hljs-meta">@sio.event</span><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">disconnect</span>(<span class="hljs-params">sid</span>):</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;disconnected&#x27;</span>, sid)<br><br><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">cpu_monitor</span>():</span><br>    running = <span class="hljs-literal">True</span><br>    <span class="hljs-keyword">while</span> running:<br>        cpu_percent = psutil.cpu_percent(interval=<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">await</span> sio.emit(<span class="hljs-string">&#x27;cpu_usage&#x27;</span>, cpu_percent)<br>        <span class="hljs-keyword">await</span> sio.sleep(<span class="hljs-number">1</span>)<br><br><br><span class="hljs-meta">@sio.on(<span class="hljs-params"><span class="hljs-string">&#x27;start_cpu_monitor&#x27;</span></span>)</span><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">start_cpu_monitor</span>(<span class="hljs-params">sid</span>):</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Starting CPU monitor...&#x27;</span>)<br>    sio.start_background_task(cpu_monitor)  <span class="hljs-comment"># 后台任务用于持续获取CPU使用率</span><br><br><br><span class="hljs-meta">@sio.on(<span class="hljs-params"><span class="hljs-string">&#x27;stop_cpu_monitor&#x27;</span></span>)</span><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">stop_cpu_monitor</span>(<span class="hljs-params">sid</span>):</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Stopping CPU monitor...&#x27;</span>)<br>    <span class="hljs-keyword">global</span> running<br>    running = <span class="hljs-literal">False</span><br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    uvicorn.run(app, host=<span class="hljs-string">&quot;0.0.0.0&quot;</span>, port=<span class="hljs-number">8000</span>)<br><br></code></pre></td></tr></table></figure>
+
+<p>后端启动命令</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">uvicorn</span> <span class="hljs-comment">test:app</span> --<span class="hljs-comment">reload</span> --<span class="hljs-comment">host</span> <span class="hljs-comment">127</span><span class="hljs-string">.</span><span class="hljs-comment">0</span><span class="hljs-string">.</span><span class="hljs-comment">0</span><span class="hljs-string">.</span><span class="hljs-comment">1</span> --<span class="hljs-comment">port</span> <span class="hljs-comment">1080</span><br></code></pre></td></tr></table></figure>
+
 
             </div>
             <hr>
@@ -278,7 +276,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Python/">Python</a>
+                      <a class="hover-with-bg" href="/categories/%E5%85%A8%E6%A0%88/">全栈</a>
                     
                   </div>
                 
@@ -286,7 +284,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Conda/">Conda</a>
+                      <a class="hover-with-bg" href="/tags/React-Fastapi-Websocket/">React, Fastapi, Websocket</a>
                     
                   </div>
                 
@@ -303,18 +301,12 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/03/3dmol-js%E5%9C%A8React%E4%B8%AD%E4%BD%BF%E7%94%A8demo/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">3dmol.js在React中使用demo</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/15/Mac%E8%87%AA%E5%8A%A8%E5%8C%96%E2%80%94%E2%80%94%E8%87%AA%E5%8A%A8%E7%99%BB%E9%99%86%E5%85%AC%E5%85%B1Wi-Fi/">
-                        <span class="hidden-mobile">Mac自动化——自动登陆公共Wi-Fi</span>
+                      <a href="/2023/11/03/3dmol-js%E5%9C%A8React%E4%B8%AD%E4%BD%BF%E7%94%A8demo/">
+                        <span class="hidden-mobile">3dmol.js在React中使用demo</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
