@@ -18,20 +18,20 @@
   <meta name="keywords" content="">
   <meta name="description" content="如题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++部署pytorch模型例子">
-<meta property="og:url" content="https://shubihu.github.io/2023/03/08/C++%E9%83%A8%E7%BD%B2pytorch%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:title" content="react-i18next实现网站国际化">
+<meta property="og:url" content="https://shubihu.github.io/2023/11/29/react-i18next%E5%AE%9E%E7%8E%B0%E7%BD%91%E7%AB%99%E5%9B%BD%E9%99%85%E5%8C%96/index.html">
 <meta property="og:site_name" content="梳碧湖">
 <meta property="og:description" content="如题">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-03-08T06:47:46.000Z">
-<meta property="article:modified_time" content="2023-03-08T07:16:04.373Z">
-<meta property="article:tag" content="torch">
+<meta property="article:published_time" content="2023-11-29T07:12:53.000Z">
+<meta property="article:modified_time" content="2023-11-29T07:42:40.031Z">
+<meta property="article:tag" content="国际化">
 <meta name="twitter:card" content="summary">
   
     <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7MWV4M9MY"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date());
 gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?18ed691a6c5a383daf5d728b432c6bcb"; var s = document.getElementsByTagName("script")[0];  s.parentNode.insertBefore(hm, s); })(); </script> <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   
-  <title>C++部署pytorch模型例子 - 梳碧湖</title>
+  <title>react-i18next实现网站国际化 - 梳碧湖</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -189,7 +189,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="C++部署pytorch模型例子">
+            <span class="h2" id="subtitle" title="react-i18next实现网站国际化">
               
             </span>
 
@@ -199,8 +199,8 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2023-03-08 14:47" pubdate>
-        2023年3月8日 下午
+      <time datetime="2023-11-29 15:12" pubdate>
+        2023年11月29日 下午
       </time>
     </span>
   
@@ -249,35 +249,35 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">C++部署pytorch模型例子</h1>
+            <h1 style="display: none">react-i18next实现网站国际化</h1>
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：9 个月前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
                 
               </p>
             
             <div class="markdown-body">
               <h2 id="如题"><a href="#如题" class="headerlink" title="如题"></a>如题</h2><span id="more"></span>
+<p>经过网络上简单调研最终选择了react-i18next来实现中央切换。安装就不说了，实现的脚本都放到assests文件夹里了。</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">assets<br>├── i18n.<span class="hljs-keyword">js</span><br><span class="hljs-keyword"></span>├── locales<br>│   ├── cn.<span class="hljs-keyword">json</span><br><span class="hljs-keyword"></span>│   ├── en.<span class="hljs-keyword">json</span><br><span class="hljs-keyword"></span>│   └── resources.<span class="hljs-keyword">js</span><br><span class="hljs-keyword"></span>└── useCustomTranslation.<span class="hljs-keyword">js</span><br></code></pre></td></tr></table></figure>
 
-<h4 id="步骤1：将PyTorch模型转换为Torch脚本"><a href="#步骤1：将PyTorch模型转换为Torch脚本" class="headerlink" title="步骤1：将PyTorch模型转换为Torch脚本"></a>步骤1：将PyTorch模型转换为Torch脚本</h4><p>有两种将PyTorch模型转换为Torch脚本的方法。第一种称为跟踪，一种机制，其中通过使用示例输入对模型的结构进行一次评估，并记录这些 输入在模型中的流量，从而捕获模型的结构。这适用于有限使用控制流的模型。第二种方法是在模型中添加显式批注，以告知Torch Script编 译器可以根据Torch Script语言施加的约束直接解析和编译模型代码。<br>这里以第二种为例：</p>
-<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-keyword">import</span> torch<br><span class="hljs-class"></span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-type">MyModule</span>(<span class="hljs-title">torch</span>.<span class="hljs-title">nn</span>.<span class="hljs-type">Module</span>):</span><br><span class="hljs-class">    def __init__(<span class="hljs-title">self</span>, <span class="hljs-type">N</span>, <span class="hljs-type">M</span>):</span><br><span class="hljs-class">        super(<span class="hljs-type">MyModule</span>, <span class="hljs-title">self</span>).__init__()</span><br><span class="hljs-class">        self.weight = torch.nn.<span class="hljs-type">Parameter</span>(<span class="hljs-title">torch</span>.<span class="hljs-title">rand</span>(<span class="hljs-type">N</span>, <span class="hljs-type">M</span>))</span><br><span class="hljs-class"></span><br><span class="hljs-class">    def forward(<span class="hljs-title">self</span>, <span class="hljs-title">input</span>):</span><br><span class="hljs-class">        if input.sum() &gt; 0:</span><br><span class="hljs-class">          output = self.weight.mv(<span class="hljs-title">input</span>)</span><br><span class="hljs-class">        else:</span><br><span class="hljs-class">          output = self.weight + input</span><br><span class="hljs-class">        return output</span><br><span class="hljs-class"></span><br><span class="hljs-class">my_module = <span class="hljs-type">MyModule</span>(10,20)</span><br><span class="hljs-class">sm = torch.jit.script(<span class="hljs-title">my_module</span>)</span><br><span class="hljs-class">sm.save(&#x27;<span class="hljs-title">model</span>.<span class="hljs-title">pt&#x27;</span>)</span><br></code></pre></td></tr></table></figure>
-<p>保存上述代码为example-app.py, 运行后生成model.pt文件</p>
-<h4 id="步骤2：在C-中加载脚本模块"><a href="#步骤2：在C-中加载脚本模块" class="headerlink" title="步骤2：在C++中加载脚本模块"></a>步骤2：在C++中加载脚本模块</h4><ul>
-<li><p>编写一个example-app.cpp文件，内容如下</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;torch/script.h&gt;</span> <span class="hljs-comment">// One-stop header.</span></span><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;memory&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* argv[])</span> </span>&#123;<br>  <span class="hljs-keyword">if</span> (argc != <span class="hljs-number">2</span>) &#123;<br>    std::cerr &lt;&lt; <span class="hljs-string">&quot;usage: example-app &lt;path-to-exported-script-module&gt;\n&quot;</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>  &#125;<br><br><br>  torch::jit::script::Module <span class="hljs-keyword">module</span>;<br>  <span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-comment">// 使用以下命令从文件中反序列化脚本模块: torch::jit::load().</span><br>    <span class="hljs-keyword">module</span> = torch::jit::<span class="hljs-built_in">load</span>(argv[<span class="hljs-number">1</span>]);<br>  &#125;<br>  <span class="hljs-built_in"><span class="hljs-keyword">catch</span></span> (<span class="hljs-keyword">const</span> c10::Error&amp; e) &#123;<br>    std::cerr &lt;&lt; <span class="hljs-string">&quot;error loading the model\n&quot;</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>  &#125;<br><br>  std::cout &lt;&lt; <span class="hljs-string">&quot;ok\n&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p><code>&lt;torch/script.h&gt;</code>标头包含运行示例所需的LibTorch库中的所有相关包含。我们的应用程序接受序列化的PyTorch ScriptModule的文件路径 作为其唯一的命令行参数，然后使用<code>torch::jit::load()</code>函数继续对该模块进行反序列化，该函数将此文件路径作为输入。作为返回，我们 收到一个<code>Torch::jit::script::Module</code>对象。</p>
-</li>
-<li><p>编写 CMakeLists.txt，内容如下：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">cmake_minimum_required</span><span class="hljs-params">(VERSION <span class="hljs-number">3.15</span> FATAL_ERROR)</span></span><br><span class="hljs-function"><span class="hljs-title">project</span><span class="hljs-params">(example-app)</span></span><br><br><span class="hljs-function"><span class="hljs-title">set</span><span class="hljs-params">(CMAKE_CXX_STANDARD <span class="hljs-number">14</span>)</span></span><br><br><span class="hljs-comment">// 指定libtorch的安装目录，这里也可以使用cmake的时候指定，cmake参数:-DCMAKE_PREFIX_PATH</span><br><span class="hljs-function"><span class="hljs-title">set</span><span class="hljs-params">(Torch_DIR /share/apps/libtorch/libtorch-gpu/share/cmake/Torch)</span></span><br><span class="hljs-function"><span class="hljs-title">find_package</span><span class="hljs-params">(Torch REQUIRED)</span></span><br><br><span class="hljs-function"><span class="hljs-title">add_executable</span><span class="hljs-params">(example-app example-app.cpp)</span></span><br><span class="hljs-function"><span class="hljs-title">target_link_libraries</span><span class="hljs-params">(example-app <span class="hljs-string">&quot;$&#123;TORCH_LIBRARIES&#125;&quot;</span>)</span></span><br><span class="hljs-comment">// set_property(TARGET example-app PROPERTY CXX_STANDARD 11)</span><br></code></pre></td></tr></table></figure></li>
-<li><p>构建应用程序</p>
-<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">mkdir build<br><span class="hljs-keyword">cd</span> build<br><span class="hljs-string">//cmake</span> -DCMAKE_PREFIX_PATH=<span class="hljs-string">/path/to/libtorch</span> <span class="hljs-string">..</span><br>cmake <span class="hljs-string">..</span><br>make<br></code></pre></td></tr></table></figure></li>
-<li><p>最后执行程序</p>
-<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gams">./example-app <span class="hljs-keyword">model</span>.pt<br></code></pre></td></tr></table></figure>
-<p>正常输出为ok</p>
-</li>
-</ul>
-<p>参考：<a target="_blank" rel="noopener" href="https://pytorch.panchuang.net/EigthSection/torchScript_in_C++/">https://pytorch.panchuang.net/EigthSection/torchScript_in_C++/</a></p>
+<h4 id="i18n-js"><a href="#i18n-js" class="headerlink" title="i18n.js"></a>i18n.js</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123; initReactI18next &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-i18next&#x27;</span>;<br><span class="hljs-keyword">import</span> i18n <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;i18next&#x27;</span>;<br><span class="hljs-keyword">import</span> resources <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./locales/resources.js&#x27;</span>;<br><br><span class="hljs-keyword">let</span> localLang = sessionStorage.getItem(<span class="hljs-string">&#x27;lang&#x27;</span>);<br><span class="hljs-keyword">const</span> browserLang = navigator.language;<br><br><span class="hljs-keyword">if</span> (!localLang) &#123;<br>  localLang = browserLang === <span class="hljs-string">&#x27;zh-CN&#x27;</span> ? <span class="hljs-string">&#x27;zh-CN&#x27;</span> : <span class="hljs-string">&#x27;en-US&#x27;</span>;<br>&#125;<br><br>i18n<br>  .use(initReactI18next) <span class="hljs-comment">// passes i18n down to react-i18next</span><br>  .init(&#123;<br>    resources,<br>    <span class="hljs-attr">lng</span>: localLang, <br>    <span class="hljs-attr">interpolation</span>: &#123;<br>      <span class="hljs-attr">escapeValue</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// react already safes from xss</span><br>    &#125;,<br>  &#125;);<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> i18n;<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="useCustomTranslation-js"><a href="#useCustomTranslation-js" class="headerlink" title="useCustomTranslation.js"></a>useCustomTranslation.js</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123; useTranslation &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-i18next&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useCustomTranslation</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> [t, i18n] = useTranslation();<br><br>  <span class="hljs-keyword">const</span> toggleI18n = <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> locale = i18n.language === <span class="hljs-string">&quot;zh-CN&quot;</span> ? <span class="hljs-string">&quot;en-US&quot;</span> : <span class="hljs-string">&quot;zh-CN&quot;</span>;<br>    i18n.changeLanguage(locale);<br>  &#125;;<br><br>  <span class="hljs-keyword">return</span> &#123; t, toggleI18n &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="resources-js"><a href="#resources-js" class="headerlink" title="resources.js"></a>resources.js</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> en <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./en.json&#x27;</span>;<br><span class="hljs-keyword">import</span> cn <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./cn.json&#x27;</span>;<br><br><span class="hljs-keyword">const</span> resources = &#123;<br>  <span class="hljs-string">&#x27;en-US&#x27;</span>: &#123;<br>    <span class="hljs-attr">translation</span>: en,<br>  &#125;,<br>  <span class="hljs-string">&#x27;zh-CN&#x27;</span>: &#123;<br>    <span class="hljs-attr">translation</span>: cn,<br>  &#125;<br>&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> resources;<br></code></pre></td></tr></table></figure>
+
+<h4 id="cn-json、en-json"><a href="#cn-json、en-json" class="headerlink" title="cn.json、en.json"></a>cn.json、en.json</h4><p>参考格式</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-comment">// locales/en-US.json</span><br>&#123;<br>	<span class="hljs-attr">&quot;hello&quot;</span>:<span class="hljs-string">&quot;Hello&quot;</span><br>&#125;<br><span class="hljs-comment">// locales/zh-CN.json</span><br>&#123;<br>	<span class="hljs-attr">&quot;hello&quot;</span>:<span class="hljs-string">&quot;你好&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>1、在index.js中全局导入i18n.js</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;./assets/i18n&#x27;</span>;<br></code></pre></td></tr></table></figure>
+<p>2、在需要转换的页面导入useCustomTranslation.js</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-keyword">import</span> &#123; useCustomTranslation &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./assets/useCustomTranslation&#x27;</span>;<br><br><span class="hljs-comment">## 在组件中定义</span><br>const Welcome = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>  const &#123; t, toggleI18n &#125; = useCustomTranslation();<br>  <span class="hljs-keyword">return</span> (<br>    &lt;div&gt;<br>     国际化测试数据： &#123;t(<span class="hljs-string">&#x27;hello&#x27;</span>)&#125;<br>    &lt;/div&gt;<br>  );<br>&#125;;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Welcome;<br><br></code></pre></td></tr></table></figure>
+
+<p>完整代码：<a target="_blank" rel="noopener" href="https://github.com/shubihu/letsthink.git">https://github.com/shubihu/letsthink.git</a></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/muou_hang/article/details/119647094">https://blog.csdn.net/muou_hang/article/details/119647094</a></p>
 
             </div>
             <hr>
@@ -287,7 +287,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/CPP/">CPP</a>
+                      <a class="hover-with-bg" href="/categories/React/">React</a>
                     
                   </div>
                 
@@ -295,7 +295,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/torch/">torch</a>
+                      <a class="hover-with-bg" href="/tags/%E5%9B%BD%E9%99%85%E5%8C%96/">国际化</a>
                     
                   </div>
                 
@@ -312,18 +312,12 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/03/14/centos7%E5%AE%89%E8%A3%85openbabel%E8%B8%A9%E5%9D%91/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">centos7安装openbabel踩坑</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/08/centos7%E5%AE%89%E8%A3%85cudnn/">
-                        <span class="hidden-mobile">centos7安装cudnn</span>
+                      <a href="/2023/11/21/%E5%85%8D%E8%B4%B9%E4%BB%8E0%E5%88%B01%E4%B8%8A%E7%BA%BF%E4%B8%80%E4%B8%AA%E7%BD%91%E7%AB%99/">
+                        <span class="hidden-mobile">免费从0到1上线一个网站</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
