@@ -24,7 +24,7 @@
 <meta property="og:description" content="如题">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-29T07:12:53.000Z">
-<meta property="article:modified_time" content="2023-11-29T07:42:40.031Z">
+<meta property="article:modified_time" content="2023-11-29T08:46:45.579Z">
 <meta property="article:tag" content="国际化">
 <meta name="twitter:card" content="summary">
   
@@ -253,13 +253,13 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：3 分钟前
                 
               </p>
             
             <div class="markdown-body">
               <h2 id="如题"><a href="#如题" class="headerlink" title="如题"></a>如题</h2><span id="more"></span>
-<p>经过网络上简单调研最终选择了react-i18next来实现中央切换。安装就不说了，实现的脚本都放到assests文件夹里了。</p>
+<p>经过网络上简单调研最终选择了react-i18next来实现中英切换。安装就不说了，实现的脚本都放到assests文件夹里了。</p>
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">assets<br>├── i18n.<span class="hljs-keyword">js</span><br><span class="hljs-keyword"></span>├── locales<br>│   ├── cn.<span class="hljs-keyword">json</span><br><span class="hljs-keyword"></span>│   ├── en.<span class="hljs-keyword">json</span><br><span class="hljs-keyword"></span>│   └── resources.<span class="hljs-keyword">js</span><br><span class="hljs-keyword"></span>└── useCustomTranslation.<span class="hljs-keyword">js</span><br></code></pre></td></tr></table></figure>
 
 <h4 id="i18n-js"><a href="#i18n-js" class="headerlink" title="i18n.js"></a>i18n.js</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123; initReactI18next &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-i18next&#x27;</span>;<br><span class="hljs-keyword">import</span> i18n <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;i18next&#x27;</span>;<br><span class="hljs-keyword">import</span> resources <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./locales/resources.js&#x27;</span>;<br><br><span class="hljs-keyword">let</span> localLang = sessionStorage.getItem(<span class="hljs-string">&#x27;lang&#x27;</span>);<br><span class="hljs-keyword">const</span> browserLang = navigator.language;<br><br><span class="hljs-keyword">if</span> (!localLang) &#123;<br>  localLang = browserLang === <span class="hljs-string">&#x27;zh-CN&#x27;</span> ? <span class="hljs-string">&#x27;zh-CN&#x27;</span> : <span class="hljs-string">&#x27;en-US&#x27;</span>;<br>&#125;<br><br>i18n<br>  .use(initReactI18next) <span class="hljs-comment">// passes i18n down to react-i18next</span><br>  .init(&#123;<br>    resources,<br>    <span class="hljs-attr">lng</span>: localLang, <br>    <span class="hljs-attr">interpolation</span>: &#123;<br>      <span class="hljs-attr">escapeValue</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// react already safes from xss</span><br>    &#125;,<br>  &#125;);<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> i18n;<br><br></code></pre></td></tr></table></figure>
