@@ -13,25 +13,25 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="如题">
+  <meta name="description" content="内网服务器启动上网服务">
   <meta name="author" content="">
   <meta name="keywords" content="">
-  <meta name="description" content="如题">
+  <meta name="description" content="内网服务器启动上网服务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="react-i18next实现网站国际化">
-<meta property="og:url" content="https://shubihu.github.io/2023/11/29/react-i18next%E5%AE%9E%E7%8E%B0%E7%BD%91%E7%AB%99%E5%9B%BD%E9%99%85%E5%8C%96/index.html">
+<meta property="og:title" content="设置NAT转发以通过网关服务器实现内网访问外网">
+<meta property="og:url" content="https://shubihu.github.io/2023/12/13/%E8%AE%BE%E7%BD%AENAT%E8%BD%AC%E5%8F%91%E4%BB%A5%E9%80%9A%E8%BF%87%E7%BD%91%E5%85%B3%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E8%AE%BF%E9%97%AE%E5%A4%96%E7%BD%91/index.html">
 <meta property="og:site_name" content="梳碧湖">
-<meta property="og:description" content="如题">
+<meta property="og:description" content="内网服务器启动上网服务">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-11-29T07:12:53.000Z">
-<meta property="article:modified_time" content="2023-11-29T08:46:45.579Z">
-<meta property="article:tag" content="国际化">
+<meta property="article:published_time" content="2023-12-13T05:43:24.000Z">
+<meta property="article:modified_time" content="2023-12-13T06:27:50.020Z">
+<meta property="article:tag" content="pandora">
 <meta name="twitter:card" content="summary">
   
     <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7MWV4M9MY"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date());
 gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?18ed691a6c5a383daf5d728b432c6bcb"; var s = document.getElementsByTagName("script")[0];  s.parentNode.insertBefore(hm, s); })(); </script> <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   
-  <title>react-i18next实现网站国际化 - 梳碧湖</title>
+  <title>设置NAT转发以通过网关服务器实现内网访问外网 - 梳碧湖</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -189,7 +189,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="react-i18next实现网站国际化">
+            <span class="h2" id="subtitle" title="设置NAT转发以通过网关服务器实现内网访问外网">
               
             </span>
 
@@ -199,8 +199,8 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2023-11-29 15:12" pubdate>
-        2023年11月29日 下午
+      <time datetime="2023-12-13 13:43" pubdate>
+        2023年12月13日 下午
       </time>
     </span>
   
@@ -210,7 +210,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2k 字
+      1.7k 字
     </span>
   
 
@@ -249,35 +249,61 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">react-i18next实现网站国际化</h1>
+            <h1 style="display: none">设置NAT转发以通过网关服务器实现内网访问外网</h1>
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：14 天前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="如题"><a href="#如题" class="headerlink" title="如题"></a>如题</h2><span id="more"></span>
-<p>经过网络上简单调研最终选择了react-i18next来实现中英切换。安装就不说了，实现的脚本都放到assests文件夹里了。</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">assets<br>├── i18n.<span class="hljs-keyword">js</span><br><span class="hljs-keyword"></span>├── locales<br>│   ├── cn.<span class="hljs-keyword">json</span><br><span class="hljs-keyword"></span>│   ├── en.<span class="hljs-keyword">json</span><br><span class="hljs-keyword"></span>│   └── resources.<span class="hljs-keyword">js</span><br><span class="hljs-keyword"></span>└── useCustomTranslation.<span class="hljs-keyword">js</span><br></code></pre></td></tr></table></figure>
+              <h2 id="内网服务器启动上网服务"><a href="#内网服务器启动上网服务" class="headerlink" title="内网服务器启动上网服务"></a>内网服务器启动上网服务</h2><span id="more"></span>
+<p>场景如下：一个小HPC有一个master节点, 1个 node1 节点, master节点可以上网冲浪, node1节点无法冲浪</p>
+<p>方案：使用NAT转发使node1通过master上网冲浪</p>
+<h3 id="步骤一：IP转发"><a href="#步骤一：IP转发" class="headerlink" title="步骤一：IP转发"></a>步骤一：IP转发</h3><p>在master节点编辑 /etc/sysctl.conf 文件，在该文件中确保以下行取消注释并设置为 1，以允许IP转发：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.ip_forward=<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<p>然后执行 <code>sysctl -p</code> 应用更改。</p>
+<h3 id="步骤二：配置NAT规则"><a href="#步骤二：配置NAT规则" class="headerlink" title="步骤二：配置NAT规则"></a>步骤二：配置NAT规则</h3><p>在master节点使用 iptables 设置NAT规则来将 node1 的流量转发至外网。你需要选择哪个网络接口连向外网（举例使用 eth0）：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> iptables -t nat -A POSTROUTING -o eth<span class="hljs-number">0</span> -j MASQUERADE<br></code></pre></td></tr></table></figure>
+<p>这行命令会把所有经过 master 节点的流量都进行源地址转换（即，伪装成 master 节点），使得 node1 的流量看起来像是从 master 节点发起的。<br>将规则保存到一个文件，如 /etc/iptables/rules.v4，然后在 /etc/rc.local 或其他启动脚本中通过 iptables-restore 来加载它们：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">sudo iptables-save &gt; <span class="hljs-regexp">/etc/i</span>ptables/rules.v4<br></code></pre></td></tr></table></figure>
+<p>并在启动脚本中添加：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">sudo iptables-restore &lt; <span class="hljs-regexp">/etc/i</span>ptables/rules.v4<br></code></pre></td></tr></table></figure>
 
-<h4 id="i18n-js"><a href="#i18n-js" class="headerlink" title="i18n.js"></a>i18n.js</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123; initReactI18next &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-i18next&#x27;</span>;<br><span class="hljs-keyword">import</span> i18n <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;i18next&#x27;</span>;<br><span class="hljs-keyword">import</span> resources <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./locales/resources.js&#x27;</span>;<br><br><span class="hljs-keyword">let</span> localLang = sessionStorage.getItem(<span class="hljs-string">&#x27;lang&#x27;</span>);<br><span class="hljs-keyword">const</span> browserLang = navigator.language;<br><br><span class="hljs-keyword">if</span> (!localLang) &#123;<br>  localLang = browserLang === <span class="hljs-string">&#x27;zh-CN&#x27;</span> ? <span class="hljs-string">&#x27;zh-CN&#x27;</span> : <span class="hljs-string">&#x27;en-US&#x27;</span>;<br>&#125;<br><br>i18n<br>  .use(initReactI18next) <span class="hljs-comment">// passes i18n down to react-i18next</span><br>  .init(&#123;<br>    resources,<br>    <span class="hljs-attr">lng</span>: localLang, <br>    <span class="hljs-attr">interpolation</span>: &#123;<br>      <span class="hljs-attr">escapeValue</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// react already safes from xss</span><br>    &#125;,<br>  &#125;);<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> i18n;<br><br></code></pre></td></tr></table></figure>
-
-<h4 id="useCustomTranslation-js"><a href="#useCustomTranslation-js" class="headerlink" title="useCustomTranslation.js"></a>useCustomTranslation.js</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123; useTranslation &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-i18next&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useCustomTranslation</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> [t, i18n] = useTranslation();<br><br>  <span class="hljs-keyword">const</span> toggleI18n = <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> locale = i18n.language === <span class="hljs-string">&quot;zh-CN&quot;</span> ? <span class="hljs-string">&quot;en-US&quot;</span> : <span class="hljs-string">&quot;zh-CN&quot;</span>;<br>    i18n.changeLanguage(locale);<br>  &#125;;<br><br>  <span class="hljs-keyword">return</span> &#123; t, toggleI18n &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h4 id="resources-js"><a href="#resources-js" class="headerlink" title="resources.js"></a>resources.js</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> en <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./en.json&#x27;</span>;<br><span class="hljs-keyword">import</span> cn <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./cn.json&#x27;</span>;<br><br><span class="hljs-keyword">const</span> resources = &#123;<br>  <span class="hljs-string">&#x27;en-US&#x27;</span>: &#123;<br>    <span class="hljs-attr">translation</span>: en,<br>  &#125;,<br>  <span class="hljs-string">&#x27;zh-CN&#x27;</span>: &#123;<br>    <span class="hljs-attr">translation</span>: cn,<br>  &#125;<br>&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> resources;<br></code></pre></td></tr></table></figure>
-
-<h4 id="cn-json、en-json"><a href="#cn-json、en-json" class="headerlink" title="cn.json、en.json"></a>cn.json、en.json</h4><p>参考格式</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-comment">// locales/en-US.json</span><br>&#123;<br>	<span class="hljs-attr">&quot;hello&quot;</span>:<span class="hljs-string">&quot;Hello&quot;</span><br>&#125;<br><span class="hljs-comment">// locales/zh-CN.json</span><br>&#123;<br>	<span class="hljs-attr">&quot;hello&quot;</span>:<span class="hljs-string">&quot;你好&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>1、在index.js中全局导入i18n.js</p>
-<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;./assets/i18n&#x27;</span>;<br></code></pre></td></tr></table></figure>
-<p>2、在需要转换的页面导入useCustomTranslation.js</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-keyword">import</span> &#123; useCustomTranslation &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./assets/useCustomTranslation&#x27;</span>;<br><br><span class="hljs-comment">## 在组件中定义</span><br>const Welcome = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>  const &#123; t, toggleI18n &#125; = useCustomTranslation();<br>  <span class="hljs-keyword">return</span> (<br>    &lt;div&gt;<br>     国际化测试数据： &#123;t(<span class="hljs-string">&#x27;hello&#x27;</span>)&#125;<br>    &lt;/div&gt;<br>  );<br>&#125;;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Welcome;<br><br></code></pre></td></tr></table></figure>
-
-<p>完整代码：<a target="_blank" rel="noopener" href="https://github.com/shubihu/letsthink.git">https://github.com/shubihu/letsthink.git</a></p>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/muou_hang/article/details/119647094">https://blog.csdn.net/muou_hang/article/details/119647094</a></p>
+<p>PS: 如何判断 master 节点上的网络接口是连接外网的</p>
+<ul>
+<li><p>查看接口配置和连接的网络：<br>常用的命令是 ip addr show 或者 ifconfig（如果系统上安装了）。这些命令列出了所有接口的IP地址及其状态。一般来说，连接到外网的接口通常拥有公网IP地址或者动态分配的私网IP地址，并且这个地址能够通过路由器访问到互联网。</p>
+</li>
+<li><p>检查路由表：<br>使用 ip route show 或者 route -n 命令来查看系统的路由表。默认路由（0.0.0.0/0 或者 just default）指向的接口通常就是用于连接到外网的接口。</p>
+</li>
+<li><p>测试网络连接：<br>可以尝试使用 ping 命令测试不同的接口与外网通信。对于每个网络接口，可以使用 ping -I <interface_name> 8.8.8.8 来测试。能够成功发送和接收数据包的接口很可能就是连接到外网的。</p>
+</li>
+</ul>
+<h3 id="步骤三：配置防火墙规则（如果有防火墙的话）"><a href="#步骤三：配置防火墙规则（如果有防火墙的话）" class="headerlink" title="步骤三：配置防火墙规则（如果有防火墙的话）"></a>步骤三：配置防火墙规则（如果有防火墙的话）</h3><p>如果你的系统使用防火墙，比如 UFW 或 Firewalld，你需要确保它们配置成允许流量转发：</p>
+<p>在 master 节点, 对于UFW，可能要编辑 /etc/default/ufw 文件：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">DEFAULT_FORWARD_POLICY</span>=<span class="hljs-string">&quot;ACCEPT&quot;</span><br></code></pre></td></tr></table></figure>
+<p>然后，配置UFW规则来允许流量通过，或者直接用 iptables。</p>
+<h3 id="步骤四：在-node1-上配置网关"><a href="#步骤四：在-node1-上配置网关" class="headerlink" title="步骤四：在 node1 上配置网关"></a>步骤四：在 node1 上配置网关</h3><p>在 node1 节点上，你可能需要配置默认网关指向 master 节点的内网IP，这样所有默认路由的外网流量才会通过 master 节点。你可以使用 route 或者 ip route 命令来设置这个：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">sudo<span class="hljs-built_in"> route </span><span class="hljs-builtin-name">add</span><span class="hljs-built_in"> default </span>gw master内网IP地址<br></code></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">sudo<span class="hljs-built_in"> ip route </span><span class="hljs-builtin-name">add</span><span class="hljs-built_in"> default </span>via master内网IP地址<br></code></pre></td></tr></table></figure>
+<h3 id="步骤五：测试配置"><a href="#步骤五：测试配置" class="headerlink" title="步骤五：测试配置"></a>步骤五：测试配置</h3><p>完成配置后，从 node1 尝试ping外网地址，比如：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">ping</span> <span class="hljs-number">8.8.8.8</span><br></code></pre></td></tr></table></figure>
+<p>如果可以ping通，再尝试解析域名，这可以确认DNS解析是否也正常工作：</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autoit"><span class="hljs-built_in">ping</span> baidu.com<br></code></pre></td></tr></table></figure>
+<p>如果所有步骤操作正确，node1 应该能够通过 master 节点访问外网。</p>
+<p>PS:DNS 配置：</p>
+<ul>
+<li><p>检查 node1 上的 /etc/resolv.conf 文件，确保它包含正确的 DNS 服务器信息：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">cat <span class="hljs-regexp">/etc/</span>resolv.conf<br></code></pre></td></tr></table></figure>
+<p>里面应该列出至少一个 nameserver，例如：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">nameserver</span> <span class="hljs-number">8.8.8.8</span><br>nameserver <span class="hljs-number">8.8.4.4</span><br></code></pre></td></tr></table></figure>
+<p>这里 8.8.8.8 和 8.8.4.4 是 Google 的公共 DNS 服务器。</p>
+</li>
+<li><p>尝试使用公共 DNS 服务器：<br>如果 resolv.conf 没有列出 DNS 服务器，或者列出的 DNS 服务器不工作，你可以尝试更换为公共 DNS，如 Google 的 DNS：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle">echo <span class="hljs-string">&#x27;nameserver 8.8.8.8&#x27;</span> | sudo tee <span class="hljs-regexp">/etc/</span>resolv.conf &gt; <span class="hljs-regexp">/dev/</span><span class="hljs-keyword">null</span><br></code></pre></td></tr></table></figure></li>
+</ul>
 
             </div>
             <hr>
@@ -287,7 +313,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/React/">React</a>
+                      <a class="hover-with-bg" href="/categories/GPT/">GPT</a>
                     
                   </div>
                 
@@ -295,7 +321,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%9B%BD%E9%99%85%E5%8C%96/">国际化</a>
+                      <a class="hover-with-bg" href="/tags/pandora/">pandora</a>
                     
                   </div>
                 
@@ -312,18 +338,12 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/12/08/pandora-next%E8%AF%A6%E7%BB%86%E4%BD%BF%E7%94%A8/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">pandora-next详细使用</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/11/21/%E5%85%8D%E8%B4%B9%E4%BB%8E0%E5%88%B01%E4%B8%8A%E7%BA%BF%E4%B8%80%E4%B8%AA%E7%BD%91%E7%AB%99/">
-                        <span class="hidden-mobile">免费从0到1上线一个网站</span>
+                      <a href="/2023/12/08/pandora-next%E8%AF%A6%E7%BB%86%E4%BD%BF%E7%94%A8/">
+                        <span class="hidden-mobile">pandora-next详细使用</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
