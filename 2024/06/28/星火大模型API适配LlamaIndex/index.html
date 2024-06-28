@@ -13,25 +13,25 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="v2ray, Qv2ray">
+  <meta name="description" content="使用 LlamaIndex 自定义 CustomLLM 重构星火大模型API">
   <meta name="author" content="">
   <meta name="keywords" content="">
-  <meta name="description" content="v2ray, Qv2ray">
+  <meta name="description" content="使用 LlamaIndex 自定义 CustomLLM 重构星火大模型API">
 <meta property="og:type" content="article">
-<meta property="og:title" content="v2ray一键搭建梯子">
-<meta property="og:url" content="https://shubihu.github.io/2023/09/01/v2ray%E4%B8%80%E9%94%AE%E6%90%AD%E5%BB%BA%E6%A2%AF%E5%AD%90/index.html">
+<meta property="og:title" content="星火大模型API适配LlamaIndex">
+<meta property="og:url" content="https://shubihu.github.io/2024/06/28/%E6%98%9F%E7%81%AB%E5%A4%A7%E6%A8%A1%E5%9E%8BAPI%E9%80%82%E9%85%8DLlamaIndex/index.html">
 <meta property="og:site_name" content="梳碧湖">
-<meta property="og:description" content="v2ray, Qv2ray">
+<meta property="og:description" content="使用 LlamaIndex 自定义 CustomLLM 重构星火大模型API">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-09-01T08:06:57.000Z">
-<meta property="article:modified_time" content="2023-09-05T01:44:37.433Z">
-<meta property="article:tag" content="v2ray">
+<meta property="article:published_time" content="2024-06-28T06:49:20.000Z">
+<meta property="article:modified_time" content="2024-06-28T07:06:30.215Z">
+<meta property="article:tag" content="Spark, LlamaIndex">
 <meta name="twitter:card" content="summary">
   
     <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7MWV4M9MY"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date());
 gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?18ed691a6c5a383daf5d728b432c6bcb"; var s = document.getElementsByTagName("script")[0];  s.parentNode.insertBefore(hm, s); })(); </script> <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   
-  <title>v2ray一键搭建梯子 - 梳碧湖</title>
+  <title>星火大模型API适配LlamaIndex - 梳碧湖</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -189,7 +189,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="v2ray一键搭建梯子">
+            <span class="h2" id="subtitle" title="星火大模型API适配LlamaIndex">
               
             </span>
 
@@ -199,8 +199,8 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2023-09-01 16:06" pubdate>
-        2023年9月1日 下午
+      <time datetime="2024-06-28 14:49" pubdate>
+        2024年6月28日 下午
       </time>
     </span>
   
@@ -210,7 +210,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      2.2k 字
     </span>
   
 
@@ -249,28 +249,26 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">v2ray一键搭建梯子</h1>
+            <h1 style="display: none">星火大模型API适配LlamaIndex</h1>
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：10 个月前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="v2ray-Qv2ray"><a href="#v2ray-Qv2ray" class="headerlink" title="v2ray, Qv2ray"></a>v2ray, Qv2ray</h2><span id="more"></span>
-<p>之前使用酸酸乳，但是每次切换代理的时候读会弹出通知，关也关不掉，就很烦！于是放弃酸酸乳，拥抱v2ray!</p>
-<h4 id="服务端：v2ray安装"><a href="#服务端：v2ray安装" class="headerlink" title="服务端：v2ray安装"></a>服务端：v2ray安装</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo bash &lt;(wget -qO- -o- https:<span class="hljs-regexp">//gi</span>t.io/v2ray.sh)<br></code></pre></td></tr></table></figure>
-<p>一键安装一键配置，都不用自己选择了。安装完后会生成配置信息。同时也会生成一个vmess链接。</p>
-<h4 id="客户端：Qv2ray-安装"><a href="#客户端：Qv2ray-安装" class="headerlink" title="客户端：Qv2ray 安装"></a>客户端：Qv2ray 安装</h4><p>官网提供的客户端真是多彩多样。地址：<a target="_blank" rel="noopener" href="https://www.v2ray.com/awesome/tools.html">https://www.v2ray.com/awesome/tools.html</a><br>我参考的这篇文章下的 Qv2ray， 地址：<a target="_blank" rel="noopener" href="https://v2xtls.org/v2ray-mac%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8B%E8%BD%BD/">https://v2xtls.org/v2ray-mac%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8B%E8%BD%BD/</a><br>Qv2ray mac 地址： <a target="_blank" rel="noopener" href="https://github.com/Qv2ray/Qv2ray/releases">https://github.com/Qv2ray/Qv2ray/releases</a><br>看这个项目在github上不在维护了，后期也可以试试官网提供的其他软件。<br>另外需要下载 v2ray 的核心模块，地址：<a target="_blank" rel="noopener" href="https://github.com/v2ray/v2ray-core/releases">https://github.com/v2ray/v2ray-core/releases</a></p>
-<p>下载完 v2ray core之后要把对应的路径配置到Qv2ray里。<br>配置方法为：Preferences ——&gt; Kernel Settings里分别配置 v2ray 的执行文件（下载后解压目录下的v2ray可执行文件） 和 v2ray assets的目录（下载后解压的目录）</p>
-<p>最后把服务器端生成的 vmess链接 导入即可。</p>
-<h4 id="开启bbr加速（虽然不知道有没有用）"><a href="#开启bbr加速（虽然不知道有没有用）" class="headerlink" title="开启bbr加速（虽然不知道有没有用）"></a>开启bbr加速（虽然不知道有没有用）</h4><p>参考：<a target="_blank" rel="noopener" href="https://www.linuxv2ray.com/speedup/google-tcp-bbr-one-click-script-for-v2ray/">https://www.linuxv2ray.com/speedup/google-tcp-bbr-one-click-script-for-v2ray/</a></p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk">echo <span class="hljs-string">&#x27;net.core.default_qdisc=fq&#x27;</span> | sudo tee -a <span class="hljs-regexp">/etc/</span>sysctl.conf<br>echo <span class="hljs-string">&#x27;net.ipv4.tcp_congestion_control=bbr&#x27;</span> | sudo tee -a <span class="hljs-regexp">/etc/</span>sysctl.conf<br>sysctl -p<br>sysctl net.ipv4.tcp_available_congestion_control<br><br>lsmod | grep bbr   <span class="hljs-comment"># 检测 BBR 是否开启, 返回值有 tcp_bbr 模块说明 BBR 已经启动</span><br></code></pre></td></tr></table></figure>
+              <h2 id="使用-LlamaIndex-自定义-CustomLLM-重构星火大模型API"><a href="#使用-LlamaIndex-自定义-CustomLLM-重构星火大模型API" class="headerlink" title="使用 LlamaIndex 自定义 CustomLLM 重构星火大模型API"></a>使用 LlamaIndex 自定义 CustomLLM 重构星火大模型API</h2><span id="more"></span>
+<p>星火大模型API有点另类，和其他家的就是不一样。虽然官方也给了支持LlamaIndex的版本，但是我测试下来跑不通就离谱。<br>地址：<a target="_blank" rel="noopener" href="https://github.com/iflytek/spark-ai-python?tab=readme-ov-file#llama_index">https://github.com/iflytek/spark-ai-python?tab=readme-ov-file#llama_index</a></p>
+<p>以下是Spark Pro的版本，其他版本修改掉url和domain即可。以下的key7月底到期，token不限。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs python">SPARKAI_URL = <span class="hljs-string">&#x27;wss://spark-api.xf-yun.com/v3.1/chat&#x27;</span><br>SPARKAI_APP_ID = <span class="hljs-string">&#x27;9829fafe&#x27;</span><br>SPARKAI_API_SECRET = <span class="hljs-string">&#x27;MmY2ZmM3ZjVjZWY4OTc3MWZiMWQyMTc2&#x27;</span><br>SPARKAI_API_KEY = <span class="hljs-string">&#x27;a5491fb8cd0637837e2e0016b85cd448&#x27;</span><br>SPARKAI_DOMAIN = <span class="hljs-string">&#x27;generalv3&#x27;</span><br><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Optional</span>, <span class="hljs-type">List</span>, Mapping, <span class="hljs-type">Any</span><br><br><span class="hljs-keyword">from</span> llama_index.core.callbacks <span class="hljs-keyword">import</span> CallbackManager<br><span class="hljs-keyword">from</span> llama_index.core.llms <span class="hljs-keyword">import</span> (<br>    CustomLLM,<br>    CompletionResponse,<br>    CompletionResponseGen,<br>    LLMMetadata,<br>)<br><span class="hljs-keyword">from</span> llama_index.core.llms.callbacks <span class="hljs-keyword">import</span> llm_completion_callback<br><span class="hljs-keyword">from</span> sparkai.llm.llm <span class="hljs-keyword">import</span> ChatSparkLLM, ChunkPrintHandler<br><span class="hljs-keyword">from</span> sparkai.core.messages <span class="hljs-keyword">import</span> ChatMessage<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SparkLLM</span>(<span class="hljs-params">CustomLLM</span>):</span><br>    dummy_response: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;My response&quot;</span><br><br><span class="hljs-meta">    @property</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">metadata</span>(<span class="hljs-params">self</span>) -&gt; LLMMetadata:</span><br>        <span class="hljs-string">&quot;&quot;&quot;Get LLM metadata.&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">return</span> LLMMetadata()<br><br><span class="hljs-meta">    @llm_completion_callback()</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">complete</span>(<span class="hljs-params">self, prompt: <span class="hljs-built_in">str</span>, **kwargs: <span class="hljs-type">Any</span></span>) -&gt; CompletionResponse:</span><br>        <span class="hljs-comment"># response = invoke_prompt(prompt)</span><br>        spark = ChatSparkLLM(<br>            spark_api_url=SPARKAI_URL,<br>            spark_app_id=SPARKAI_APP_ID,<br>            spark_api_key=SPARKAI_API_KEY,<br>            spark_api_secret=SPARKAI_API_SECRET,<br>            spark_llm_domain=SPARKAI_DOMAIN,<br>            streaming=<span class="hljs-literal">False</span>,<br>        )<br>        messages = [ChatMessage(<br>            role=<span class="hljs-string">&quot;user&quot;</span>,<br>            content=prompt<br>        )]<br>        handler = ChunkPrintHandler()<br>        a = spark.generate([messages], callbacks=[handler])<br>        self.dummy_response = a.generations[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].text<br>        <span class="hljs-keyword">return</span> CompletionResponse(text=self.dummy_response)<br><br><span class="hljs-meta">    @llm_completion_callback()</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">stream_complete</span>(<span class="hljs-params"></span></span><br><span class="hljs-params"><span class="hljs-function">        self, prompt: <span class="hljs-built_in">str</span>, **kwargs: <span class="hljs-type">Any</span></span>) -&gt; CompletionResponseGen:</span><br>        response = <span class="hljs-string">&quot;&quot;</span><br>        <span class="hljs-keyword">for</span> token <span class="hljs-keyword">in</span> self.dummy_response:<br>            response += token<br>            <span class="hljs-keyword">yield</span> CompletionResponse(text=response, delta=token)<br><br>llm = SparkLLM()<br>llm.complete(<span class="hljs-string">&#x27;hello&#x27;</span>)<br></code></pre></td></tr></table></figure>
 
-<h4 id="v2ray-常用命令"><a href="#v2ray-常用命令" class="headerlink" title="v2ray 常用命令"></a>v2ray 常用命令</h4><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">v2ray</span> <span class="hljs-literal">info</span>     <span class="hljs-comment"># 查看 V2Ray 配置信息</span><br>v2ray qr       <span class="hljs-comment"># 生成 V2Ray 配置二维码链接</span><br>v2ray url      <span class="hljs-comment"># 生成 vmess URL 链接</span><br>v2ray help<br></code></pre></td></tr></table></figure>
 
-<p>参考：<br><a target="_blank" rel="noopener" href="https://v2xtls.org/qv2ray%e4%b8%8b%e8%bd%bd%e5%8f%8a%e4%bd%bf%e7%94%a8%e6%95%99%e7%a8%8b-v2ray-windows%e5%ae%a2%e6%88%b7%e7%ab%af-%e5%90%8c%e6%97%b6%e6%94%af%e6%8c%81ss-ssr-v2ray-trojan/">https://v2xtls.org/qv2ray%e4%b8%8b%e8%bd%bd%e5%8f%8a%e4%bd%bf%e7%94%a8%e6%95%99%e7%a8%8b-v2ray-windows%e5%ae%a2%e6%88%b7%e7%ab%af-%e5%90%8c%e6%97%b6%e6%94%af%e6%8c%81ss-ssr-v2ray-trojan/</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.xfyun.cn/doc/spark/Web.html#_1-%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E">https://www.xfyun.cn/doc/spark/Web.html#_1-%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.llamaindex.ai/en/stable/module_guides/models/llms/usage_custom/">https://docs.llamaindex.ai/en/stable/module_guides/models/llms/usage_custom/</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.pangdashu.wang/posts/%E5%9B%BD%E4%BA%A7ai%E5%B4%9B%E8%B5%B7%E6%99%BA%E8%B0%B1ai-%E5%92%8C-llamaindex-%E7%BB%93%E5%90%88/">http://www.pangdashu.wang/posts/%E5%9B%BD%E4%BA%A7ai%E5%B4%9B%E8%B5%B7%E6%99%BA%E8%B0%B1ai-%E5%92%8C-llamaindex-%E7%BB%93%E5%90%88/</a></li>
+</ul>
 
             </div>
             <hr>
@@ -280,7 +278,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/TroubleShoot/">TroubleShoot</a>
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>
                     
                   </div>
                 
@@ -288,7 +286,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/v2ray/">v2ray</a>
+                      <a class="hover-with-bg" href="/tags/Spark-LlamaIndex/">Spark, LlamaIndex</a>
                     
                   </div>
                 
@@ -305,18 +303,12 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/09/15/Mac%E8%87%AA%E5%8A%A8%E5%8C%96%E2%80%94%E2%80%94%E8%87%AA%E5%8A%A8%E7%99%BB%E9%99%86%E5%85%AC%E5%85%B1Wi-Fi/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Mac自动化——自动登陆公共Wi-Fi</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/01/%E4%BD%BF%E7%94%A8gdb%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8Fcoredump/">
-                        <span class="hidden-mobile">使用gdb调试程序coredump</span>
+                      <a href="/2024/06/19/AI%E7%88%AC%E8%99%AB%E6%B5%8B%E8%AF%95/">
+                        <span class="hidden-mobile">AI爬虫测试</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
