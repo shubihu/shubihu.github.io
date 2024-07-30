@@ -24,7 +24,7 @@
 <meta property="og:description" content="llama-factoryllama-factory 是一个用于训练和微调大语言模型的工具，支持多种模型和训练方法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-30T06:28:11.000Z">
-<meta property="article:modified_time" content="2024-07-30T07:11:25.876Z">
+<meta property="article:modified_time" content="2024-07-30T07:23:57.885Z">
 <meta property="article:tag" content="大模型微调">
 <meta name="twitter:card" content="summary">
   
@@ -210,7 +210,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.7k 字
+      2.4k 字
     </span>
   
 
@@ -253,7 +253,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：1 分钟前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
                 
               </p>
             
@@ -274,7 +274,11 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
 <p>量化</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">llama</span>-quantize test-fp<span class="hljs-number">16</span>.gguf q<span class="hljs-number">4</span>_<span class="hljs-number">0</span>.gguf q<span class="hljs-number">4</span>_<span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
 
-<p>参考：<br><a target="_blank" rel="noopener" href="https://qwen.readthedocs.io/zh-cn/latest/training/SFT/llama_factory.html">https://qwen.readthedocs.io/zh-cn/latest/training/SFT/llama_factory.html</a><br><a target="_blank" rel="noopener" href="https://qwen.readthedocs.io/zh-cn/latest/quantization/gguf.html">https://qwen.readthedocs.io/zh-cn/latest/quantization/gguf.html</a></p>
+<h4 id="使用vllm部署"><a href="#使用vllm部署" class="headerlink" title="使用vllm部署"></a>使用vllm部署</h4><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><span class="hljs-comment"># pip install vllm</span><br>python -m vllm.entrypoints.openai.api_server <span class="hljs-comment">--model merge</span><br></code></pre></td></tr></table></figure>
+<p>测试</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs n1ql">curl http://localhost:8000/v1/chat/completions -H &quot;Content-Type: application/json&quot; -d &#x27;&#123;<br>  &quot;model&quot;: &quot;<span class="hljs-keyword">merge</span><span class="hljs-string">&quot;,</span><br><span class="hljs-string">  &quot;</span>messages<span class="hljs-string">&quot;: [</span><br><span class="hljs-string">    &#123;&quot;</span><span class="hljs-keyword">role</span><span class="hljs-string">&quot;: &quot;</span><span class="hljs-keyword">system</span><span class="hljs-string">&quot;, &quot;</span>content<span class="hljs-string">&quot;: &quot;</span>You are a helpful assistant.<span class="hljs-string">&quot;&#125;,</span><br><span class="hljs-string">    &#123;&quot;</span><span class="hljs-keyword">role</span><span class="hljs-string">&quot;: &quot;</span><span class="hljs-keyword">user</span><span class="hljs-string">&quot;, &quot;</span>content<span class="hljs-string">&quot;: &quot;</span>Tell me something about large language models.<span class="hljs-string">&quot;&#125;</span><br><span class="hljs-string">  ],</span><br><span class="hljs-string">  &quot;</span>temperature<span class="hljs-string">&quot;: 0.7,</span><br><span class="hljs-string">  &quot;</span>top_p<span class="hljs-string">&quot;: 0.8,</span><br><span class="hljs-string">  &quot;</span>repetition_penalty<span class="hljs-string">&quot;: 1.05,</span><br><span class="hljs-string">  &quot;</span>max_tokens<span class="hljs-string">&quot;: 512</span><br><span class="hljs-string">&#125;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>参考：<br><a target="_blank" rel="noopener" href="https://qwen.readthedocs.io/zh-cn/latest/training/SFT/llama_factory.html">https://qwen.readthedocs.io/zh-cn/latest/training/SFT/llama_factory.html</a><br><a target="_blank" rel="noopener" href="https://qwen.readthedocs.io/zh-cn/latest/quantization/gguf.html">https://qwen.readthedocs.io/zh-cn/latest/quantization/gguf.html</a><br><a target="_blank" rel="noopener" href="https://qwen.readthedocs.io/zh-cn/latest/deployment/vllm.html">https://qwen.readthedocs.io/zh-cn/latest/deployment/vllm.html</a></p>
 
             </div>
             <hr>
