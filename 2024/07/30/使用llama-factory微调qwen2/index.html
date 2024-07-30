@@ -13,25 +13,23 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="使用 LlamaIndex 自定义 CustomLLM 重构星火大模型API">
+  <meta name="description" content="">
   <meta name="author" content="">
   <meta name="keywords" content="">
-  <meta name="description" content="使用 LlamaIndex 自定义 CustomLLM 重构星火大模型API">
-<meta property="og:type" content="article">
-<meta property="og:title" content="星火大模型API适配LlamaIndex">
-<meta property="og:url" content="https://shubihu.github.io/2024/06/28/%E6%98%9F%E7%81%AB%E5%A4%A7%E6%A8%A1%E5%9E%8BAPI%E9%80%82%E9%85%8DLlamaIndex/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="使用llama-factory微调qwen2">
+<meta property="og:url" content="https://shubihu.github.io/2024/07/30/%E4%BD%BF%E7%94%A8llama-factory%E5%BE%AE%E8%B0%83qwen2/index.html">
 <meta property="og:site_name" content="梳碧湖">
-<meta property="og:description" content="使用 LlamaIndex 自定义 CustomLLM 重构星火大模型API">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-06-28T06:49:20.000Z">
-<meta property="article:modified_time" content="2024-06-28T07:06:30.215Z">
-<meta property="article:tag" content="Spark, LlamaIndex">
+<meta property="article:published_time" content="2024-07-30T06:28:11.000Z">
+<meta property="article:modified_time" content="2024-07-30T06:43:38.542Z">
+<meta property="article:tag" content="大模型微调">
 <meta name="twitter:card" content="summary">
   
     <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7MWV4M9MY"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date());
 gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?18ed691a6c5a383daf5d728b432c6bcb"; var s = document.getElementsByTagName("script")[0];  s.parentNode.insertBefore(hm, s); })(); </script> <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9177497528922586" crossorigin="anonymous"></script>
   
-  <title>星火大模型API适配LlamaIndex - 梳碧湖</title>
+  <title>使用llama-factory微调qwen2 - 梳碧湖</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -189,7 +187,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="星火大模型API适配LlamaIndex">
+            <span class="h2" id="subtitle" title="使用llama-factory微调qwen2">
               
             </span>
 
@@ -199,8 +197,8 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2024-06-28 14:49" pubdate>
-        2024年6月28日 下午
+      <time datetime="2024-07-30 14:28" pubdate>
+        2024年7月30日 下午
       </time>
     </span>
   
@@ -210,7 +208,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.2k 字
+      1.5k 字
     </span>
   
 
@@ -249,26 +247,27 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">星火大模型API适配LlamaIndex</h1>
+            <h1 style="display: none">使用llama-factory微调qwen2</h1>
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：1 个月前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="使用-LlamaIndex-自定义-CustomLLM-重构星火大模型API"><a href="#使用-LlamaIndex-自定义-CustomLLM-重构星火大模型API" class="headerlink" title="使用 LlamaIndex 自定义 CustomLLM 重构星火大模型API"></a>使用 LlamaIndex 自定义 CustomLLM 重构星火大模型API</h2><span id="more"></span>
-<p>星火大模型API有点另类，和其他家的就是不一样。虽然官方也给了支持LlamaIndex的版本，但是我测试下来跑不通就离谱。<br>地址：<a target="_blank" rel="noopener" href="https://github.com/iflytek/spark-ai-python?tab=readme-ov-file#llama_index">https://github.com/iflytek/spark-ai-python?tab=readme-ov-file#llama_index</a></p>
-<p>以下是Spark Pro的版本，其他版本修改掉url和domain即可。以下的key7月底到期，token不限。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs python">SPARKAI_URL = <span class="hljs-string">&#x27;wss://spark-api.xf-yun.com/v3.1/chat&#x27;</span><br>SPARKAI_APP_ID = <span class="hljs-string">&#x27;9829fafe&#x27;</span><br>SPARKAI_API_SECRET = <span class="hljs-string">&#x27;MmY2ZmM3ZjVjZWY4OTc3MWZiMWQyMTc2&#x27;</span><br>SPARKAI_API_KEY = <span class="hljs-string">&#x27;a5491fb8cd0637837e2e0016b85cd448&#x27;</span><br>SPARKAI_DOMAIN = <span class="hljs-string">&#x27;generalv3&#x27;</span><br><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Optional</span>, <span class="hljs-type">List</span>, Mapping, <span class="hljs-type">Any</span><br><br><span class="hljs-keyword">from</span> llama_index.core.callbacks <span class="hljs-keyword">import</span> CallbackManager<br><span class="hljs-keyword">from</span> llama_index.core.llms <span class="hljs-keyword">import</span> (<br>    CustomLLM,<br>    CompletionResponse,<br>    CompletionResponseGen,<br>    LLMMetadata,<br>)<br><span class="hljs-keyword">from</span> llama_index.core.llms.callbacks <span class="hljs-keyword">import</span> llm_completion_callback<br><span class="hljs-keyword">from</span> sparkai.llm.llm <span class="hljs-keyword">import</span> ChatSparkLLM, ChunkPrintHandler<br><span class="hljs-keyword">from</span> sparkai.core.messages <span class="hljs-keyword">import</span> ChatMessage<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SparkLLM</span>(<span class="hljs-params">CustomLLM</span>):</span><br>    dummy_response: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;My response&quot;</span><br><br><span class="hljs-meta">    @property</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">metadata</span>(<span class="hljs-params">self</span>) -&gt; LLMMetadata:</span><br>        <span class="hljs-string">&quot;&quot;&quot;Get LLM metadata.&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">return</span> LLMMetadata()<br><br><span class="hljs-meta">    @llm_completion_callback()</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">complete</span>(<span class="hljs-params">self, prompt: <span class="hljs-built_in">str</span>, **kwargs: <span class="hljs-type">Any</span></span>) -&gt; CompletionResponse:</span><br>        <span class="hljs-comment"># response = invoke_prompt(prompt)</span><br>        spark = ChatSparkLLM(<br>            spark_api_url=SPARKAI_URL,<br>            spark_app_id=SPARKAI_APP_ID,<br>            spark_api_key=SPARKAI_API_KEY,<br>            spark_api_secret=SPARKAI_API_SECRET,<br>            spark_llm_domain=SPARKAI_DOMAIN,<br>            streaming=<span class="hljs-literal">False</span>,<br>        )<br>        messages = [ChatMessage(<br>            role=<span class="hljs-string">&quot;user&quot;</span>,<br>            content=prompt<br>        )]<br>        handler = ChunkPrintHandler()<br>        a = spark.generate([messages], callbacks=[handler])<br>        self.dummy_response = a.generations[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].text<br>        <span class="hljs-keyword">return</span> CompletionResponse(text=self.dummy_response)<br><br><span class="hljs-meta">    @llm_completion_callback()</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">stream_complete</span>(<span class="hljs-params"></span></span><br><span class="hljs-params"><span class="hljs-function">        self, prompt: <span class="hljs-built_in">str</span>, **kwargs: <span class="hljs-type">Any</span></span>) -&gt; CompletionResponseGen:</span><br>        response = <span class="hljs-string">&quot;&quot;</span><br>        <span class="hljs-keyword">for</span> token <span class="hljs-keyword">in</span> self.dummy_response:<br>            response += token<br>            <span class="hljs-keyword">yield</span> CompletionResponse(text=response, delta=token)<br><br>llm = SparkLLM()<br>llm.complete(<span class="hljs-string">&#x27;hello&#x27;</span>)<br></code></pre></td></tr></table></figure>
+              <h2 id=""><a href="#" class="headerlink" title=""></a></h2><span id="more"></span>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/hiyouga/LLaMA-Factory/blob/main/README_zh.md">https://github.com/hiyouga/LLaMA-Factory/blob/main/README_zh.md</a></p>
+<p>测试数据使用的是 llama-factory 中的数据集，数据集地址：<a target="_blank" rel="noopener" href="https://github.com/hiyouga/LLaMA-Factory/tree/main/data">https://github.com/hiyouga/LLaMA-Factory/tree/main/data</a></p>
+<h4 id="训练代码"><a href="#训练代码" class="headerlink" title="训练代码"></a>训练代码</h4><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">llamafactory-cli train \<br>    <span class="hljs-params">--stage</span> sft \<br>    <span class="hljs-params">--do_train</span> True \<br>    <span class="hljs-params">--model_name_or_path</span> ~<span class="hljs-string">/model/llm/qwen2/Qwen2-7B-Instruct</span> \     <span class="hljs-comment">## 模型地址</span><br>    <span class="hljs-params">--preprocessing_num_workers</span> 16 \<br>    <span class="hljs-params">--finetuning_type</span> lora \<br>    <span class="hljs-params">--quantization_method</span> bitsandbytes \<br>    <span class="hljs-params">--template</span> qwen \<br>    <span class="hljs-params">--flash_attn</span> auto \<br>    <span class="hljs-params">--dataset_dir</span> <span class="hljs-string">./data</span> \              <span class="hljs-comment">## 数据目录</span><br>    <span class="hljs-params">--dataset</span> alpaca_zh_demo \          <span class="hljs-comment">## 随便选了一个数据集测试</span><br>    <span class="hljs-params">--cutoff_len</span> 1024 \<br>    <span class="hljs-params">--learning_rate</span> 0.0001 \<br>    <span class="hljs-params">--num_train_epochs</span> 2.0 \<br>    <span class="hljs-params">--max_samples</span> 100000 \<br>    <span class="hljs-params">--per_device_train_batch_size</span> 2 \<br>    <span class="hljs-params">--gradient_accumulation_steps</span> 4 \<br>    <span class="hljs-params">--lr_scheduler_type</span> cosine \<br>    <span class="hljs-params">--max_grad_norm</span> 1.0 \<br>    <span class="hljs-params">--logging_steps</span> 20 \<br>    <span class="hljs-params">--save_steps</span> 500 \<br>    <span class="hljs-params">--warmup_steps</span> 0 \<br>    <span class="hljs-params">--optim</span> adamw_torch \<br>    <span class="hljs-params">--packing</span> False \<br>    <span class="hljs-params">--report_to</span> none \<br>    <span class="hljs-params">--output_dir</span> <span class="hljs-string">./train_test</span> \         <span class="hljs-comment">## 输出目录</span><br>    <span class="hljs-params">--bf16</span> True \<br>    <span class="hljs-params">--plot_loss</span> True \<br>    <span class="hljs-params">--ddp_timeout</span> 180000000 \<br>    <span class="hljs-params">--include_num_input_tokens_seen</span> True \<br>    <span class="hljs-params">--lora_rank</span> 8 \<br>    <span class="hljs-params">--lora_alpha</span> 16 \<br>    <span class="hljs-params">--lora_dropout</span> 0 \<br>    <span class="hljs-params">--lora_target</span> all<br></code></pre></td></tr></table></figure>
 
+<h4 id="合并-基座模型-和-adapter参数-训练输出的目录信息"><a href="#合并-基座模型-和-adapter参数-训练输出的目录信息" class="headerlink" title="合并 基座模型 和 adapter参数(训练输出的目录信息)"></a>合并 基座模型 和 adapter参数(训练输出的目录信息)</h4><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">llamafactory-cli export \<br>    <span class="hljs-params">--model_name_or_path</span> ~<span class="hljs-string">/model/llm/qwen2/Qwen2-7B-Instruct</span> \      <span class="hljs-comment">## 基座模型</span><br>    <span class="hljs-params">--adapter_name_or_path</span> <span class="hljs-string">./train_test</span> \                           <span class="hljs-comment">## 微调的</span><br>    <span class="hljs-params">--template</span> qwen \<br>    <span class="hljs-params">--finetuning_type</span> lora \<br>    <span class="hljs-params">--export_dir</span> <span class="hljs-string">./merge</span> \                                          <span class="hljs-comment">## 合并保存的目录</span><br>    <span class="hljs-params">--export_size</span> 2 \<br>    <span class="hljs-params">--export_legacy_format</span> False<br></code></pre></td></tr></table></figure>
 
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.xfyun.cn/doc/spark/Web.html#_1-%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E">https://www.xfyun.cn/doc/spark/Web.html#_1-%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.llamaindex.ai/en/stable/module_guides/models/llms/usage_custom/">https://docs.llamaindex.ai/en/stable/module_guides/models/llms/usage_custom/</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.pangdashu.wang/posts/%E5%9B%BD%E4%BA%A7ai%E5%B4%9B%E8%B5%B7%E6%99%BA%E8%B0%B1ai-%E5%92%8C-llamaindex-%E7%BB%93%E5%90%88/">http://www.pangdashu.wang/posts/%E5%9B%BD%E4%BA%A7ai%E5%B4%9B%E8%B5%B7%E6%99%BA%E8%B0%B1ai-%E5%92%8C-llamaindex-%E7%BB%93%E5%90%88/</a></li>
-</ul>
+<h4 id="测试推理"><a href="#测试推理" class="headerlink" title="测试推理"></a>测试推理</h4><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">llamafactory-cli chat inference_lor<span class="hljs-built_in">a_sft</span>.yaml<br></code></pre></td></tr></table></figure>
+<p>其中 inference_lora_sft.yaml内容如下：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">model_name_or_path:</span> ./merge<br><span class="hljs-meta">#adapter_name_or_path: ./train_test   ## 如果不合并直接推理需要加上</span><br><span class="hljs-symbol">template:</span> qwen<br><span class="hljs-symbol">finetuning_type:</span> lora<br></code></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="https://qwen.readthedocs.io/zh-cn/latest/training/SFT/llama_factory.html">https://qwen.readthedocs.io/zh-cn/latest/training/SFT/llama_factory.html</a></p>
 
             </div>
             <hr>
@@ -286,7 +285,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Spark-LlamaIndex/">Spark, LlamaIndex</a>
+                      <a class="hover-with-bg" href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83/">大模型微调</a>
                     
                   </div>
                 
@@ -303,18 +302,12 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/03/RAG%E4%B8%AD%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8%E5%8F%8A%E8%B8%A9%E5%9D%91/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">RAG中向量数据库的使用及踩坑</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/06/19/AI%E7%88%AC%E8%99%AB%E6%B5%8B%E8%AF%95/">
-                        <span class="hidden-mobile">AI爬虫测试</span>
+                      <a href="/2024/07/10/RAG%E5%B0%8F%E7%BB%93/">
+                        <span class="hidden-mobile">RAG小结</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
