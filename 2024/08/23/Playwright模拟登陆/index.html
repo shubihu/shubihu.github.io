@@ -13,25 +13,25 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="大模型提升会议效率">
+  <meta name="description" content="playwright模拟登陆获取token等">
   <meta name="author" content="">
   <meta name="keywords" content="">
-  <meta name="description" content="大模型提升会议效率">
+  <meta name="description" content="playwright模拟登陆获取token等">
 <meta property="og:type" content="article">
-<meta property="og:title" content="会议助手——实时语音识别,翻译及GPT Answer">
-<meta property="og:url" content="https://shubihu.github.io/2024/01/29/%E4%BC%9A%E8%AE%AE%E5%8A%A9%E6%89%8B%E2%80%94%E2%80%94%E5%AE%9E%E6%97%B6%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%AB-%E7%BF%BB%E8%AF%91%E5%8F%8AGPT-Answer/index.html">
+<meta property="og:title" content="Playwright模拟登陆">
+<meta property="og:url" content="https://shubihu.github.io/2024/08/23/Playwright%E6%A8%A1%E6%8B%9F%E7%99%BB%E9%99%86/index.html">
 <meta property="og:site_name" content="梳碧湖">
-<meta property="og:description" content="大模型提升会议效率">
+<meta property="og:description" content="playwright模拟登陆获取token等">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-01-29T06:17:01.000Z">
-<meta property="article:modified_time" content="2024-06-19T03:32:28.260Z">
-<meta property="article:tag" content="GPT">
+<meta property="article:published_time" content="2024-08-23T08:16:57.000Z">
+<meta property="article:modified_time" content="2024-08-23T08:23:54.028Z">
+<meta property="article:tag" content="爬虫">
 <meta name="twitter:card" content="summary">
   
     <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7MWV4M9MY"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date());
 gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?18ed691a6c5a383daf5d728b432c6bcb"; var s = document.getElementsByTagName("script")[0];  s.parentNode.insertBefore(hm, s); })(); </script> <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9177497528922586" crossorigin="anonymous"></script>
   
-  <title>会议助手——实时语音识别,翻译及GPT Answer - 梳碧湖</title>
+  <title>Playwright模拟登陆 - 梳碧湖</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -189,7 +189,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="会议助手——实时语音识别,翻译及GPT Answer">
+            <span class="h2" id="subtitle" title="Playwright模拟登陆">
               
             </span>
 
@@ -199,8 +199,8 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2024-01-29 14:17" pubdate>
-        2024年1月29日 下午
+      <time datetime="2024-08-23 16:16" pubdate>
+        2024年8月23日 下午
       </time>
     </span>
   
@@ -210,7 +210,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.7k 字
+      2k 字
     </span>
   
 
@@ -249,18 +249,19 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">会议助手——实时语音识别,翻译及GPT Answer</h1>
+            <h1 style="display: none">Playwright模拟登陆</h1>
             
               <p class="note note-info">
                 
-                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：2 个月前
+                  由于时效问题，该文某些代码、技术可能已经过期，请注意！！！本文最后更新于：几秒前
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="大模型提升会议效率"><a href="#大模型提升会议效率" class="headerlink" title="大模型提升会议效率"></a>大模型提升会议效率</h2><span id="more"></span>
-<p>语音识别组件: react-speech-kit, 项目地址:<a target="_blank" rel="noopener" href="https://github.com/MikeyParton/react-speech-kit">https://github.com/MikeyParton/react-speech-kit</a><br>翻译api参考: <a target="_blank" rel="noopener" href="https://blog.zhuanjie.ltd/2023/10/05/api-with-cloudflare/">https://blog.zhuanjie.ltd/2023/10/05/api-with-cloudflare/</a></p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><code class="hljs routeros">import os<br>import azure.cognitiveservices.speech as speechsdk<br><span class="hljs-keyword">from</span> sparkdesk_api.core import SparkAPI<br><span class="hljs-comment"># 默认api接口版本为3.1，配置其他版本需要指定Version参数（2.1或者1.1）</span><br><br>sparkAPI = SparkAPI(<br>    <span class="hljs-attribute">app_id</span>=<span class="hljs-string">&#x27;9829fafe&#x27;</span>,<br>    <span class="hljs-attribute">api_secret</span>=<span class="hljs-string">&#x27;******&#x27;</span>,<br>    <span class="hljs-attribute">api_key</span>=<span class="hljs-string">&#x27;******&#x27;</span>,<br>    # <span class="hljs-attribute">version</span>=3.1<br>)<br><br><span class="hljs-keyword">from</span> zhipuai import ZhipuAI<span class="hljs-built_in"></span><br><span class="hljs-built_in">client </span>= ZhipuAI(<span class="hljs-attribute">api_key</span>=<span class="hljs-string">&quot;****&quot;</span>) # 请填写您自己的APIKey<br><br>def chatglm(message):<br>    response = client.chat.completions.create(<br>      <span class="hljs-attribute">model</span>=<span class="hljs-string">&quot;glm-4&quot;</span>,  # 填写需要调用的模型名称<br>        messages=[<br>            &#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: message&#125;,<br>        ],<br>        <span class="hljs-attribute">stream</span>=<span class="hljs-literal">False</span>,<br>        )<br>    <span class="hljs-builtin-name">print</span>(response.choices[0].message.content)<br><br>def chatSpark(message):<br>    ai_reply = sparkAPI.chat(message)<br>    <span class="hljs-builtin-name">print</span>(ai_reply)<br><br>speech_key, service_region = <span class="hljs-string">&quot;f739afd4250b410aaedca2967c1a78f1&quot;</span>, <span class="hljs-string">&quot;eastus&quot;</span><br>speech_config = speechsdk.SpeechConfig(<span class="hljs-attribute">subscription</span>=speech_key, <span class="hljs-attribute">region</span>=service_region,speech_recognition_language=&quot;zh-cn&quot;)<br><br><span class="hljs-comment"># Creates a recognizer with the given settings</span><br>speech_recognizer = speechsdk.SpeechRecognizer(<span class="hljs-attribute">speech_config</span>=speech_config)<br><br><span class="hljs-comment"># print(&quot;Say something...&quot;)</span><br><br><span class="hljs-comment"># result = speech_recognizer.recognize_once()</span><br><br><span class="hljs-comment"># if result.reason == speechsdk.ResultReason.RecognizedSpeech:</span><br><span class="hljs-comment">#     print(&quot;Recognized: &#123;&#125;&quot;.format(result.text))</span><br><span class="hljs-comment"># elif result.reason == speechsdk.ResultReason.NoMatch:</span><br><span class="hljs-comment">#     print(&quot;No speech could be recognized: &#123;&#125;&quot;.format(result.no_match_details))</span><br><span class="hljs-comment"># elif result.reason == speechsdk.ResultReason.Canceled:</span><br><span class="hljs-comment">#     cancellation_details = result.cancellation_details</span><br><span class="hljs-comment">#     print(&quot;Speech Recognition canceled: &#123;&#125;&quot;.format(cancellation_details.reason))</span><br><span class="hljs-comment">#     if cancellation_details.reason == speechsdk.CancellationReason.Error:</span><br><span class="hljs-comment">#         print(&quot;Error details: &#123;&#125;&quot;.format(cancellation_details.error_details))</span><br><br><br>def chatSpark(message):<br>    ai_reply = sparkAPI.chat(message)<br>    <span class="hljs-builtin-name">print</span>(ai_reply)<br><br><br>text_ls = []<br><br><br>def recognized_callback(evt):<br>    <span class="hljs-keyword">if</span> evt.result.text:<br>        <span class="hljs-builtin-name">print</span>(<span class="hljs-string">&quot;Recognized: &#123;&#125;&quot;</span>.format(evt.result.text))<br>        text_ls.append(evt.result.text)<br>        chatSpark(evt.result.text)<br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;退出&quot;</span> <span class="hljs-keyword">in</span> evt.result.text.lower():<br>        <span class="hljs-builtin-name">print</span>(<span class="hljs-string">&#x27;byebye&#x27;</span>)<br>        os._exit(0)<br>        # speech_recognizer.stop_continuous_recognition()<br><br><br><br>def cancelled_callback(evt):<br>    <span class="hljs-builtin-name">print</span>(<span class="hljs-string">&quot;Cancelled: &#123;&#125;&quot;</span>.format(evt.result.error_details))<br><br>speech_recognizer = speechsdk.SpeechRecognizer(<span class="hljs-attribute">speech_config</span>=speech_config)<br>speech_recognizer.recognized.connect(recognized_callback)<br>speech_recognizer.session_stopped.connect(cancelled_callback)<br><br><span class="hljs-builtin-name">print</span>(<span class="hljs-string">&quot;Say something...&quot;</span>)<br>speech_recognizer.start_continuous_recognition()<br><br><br><br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    pass<br><br><br></code></pre></td></tr></table></figure>
+              <h2 id="playwright"><a href="#playwright" class="headerlink" title="playwright"></a>playwright</h2><p>模拟登陆获取token等</p>
+<span id="more"></span>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> asyncio<br><span class="hljs-keyword">from</span> playwright.async_api <span class="hljs-keyword">import</span> async_playwright<br><br><span class="hljs-comment">## jupyter中需要导入下面的包</span><br><span class="hljs-keyword">import</span> nest_asyncio<br>nest_asyncio.apply()<br><br> <br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">handle_response</span>(<span class="hljs-params">response, tokens_container</span>):</span><br>    <span class="hljs-keyword">if</span> response.url == <span class="hljs-string">&#x27;https://cognito-idp.us-west-2.amazonaws.com/&#x27;</span>:  <br>        json_data = <span class="hljs-keyword">await</span> response.json()<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;AuthenticationResult&#x27;</span> <span class="hljs-keyword">in</span> json_data:<br>            tokens_container[<span class="hljs-string">&#x27;tokens&#x27;</span>] = &#123;<br>                <span class="hljs-string">&#x27;access_token&#x27;</span>: json_data[<span class="hljs-string">&#x27;AuthenticationResult&#x27;</span>][<span class="hljs-string">&#x27;AccessToken&#x27;</span>],<br>                <span class="hljs-string">&#x27;refresh_token&#x27;</span>: json_data[<span class="hljs-string">&#x27;AuthenticationResult&#x27;</span>][<span class="hljs-string">&#x27;RefreshToken&#x27;</span>]<br>            &#125;<br> <br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">handle_request</span>(<span class="hljs-params">request, x_api_key_container</span>):</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;x-api-key&#x27;</span> <span class="hljs-keyword">in</span> request.headers:<br>        x_api_key_container[<span class="hljs-string">&#x27;x_api_key&#x27;</span>] = request.headers[<span class="hljs-string">&#x27;x-api-key&#x27;</span>]<br> <br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">login_and_get_tokens</span>(<span class="hljs-params">email, password</span>):</span><br>    tokens_container = &#123;&#125;<br>    x_api_key_container = &#123;&#125;<br> <br>    <span class="hljs-keyword">async</span> <span class="hljs-keyword">with</span> async_playwright() <span class="hljs-keyword">as</span> p:<br>        browser = <span class="hljs-keyword">await</span> p.chromium.launch(headless=<span class="hljs-literal">True</span>)<br>        page = <span class="hljs-keyword">await</span> browser.new_page()<br> <br>        <span class="hljs-comment"># 注册响应和请求事件监听器</span><br>        page.on(<span class="hljs-string">&quot;response&quot;</span>, <span class="hljs-keyword">lambda</span> response: handle_response(response, tokens_container))<br>        page.on(<span class="hljs-string">&quot;request&quot;</span>, <span class="hljs-keyword">lambda</span> request: handle_request(request, x_api_key_container))<br>        <br>        <span class="hljs-comment"># 导航到指定URL并登录</span><br>        <span class="hljs-keyword">await</span> page.goto(<span class="hljs-string">&quot;https://apply.commonapp.org/login&quot;</span>)<br>        <span class="hljs-keyword">await</span> page.fill(<span class="hljs-string">&#x27;input[name=&quot;email&quot;]&#x27;</span>, email)<br>        <span class="hljs-keyword">await</span> page.fill(<span class="hljs-string">&#x27;input[name=&quot;password&quot;]&#x27;</span>, password)<br>        <span class="hljs-keyword">await</span> page.click(<span class="hljs-string">&#x27;button[type=&quot;submit&quot;]&#x27;</span>)<br>        <span class="hljs-keyword">await</span> page.wait_for_load_state(<span class="hljs-string">&quot;networkidle&quot;</span>)<br> <br>        <span class="hljs-keyword">await</span> browser.close()<br>        <span class="hljs-keyword">return</span> tokens_container.get(<span class="hljs-string">&#x27;tokens&#x27;</span>), x_api_key_container.get(<span class="hljs-string">&#x27;x_api_key&#x27;</span>)<br> <br><span class="hljs-comment"># 示例调用</span><br>tokens, x_api_key = asyncio.run(login_and_get_tokens(<span class="hljs-string">&quot;your_email@example.com&quot;</span>, <span class="hljs-string">&quot;your_password&quot;</span>))<br> <br><span class="hljs-comment"># 检查是否未成功获取 tokens 或 x-api-key</span><br><span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">any</span>([tokens, x_api_key]):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Failed to retrieve tokens or x-api-key.&quot;</span>)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Tokens:&quot;</span>, tokens)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;x-api-key:&quot;</span>, x_api_key)<br></code></pre></td></tr></table></figure>
+
 
             </div>
             <hr>
@@ -278,7 +279,7 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/GPT/">GPT</a>
+                      <a class="hover-with-bg" href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a>
                     
                   </div>
                 
@@ -295,18 +296,12 @@ gtag("config", "G-K7MWV4M9MY"); </script> <script> var _hmt = _hmt || []; (funct
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/06/19/AI%E7%88%AC%E8%99%AB%E6%B5%8B%E8%AF%95/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">AI爬虫测试</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/25/RAG%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94%E9%80%89%E6%8B%A9%E6%9C%80%E4%BD%B3embeding%E5%92%8Crerank%E6%A8%A1%E5%9E%8B%E6%B5%8B%E8%AF%95%E6%95%88%E6%9E%9C/">
-                        <span class="hidden-mobile">RAG实战——选择最佳embeding和rerank模型测试效果</span>
+                      <a href="/2024/08/02/%E4%BD%BF%E7%94%A8playwright%E5%BC%82%E6%AD%A5%E8%87%AA%E5%8A%A8%E5%8C%96%E7%88%AC%E8%99%AB/">
+                        <span class="hidden-mobile">使用playwright异步自动化爬虫</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
