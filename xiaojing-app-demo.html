@@ -1,0 +1,3661 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小晶育儿助手 - App Demo</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  
+  :root {
+    --primary: #df7a59;
+    --primary-light: #f0b8a3;
+    --secondary: #4f907b;
+    --secondary-light: #a8cfc2;
+    --warning: #f4bd59;
+    --warning-light: #fae6bf;
+    --text-dark: #2c241d;
+    --text-medium: #6b5d52;
+    --text-light: #a89888;
+    --bg-cream: #fff8ef;
+    --bg-card: #ffffff;
+    --border: #eadbc6;
+    --shadow: 0 8px 32px rgba(44, 36, 29, 0.08);
+    --shadow-hover: 0 12px 40px rgba(44, 36, 29, 0.12);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    background: linear-gradient(135deg, #fff5e6 0%, #fde8d8 50%, #f5ddd0 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  .page-container {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+    max-width: 1200px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .intro-panel {
+    max-width: 380px;
+    animation: slideInLeft 0.8s ease-out;
+  }
+
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .intro-panel h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+  }
+
+  .intro-panel h1 span {
+    color: var(--primary);
+  }
+
+  .intro-panel .subtitle {
+    font-size: 1.1rem;
+    color: var(--text-medium);
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+
+  .feature-list {
+    list-style: none;
+    margin-bottom: 32px;
+  }
+
+  .feature-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    color: var(--text-medium);
+    font-size: 0.95rem;
+  }
+
+  .feature-list li::before {
+    content: '';
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .feature-list li::after {
+    content: '✓';
+    position: absolute;
+    margin-left: -18px;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+
+  .stage-dots {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .stage-dot {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-medium);
+  }
+
+  .stage-dot:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+
+  .stage-dot.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+
+  .stage-dot.stage-prepregnancy.active { background: #e0896f; border-color: #e0896f; }
+  .stage-dot.stage-pregnancy.active { background: #d9708a; border-color: #d9708a; }
+  .stage-dot.stage-infant.active { background: #5a9d88; border-color: #5a9d88; }
+  .stage-dot.stage-youth.active { background: #6b7eb0; border-color: #6b7eb0; }
+
+  .phone-frame {
+    width: 380px;
+    height: 780px;
+    background: var(--bg-cream);
+    border-radius: 48px;
+    box-shadow: 
+      0 30px 80px rgba(44, 36, 29, 0.2),
+      0 0 0 12px #2c241d,
+      0 0 0 14px #3d332b;
+    position: relative;
+    overflow: hidden;
+    animation: phoneFloat 4s ease-in-out infinite;
+  }
+
+  @keyframes phoneFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 30px;
+    background: #2c241d;
+    border-radius: 0 0 20px 20px;
+    z-index: 100;
+  }
+
+  .status-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    padding-top: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    z-index: 50;
+  }
+
+  .status-bar .icons {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .app-content {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    right: 0;
+    bottom: 78px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 16px 20px;
+    scrollbar-width: none;
+  }
+
+  .app-content::-webkit-scrollbar { display: none; }
+
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-top: 4px;
+  }
+
+  .page-header.with-back {
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  .back-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 1.1rem;
+  }
+
+  .back-btn:hover {
+    background: #faf5ed;
+    transform: translateX(-2px);
+  }
+
+  .page-header h2 {
+    font-size: 1.65rem;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    color: var(--text-dark);
+    flex: 1;
+  }
+
+  .page-header.with-back h2 {
+    font-size: 1.25rem;
+    text-align: center;
+    margin-right: 36px;
+  }
+
+  .avatar-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(223, 122, 89, 0.3);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .avatar-btn:hover { transform: scale(1.05); }
+
+  /* ---------- 首页样式 ---------- */
+
+  .baby-info-card {
+    background: linear-gradient(135deg, var(--primary) 0%, #e89a7f 100%);
+    border-radius: 28px;
+    padding: 22px;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 28px rgba(223, 122, 89, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .baby-info-card.infant {
+    background: linear-gradient(135deg, var(--secondary) 0%, #6bad97 100%);
+    box-shadow: 0 8px 28px rgba(79, 144, 123, 0.3);
+  }
+
+  .baby-info-card.pregnancy {
+    background: linear-gradient(135deg, #d9708a 0%, #e89ab0 100%);
+    box-shadow: 0 8px 28px rgba(217, 112, 138, 0.3);
+  }
+
+  .baby-info-card.youth {
+    background: linear-gradient(135deg, #5a6ea0 0%, #7d8fc0 100%);
+    box-shadow: 0 8px 28px rgba(90, 110, 160, 0.3);
+  }
+
+  .baby-info-card::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .baby-info-card::after {
+    content: '';
+    position: absolute;
+    bottom: -40px;
+    left: 20px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .baby-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .baby-stage {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .baby-focus {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    margin-bottom: 14px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .progress-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: white;
+    border-radius: 999px;
+    transition: width 0.8s ease;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    opacity: 0.8;
+    margin-top: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .quick-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .quick-entry {
+    background: white;
+    border-radius: 20px;
+    padding: 18px 16px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quick-entry:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .quick-entry:active {
+    transform: translateY(-1px);
+  }
+
+  .quick-entry .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+
+  .quick-entry .icon.prep { background: #fde8d8; }
+  .quick-entry .icon.pregnancy { background: #fce4ec; }
+  .quick-entry .icon.baby { background: #e0f0ea; }
+  .quick-entry .icon.youth { background: #e6ebf5; }
+
+  .quick-entry .title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 3px;
+  }
+
+  .quick-entry .desc {
+    font-size: 0.75rem;
+    color: var(--text-light);
+  }
+
+  .tip-card {
+    background: var(--warning-light);
+    border-radius: 24px;
+    padding: 18px;
+    border-left: 4px solid var(--warning);
+    margin-bottom: 20px;
+  }
+
+  .tip-card .tip-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .tip-card .tip-content {
+    font-size: 0.82rem;
+    color: var(--text-medium);
+    line-height: 1.6;
+  }
+
+  .record-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .record-item {
+    background: white;
+    border-radius: 20px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .record-item:hover {
+    box-shadow: var(--shadow);
+    transform: translateX(2px);
+  }
+
+  .record-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .record-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .record-icon.feeding { background: #fde8d8; }
+  .record-icon.sleep { background: #e6ebf5; }
+  .record-icon.diaper { background: #fdf0d5; }
+  .record-icon.temp { background: #fde0e0; }
+  .record-icon.mood { background: #f0e5f5; }
+  .record-icon.study { background: #e0f0ea; }
+
+  .record-info .record-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 3px;
+  }
+
+  .record-info .record-detail {
+    font-size: 0.8rem;
+    color: var(--text-light);
+  }
+
+  .record-add {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .record-add:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(223, 122, 89, 0.4);
+  }
+
+  .trend-panel {
+    background: white;
+    border-radius: 24px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+
+  .trend-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .trend-title::before {
+    content: '📊';
+    font-size: 1.1rem;
+  }
+
+  .trend-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .trend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .trend-label {
+    font-size: 0.8rem;
+    color: var(--text-medium);
+    width: 70px;
+    flex-shrink: 0;
+  }
+
+  .trend-bar {
+    flex: 1;
+    height: 10px;
+    background: #f5ede2;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .trend-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 1s ease;
+  }
+
+  .trend-bar-fill.feeding { background: linear-gradient(90deg, var(--primary), var(--primary-light)); }
+  .trend-bar-fill.sleep { background: linear-gradient(90deg, #5a6ea0, #8fa0c8); }
+  .trend-bar-fill.diaper { background: linear-gradient(90deg, var(--warning), #f9d894); }
+
+  .trend-value {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    width: 50px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .trend-summary {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    font-size: 0.82rem;
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ---------- 问答页样式 ---------- */
+
+  .ask-input-section {
+    background: white;
+    border-radius: 24px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+
+  .ask-input-wrapper {
+    position: relative;
+  }
+
+  .ask-input {
+    width: 100%;
+    min-height: 90px;
+    border: 1.5px solid var(--border);
+    border-radius: 18px;
+    padding: 14px 16px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    resize: none;
+    color: var(--text-dark);
+    background: #fefaf4;
+    transition: border-color 0.3s;
+    line-height: 1.5;
+  }
+
+  .ask-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: white;
+  }
+
+  .ask-input::placeholder {
+    color: var(--text-light);
+  }
+
+  .ask-submit-btn {
+    margin-top: 14px;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary), #e89a7f);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+  }
+
+  .ask-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(223, 122, 89, 0.35);
+  }
+
+  .ask-submit-btn:active {
+    transform: translateY(0);
+  }
+
+  .answer-card {
+    background: white;
+    border-radius: 24px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    margin-bottom: 14px;
+    animation: fadeInUp 0.5s ease;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .answer-card .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .answer-card .card-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+
+  .answer-card.causes .card-icon { background: #fde8d8; }
+  .answer-card.suggestions .card-icon { background: #e0f0ea; }
+  .answer-card.warnings .card-icon { background: #fdf0d5; }
+
+  .answer-card .card-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+
+  .answer-card ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .answer-card li {
+    position: relative;
+    padding-left: 20px;
+    font-size: 0.85rem;
+    color: var(--text-medium);
+    line-height: 1.7;
+    margin-bottom: 6px;
+  }
+
+  .answer-card li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary-light);
+  }
+
+  .answer-card.causes li::before { background: var(--primary-light); }
+  .answer-card.suggestions li::before { background: var(--secondary-light); }
+  .answer-card.warnings li::before { background: var(--warning); }
+
+  .answer-card.warnings {
+    border-left: 4px solid var(--warning);
+    background: #fefaf0;
+  }
+
+  /* ---------- 成长页样式 ---------- */
+
+  .growth-stage-panel {
+    background: linear-gradient(135deg, #5a6ea0 0%, #7d8fc0 100%);
+    border-radius: 28px;
+    padding: 22px;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 28px rgba(90, 110, 160, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .growth-stage-panel.infant {
+    background: linear-gradient(135deg, var(--secondary) 0%, #6bad97 100%);
+    box-shadow: 0 8px 28px rgba(79, 144, 123, 0.3);
+  }
+
+  .growth-stage-panel.prepregnancy {
+    background: linear-gradient(135deg, var(--primary) 0%, #e89a7f 100%);
+    box-shadow: 0 8px 28px rgba(223, 122, 89, 0.3);
+  }
+
+  .growth-stage-panel.pregnancy {
+    background: linear-gradient(135deg, #d9708a 0%, #e89ab0 100%);
+    box-shadow: 0 8px 28px rgba(217, 112, 138, 0.3);
+  }
+
+  .growth-stage-panel::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -20px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .stage-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .stage-focus-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .stage-focus-desc {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: var(--border);
+    border-radius: 2px;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 20px;
+  }
+
+  .timeline-item:last-child {
+    padding-bottom: 0;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -28px;
+    top: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--primary);
+    box-shadow: 0 2px 8px rgba(223, 122, 89, 0.3);
+  }
+
+  .timeline-item.infant .timeline-dot { border-color: var(--secondary); box-shadow: 0 2px 8px rgba(79, 144, 123, 0.3); }
+  .timeline-item.youth .timeline-dot { border-color: #5a6ea0; box-shadow: 0 2px 8px rgba(90, 110, 160, 0.3); }
+
+  .timeline-content {
+    background: white;
+    border-radius: 18px;
+    padding: 16px 18px;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .timeline-content:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow);
+  }
+
+  .timeline-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .timeline-desc {
+    font-size: 0.82rem;
+    color: var(--text-medium);
+    line-height: 1.6;
+  }
+
+  /* ---------- 商城页样式 ---------- */
+
+  .shop-banner {
+    background: linear-gradient(135deg, #2c241d 0%, #4a3d33 100%);
+    border-radius: 24px;
+    padding: 24px 22px;
+    color: white;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shop-banner::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -30px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: rgba(223, 122, 89, 0.2);
+  }
+
+  .shop-banner::after {
+    content: '';
+    position: absolute;
+    bottom: -40px;
+    left: -20px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(244, 189, 89, 0.15);
+  }
+
+  .shop-banner-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .shop-banner-subtitle {
+    font-size: 0.85rem;
+    opacity: 0.75;
+    position: relative;
+    z-index: 1;
+  }
+
+  .shop-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .shop-tabs::-webkit-scrollbar { display: none; }
+
+  .shop-tab {
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: white;
+    border: 1px solid var(--border);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-medium);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .shop-tab:hover {
+    border-color: var(--primary-light);
+  }
+
+  .shop-tab.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+
+  .product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .product-card {
+    background: white;
+    border-radius: 20px;
+    padding: 14px;
+    display: flex;
+    gap: 14px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .product-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+  }
+
+  .product-image.pregnancy { background: linear-gradient(135deg, #fde8d8, #f9d4bd); }
+  .product-image.baby { background: linear-gradient(135deg, #e0f0ea, #c8e4da); }
+  .product-image.youth { background: linear-gradient(135deg, #e6ebf5, #cfd8ed); }
+
+  .product-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+  }
+
+  .product-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.4;
+    margin-bottom: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .product-desc {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-bottom: 8px;
+  }
+
+  .product-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .product-price {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .product-tag {
+    padding: 3px 10px;
+    background: var(--warning-light);
+    color: #b8860b;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 500;
+  }
+
+  /* ---------- 社区页样式 ---------- */
+
+  .community-banner {
+    background: linear-gradient(135deg, #6b7eb0 0%, #8fa0c8 100%);
+    border-radius: 24px;
+    padding: 22px;
+    color: white;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .community-banner::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -20px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .community-banner-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .community-banner-desc {
+    font-size: 0.82rem;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+    line-height: 1.5;
+  }
+
+  .community-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .community-tab {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 16px;
+    background: white;
+    border: 1px solid var(--border);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-medium);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+
+  .community-tab:hover {
+    border-color: var(--primary-light);
+  }
+
+  .community-tab.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+
+  .post-card {
+    background: white;
+    border-radius: 20px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    margin-bottom: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .post-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .post-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .post-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+
+  .post-avatar.mom { background: #fde8d8; }
+  .post-avatar.dad { background: #e0f0ea; }
+  .post-avatar.expert { background: #e6ebf5; }
+
+  .post-author {
+    flex: 1;
+  }
+
+  .post-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 2px;
+  }
+
+  .post-meta {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .post-tag {
+    padding: 2px 8px;
+    background: var(--warning-light);
+    color: #b8860b;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 500;
+  }
+
+  .post-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .post-content {
+    font-size: 0.82rem;
+    color: var(--text-medium);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  .post-footer {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .post-action {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.78rem;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .post-action:hover {
+    color: var(--primary);
+  }
+
+  .post-action-icon {
+    font-size: 0.9rem;
+  }
+
+  /* ---------- 阶段详情页样式 ---------- */
+
+  .stage-detail-hero {
+    border-radius: 28px;
+    padding: 24px 22px;
+    color: white;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stage-detail-hero.prepregnancy {
+    background: linear-gradient(135deg, var(--primary) 0%, #e89a7f 100%);
+    box-shadow: 0 8px 28px rgba(223, 122, 89, 0.3);
+  }
+
+  .stage-detail-hero.infant {
+    background: linear-gradient(135deg, var(--secondary) 0%, #6bad97 100%);
+    box-shadow: 0 8px 28px rgba(79, 144, 123, 0.3);
+  }
+
+  .stage-detail-hero.pregnancy {
+    background: linear-gradient(135deg, #d9708a 0%, #e89ab0 100%);
+    box-shadow: 0 8px 28px rgba(217, 112, 138, 0.3);
+  }
+
+  .stage-detail-hero.youth {
+    background: linear-gradient(135deg, #5a6ea0 0%, #7d8fc0 100%);
+    box-shadow: 0 8px 28px rgba(90, 110, 160, 0.3);
+  }
+
+  .stage-detail-hero::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -20px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .stage-detail-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: 10px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .stage-detail-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .stage-detail-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .stage-detail-subtitle {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .stage-detail-progress {
+    position: relative;
+    z-index: 1;
+  }
+
+  .stage-detail-progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+  }
+
+  /* 功能卡片网格 */
+
+  .function-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .function-card {
+    background: white;
+    border-radius: 20px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .function-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .function-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+
+  .function-icon.orange { background: #fde8d8; }
+  .function-icon.green { background: #e0f0ea; }
+  .function-icon.blue { background: #e6ebf5; }
+  .function-icon.yellow { background: #fdf0d5; }
+  .function-icon.purple { background: #f0e5f5; }
+
+  .function-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+  }
+
+  .function-desc {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    line-height: 1.4;
+  }
+
+  /* 指南列表 */
+
+  .guide-list {
+    margin-bottom: 20px;
+  }
+
+  .guide-item {
+    background: white;
+    border-radius: 20px;
+    padding: 16px 18px;
+    border: 1px solid var(--border);
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .guide-item:hover {
+    transform: translateX(3px);
+    box-shadow: var(--shadow);
+  }
+
+  .guide-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .guide-icon.pink { background: #fde8d8; }
+  .guide-icon.green { background: #e0f0ea; }
+  .guide-icon.blue { background: #e6ebf5; }
+  .guide-icon.yellow { background: #fdf0d5; }
+
+  .guide-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .guide-title {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+  }
+
+  .guide-desc {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .guide-arrow {
+    color: var(--text-light);
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  /* 纪录片推荐 */
+
+  .documentary-list {
+    margin-bottom: 20px;
+  }
+
+  .documentary-card {
+    background: white;
+    border-radius: 20px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    gap: 14px;
+    overflow: hidden;
+  }
+
+  .documentary-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .documentary-cover {
+    width: 76px;
+    height: 100px;
+    border-radius: 14px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    position: relative;
+  }
+
+  .documentary-cover.pink { background: linear-gradient(135deg, #fde8d8, #f9d4bd); }
+  .documentary-cover.green { background: linear-gradient(135deg, #e0f0ea, #c8e4da); }
+  .documentary-cover.blue { background: linear-gradient(135deg, #e6ebf5, #cfd8ed); }
+  .documentary-cover.purple { background: linear-gradient(135deg, #f0e5f5, #e0d0eb); }
+  .documentary-cover.yellow { background: linear-gradient(135deg, #fdf0d5, #f9e0b0); }
+
+  .documentary-cover .play-icon {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    color: white;
+  }
+
+  .documentary-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+  }
+
+  .documentary-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+  }
+
+  .documentary-desc {
+    font-size: 0.76rem;
+    color: var(--text-medium);
+    line-height: 1.5;
+    margin-bottom: 6px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .documentary-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .documentary-tag {
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.66rem;
+    font-weight: 500;
+  }
+
+  .documentary-tag.rating { background: #fde8d8; color: #c06536; }
+  .documentary-tag.duration { background: #f5ede2; color: var(--text-medium); }
+  .documentary-tag.source { background: #e0f0ea; color: var(--secondary); }
+
+  /* 顶部头像 */
+
+  .header-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), #e89a7f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .header-avatar:hover {
+    transform: scale(1.05);
+  }
+
+  .header-avatar.guest {
+    background: #e0e0e0;
+    font-size: 0.9rem;
+  }
+
+  /* 登录注册弹窗 */
+
+  .auth-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .auth-modal.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .auth-modal-content {
+    background: white;
+    border-radius: 28px;
+    padding: 32px 28px 28px;
+    width: 88%;
+    max-width: 320px;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+  }
+
+  .auth-modal.show .auth-modal-content {
+    transform: translateY(0);
+  }
+
+  .auth-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--text-medium);
+    transition: background 0.2s ease;
+  }
+
+  .auth-close:hover {
+    background: #eee;
+  }
+
+  .auth-logo {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .auth-logo-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--primary), #e89a7f);
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+  }
+
+  .auth-logo h3 {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .auth-logo p {
+    font-size: 0.82rem;
+    color: var(--text-medium);
+    margin: 4px 0 0;
+  }
+
+  .auth-tabs {
+    display: flex;
+    background: #f5f5f5;
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 20px;
+  }
+
+  .auth-tab {
+    flex: 1;
+    padding: 8px;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-medium);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .auth-tab.active {
+    background: white;
+    color: var(--text-dark);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .auth-form-group {
+    margin-bottom: 14px;
+  }
+
+  .auth-form-label {
+    font-size: 0.8rem;
+    color: var(--text-medium);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .auth-form-input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    background: white;
+    outline: none;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+  }
+
+  .auth-form-input:focus {
+    border-color: var(--primary);
+  }
+
+  .auth-form-input::placeholder {
+    color: var(--text-light);
+  }
+
+  .auth-submit-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--primary), #e89a7f);
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-top: 6px;
+  }
+
+  .auth-submit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(223, 122, 89, 0.35);
+  }
+
+  .auth-submit-btn:active {
+    transform: translateY(0);
+  }
+
+  .auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .auth-divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .auth-divider-text {
+    font-size: 0.76rem;
+    color: var(--text-light);
+  }
+
+  .auth-quick-login {
+    background: #f8f9fa;
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+  }
+
+  .auth-quick-login-title {
+    font-size: 0.78rem;
+    color: var(--text-medium);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .auth-quick-account {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-radius: 10px;
+    padding: 8px 10px;
+  }
+
+  .auth-quick-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .auth-quick-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), #e89a7f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.85rem;
+  }
+
+  .auth-quick-details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .auth-quick-name {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+
+  .auth-quick-account-text {
+    font-size: 0.7rem;
+    color: var(--text-light);
+  }
+
+  .auth-quick-btn {
+    padding: 5px 12px;
+    border-radius: 8px;
+    background: var(--primary);
+    color: white;
+    font-size: 0.76rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .auth-quick-btn:hover {
+    opacity: 0.9;
+  }
+
+  .auth-footer {
+    text-align: center;
+    margin-top: 14px;
+    font-size: 0.78rem;
+    color: var(--text-medium);
+  }
+
+  .auth-footer-link {
+    color: var(--primary);
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  .growth-stage-switcher {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .growth-stage-btn {
+    flex: 1;
+    padding: 8px 4px;
+    text-align: center;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-medium);
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .growth-stage-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+
+  /* 底部导航 */
+
+  .bottom-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 78px;
+    background: white;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 10px;
+    padding-bottom: 12px;
+    z-index: 50;
+  }
+
+  .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 14px;
+    position: relative;
+  }
+
+  .nav-item:hover {
+    background: #faf5ed;
+  }
+
+  .nav-icon {
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+  }
+
+  .nav-label {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .nav-item.active .nav-icon {
+    transform: scale(1.1);
+  }
+
+  .nav-item.active .nav-label {
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .nav-item.active::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    width: 32px;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 0 0 4px 4px;
+  }
+
+  .page {
+    display: none;
+    animation: pageFadeIn 0.4s ease;
+  }
+
+  .page.active {
+    display: block;
+  }
+
+  @keyframes pageFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .section-title .more-link {
+    font-size: 0.78rem;
+    color: var(--primary);
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  /* 数据统计卡片 */
+
+  .stats-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .stat-card {
+    flex: 1;
+    background: white;
+    border-radius: 18px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .stat-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    color: var(--text-light);
+  }
+
+  @media (max-width: 900px) {
+    .intro-panel {
+      max-width: 100%;
+      text-align: center;
+    }
+
+    .feature-list {
+      text-align: left;
+      display: inline-block;
+    }
+
+    .phone-frame {
+      width: 340px;
+      height: 720px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .phone-frame {
+      width: 100%;
+      max-width: 340px;
+      height: 680px;
+    }
+
+    .intro-panel h1 {
+      font-size: 2rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="page-container">
+    <div class="intro-panel">
+      <h1>小晶<span>育儿助手</span></h1>
+      <p class="subtitle">0-18 岁成长陪伴型科学育儿应用<br>四阶段定制，陪家庭一起长大</p>
+      
+      <div class="stage-dots">
+        <div class="stage-dot stage-prepregnancy" onclick="switchStage('prepregnancy')">备孕</div>
+        <div class="stage-dot stage-pregnancy" onclick="switchStage('pregnancy')">孕期</div>
+        <div class="stage-dot stage-infant active" onclick="switchStage('infant')">婴幼儿</div>
+        <div class="stage-dot stage-youth" onclick="switchStage('youth')">少年到18岁</div>
+      </div>
+
+      <ul class="feature-list">
+        <li>三阶段定制内容，适龄适需</li>
+        <li>科学表达，温和解释成长变化</li>
+        <li>从备孕到青春期，长期陪伴</li>
+        <li>信息可信，减少育儿焦虑</li>
+        <li>五大核心模块，覆盖全场景</li>
+      </ul>
+    </div>
+
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      
+      <div class="status-bar">
+        <span>9:41</span>
+        <div class="icons">
+          <span>📶</span>
+          <span>🔋</span>
+        </div>
+      </div>
+
+      <div class="app-content" id="appContent">
+        <!-- ========== 首页 ========== -->
+        <div class="page active" id="page-home">
+          <div class="page-header">
+            <h2>成长阶段</h2>
+            <div class="header-avatar guest" id="headerAvatar" onclick="openAuthModal()">👤</div>
+          </div>
+
+          <div class="baby-info-card infant" id="babyInfoCard">
+            <div class="baby-name" id="babyName">小米 · 宝宝</div>
+            <div class="baby-stage" id="babyStage">婴幼儿阶段 · 3个月</div>
+            <div class="baby-focus" id="babyFocus">当前重点：喂养、睡眠、疫苗</div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill" style="width: 25%"></div>
+            </div>
+            <div class="progress-label">
+              <span>阶段进度</span>
+              <span id="progressText">25%</span>
+            </div>
+          </div>
+
+          <div class="quick-grid">
+            <div class="quick-entry" onclick="openStageDetail('prepregnancy')">
+              <div class="icon prep">🌱</div>
+              <div class="title">备孕</div>
+              <div class="desc">孕前检查与调理</div>
+            </div>
+            <div class="quick-entry" onclick="openStageDetail('pregnancy')">
+              <div class="icon pregnancy">🤰</div>
+              <div class="title">孕期</div>
+              <div class="desc">产检与待产准备</div>
+            </div>
+            <div class="quick-entry" onclick="openStageDetail('infant')">
+              <div class="icon baby">👶</div>
+              <div class="title">婴幼儿</div>
+              <div class="desc">喂养睡眠照护</div>
+            </div>
+            <div class="quick-entry" onclick="openStageDetail('youth')">
+              <div class="icon youth">🧒</div>
+              <div class="title">少年到18岁</div>
+              <div class="desc">青春期与沟通</div>
+            </div>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-title">💡 阶段提示</div>
+            <div class="tip-content" id="homeTipContent">
+              每个阶段的烦恼不同。3 个月宝宝正处于快速生长期，喂养间隔可能缩短，睡眠也可能出现波动，这都是正常的。
+            </div>
+          </div>
+
+          <div class="section-title">
+            <span>今日提醒</span>
+            <span class="more-link">全部 ›</span>
+          </div>
+          <div class="record-list">
+            <div class="record-item">
+              <div class="record-left">
+                <div class="record-icon temp">💉</div>
+                <div class="record-info">
+                  <div class="record-title">疫苗接种提醒</div>
+                  <div class="record-detail">明天 · 五联疫苗第二针</div>
+                </div>
+              </div>
+              <div style="font-size: 0.75rem; color: var(--warning); font-weight: 600;">明天</div>
+            </div>
+            <div class="record-item">
+              <div class="record-left">
+                <div class="record-icon feeding">📝</div>
+                <div class="record-info">
+                  <div class="record-title">喂养记录</div>
+                  <div class="record-detail">今天已记录 5 次</div>
+                </div>
+              </div>
+              <div style="font-size: 0.75rem; color: var(--secondary); font-weight: 600;">良好</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== 社区页 ========== -->
+        <div class="page" id="page-community">
+          <div class="page-header">
+            <h2>社区</h2>
+            <div class="header-avatar guest" onclick="openAuthModal()">👤</div>
+          </div>
+
+          <div class="community-banner">
+            <div class="community-banner-title">🌷 妈妈互助社区</div>
+            <div class="community-banner-desc">真实经验分享 · 专业医生答疑 · 温暖陪伴成长</div>
+          </div>
+
+          <div class="community-tabs">
+            <div class="community-tab active" onclick="switchCommunityTab('recommend', this)">推荐</div>
+            <div class="community-tab" onclick="switchCommunityTab('sameage', this)">同龄圈</div>
+            <div class="community-tab" onclick="switchCommunityTab('expert', this)">专家问答</div>
+          </div>
+
+          <div id="communityPostList">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar mom">👩</div>
+              <div class="post-author">
+                <div class="post-name">小月妈妈</div>
+                <div class="post-meta">
+                  <span>宝宝3个月</span>
+                  <span>·</span>
+                  <span>2小时前</span>
+                </div>
+              </div>
+              <div class="post-tag">热帖</div>
+            </div>
+            <div class="post-title">三个月宝宝睡眠倒退期怎么办？老母亲快熬不住了…</div>
+            <div class="post-content">
+              之前每晚能睡6小时，最近突然一小时醒一次，喂也不是不喂也不是。试过各种方法都没用，大家都是怎么熬过来的？求经验分享…
+            </div>
+            <div class="post-footer">
+              <div class="post-action">
+                <span class="post-action-icon">❤️</span>
+                <span>328</span>
+              </div>
+              <div class="post-action">
+                <span class="post-action-icon">💬</span>
+                <span>156</span>
+              </div>
+              <div class="post-action">
+                <span class="post-action-icon">⭐</span>
+                <span>收藏</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar expert">👨‍⚕️</div>
+              <div class="post-author">
+                <div class="post-name">张医生 · 儿科主任</div>
+                <div class="post-meta">
+                  <span>官方认证</span>
+                  <span>·</span>
+                  <span>昨天</span>
+                </div>
+              </div>
+              <div class="post-tag" style="background: #e0f0ea; color: #4f907b;">专家</div>
+            </div>
+            <div class="post-title">【科普】宝宝吐奶和溢奶的区别，什么时候需要就医？</div>
+            <div class="post-content">
+              很多新手爸妈分不清宝宝是正常溢奶还是需要担心的呕吐。今天给大家详细讲解两者的区别，以及哪些情况需要及时就医…
+            </div>
+            <div class="post-footer">
+              <div class="post-action">
+                <span class="post-action-icon">❤️</span>
+                <span>892</span>
+              </div>
+              <div class="post-action">
+                <span class="post-action-icon">💬</span>
+                <span>234</span>
+              </div>
+              <div class="post-action">
+                <span class="post-action-icon">⭐</span>
+                <span>收藏</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar dad">👨</div>
+              <div class="post-author">
+                <div class="post-name">新手奶爸阿杰</div>
+                <div class="post-meta">
+                  <span>宝宝2个月</span>
+                  <span>·</span>
+                  <span>5小时前</span>
+                </div>
+              </div>
+            </div>
+            <div class="post-title">爸爸参与带娃的第30天，分享一些心得体会</div>
+            <div class="post-content">
+              从最开始抱宝宝都手抖，到现在能独立换尿布、拍嗝、哄睡。想说爸爸带娃真的不是笨手笨脚，只是需要时间和机会…
+            </div>
+            <div class="post-footer">
+              <div class="post-action">
+                <span class="post-action-icon">❤️</span>
+                <span>567</span>
+              </div>
+              <div class="post-action">
+                <span class="post-action-icon">💬</span>
+                <span>189</span>
+              </div>
+              <div class="post-action">
+                <span class="post-action-icon">⭐</span>
+                <span>收藏</span>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+
+        <!-- ========== 问答页 ========== -->
+        <div class="page" id="page-ask">
+          <div class="page-header">
+            <h2>智能问答</h2>
+            <div class="header-avatar guest" onclick="openAuthModal()">👤</div>
+          </div>
+
+          <div class="ask-input-section">
+            <div class="ask-input-wrapper">
+              <textarea class="ask-input" id="askInput" placeholder="有什么育儿问题？比如：宝宝两个月，经常吐奶怎么办？"></textarea>
+            </div>
+            <button class="ask-submit-btn" onclick="showAnswer()">获取科学参考</button>
+          </div>
+
+          <div id="answerSection">
+            <div class="answer-card causes">
+              <div class="card-header">
+                <div class="card-icon">🔍</div>
+                <div class="card-title">可能原因</div>
+              </div>
+              <ul>
+                <li>小月龄宝宝胃容量小，呈水平位，容易溢奶</li>
+                <li>吃奶时吸入空气，拍嗝不充分</li>
+                <li>喂养量过多或喂养过于频繁</li>
+                <li>喂奶后立即平躺或剧烈活动</li>
+              </ul>
+            </div>
+
+            <div class="answer-card suggestions">
+              <div class="card-header">
+                <div class="card-icon">💡</div>
+                <div class="card-title">可以尝试</div>
+              </div>
+              <ul>
+                <li>喂后竖抱拍嗝 10-15 分钟</li>
+                <li>采用正确的喂奶姿势，宝宝头高脚低</li>
+                <li>少量多餐，避免过度喂养</li>
+                <li>喂奶后让宝宝侧卧一会儿</li>
+              </ul>
+            </div>
+
+            <div class="answer-card warnings">
+              <div class="card-header">
+                <div class="card-icon">⚠️</div>
+                <div class="card-title">需要注意</div>
+              </div>
+              <ul>
+                <li>若出现喷射性呕吐，需及时就医</li>
+                <li>呕吐物带血或黄绿色胆汁，立即就诊</li>
+                <li>伴随体重不增或下降，建议咨询医生</li>
+                <li>精神萎靡、食欲差时应及时就医</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== 成长页 ========== -->
+        <div class="page" id="page-growth">
+          <div class="page-header">
+            <h2>成长</h2>
+            <div class="header-avatar guest" onclick="openAuthModal()">👤</div>
+          </div>
+
+          <div class="growth-stage-switcher">
+            <div class="growth-stage-btn" onclick="switchGrowthStage('prepregnancy', this)">备孕</div>
+            <div class="growth-stage-btn" onclick="switchGrowthStage('pregnancy', this)">孕期</div>
+            <div class="growth-stage-btn active" onclick="switchGrowthStage('infant', this)">婴幼儿</div>
+            <div class="growth-stage-btn" onclick="switchGrowthStage('youth', this)">少年</div>
+          </div>
+
+          <div class="growth-stage-panel infant" id="growthPanel">
+            <div class="stage-badge" id="growthStageBadge">婴幼儿阶段</div>
+            <div class="stage-focus-title" id="growthStageTitle">发育里程碑</div>
+            <div class="stage-focus-desc" id="growthStageDesc">
+              关注大运动、精细动作、语言、社交和认知五大领域的发展
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 35%"></div>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <span>成长时间线</span>
+            <span class="more-link">全部 ›</span>
+          </div>
+
+          <div class="timeline" id="timeline">
+            <div class="timeline-item infant">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-title">🏃 大运动发展</div>
+                <div class="timeline-desc">3 个月开始抬头稳，4-6 个月翻身，7-9 个月独坐，10-12 个月扶站。</div>
+              </div>
+            </div>
+            <div class="timeline-item infant">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-title">✋ 精细动作</div>
+                <div class="timeline-desc">从握拳到主动抓握，3-4 个月玩手，6-7 个月换手，9-10 个月拇食指对捏。</div>
+              </div>
+            </div>
+            <div class="timeline-item infant">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-title">🗣️ 语言发展</div>
+                <div class="timeline-desc">1-3 个月发元音，4-6 个月咿呀学语，7-9 个月叫爸妈，1 岁说单词。</div>
+              </div>
+            </div>
+            <div class="timeline-item infant">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-title">😊 社交认知</div>
+                <div class="timeline-desc">2 个月社交微笑，4 个月认人，6 个月怕生，9-12 个月依恋高峰期。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== 商城页 ========== -->
+        <div class="page" id="page-shop">
+          <div class="page-header">
+            <h2>阶段商城</h2>
+            <div class="header-avatar guest" onclick="openAuthModal()">👤</div>
+          </div>
+
+          <div class="shop-banner">
+            <div class="shop-banner-title">只推荐母婴与少年成长用品</div>
+            <div class="shop-banner-subtitle">精选适龄 · 品质可信 · 少干扰</div>
+          </div>
+
+          <div class="shop-tabs">
+            <div class="shop-tab active" onclick="switchShopTab('pregnancy')">孕产</div>
+            <div class="shop-tab" onclick="switchShopTab('baby')">母婴</div>
+            <div class="shop-tab" onclick="switchShopTab('youth')">少年</div>
+          </div>
+
+          <div class="product-list" id="productList">
+            <div class="product-card">
+              <div class="product-image pregnancy">🤰</div>
+              <div class="product-info">
+                <div>
+                  <div class="product-name">待产包清单套装</div>
+                  <div class="product-desc">备孕到出生 · 精选 28 件</div>
+                </div>
+                <div class="product-bottom">
+                  <span class="product-price">¥299</span>
+                  <span class="product-tag">精选</span>
+                </div>
+              </div>
+            </div>
+            <div class="product-card">
+              <div class="product-image pregnancy">📚</div>
+              <div class="product-info">
+                <div>
+                  <div class="product-name">生命教育绘本套装</div>
+                  <div class="product-desc">用温和方式解释生命起源</div>
+                </div>
+                <div class="product-bottom">
+                  <span class="product-price">¥168</span>
+                  <span class="product-tag">推荐</span>
+                </div>
+              </div>
+            </div>
+            <div class="product-card">
+              <div class="product-image pregnancy">💊</div>
+              <div class="product-info">
+                <div>
+                  <div class="product-name">孕期营养组合</div>
+                  <div class="product-desc">叶酸 DHA 钙片 三甲医生推荐</div>
+                </div>
+                <div class="product-bottom">
+                  <span class="product-price">¥399</span>
+                  <span class="product-tag">科学</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== 阶段详情页 - 备孕 ========== -->
+        <div class="page" id="page-stage-prepregnancy">
+          <div class="page-header with-back">
+            <div class="back-btn" onclick="closeStageDetail()">‹</div>
+            <h2>备孕</h2>
+          </div>
+
+          <div class="stage-detail-hero prepregnancy">
+            <div class="stage-detail-icon">🌱</div>
+            <div class="stage-detail-title">备孕中 · 孕前调理期</div>
+            <div class="stage-detail-subtitle">科学备孕，迎接健康新生命</div>
+            <div class="stage-detail-progress">
+              <div class="stage-detail-progress-label">
+                <span>备孕进度</span>
+                <span>40%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 40%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-row">
+            <div class="stat-card">
+              <div class="stat-value">第28天</div>
+              <div class="stat-label">备孕周期</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">3天后</div>
+              <div class="stat-label">易孕期</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">56天</div>
+              <div class="stat-label">叶酸补充</div>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <span>核心功能</span>
+          </div>
+
+          <div class="function-grid">
+            <div class="function-card">
+              <div class="function-icon pink">🩺</div>
+              <div class="function-title">备孕检查</div>
+              <div class="function-desc">孕前全面体检指南</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon purple">📅</div>
+              <div class="function-title">排卵追踪</div>
+              <div class="function-desc">易孕期精准预测</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon orange">�</div>
+              <div class="function-title">孕前营养</div>
+              <div class="function-desc">叶酸补充与调理</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon green">🏃</div>
+              <div class="function-title">生活方式</div>
+              <div class="function-desc">运动饮食作息调整</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon blue">🧬</div>
+              <div class="function-title">遗传咨询</div>
+              <div class="function-desc">家族病史评估</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon yellow">💆</div>
+              <div class="function-title">备孕心理</div>
+              <div class="function-desc">压力管理与调节</div>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <span>本周指南</span>
+            <span class="more-link">更多 ›</span>
+          </div>
+
+          <div class="guide-list">
+            <div class="guide-item">
+              <div class="guide-icon pink">📋</div>
+              <div class="guide-content">
+                <div class="guide-title">备孕检查项目清单</div>
+                <div class="guide-desc">孕前必做的10项检查，一个都不能少</div>
+              </div>
+              <div class="guide-arrow">›</div>
+            </div>
+            <div class="guide-item">
+              <div class="guide-icon green">💊</div>
+              <div class="guide-content">
+                <div class="guide-title">叶酸怎么补才科学？</div>
+                <div class="guide-desc">剂量、时间、食物搭配全攻略</div>
+              </div>
+              <div class="guide-arrow">›</div>
+            </div>
+            <div class="guide-item">
+              <div class="guide-icon blue">🌡️</div>
+              <div class="guide-content">
+                <div class="guide-title">如何找准排卵期？</div>
+                <div class="guide-desc">基础体温法+排卵试纸+身体信号</div>
+              </div>
+              <div class="guide-arrow">›</div>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <span>🎞️ 推荐纪录片</span>
+            <span class="more-link">更多 ›</span>
+          </div>
+
+          <div class="documentary-list">
+            <div class="documentary-card">
+              <div class="documentary-cover green">
+                🌱
+                <div class="play-icon">▶</div>
+              </div>
+              <div class="documentary-info">
+                <div>
+                  <div class="documentary-name">生命的奇迹</div>
+                  <div class="documentary-desc">BBC出品，讲述一个细胞如何成长为复杂生命体，感受孕育的伟大与不易</div>
+                </div>
+                <div class="documentary-tags">
+                  <span class="documentary-tag rating">⭐ 9.2</span>
+                  <span class="documentary-tag duration">5集·50分钟</span>
+                  <span class="documentary-tag source">BBC</span>
+                </div>
+              </div>
+            </div>
+            <div class="documentary-card">
+              <div class="documentary-cover pink">
+                🤰
+                <div class="play-icon">▶</div>
+              </div>
+              <div class="documentary-info">
+                <div>
+                  <div class="documentary-name">子宫里的日记</div>
+                  <div class="documentary-desc">国家地理出品，用4D影像记录从受精到出生的全过程，看见生命最初的奇迹</div>
+                </div>
+                <div class="documentary-tags">
+                  <span class="documentary-tag rating">⭐ 9.4</span>
+                  <span class="documentary-tag duration">90分钟</span>
+                  <span class="documentary-tag source">国家地理</span>
+                </div>
+              </div>
+            </div>
+            <div class="documentary-card">
+              <div class="documentary-cover yellow">
+                🔬
+                <div class="play-icon">▶</div>
+              </div>
+              <div class="documentary-info">
+                <div>
+                  <div class="documentary-name">生命的起源</div>
+                  <div class="documentary-desc">探索生命诞生的科学奥秘，从基因到受精，理解孕育背后的生命密码</div>
+                </div>
+                <div class="documentary-tags">
+                  <span class="documentary-tag rating">⭐ 8.7</span>
+                  <span class="documentary-tag duration">4集·45分钟</span>
+                  <span class="documentary-tag source">央视</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== 阶段详情页 - 孕期 ========== -->
+        <div class="page" id="page-stage-pregnancy">
+          <div class="page-header with-back">
+            <div class="back-btn" onclick="closeStageDetail()">‹</div>
+            <h2>孕期</h2>
+          </div>
+
+          <div class="stage-detail-hero pregnancy">
+            <div class="stage-detail-icon">🤰</div>
+            <div class="stage-detail-title">孕12周 · 第一孕期</div>
+            <div class="stage-detail-subtitle">胎儿器官形成关键期</div>
+            <div class="stage-detail-progress">
+              <div class="stage-detail-progress-label">
+                <span>孕期进度</span>
+                <span>30%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 30%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-row">
+            <div class="stat-card">
+              <div class="stat-value">12周</div>
+              <div class="stat-label">胎儿发育</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">192天</div>
+              <div class="stat-label">距预产期</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">3次</div>
+              <div class="stat-label">已做产检</div>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <span>核心功能</span>
+          </div>
+
+          <div class="function-grid">
+            <div class="function-card">
+              <div class="function-icon green">📋</div>
+              <div class="function-title">产检时间表</div>
+              <div class="function-desc">12次产检提醒</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon blue">🥗</div>
+              <div class="function-title">孕期营养</div>
+              <div class="function-desc">分阶段饮食指南</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon pink">👶</div>
+              <div class="function-title">胎动记录</div>
+              <div class="function-desc">胎动计数追踪</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon purple">⚖️</div>
+              <div class="function-title">体重管理</div>
+              <div class="function-desc">孕期体重曲线</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon yellow">🎒</div>
+              <div class="function-title">待产包</div>
+              <div class="function-desc">清单一键准备</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon orange">🏥</div>
+              <div class="function-title">分娩准备</div>
+              <div class="function-desc">分娩知识课程</div>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <span>本周指南</span>
+            <span class="more-link">更多 ›</span>
+          </div>
+
+          <div class="guide-list">
+            <div class="guide-item">
+              <div class="guide-icon pink">❤️</div>
+              <div class="guide-content">
+                <div class="guide-title">12周胎儿发育情况</div>
+                <div class="guide-desc">宝宝现在像一颗李子，手指脚趾已经分开</div>
+              </div>
+              <div class="guide-arrow">›</div>
+            </div>
+            <div class="guide-item">
+              <div class="guide-icon green">🥑</div>
+              <div class="guide-content">
+                <div class="guide-title">孕早期营养重点</div>
+                <div class="guide-desc">叶酸、铁、蛋白质怎么补？一文说清</div>
+              </div>
+              <div class="guide-arrow">›</div>
+            </div>
+            <div class="guide-item">
+              <div class="guide-icon blue">😌</div>
+              <div class="guide-content">
+                <div class="guide-title">孕期情绪波动正常吗？</div>
+                <div class="guide-desc">激素变化引起，学会调节和寻求支持</div>
+              </div>
+              <div class="guide-arrow">›</div>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <span>🎞️ 推荐纪录片</span>
+            <span class="more-link">更多 ›</span>
+          </div>
+
+          <div class="documentary-list">
+            <div class="documentary-card">
+              <div class="documentary-cover pink">
+                👶
+                <div class="play-icon">▶</div>
+              </div>
+              <div class="documentary-info">
+                <div>
+                  <div class="documentary-name">怀胎九月</div>
+                  <div class="documentary-desc">真实记录三位准妈妈从怀孕到分娩的完整旅程，温暖而真实的孕期故事</div>
+                </div>
+                <div class="documentary-tags">
+                  <span class="documentary-tag rating">⭐ 8.8</span>
+                  <span class="documentary-tag duration">3集·45分钟</span>
+                  <span class="documentary-tag source">央视</span>
+                </div>
+              </div>
+            </div>
+            <div class="documentary-card">
+              <div class="documentary-cover blue">
+                🧠
+                <div class="play-icon">▶</div>
+              </div>
+              <div class="documentary-info">
+                <div>
+                  <div class="documentary-name">胎儿的奇妙世界</div>
+                  <div class="documentary-desc">揭秘胎儿在子宫内的感官发育与学习能力，感受生命在腹中的成长</div>
+                </div>
+                <div class="documentary-tags">
+                  <span class="documentary-tag rating">⭐ 9.0</span>
+                  <span class="documentary-tag duration">60分钟</span>
+                  <span class="documentary-tag source">BBC</span>
+                </div>
+              </div>
+            </div>
+            <div class="documentary-card">
+              <div class="documentary-cover yellow">
+                🏥
+                <div class="play-icon">▶</div>
+              </div>
+              <div class="documentary-info">
+                <div>
+                  <div class="documentary-name">分娩的抉择</div>
+                  <div class="documentary-desc">探索不同分娩方式的选择与准备，帮助准妈妈做出最适合自己的决定</div>
+                </div>
+                <div class="documentary-tags">
+                  <span class="documentary-tag rating">⭐ 8.6</span>
+                  <span class="documentary-tag duration">2集·50分钟</span>
+                  <span class="documentary-tag source">国家地理</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== 阶段详情页 - 婴幼儿 ========== -->
+        <div class="page" id="page-stage-infant">
+          <div class="page-header with-back">
+            <div class="back-btn" onclick="closeStageDetail()">‹</div>
+            <h2>婴幼儿阶段</h2>
+          </div>
+
+          <div class="stage-detail-hero infant">
+            <div class="stage-detail-icon">👶</div>
+            <div class="stage-detail-title">小米 · 3个月</div>
+            <div class="stage-detail-subtitle">大运动发育关键期</div>
+            <div class="stage-detail-progress">
+              <div class="stage-detail-progress-label">
+                <span>婴儿期进度</span>
+                <span>25%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 25%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-row">
+            <div class="stat-card">
+              <div class="stat-value">6.2kg</div>
+              <div class="stat-label">体重</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">61cm</div>
+              <div class="stat-label">身高</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">3月</div>
+              <div class="stat-label">月龄</div>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <span>核心功能</span>
+          </div>
+
+          <div class="function-grid">
+            <div class="function-card">
+              <div class="function-icon orange">🍼</div>
+              <div class="function-title">喂养记录</div>
+              <div class="function-desc">喂奶/辅食/饮水</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon blue">😴</div>
+              <div class="function-title">睡眠记录</div>
+              <div class="function-desc">作息规律追踪</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon green">💉</div>
+              <div class="function-title">疫苗接种</div>
+              <div class="function-desc">时间表与提醒</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon yellow">📋</div>
+              <div class="function-title">发育测评</div>
+              <div class="function-desc">月龄能力评估</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon purple">🧸</div>
+              <div class="function-title">安抚小技巧</div>
+              <div class="function-desc">哭闹应对方法</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon green">🏃</div>
+              <div class="function-title">亲子运动</div>
+              <div class="function-desc">促进大运动发展</div>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <span>本月发育指南</span>
+            <span class="more-link">更多 ›</span>
+          </div>
+
+          <div class="guide-list">
+            <div class="guide-item">
+              <div class="guide-icon pink">🏋️</div>
+              <div class="guide-content">
+                <div class="guide-title">3个月大运动发展</div>
+                <div class="guide-desc">抬头稳、挺胸，开始尝试翻身</div>
+              </div>
+              <div class="guide-arrow">›</div>
+            </div>
+            <div class="guide-item">
+              <div class="guide-icon green">🤝</div>
+              <div class="guide-content">
+                <div class="guide-title">精细动作训练</div>
+                <div class="guide-desc">玩手、抓握玩具、手眼协调练习</div>
+              </div>
+              <div class="guide-arrow">›</div>
+            </div>
+            <div class="guide-item">
+              <div class="guide-icon blue">💬</div>
+              <div class="guide-content">
+                <div class="guide-title">语言启蒙</div>
+                <div class="guide-desc">多和宝宝说话，回应咿呀发音</div>
+              </div>
+              <div class="guide-arrow">›</div>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <span>🎞️ 推荐纪录片</span>
+            <span class="more-link">更多 ›</span>
+          </div>
+
+          <div class="documentary-list">
+            <div class="documentary-card">
+              <div class="documentary-cover blue">
+                👶
+                <div class="play-icon">▶</div>
+              </div>
+              <div class="documentary-info">
+                <div>
+                  <div class="documentary-name">婴儿的秘密生活</div>
+                  <div class="documentary-desc">BBC出品，揭秘婴儿大脑发育的惊人能力，重新认识你面前的小生命</div>
+                </div>
+                <div class="documentary-tags">
+                  <span class="documentary-tag rating">⭐ 9.3</span>
+                  <span class="documentary-tag duration">60分钟</span>
+                  <span class="documentary-tag source">BBC</span>
+                </div>
+              </div>
+            </div>
+            <div class="documentary-card">
+              <div class="documentary-cover green">
+                🧠
+                <div class="play-icon">▶</div>
+              </div>
+              <div class="documentary-info">
+                <div>
+                  <div class="documentary-name">宝宝的奇妙世界</div>
+                  <div class="documentary-desc">通过前沿实验探索婴儿如何学习走路、说话和认识世界，颠覆你的育儿认知</div>
+                </div>
+                <div class="documentary-tags">
+                  <span class="documentary-tag rating">⭐ 9.0</span>
+                  <span class="documentary-tag duration">3集·50分钟</span>
+                  <span class="documentary-tag source">BBC</span>
+                </div>
+              </div>
+            </div>
+            <div class="documentary-card">
+              <div class="documentary-cover pink">
+                🎈
+                <div class="play-icon">▶</div>
+              </div>
+              <div class="documentary-info">
+                <div>
+                  <div class="documentary-name">人生第一次</div>
+                  <div class="documentary-desc">央视记录片，记录孩子从出生到入园的"第一次"，每个瞬间都让人泪目</div>
+                </div>
+                <div class="documentary-tags">
+                  <span class="documentary-tag rating">⭐ 9.1</span>
+                  <span class="documentary-tag duration">12集·30分钟</span>
+                  <span class="documentary-tag source">央视</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== 阶段详情页 - 少年到18岁 ========== -->
+        <div class="page" id="page-stage-youth">
+          <div class="page-header with-back">
+            <div class="back-btn" onclick="closeStageDetail()">‹</div>
+            <h2>少年到 18 岁</h2>
+          </div>
+
+          <div class="stage-detail-hero youth">
+            <div class="stage-detail-icon">🧒</div>
+            <div class="stage-detail-title">小宇 · 12岁</div>
+            <div class="stage-detail-subtitle">青春期初期</div>
+            <div class="stage-detail-progress">
+              <div class="stage-detail-progress-label">
+                <span>少年期进度</span>
+                <span>50%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 50%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-row">
+            <div class="stat-card">
+              <div class="stat-value">152cm</div>
+              <div class="stat-label">身高</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">7年级</div>
+              <div class="stat-label">年级</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">12岁</div>
+              <div class="stat-label">年龄</div>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <span>核心功能</span>
+          </div>
+
+          <div class="function-grid">
+            <div class="function-card">
+              <div class="function-icon blue">🧍</div>
+              <div class="function-title">身体变化</div>
+              <div class="function-desc">青春期知识科普</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon orange">📚</div>
+              <div class="function-title">学习压力</div>
+              <div class="function-desc">压力记录与调节</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon purple">😊</div>
+              <div class="function-title">情绪日记</div>
+              <div class="function-desc">记录心情与觉察</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon green">💬</div>
+              <div class="function-title">亲子沟通</div>
+              <div class="function-desc">话题建议与技巧</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon yellow">📖</div>
+              <div class="function-title">成长书单</div>
+              <div class="function-desc">适龄好书推荐</div>
+            </div>
+            <div class="function-card">
+              <div class="function-icon blue">🎯</div>
+              <div class="function-title">目标管理</div>
+              <div class="function-desc">学习目标追踪</div>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <span>本月关注话题</span>
+            <span class="more-link">更多 ›</span>
+          </div>
+
+          <div class="guide-list">
+            <div class="guide-item">
+              <div class="guide-icon pink">💙</div>
+              <div class="guide-content">
+                <div class="guide-title">如何和孩子谈青春期？</div>
+                <div class="guide-desc">用尊重的态度、准确的语言，不尴尬不回避</div>
+              </div>
+              <div class="guide-arrow">›</div>
+            </div>
+            <div class="guide-item">
+              <div class="guide-icon green">🧠</div>
+              <div class="guide-content">
+                <div class="guide-title">学习压力大怎么办？</div>
+                <div class="guide-desc">帮助孩子找到适合自己的学习节奏</div>
+              </div>
+              <div class="guide-arrow">›</div>
+            </div>
+            <div class="guide-item">
+              <div class="guide-icon blue">👨‍👩‍👧</div>
+              <div class="guide-content">
+                <div class="guide-title">孩子不想说话？试试这样沟通</div>
+                <div class="guide-desc">从说教到对话，建立信任的亲子关系</div>
+              </div>
+              <div class="guide-arrow">›</div>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <span>🎞️ 推荐纪录片</span>
+            <span class="more-link">更多 ›</span>
+          </div>
+
+          <div class="documentary-list">
+            <div class="documentary-card">
+              <div class="documentary-cover purple">
+                🧠
+                <div class="play-icon">▶</div>
+              </div>
+              <div class="documentary-info">
+                <div>
+                  <div class="documentary-name">青春期的大脑</div>
+                  <div class="documentary-desc">揭秘青春期大脑重塑过程，理解孩子情绪波动和冒险行为背后的科学原因</div>
+                </div>
+                <div class="documentary-tags">
+                  <span class="documentary-tag rating">⭐ 9.2</span>
+                  <span class="documentary-tag duration">90分钟</span>
+                  <span class="documentary-tag source">BBC</span>
+                </div>
+              </div>
+            </div>
+            <div class="documentary-card">
+              <div class="documentary-cover blue">
+                🪞
+                <div class="play-icon">▶</div>
+              </div>
+              <div class="documentary-info">
+                <div>
+                  <div class="documentary-name">镜子</div>
+                  <div class="documentary-desc">真实记录三个家庭的教育困境，一面照出亲子关系问题的镜子，引人深思</div>
+                </div>
+                <div class="documentary-tags">
+                  <span class="documentary-tag rating">⭐ 9.0</span>
+                  <span class="documentary-tag duration">3集·40分钟</span>
+                  <span class="documentary-tag source">央视</span>
+                </div>
+              </div>
+            </div>
+            <div class="documentary-card">
+              <div class="documentary-cover green">
+                🌟
+                <div class="play-icon">▶</div>
+              </div>
+              <div class="documentary-info">
+                <div>
+                  <div class="documentary-name">零零后</div>
+                  <div class="documentary-desc">跟踪拍摄12年，记录00后孩子从幼儿园到青春期的真实成长，看见时代与个体</div>
+                </div>
+                <div class="documentary-tags">
+                  <span class="documentary-tag rating">⭐ 8.9</span>
+                  <span class="documentary-tag duration">5集·50分钟</span>
+                  <span class="documentary-tag source">央视</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 登录注册弹窗 -->
+        <div class="auth-modal" id="authModal">
+          <div class="auth-modal-content">
+            <div class="auth-close" onclick="closeAuthModal()">×</div>
+            <div class="auth-logo">
+              <div class="auth-logo-icon">🌷</div>
+              <h3>小晶育儿助手</h3>
+              <p>科学育儿，陪伴成长</p>
+            </div>
+
+            <div class="auth-tabs">
+              <div class="auth-tab active" id="loginTab" onclick="switchAuthTab('login')">登录</div>
+              <div class="auth-tab" id="registerTab" onclick="switchAuthTab('register')">注册</div>
+            </div>
+
+            <!-- 登录表单 -->
+            <div id="loginForm">
+              <div class="auth-form-group">
+                <div class="auth-form-label">手机号 / 用户名</div>
+                <input type="text" class="auth-form-input" id="loginAccount" placeholder="请输入手机号或用户名">
+              </div>
+              <div class="auth-form-group">
+                <div class="auth-form-label">密码</div>
+                <input type="password" class="auth-form-input" id="loginPassword" placeholder="请输入密码">
+              </div>
+              <button class="auth-submit-btn" onclick="handleLogin()">登录</button>
+
+              <div class="auth-divider">
+                <div class="auth-divider-line"></div>
+                <div class="auth-divider-text">快速体验</div>
+                <div class="auth-divider-line"></div>
+              </div>
+
+              <div class="auth-quick-login">
+                <div class="auth-quick-login-title">🎁 Demo 体验账号（一键登录）</div>
+                <div class="auth-quick-account">
+                  <div class="auth-quick-info">
+                    <div class="auth-quick-avatar">晶</div>
+                    <div class="auth-quick-details">
+                      <div class="auth-quick-name">小晶</div>
+                      <div class="auth-quick-account-text">demo / 123456</div>
+                    </div>
+                  </div>
+                  <button class="auth-quick-btn" onclick="quickLogin()">登录</button>
+                </div>
+              </div>
+
+              <div class="auth-footer">
+                还没有账号？<span class="auth-footer-link" onclick="switchAuthTab('register')">立即注册</span>
+              </div>
+            </div>
+
+            <!-- 注册表单 -->
+            <div id="registerForm" style="display:none;">
+              <div class="auth-form-group">
+                <div class="auth-form-label">昵称</div>
+                <input type="text" class="auth-form-input" id="registerName" placeholder="给自己起个昵称吧">
+              </div>
+              <div class="auth-form-group">
+                <div class="auth-form-label">手机号</div>
+                <input type="text" class="auth-form-input" id="registerPhone" placeholder="请输入手机号">
+              </div>
+              <div class="auth-form-group">
+                <div class="auth-form-label">设置密码</div>
+                <input type="password" class="auth-form-input" id="registerPassword" placeholder="6-20位密码">
+              </div>
+              <button class="auth-submit-btn" onclick="handleRegister()">注册并登录</button>
+
+              <div class="auth-footer">
+                已有账号？<span class="auth-footer-link" onclick="switchAuthTab('login')">去登录</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item active" onclick="showPage('home')">
+          <div class="nav-icon">🏠</div>
+          <div class="nav-label">首页</div>
+        </div>
+        <div class="nav-item" onclick="showPage('community')">
+          <div class="nav-icon">👥</div>
+          <div class="nav-label">社区</div>
+        </div>
+        <div class="nav-item" onclick="showPage('ask')">
+          <div class="nav-icon">💬</div>
+          <div class="nav-label">问答</div>
+        </div>
+        <div class="nav-item" onclick="showPage('growth')">
+          <div class="nav-icon">🌱</div>
+          <div class="nav-label">成长</div>
+        </div>
+        <div class="nav-item" onclick="showPage('shop')">
+          <div class="nav-icon">🛒</div>
+          <div class="nav-label">商城</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentStage = 'infant';
+    let currentPage = 'home';
+    let currentShopTab = 'pregnancy';
+    let previousPage = 'home';
+
+    const stageData = {
+      prepregnancy: {
+        name: '准爸妈',
+        stage: '备孕阶段 · 孕前调理期',
+        focus: '当前重点：孕前检查、排卵追踪、叶酸补充',
+        progress: 40,
+        cardClass: '',
+        homeTip: '科学备孕是健康宝宝的第一步。提前3-6个月开始补充叶酸，做好孕前检查，调整生活方式，为迎接新生命做好准备。',
+        growthBadge: '备孕阶段',
+        growthTitle: '备孕里程碑',
+        growthDesc: '从孕前检查到成功受孕，科学备孕每一步',
+        trendSummary: '✨ 叶酸已补充56天，易孕期即将到来'
+      },
+      pregnancy: {
+        name: '准妈妈',
+        stage: '孕期 · 孕12周',
+        focus: '当前重点：产检、营养、待产准备',
+        progress: 30,
+        cardClass: 'pregnancy',
+        homeTip: '孕早期是胎儿器官发育的关键期，注意补充叶酸，避免接触有害物质。如有不适及时就医。',
+        growthBadge: '孕期阶段',
+        growthTitle: '孕期里程碑',
+        growthDesc: '从第一次产检到待产准备，陪伴你度过整个孕期',
+        trendSummary: '✨ 本周产检已完成，宝宝发育正常'
+      },
+      infant: {
+        name: '小米 · 宝宝',
+        stage: '婴幼儿阶段 · 3个月',
+        focus: '当前重点：喂养、睡眠、疫苗',
+        progress: 25,
+        cardClass: 'infant',
+        homeTip: '每个阶段的烦恼不同。3 个月宝宝正处于快速生长期，喂养间隔可能缩短，睡眠也可能出现波动，这都是正常的。',
+        growthBadge: '婴幼儿阶段',
+        growthTitle: '发育里程碑',
+        growthDesc: '关注大运动、精细动作、语言、社交和认知五大领域的发展',
+        trendSummary: '✨ 喂养间隔稳定，宝宝今日状态不错'
+      },
+      youth: {
+        name: '小宇',
+        stage: '少年阶段 · 12岁',
+        focus: '当前重点：学习压力、情绪、亲子沟通',
+        progress: 65,
+        cardClass: 'youth',
+        homeTip: '青春期是自我认同形成的关键期。孩子开始有自己的想法，多倾听少说教，建立信任比什么都重要。',
+        growthBadge: '少年到 18 岁',
+        growthTitle: '青春期成长',
+        growthDesc: '关注身体变化、学习压力、情绪支持和亲子沟通',
+        trendSummary: '✨ 本周情绪平稳，学习状态良好'
+      }
+    };
+
+    const timelineData = {
+      prepregnancy: [
+        { title: '📋 孕前检查', desc: '夫妻双方全面体检，评估身体状况，排查遗传疾病风险，为健康备孕打好基础。', class: '' },
+        { title: '💊 营养调理', desc: '提前3-6个月补充叶酸，调整饮食结构，戒烟戒酒，养成健康生活方式。', class: '' },
+        { title: '📅 排卵追踪', desc: '通过基础体温、排卵试纸等方法找准易孕期，提高受孕概率。', class: '' },
+        { title: '🌱 成功受孕', desc: '验孕阳性！确认宫内好孕，开启孕期新旅程，预约第一次产检。', class: '' }
+      ],
+      pregnancy: [
+        { title: '🤰 孕早期(1-12周)', desc: '胎儿器官形成关键期，注意补充叶酸，按时产检，NT、唐筛等重要检查。', class: '' },
+        { title: '🌸 孕中期(13-27周)', desc: '相对稳定的黄金期，四维彩超看宝宝模样，感受第一次胎动，营养均衡很重要。', class: '' },
+        { title: '🎒 孕晚期(28-40周)', desc: '准备待产包，了解分娩知识，数胎动，确定医院和陪护人员，随时迎接宝宝。', class: '' },
+        { title: '👶 顺利分娩', desc: '宝宝出生的那一刻，所有的等待都值得。建立出生档案，开启育儿新旅程。', class: '' }
+      ],
+      infant: [
+        { title: '🏃 大运动发展', desc: '3 个月开始抬头稳，4-6 个月翻身，7-9 个月独坐，10-12 个月扶站。', class: 'infant' },
+        { title: '✋ 精细动作', desc: '从握拳到主动抓握，3-4 个月玩手，6-7 个月换手，9-10 个月拇食指对捏。', class: 'infant' },
+        { title: '🗣️ 语言发展', desc: '1-3 个月发元音，4-6 个月咿呀学语，7-9 个月叫爸妈，1 岁说单词。', class: 'infant' },
+        { title: '😊 社交认知', desc: '2 个月社交微笑，4 个月认人，6 个月怕生，9-12 个月依恋高峰期。', class: 'infant' }
+      ],
+      youth: [
+        { title: '🧍 身体变化', desc: '用尊重、准确的语言解释青春期身体变化，帮助孩子建立积极的身体意象。', class: 'youth' },
+        { title: '📚 学习压力', desc: '记录压力来源，帮助孩子找到适合的学习方法和情绪出口。', class: 'youth' },
+        { title: '💙 情绪支持', desc: '理解青春期的情绪波动，学会倾听和共情，而不是评判和说教。', class: 'youth' },
+        { title: '👨‍👩‍👧 亲子沟通', desc: '从说教到对话，从命令到协商，建立平等尊重的亲子沟通模式。', class: 'youth' }
+      ]
+    };
+
+    const productData = {
+      pregnancy: [
+        { image: '🤰', name: '待产包清单套装', desc: '备孕到出生 · 精选 28 件', price: '¥299', tag: '精选', imageClass: 'pregnancy' },
+        { image: '📚', name: '生命教育绘本套装', desc: '用温和方式解释生命起源', price: '¥168', tag: '推荐', imageClass: 'pregnancy' },
+        { image: '💊', name: '孕期营养组合', desc: '叶酸 DHA 钙片 三甲医生推荐', price: '¥399', tag: '科学', imageClass: 'pregnancy' }
+      ],
+      baby: [
+        { image: '🍼', name: '新生儿护理组合', desc: '喂养、洗护、安抚 全套必备', price: '¥458', tag: '爆款', imageClass: 'baby' },
+        { image: '🥣', name: '辅食工具套装', desc: '6个月+ 宝宝辅食入门 12件', price: '¥199', tag: '推荐', imageClass: 'baby' },
+        { image: '🧸', name: '安抚玩偶礼盒', desc: '帮助宝宝建立安全感 可入口', price: '¥128', tag: '精选', imageClass: 'baby' }
+      ],
+      youth: [
+        { image: '📖', name: '少年成长书单', desc: '身体认知、情绪学习 共6册', price: '¥258', tag: '精选', imageClass: 'youth' },
+        { image: '🎒', name: '中学生护脊书包', desc: '人体工学设计 减轻脊柱压力', price: '¥399', tag: '推荐', imageClass: 'youth' },
+        { image: '🎯', name: '学习专注力训练套装', desc: '提升注意力 适合10-16岁', price: '¥188', tag: '科学', imageClass: 'youth' }
+      ]
+    };
+
+    function showPage(page) {
+      previousPage = currentPage;
+      currentPage = page;
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + page).classList.add('active');
+      
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      
+      document.getElementById('appContent').scrollTop = 0;
+    }
+
+    function openStageDetail(stage) {
+      previousPage = currentPage;
+      currentStage = stage;
+      currentPage = 'stage-' + stage;
+      
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-stage-' + stage).classList.add('active');
+      
+      document.getElementById('appContent').scrollTop = 0;
+      
+      switchStage(stage);
+    }
+
+    function closeStageDetail() {
+      currentPage = 'home';
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-home').classList.add('active');
+      
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+      document.querySelectorAll('.nav-item')[0].classList.add('active');
+      
+      document.getElementById('appContent').scrollTop = 0;
+    }
+
+    function switchStage(stage) {
+      currentStage = stage;
+      const data = stageData[stage];
+      
+      document.querySelectorAll('.stage-dot').forEach(dot => dot.classList.remove('active'));
+      document.querySelector('.stage-dot.stage-' + stage).classList.add('active');
+      
+      const babyCard = document.getElementById('babyInfoCard');
+      babyCard.className = 'baby-info-card ' + data.cardClass;
+      
+      document.getElementById('babyName').textContent = data.name;
+      document.getElementById('babyStage').textContent = data.stage;
+      document.getElementById('babyFocus').textContent = data.focus;
+      document.getElementById('progressFill').style.width = data.progress + '%';
+      document.getElementById('progressText').textContent = data.progress + '%';
+      document.getElementById('homeTipContent').textContent = data.homeTip;
+      
+      const growthPanel = document.getElementById('growthPanel');
+      growthPanel.className = 'growth-stage-panel ' + data.cardClass;
+      document.getElementById('growthStageBadge').textContent = data.growthBadge;
+      document.getElementById('growthStageTitle').textContent = data.growthTitle;
+      document.getElementById('growthStageDesc').textContent = data.growthDesc;
+      growthPanel.querySelector('.progress-fill').style.width = data.progress + '%';
+      
+      updateTimeline(stage);
+    }
+
+    function switchGrowthStage(stage, element) {
+      document.querySelectorAll('.growth-stage-btn').forEach(b => b.classList.remove('active'));
+      element.classList.add('active');
+      switchStage(stage);
+    }
+
+    const communityData = {
+      recommend: [
+        { avatar: '👩', avatarClass: 'mom', name: '小月妈妈', meta: ['宝宝3个月', '2小时前'], tag: '热帖', title: '三个月宝宝睡眠倒退期怎么办？老母亲快熬不住了…', content: '之前每晚能睡6小时，最近突然一小时醒一次，喂也不是不喂也不是。试过各种方法都没用，大家都是怎么熬过来的？求经验分享…', likes: 328, comments: 156 },
+        { avatar: '👨‍⚕️', avatarClass: 'expert', name: '张医生 · 儿科主任', meta: ['官方认证', '昨天'], tag: '专家', tagColor: 'expert', title: '【科普】宝宝吐奶和溢奶的区别，什么时候需要就医？', content: '很多新手爸妈分不清宝宝是正常溢奶还是需要担心的呕吐。今天给大家详细讲解两者的区别，以及哪些情况需要及时就医…', likes: 892, comments: 234 },
+        { avatar: '👨', avatarClass: 'dad', name: '新手奶爸阿杰', meta: ['宝宝2个月', '5小时前'], title: '爸爸参与带娃的第30天，分享一些心得体会', content: '从一开始抱宝宝都手抖，到现在能独立换尿布、拍嗝、哄睡。想说爸爸带娃真的不是笨手笨脚，只是需要时间和机会…', likes: 567, comments: 189 }
+      ],
+      sameage: [
+        { avatar: '🤱', avatarClass: 'mom', name: '糖糖妈', meta: ['宝宝3个月', '1小时前'], tag: '同龄', title: '3月龄宝宝奶量上不去了，有同款吗？', content: '之前每次能喝120ml，最近90ml都喝不完，精神状态还行但就是不爱吃奶。是厌奶期到了吗？大家宝宝几个月出现的？', likes: 215, comments: 98 },
+        { avatar: '👩', avatarClass: 'mom', name: '朵朵妈', meta: ['宝宝4个月', '3小时前'], tag: '同龄', title: '4个月会翻身的宝宝多吗？我家还不会…', content: '看群里好多人说宝宝3个多月就会翻身了，我家快4个月了还不会，有点焦虑。儿保医生说正常，但还是想问问大家…', likes: 432, comments: 187 },
+        { avatar: '👨', avatarClass: 'dad', name: '小宝爸爸', meta: ['宝宝5个月', '昨天'], title: '5个月宝宝辅食准备，大家都是怎么开始的？', content: '马上要加辅食了，买了米粉和碗勺，但还是有点慌。第一次加多少？什么时间喂？求有经验的爸妈分享流程…', likes: 178, comments: 145 }
+      ],
+      expert: [
+        { avatar: '👨‍⚕️', avatarClass: 'expert', name: '李医生 · 妇产科', meta: ['官方认证', '2天前'], tag: '专家', tagColor: 'expert', title: '备孕期叶酸怎么补？剂量、时间全攻略', content: '很多备孕妈妈问我叶酸该怎么吃。今天统一回复：建议提前3个月开始，每天0.4mg，最好固定时间服用。有特殊情况需遵医嘱调整…', likes: 1024, comments: 356 },
+        { avatar: '👩‍⚕️', avatarClass: 'expert', name: '王医生 · 儿保科', meta: ['官方认证', '3天前'], tag: '专家', tagColor: 'expert', title: '宝宝疫苗接种时间表和注意事项', content: '整理了一份完整的疫苗接种时间表，包括一类二类疫苗的区分、接种禁忌和接种后护理，建议收藏…', likes: 876, comments: 298 },
+        { avatar: '👨‍⚕️', avatarClass: 'expert', name: '陈医生 · 心理科', meta: ['官方认证', '5天前'], tag: '专家', tagColor: 'expert', title: '青春期孩子不愿沟通？三招打开话匣子', content: '青春期孩子越来越不爱说话是很多家长的困扰。今天分享三个经过验证的沟通技巧：1）不要追问 2）创造独处场景 3）关注情绪…', likes: 654, comments: 231 }
+      ]
+    };
+
+    function switchCommunityTab(tab, element) {
+      document.querySelectorAll('.community-tab').forEach(t => t.classList.remove('active'));
+      element.classList.add('active');
+
+      const posts = communityData[tab];
+      const list = document.getElementById('communityPostList');
+      list.style.opacity = '0';
+      list.style.transform = 'translateY(10px)';
+
+      setTimeout(() => {
+        list.innerHTML = posts.map(p => {
+          const tagHtml = p.tag ? (p.tagColor === 'expert'
+            ? '<div class="post-tag" style="background: #e0f0ea; color: #4f907b;">' + p.tag + '</div>'
+            : '<div class="post-tag">' + p.tag + '</div>') : '';
+          const metaHtml = p.meta.map((m, i) => (i > 0 ? '<span>·</span>' : '') + '<span>' + m + '</span>').join('');
+          return '<div class="post-card">' +
+            '<div class="post-header">' +
+              '<div class="post-avatar ' + p.avatarClass + '">' + p.avatar + '</div>' +
+              '<div class="post-author">' +
+                '<div class="post-name">' + p.name + '</div>' +
+                '<div class="post-meta">' + metaHtml + '</div>' +
+              '</div>' +
+              tagHtml +
+            '</div>' +
+            '<div class="post-title">' + p.title + '</div>' +
+            '<div class="post-content">' + p.content + '</div>' +
+            '<div class="post-footer">' +
+              '<div class="post-action"><span class="post-action-icon">❤️</span><span>' + p.likes + '</span></div>' +
+              '<div class="post-action"><span class="post-action-icon">💬</span><span>' + p.comments + '</span></div>' +
+              '<div class="post-action"><span class="post-action-icon">⭐</span><span>收藏</span></div>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+        list.style.transition = 'all 0.3s ease';
+        list.style.opacity = '1';
+        list.style.transform = 'translateY(0)';
+      }, 200);
+    }
+
+    function updateTimeline(stage) {
+      const items = timelineData[stage];
+      const timeline = document.getElementById('timeline');
+      timeline.innerHTML = items.map(item => `
+        <div class="timeline-item ${item.class}">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">${item.title}</div>
+            <div class="timeline-desc">${item.desc}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function switchShopTab(tab) {
+      currentShopTab = tab;
+      
+      document.querySelectorAll('.shop-tab').forEach(t => t.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      
+      const products = productData[tab];
+      const productList = document.getElementById('productList');
+      productList.style.opacity = '0';
+      productList.style.transform = 'translateY(10px)';
+      
+      setTimeout(() => {
+        productList.innerHTML = products.map(p => `
+          <div class="product-card">
+            <div class="product-image ${p.imageClass}">${p.image}</div>
+            <div class="product-info">
+              <div>
+                <div class="product-name">${p.name}</div>
+                <div class="product-desc">${p.desc}</div>
+              </div>
+              <div class="product-bottom">
+                <span class="product-price">${p.price}</span>
+                <span class="product-tag">${p.tag}</span>
+              </div>
+            </div>
+          </div>
+        `).join('');
+        productList.style.transition = 'all 0.3s ease';
+        productList.style.opacity = '1';
+        productList.style.transform = 'translateY(0)';
+      }, 200);
+    }
+
+    function showAnswer() {
+      const answerSection = document.getElementById('answerSection');
+      answerSection.style.display = 'block';
+      const cards = answerSection.querySelectorAll('.answer-card');
+      cards.forEach((card, index) => {
+        card.style.animation = 'none';
+        card.offsetHeight;
+        card.style.animation = `fadeInUp 0.5s ease ${index * 0.15}s both`;
+      });
+    }
+
+    let currentUser = null;
+
+    const defaultUsers = [
+      { username: 'demo', password: '123456', name: '小晶', phone: '13800138000' }
+    ];
+
+    function getAllUsers() {
+      const saved = localStorage.getItem('xiaojing_users');
+      if (saved) {
+        return JSON.parse(saved);
+      }
+      return defaultUsers;
+    }
+
+    function saveUsers(users) {
+      localStorage.setItem('xiaojing_users', JSON.stringify(users));
+    }
+
+    function getCurrentUser() {
+      const saved = localStorage.getItem('xiaojing_current_user');
+      if (saved) {
+        return JSON.parse(saved);
+      }
+      return null;
+    }
+
+    function setCurrentUser(user) {
+      currentUser = user;
+      if (user) {
+        localStorage.setItem('xiaojing_current_user', JSON.stringify(user));
+      } else {
+        localStorage.removeItem('xiaojing_current_user');
+      }
+      updateAvatarDisplay();
+    }
+
+    function updateAvatarDisplay() {
+      const avatars = document.querySelectorAll('.header-avatar');
+      avatars.forEach(avatar => {
+        if (currentUser) {
+          avatar.classList.remove('guest');
+          avatar.textContent = currentUser.name.charAt(0);
+          avatar.onclick = function() {
+            if (confirm('当前账号：' + currentUser.name + '\n\n是否退出登录？')) {
+              setCurrentUser(null);
+              alert('已退出登录');
+            }
+          };
+        } else {
+          avatar.classList.add('guest');
+          avatar.textContent = '👤';
+          avatar.onclick = openAuthModal;
+        }
+      });
+    }
+
+    function openAuthModal() {
+      document.getElementById('authModal').classList.add('show');
+    }
+
+    function closeAuthModal() {
+      document.getElementById('authModal').classList.remove('show');
+    }
+
+    function switchAuthTab(tab) {
+      const loginTab = document.getElementById('loginTab');
+      const registerTab = document.getElementById('registerTab');
+      const loginForm = document.getElementById('loginForm');
+      const registerForm = document.getElementById('registerForm');
+
+      if (tab === 'login') {
+        loginTab.classList.add('active');
+        registerTab.classList.remove('active');
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+      } else {
+        loginTab.classList.remove('active');
+        registerTab.classList.add('active');
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'block';
+      }
+    }
+
+    function handleLogin() {
+      const account = document.getElementById('loginAccount').value.trim();
+      const password = document.getElementById('loginPassword').value;
+
+      if (!account || !password) {
+        alert('请输入账号和密码');
+        return;
+      }
+
+      const users = getAllUsers();
+      const user = users.find(u => (u.username === account || u.phone === account) && u.password === password);
+
+      if (user) {
+        setCurrentUser(user);
+        closeAuthModal();
+        alert('登录成功！欢迎，' + user.name);
+        document.getElementById('loginAccount').value = '';
+        document.getElementById('loginPassword').value = '';
+      } else {
+        alert('账号或密码错误\n\n提示：Demo账号 demo / 123456');
+      }
+    }
+
+    function quickLogin() {
+      const users = getAllUsers();
+      const demoUser = users.find(u => u.username === 'demo');
+      if (demoUser) {
+        setCurrentUser(demoUser);
+        closeAuthModal();
+        alert('登录成功！欢迎，' + demoUser.name);
+      }
+    }
+
+    function handleRegister() {
+      const name = document.getElementById('registerName').value.trim();
+      const phone = document.getElementById('registerPhone').value.trim();
+      const password = document.getElementById('registerPassword').value;
+
+      if (!name || !phone || !password) {
+        alert('请填写完整信息');
+        return;
+      }
+
+      if (password.length < 6) {
+        alert('密码至少6位');
+        return;
+      }
+
+      if (!/^1\d{10}$/.test(phone)) {
+        alert('请输入正确的手机号');
+        return;
+      }
+
+      const users = getAllUsers();
+      if (users.find(u => u.phone === phone)) {
+        alert('该手机号已注册，请直接登录');
+        return;
+      }
+
+      const newUser = {
+        username: phone,
+        password: password,
+        name: name,
+        phone: phone
+      };
+
+      users.push(newUser);
+      saveUsers(users);
+      setCurrentUser(newUser);
+      closeAuthModal();
+      alert('注册成功！欢迎，' + name);
+
+      document.getElementById('registerName').value = '';
+      document.getElementById('registerPhone').value = '';
+      document.getElementById('registerPassword').value = '';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const answerSection = document.getElementById('answerSection');
+      answerSection.style.display = 'block';
+
+      const savedUser = getCurrentUser();
+      if (savedUser) {
+        currentUser = savedUser;
+        updateAvatarDisplay();
+      }
+    });
+  </script>
+</body>
+</html>
