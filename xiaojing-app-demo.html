@@ -75,6 +75,36 @@
     line-height: 1.6;
   }
 
+  .demo-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .demo-section {
+    background: white;
+    border-radius: 16px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+    border: 1.5px solid var(--border);
+  }
+
+  .demo-section-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .demo-section-content {
+    font-size: 0.82rem;
+    color: var(--text-medium);
+    line-height: 1.5;
+  }
+
   .feature-list {
     list-style: none;
     margin-bottom: 32px;
@@ -1008,6 +1038,7 @@
   }
 
   .product-image.pregnancy { background: linear-gradient(135deg, #fde8d8, #f9d4bd); }
+  .product-image.prepregnancy { background: linear-gradient(135deg, #e0f0ea, #c8e0d8); }
   .product-image.baby { background: linear-gradient(135deg, #e0f0ea, #c8e4da); }
   .product-image.youth { background: linear-gradient(135deg, #e6ebf5, #cfd8ed); }
 
@@ -2028,9 +2059,9 @@
 <body>
   <div class="page-container">
     <div class="intro-panel">
-      <h1>小晶<span>育儿助手</span></h1>
+      <h1>欢迎使用<br>小晶育儿助手 <span>Demo</span></h1>
       <p class="subtitle">0-18 岁成长陪伴型科学育儿应用<br>四阶段定制，陪家庭一起长大</p>
-      
+
       <div class="stage-dots">
         <div class="stage-dot stage-prepregnancy" onclick="switchStage('prepregnancy')">备孕</div>
         <div class="stage-dot stage-pregnancy" onclick="switchStage('pregnancy')">孕期</div>
@@ -2038,13 +2069,20 @@
         <div class="stage-dot stage-youth" onclick="switchStage('youth')">少年到18岁</div>
       </div>
 
-      <ul class="feature-list">
-        <li>三阶段定制内容，适龄适需</li>
-        <li>科学表达，温和解释成长变化</li>
-        <li>从备孕到青春期，长期陪伴</li>
-        <li>信息可信，减少育儿焦虑</li>
-        <li>五大核心模块，覆盖全场景</li>
-      </ul>
+      <div class="demo-info">
+        <div class="demo-section">
+          <div class="demo-section-title">📱 Demo 包含 5 个页面</div>
+          <div class="demo-section-content">首页、社区、问答、成长、商城，点击底部导航切换</div>
+        </div>
+        <div class="demo-section">
+          <div class="demo-section-title">🖱️ 可点击交互</div>
+          <div class="demo-section-content">首页四宫格阶段入口、成长页阶段切换、社区 Tab 切换、商城分类切换、登录/注册弹窗</div>
+        </div>
+        <div class="demo-section">
+          <div class="demo-section-title">👆 左侧快捷切换</div>
+          <div class="demo-section-content">上方四个阶段按钮可快速切换成长页内容</div>
+        </div>
+      </div>
     </div>
 
     <div class="phone-frame">
@@ -2387,48 +2425,49 @@
           </div>
 
           <div class="shop-tabs">
-            <div class="shop-tab active" onclick="switchShopTab('pregnancy')">孕产</div>
+            <div class="shop-tab active" onclick="switchShopTab('prepregnancy')">备孕</div>
+            <div class="shop-tab" onclick="switchShopTab('pregnancy')">孕产</div>
             <div class="shop-tab" onclick="switchShopTab('baby')">母婴</div>
             <div class="shop-tab" onclick="switchShopTab('youth')">少年</div>
           </div>
 
           <div class="product-list" id="productList">
             <div class="product-card">
-              <div class="product-image pregnancy">🤰</div>
+              <div class="product-image prepregnancy">🌱</div>
               <div class="product-info">
                 <div>
-                  <div class="product-name">待产包清单套装</div>
-                  <div class="product-desc">备孕到出生 · 精选 28 件</div>
+                  <div class="product-name">孕前营养套装</div>
+                  <div class="product-desc">叶酸+复合维生素 三甲推荐</div>
                 </div>
                 <div class="product-bottom">
-                  <span class="product-price">¥299</span>
+                  <span class="product-price">¥199</span>
+                  <span class="product-tag">科学</span>
+                </div>
+              </div>
+            </div>
+            <div class="product-card">
+              <div class="product-image prepregnancy">🩺</div>
+              <div class="product-info">
+                <div>
+                  <div class="product-name">备孕检查套餐</div>
+                  <div class="product-desc">男女双方 全面孕前体检</div>
+                </div>
+                <div class="product-bottom">
+                  <span class="product-price">¥899</span>
                   <span class="product-tag">精选</span>
                 </div>
               </div>
             </div>
             <div class="product-card">
-              <div class="product-image pregnancy">📚</div>
+              <div class="product-image prepregnancy">📅</div>
               <div class="product-info">
                 <div>
-                  <div class="product-name">生命教育绘本套装</div>
-                  <div class="product-desc">用温和方式解释生命起源</div>
+                  <div class="product-name">排卵试纸套装</div>
+                  <div class="product-desc">高精准度 30条装+APP记录</div>
                 </div>
                 <div class="product-bottom">
-                  <span class="product-price">¥168</span>
-                  <span class="product-tag">推荐</span>
-                </div>
-              </div>
-            </div>
-            <div class="product-card">
-              <div class="product-image pregnancy">💊</div>
-              <div class="product-info">
-                <div>
-                  <div class="product-name">孕期营养组合</div>
-                  <div class="product-desc">叶酸 DHA 钙片 三甲医生推荐</div>
-                </div>
-                <div class="product-bottom">
-                  <span class="product-price">¥399</span>
-                  <span class="product-tag">科学</span>
+                  <span class="product-price">¥79</span>
+                  <span class="product-tag">热销</span>
                 </div>
               </div>
             </div>
@@ -3285,6 +3324,11 @@
     };
 
     const productData = {
+      prepregnancy: [
+        { image: '🌱', name: '孕前营养套装', desc: '叶酸+复合维生素 三甲推荐', price: '¥199', tag: '科学', imageClass: 'prepregnancy' },
+        { image: '🩺', name: '备孕检查套餐', desc: '男女双方 全面孕前体检', price: '¥899', tag: '精选', imageClass: 'prepregnancy' },
+        { image: '📅', name: '排卵试纸套装', desc: '高精准度 30条装+APP记录', price: '¥79', tag: '热销', imageClass: 'prepregnancy' }
+      ],
       pregnancy: [
         { image: '🤰', name: '待产包清单套装', desc: '备孕到出生 · 精选 28 件', price: '¥299', tag: '精选', imageClass: 'pregnancy' },
         { image: '📚', name: '生命教育绘本套装', desc: '用温和方式解释生命起源', price: '¥168', tag: '推荐', imageClass: 'pregnancy' },
