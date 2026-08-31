@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>王家宾 · 资深AI架构师</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #0f172a;
+    --accent: #6366f1;
+    --accent-2: #8b5cf6;
+    --accent-3: #ec4899;
+    --text: #1e293b;
+    --text-light: #64748b;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --border: #e2e8f0;
+  }
+
+  body {
+    font-family: "PingFang SC", "Helvetica Neue", "Microsoft YaHei", Arial, sans-serif;
+    background: #eef2f7;
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 980px;
+    margin: 40px auto;
+    background: var(--card);
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 45%, #4c1d95 100%);
+    color: #fff;
+    padding: 56px 48px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: "";
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .header::after {
+    content: "";
+    position: absolute;
+    bottom: -60px;
+    left: 30%;
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .header-inner { position: relative; z-index: 1; }
+
+  .name {
+    font-size: 44px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #fff 0%, #c7d2fe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .tagline {
+    font-size: 16px;
+    color: #cbd5e1;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 28px;
+    max-width: 600px;
+  }
+
+  .contact-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 28px;
+    font-size: 14px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #e2e8f0;
+  }
+
+  .contact-item .icon {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #a5b4fc;
+  }
+
+  .contact-item a { color: #e2e8f0; text-decoration: none; }
+  .contact-item a:hover { color: #fff; }
+
+  /* ===== HEADER ACTIONS (lang toggle + export) ===== */
+  .header-actions {
+    position: absolute;
+    top: 28px;
+    right: 28px;
+    z-index: 5;
+    display: flex;
+    gap: 10px;
+  }
+
+  .h-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: all 0.25s ease;
+    font-family: inherit;
+  }
+
+  .h-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: #fff;
+    transform: translateY(-1px);
+  }
+
+  .h-btn .ico {
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  .lang-toggle .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #c7d2fe;
+    box-shadow: 0 0 8px #c7d2fe;
+  }
+
+  /* ===== BODY LAYOUT ===== */
+  .body {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 0;
+  }
+
+  .sidebar {
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 40px 30px;
+    border-right: 1px solid var(--border);
+  }
+
+  .main {
+    padding: 40px 44px;
+  }
+
+  /* ===== SECTION TITLES ===== */
+  .side-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e0e7ff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .side-title::before {
+    content: "";
+    width: 4px;
+    height: 16px;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
+    border-radius: 2px;
+  }
+
+  .main-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .main-title::before {
+    content: "";
+    width: 6px;
+    height: 24px;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-3) 100%);
+    border-radius: 3px;
+  }
+
+  .side-block { margin-bottom: 32px; }
+
+  /* ===== INFO LIST ===== */
+  .info-list { list-style: none; }
+
+  .info-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 0;
+    font-size: 13.5px;
+    border-bottom: 1px dashed #e2e8f0;
+  }
+
+  .info-list li:last-child { border-bottom: none; }
+  .info-list .label { color: var(--text-light); }
+  .info-list .value { color: var(--text); font-weight: 500; }
+
+  /* ===== SKILLS ===== */
+  .skill { margin-bottom: 14px; }
+
+  .skill-name {
+    font-size: 13px;
+    color: var(--text);
+    margin-bottom: 6px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .skill-bar {
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .skill-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+    animation: grow 1.2s ease-out;
+  }
+
+  @keyframes grow {
+    from { width: 0; }
+  }
+
+  /* ===== TIMELINE (work exp) ===== */
+  .timeline { position: relative; padding-left: 24px; }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-3) 100%);
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 22px;
+  }
+
+  .tl-item:last-child { margin-bottom: 0; }
+
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -24px;
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 0 3px #e0e7ff;
+  }
+
+  .tl-date {
+    font-size: 12.5px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .tl-company { font-size: 14.5px; font-weight: 600; color: var(--primary); }
+  .tl-role { font-size: 13px; color: var(--text-light); }
+
+  /* ===== EDUCATION ===== */
+  .edu-item {
+    padding: 12px 14px;
+    background: #fff;
+    border-radius: 10px;
+    border-left: 3px solid var(--accent);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    margin-bottom: 10px;
+  }
+
+  .edu-school { font-size: 14px; font-weight: 600; color: var(--primary); }
+  .edu-meta { font-size: 12.5px; color: var(--text-light); margin-top: 3px; }
+
+  /* ===== PROJECTS ===== */
+  .project {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 26px 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .project::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 24px;
+    bottom: 22px;
+    width: 3px;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-3) 100%);
+    border-radius: 0 3px 3px 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .project:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(99, 102, 241, 0.14);
+    border-color: #c7d2fe;
+  }
+
+  .project:hover::before { opacity: 1; }
+
+  .project-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    gap: 12px;
+  }
+
+  .project-title-wrap { flex: 1; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+  .project-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+    box-shadow: 0 3px 8px rgba(99, 102, 241, 0.35);
+    flex-shrink: 0;
+  }
+
+  .project-title {
+    font-size: 16.5px;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .project-badge {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+    padding: 4px 13px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .project-date {
+    font-size: 12.5px;
+    color: var(--text-light);
+    margin: 0 0 4px 42px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .project-date::before {
+    content: "◷";
+    color: var(--accent);
+    font-size: 12px;
+  }
+
+  .sub-label {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--accent-2);
+    margin: 14px 0 7px;
+    padding: 2px 0;
+    position: relative;
+  }
+
+  .sub-label::after {
+    content: "";
+    display: inline-block;
+    width: 22px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-2), var(--accent-3));
+    border-radius: 2px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .project-desc {
+    font-size: 13.5px;
+    color: #475569;
+    line-height: 1.8;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 10px 0 4px;
+  }
+
+  .tech-tag {
+    font-size: 11px;
+    font-weight: 500;
+    color: #4338ca;
+    background: #eef2ff;
+    border: 1px solid #e0e7ff;
+    padding: 2px 10px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+  }
+
+  .tech-tag:hover {
+    background: #6366f1;
+    color: #fff;
+    border-color: #6366f1;
+  }
+
+  .duty-list {
+    list-style: none;
+    padding: 12px 16px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border-left: 3px solid var(--accent-2);
+  }
+
+  .duty-list li {
+    font-size: 13px;
+    color: #475569;
+    padding: 4px 0 4px 20px;
+    position: relative;
+  }
+
+  .duty-list li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    top: 4px;
+    color: var(--accent-2);
+    font-size: 13px;
+  }
+
+  .duty-list b {
+    color: #1e293b;
+    font-weight: 600;
+  }
+
+  .duty-list .hl {
+    color: var(--accent-2);
+    font-weight: 600;
+  }
+
+  /* ===== INTERESTS / WORKS ===== */
+  .interest-text {
+    font-size: 13px;
+    color: #475569;
+    line-height: 1.8;
+  }
+
+  .interest-text a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--accent);
+  }
+
+  .interest-text a:hover { color: var(--accent-2); border-bottom-style: solid; }
+
+  .work-link {
+    display: block;
+    padding: 10px 12px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-bottom: 8px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+
+  .work-link:hover {
+    border-color: var(--accent);
+    background: #eef2ff;
+    transform: translateX(3px);
+  }
+
+  .work-name { font-size: 13px; font-weight: 600; color: var(--primary); }
+  .work-url { font-size: 11.5px; color: var(--text-light); margin-top: 2px; word-break: break-all; }
+
+  /* ===== GALLERY ===== */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .gallery-item {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+    cursor: zoom-in;
+    aspect-ratio: 16 / 10;
+    background: #f8fafc;
+    transition: box-shadow 0.25s ease;
+  }
+  .gallery-item:hover { box-shadow: 0 8px 22px rgba(15, 23, 42, 0.14); }
+  .gallery-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.45s ease;
+  }
+  .gallery-item:hover .gallery-img { transform: scale(1.06); }
+  .gallery-item::after {
+    content: "⤢";
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 26px; height: 26px;
+    background: rgba(15, 23, 42, 0.55);
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .gallery-item:hover::after { opacity: 1; }
+
+  /* lightbox */
+  .lightbox {
+    position: fixed; inset: 0;
+    background: rgba(15, 23, 42, 0.92);
+    display: none;
+    align-items: center; justify-content: center;
+    z-index: 9999;
+    padding: 40px;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 92vw; max-height: 90vh;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+  .lightbox-close {
+    position: absolute; top: 22px; right: 30px;
+    color: #fff; font-size: 34px;
+    cursor: pointer; line-height: 1;
+    user-select: none;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    background: var(--primary);
+    color: #64748b;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 760px) {
+    .body { grid-template-columns: 1fr; }
+    .sidebar { border-right: none; border-bottom: 1px solid var(--border); }
+    .header { padding: 40px 28px 32px; }
+    .main { padding: 32px 24px; }
+    .name { font-size: 34px; }
+    .page { margin: 16px; border-radius: 12px; }
+    .header-actions { top: 16px; right: 16px; gap: 8px; }
+    .h-btn { padding: 5px 11px; font-size: 12px; }
+  }
+
+  .footer-spacer { display: none; }
+  .footer { display: none; }
+
+  @page { size: A4; margin: 0; }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    html, body { background: #fff; margin: 0; padding: 0; }
+    .page {
+      box-shadow: none; margin: 0; border-radius: 0; max-width: 100%;
+      display: block; overflow: visible !important;
+    }
+    .body { grid-template-columns: 260px 1fr !important; }
+    .sidebar { border-right: 1px solid var(--border) !important; border-bottom: none !important; padding: 32px 22px !important; }
+    .main { padding: 32px 30px !important; }
+    .project:hover { transform: none; box-shadow: 0 4px 16px rgba(15,23,42,0.04); }
+    .header-actions { display: none; }
+    .header { padding: 44px 40px 36px; }
+    .footer { display: none !important; }
+    .footer-spacer { display: none !important; }
+    .gallery { grid-template-columns: repeat(2, 1fr) !important; gap: 6px !important; }
+    .gallery-item { cursor: default !important; box-shadow: none; break-inside: avoid; }
+    .gallery-item:hover .gallery-img { transform: none; }
+    .gallery-item::after { display: none; }
+    .lightbox, .lightbox-close { display: none !important; }
+  }
+
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-actions">
+        <button class="h-btn lang-toggle" id="langToggle" type="button" title="Switch language">
+          <span class="dot"></span><span id="langLabel">EN</span>
+        </button>
+        <button class="h-btn btn-export" id="exportBtn" type="button" title="导出 PDF">
+          <span class="ico">⤓</span><span data-i18n="btn_export">导出 PDF</span>
+        </button>
+      </div>
+      <div class="header-inner">
+        <h1 class="name" data-i18n="name">王家宾</h1>
+        <p class="tagline" data-i18n="tagline">资深 AI 架构师 ｜ 专注智能系统研发与技术团队建设 ｜ 推动 AI 技术商业落地</p>
+        <div class="contact-bar">
+          <span class="contact-item"><span class="icon">✆</span><span data-i18n="c_phone">15236272162</span></span>
+          <span class="contact-item"><span class="icon">✉</span><span data-i18n="c_email">jrwjb@sina.com</span></span>
+          <span class="contact-item"><span class="icon">◷</span><span data-i18n="c_exp">11 年经验</span></span>
+          <span class="contact-item"><span class="icon">⌖</span><span data-i18n="c_city">上海</span></span>
+          <span class="contact-item"><span class="icon">✦</span><span data-i18n="c_age">36 岁 · 全日制本科</span></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- BODY -->
+    <div class="body">
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+
+        <!-- 个人信息 -->
+        <div class="side-block">
+          <h3 class="side-title" data-i18n="s_personal">个人信息</h3>
+          <ul class="info-list">
+            <li><span class="label" data-i18n="i_name_label">姓名</span><span class="value" data-i18n="i_name_val">王家宾</span></li>
+            <li><span class="label" data-i18n="i_age_label">年龄</span><span class="value" data-i18n="i_age_val">36 岁</span></li>
+            <li><span class="label" data-i18n="i_city_label">城市</span><span class="value" data-i18n="i_city_val">上海</span></li>
+            <li><span class="label" data-i18n="i_exp_label">经验</span><span class="value" data-i18n="i_exp_val">11 年</span></li>
+            <li><span class="label" data-i18n="i_edu_label">学历</span><span class="value" data-i18n="i_edu_val">全日制本科</span></li>
+            <li><span class="label" data-i18n="i_phone_label">电话</span><span class="value" data-i18n="c_phone">15236272162</span></li>
+            <li><span class="label" data-i18n="i_email_label">邮箱</span><span class="value" data-i18n="c_email">jrwjb@sina.com</span></li>
+          </ul>
+        </div>
+
+        <!-- 技能特长 -->
+        <div class="side-block">
+          <h3 class="side-title" data-i18n="s_skills">技能特长</h3>
+          <div class="skill">
+            <div class="skill-name"><span data-i18n="sk1">AI 应用开发</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+          </div>
+          <div class="skill">
+            <div class="skill-name"><span data-i18n="sk2">后端开发技能</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+          </div>
+          <div class="skill">
+            <div class="skill-name"><span data-i18n="sk3">前端开发技能</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+          </div>
+          <div class="skill">
+            <div class="skill-name"><span data-i18n="sk4">模型部署</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+          </div>
+          <div class="skill">
+            <div class="skill-name"><span data-i18n="sk5">运维管理</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div>
+          </div>
+        </div>
+
+        <!-- 教育背景 -->
+        <div class="side-block">
+          <h3 class="side-title" data-i18n="s_edu">教育背景</h3>
+          <div class="edu-item">
+            <div class="edu-school" data-i18n="edu_school">河南科技大学</div>
+            <div class="edu-meta" data-i18n="edu_meta">2010.09 – 2014.06 · 全日制本科 · 农学</div>
+          </div>
+        </div>
+
+        <!-- 工作经验 -->
+        <div class="side-block">
+          <h3 class="side-title" data-i18n="s_work">工作经验</h3>
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-date" data-i18n="t1_date">2025.05 – 至今</div>
+              <div class="tl-company" data-i18n="t1_company">数亮信息科技</div>
+              <div class="tl-role" data-i18n="t1_role">AI 工程师</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date" data-i18n="t2_date">2022.02 – 2024.04</div>
+              <div class="tl-company" data-i18n="t2_company">数因信科（AI 制药）</div>
+              <div class="tl-role" data-i18n="t2_role">高级工程师</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date" data-i18n="t3_date">2020.09 – 2022.01</div>
+              <div class="tl-company" data-i18n="t3_company">华大基因</div>
+              <div class="tl-role" data-i18n="t3_role">中级工程师</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date" data-i18n="t4_date">2016.06 – 2020.08</div>
+              <div class="tl-company" data-i18n="t4_company">中科新生命科技</div>
+              <div class="tl-role" data-i18n="t4_role">开发工程师</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date" data-i18n="t5_date">2014.07 – 2016.06</div>
+              <div class="tl-company" data-i18n="t5_company">深圳百乐宝科技</div>
+              <div class="tl-role" data-i18n="t5_role">技术支持工程师</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 兴趣爱好 -->
+        <div class="side-block">
+          <h3 class="side-title" data-i18n="s_interest">兴趣爱好</h3>
+          <p class="interest-text" data-i18n-html="interest_text">
+            技术博客：<a href="https://shubihu.github.io" target="_blank">shubihu.github.io</a><br>
+            喜欢折腾，业余时间开发过微信小程序、车载安卓应用等。
+          </p>
+        </div>
+
+      </aside>
+
+      <!-- MAIN -->
+      <main class="main">
+
+        <h2 class="main-title" data-i18n="m_projects">项目经验</h2>
+
+        <!-- 项目 1 -->
+        <div class="project">
+          <div class="project-head">
+            <div class="project-title-wrap">
+              <span class="project-num">01</span>
+              <div class="project-title" data-i18n="p1_title">AI Agent 智能财务分析平台（银行业务）</div>
+            </div>
+            <span class="project-badge" data-i18n="p1_badge">AI 工程师</span>
+          </div>
+          <div class="project-date" data-i18n="p1_date">2025.06 – 至今</div>
+          <div class="sub-label" data-i18n="sub_desc">项目描述</div>
+          <p class="project-desc" data-i18n="p1_desc">
+            面向银行业务场景中大量结构化 / 半结构化指标数据（如财务指标、年报等），构建基于大语言模型的问答系统，实现"以自然语言提问，返回结构化指标答案"的智能交互体验。系统集成大模型问答、知识检索（RAG）、Prompt 优化、指标解析等关键能力，提升指标获取效率与理解精度，辅助用户高效决策。
+          </p>
+          <div class="tech-tags" data-i18n-html="p1_tags">
+            <span class="tech-tag">LLM 问答</span>
+            <span class="tech-tag">RAG</span>
+            <span class="tech-tag">MCP 插件</span>
+            <span class="tech-tag">Skill 模块</span>
+            <span class="tech-tag">Prompt 工程</span>
+            <span class="tech-tag">Few-shot</span>
+            <span class="tech-tag">云容器化部署</span>
+          </div>
+          <div class="sub-label" data-i18n="sub_duty">个人职责</div>
+          <ul class="duty-list" data-i18n-html="p1_duties">
+            <li><b>主导核心问答链路架构</b>与端到端落地，打通"自然语言提问 → 结构化指标答案"全流程</li>
+            <li>自研 <span class="hl">Skill 模块与 MCP 插件体系</span>，实现能力可插拔扩展与多源工具调度</li>
+            <li>设计 <b>多轮对话状态机与上下文记忆机制</b>，显著提升连续提问的理解准确度与交互连贯性</li>
+            <li>沉淀 Prompt 模板库并落地 <span class="hl">Few-shot</span> 策略，有效抬高模型回答准确率与稳定性</li>
+            <li>主导云原生<span class="hl">容器化部署</span>（Docker/K8s），建立用户反馈闭环持续迭代，保障线上体验</li>
+          </ul>
+        </div>
+
+        <!-- 项目 2 -->
+        <div class="project">
+          <div class="project-head">
+            <div class="project-title-wrap">
+              <span class="project-num">02</span>
+              <div class="project-title" data-i18n="p2_title">专利知识问答</div>
+            </div>
+            <span class="project-badge" data-i18n="badge_senior">高级工程师</span>
+          </div>
+          <div class="project-date" data-i18n="p2_date">2023.02 – 2024.02</div>
+          <div class="sub-label" data-i18n="sub_desc">项目描述</div>
+          <p class="project-desc" data-i18n="p2_desc">
+            聚焦医学与生物医药领域的专利知识问答系统。通过整合药物研发、医疗器械、诊疗方法等相关专利文献与法规，结合语义理解技术，提升专利检索、分类与问答的专业性与精准度。探索并验证大模型在医学专利文本解析、相似专利比对、临床应用场景知识抽取中的应用，辅助科研机构、制药企业与知识产权服务团队进行高效的专利分析与决策。
+          </p>
+          <div class="tech-tags" data-i18n-html="p2_tags">
+            <span class="tech-tag">AI Agent</span>
+            <span class="tech-tag">语义检索</span>
+            <span class="tech-tag">相似度匹配</span>
+            <span class="tech-tag">提示词优化</span>
+            <span class="tech-tag">医学专利解析</span>
+            <span class="tech-tag">知识抽取</span>
+          </div>
+          <div class="sub-label" data-i18n="sub_duty">个人职责</div>
+          <ul class="duty-list" data-i18n-html="p2_duties">
+            <li><b>主导医学专利文献与法规的清洗、标准化与结构化建库</b>，构建高质量专业知识底座</li>
+            <li>核心研发 AI Agent <span class="hl">三大引擎：语义检索 + 相似度匹配 + 问答生成</span>，支撑专利精准检索与专业问答</li>
+            <li>创新<b>提示词优化策略</b>，提升大模型对医学专利文本的解析、分类与问答能力</li>
+            <li>搭建系统<b>测试与性能评估体系</b>，在药物研发、医疗器械、临床应用等多场景验证问答效果，赋能科研机构与药企高效专利决策</li>
+          </ul>
+        </div>
+
+        <!-- 项目 3 -->
+        <div class="project">
+          <div class="project-head">
+            <div class="project-title-wrap">
+              <span class="project-num">03</span>
+              <div class="project-title" data-i18n="p3_title">AI SaaS 全栈开发项目</div>
+            </div>
+            <span class="project-badge" data-i18n="badge_senior">高级工程师</span>
+          </div>
+          <div class="project-date" data-i18n="p3_date">2022.02 – 2023.01</div>
+          <div class="sub-label" data-i18n="sub_desc">项目描述</div>
+          <p class="project-desc" data-i18n="p3_desc">
+            聚焦 AI SaaS 平台的全栈开发与落地，实现从前端交互到后端服务、再到 AI 模型推理与数据管理的全链路能力。项目涵盖大模型接入、用户权限管理、任务编排、监控模块。探索并验证微服务架构、容器化部署与多云适配方案，提升系统可扩展性与高可用性。
+          </p>
+          <div class="tech-tags" data-i18n-html="p3_tags">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">FastAPI</span>
+            <span class="tech-tag">大模型推理 API</span>
+            <span class="tech-tag">流式输出</span>
+            <span class="tech-tag">微服务架构</span>
+            <span class="tech-tag">容器化</span>
+            <span class="tech-tag">CI/CD</span>
+          </div>
+          <div class="sub-label" data-i18n="sub_duty">个人职责</div>
+          <ul class="duty-list" data-i18n-html="p3_duties">
+            <li>从 0 到 1 <b>主导平台核心架构设计与全栈落地</b>，贯通前端交互 → 后端服务 → AI 模型推理 → 数据管理全链路</li>
+            <li>自研用户管理、权限控制与日志监控等 <span class="hl">SaaS 基建</span>，保障多租户隔离与系统可观测性</li>
+            <li>封装大模型推理 API 并实现<span class="hl">流式输出</span>，优化长文本场景下的响应延迟与用户体验</li>
+            <li><b>主导前端（React）与后端（FastAPI）集成开发</b>，保障前后端高效协同交付</li>
+            <li>设计<span class="hl">容器化与 CI/CD 自动化部署</span>流程，提升系统可扩展性与交付效率</li>
+            <li>负责系统功能测试与性能调优，保障<b>高可用与稳定运行</b></li>
+          </ul>
+        </div>
+
+        <!-- 作品展示 -->
+        <h2 class="main-title" style="margin-top:36px;" data-i18n="m_works">作品展示</h2>
+
+        <a class="work-link" href="https://shubihu.github.io/certificate.html" target="_blank">
+          <div class="work-name" data-i18n="w1_name">OCP 架构师、GenAI 证书</div>
+          <div class="work-url">https://shubihu.github.io/certificate.html</div>
+        </a>
+        <a class="work-link" href="https://github.com/shubihu/letsthink" target="_blank">
+          <div class="work-name" data-i18n="w2_name">全栈 Demo 展示（包含问答、监控等）</div>
+          <div class="work-url">https://github.com/shubihu/letsthink</div>
+        </a>
+        <a class="work-link" href="https://github.com/shubihu/wqagent" target="_blank">
+          <div class="work-name" data-i18n="w3_name">AI Agent 量化挖掘全栈项目</div>
+          <div class="work-url">https://github.com/shubihu/wqagent</div>
+        </a>
+
+        <!-- 项目截图 -->
+        <h2 class="main-title" style="margin-top:30px;" data-i18n="m_gallery">项目截图</h2>
+        <div class="gallery">
+          <div class="gallery-item"><img class="gallery-img" src="png/iShot_2026-08-31_11.37.30.png" alt="" loading="lazy"></div>
+          <div class="gallery-item"><img class="gallery-img" src="png/iShot_2026-08-31_11.38.15.png" alt="" loading="lazy"></div>
+          <div class="gallery-item"><img class="gallery-img" src="png/iShot_2026-08-31_11.38.46.png" alt="" loading="lazy"></div>
+          <div class="gallery-item"><img class="gallery-img" src="png/iShot_2026-08-31_11.40.36.png" alt="" loading="lazy"></div>
+          <div class="gallery-item"><img class="gallery-img" src="png/iShot_2026-08-31_11.41.07.png" alt="" loading="lazy"></div>
+          <div class="gallery-item"><img class="gallery-img" src="png/iShot_2026-08-31_11.42.06.png" alt="" loading="lazy"></div>
+          <div class="gallery-item"><img class="gallery-img" src="png/iShot_2026-08-31_14.25.21.png" alt="" loading="lazy"></div>
+        </div>
+
+      </main>
+    </div>
+
+    <div class="footer-spacer" id="footerSpacer"></div>
+    <footer class="footer" data-i18n="footer">
+      王家宾 · 资深 AI 架构师 · 15236272162 · jrwjb@sina.com
+    </footer>
+
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="lightboxClose">&times;</span>
+    <img id="lightboxImg" src="" alt="">
+  </div>
+
+<script>
+(function () {
+  var I18N = {
+    zh: {
+      title: "王家宾 · 资深AI架构师",
+      name: "王家宾",
+      tagline: "资深 AI 架构师 ｜ 专注智能系统研发与技术团队建设 ｜ 推动 AI 技术商业落地",
+      c_phone: "15236272162",
+      c_email: "jrwjb@sina.com",
+      c_exp: "11 年经验",
+      c_city: "上海",
+      c_age: "36 岁 · 全日制本科",
+      s_personal: "个人信息",
+      s_skills: "技能特长",
+      s_edu: "教育背景",
+      s_work: "工作经验",
+      s_interest: "兴趣爱好",
+      i_name_label: "姓名", i_name_val: "王家宾",
+      i_age_label: "年龄", i_age_val: "36 岁",
+      i_city_label: "城市", i_city_val: "上海",
+      i_exp_label: "经验", i_exp_val: "11 年",
+      i_edu_label: "学历", i_edu_val: "全日制本科",
+      i_phone_label: "电话", i_email_label: "邮箱",
+      sk1: "AI 应用开发", sk2: "后端开发技能", sk3: "前端开发技能",
+      sk4: "模型部署", sk5: "运维管理",
+      edu_school: "河南科技大学",
+      edu_meta: "2010.09 – 2014.06 · 全日制本科 · 农学",
+      t1_date: "2025.05 – 至今", t1_company: "数亮信息科技", t1_role: "AI 工程师",
+      t2_date: "2022.02 – 2024.04", t2_company: "数因信科（AI 制药）", t2_role: "高级工程师",
+      t3_date: "2020.09 – 2022.01", t3_company: "华大基因", t3_role: "中级工程师",
+      t4_date: "2016.06 – 2020.08", t4_company: "中科新生命科技", t4_role: "开发工程师",
+      t5_date: "2014.07 – 2016.06", t5_company: "深圳百乐宝科技", t5_role: "技术支持工程师",
+      interest_text: '技术博客：<a href="https://shubihu.github.io" target="_blank">shubihu.github.io</a><br>喜欢折腾，业余时间开发过微信小程序、车载安卓应用等。',
+      m_projects: "项目经验",
+      m_works: "作品展示",
+      m_gallery: "项目截图",
+      sub_desc: "项目描述",
+      sub_duty: "个人职责",
+      p1_title: "AI Agent 智能财务分析平台（银行业务）",
+      p1_badge: "AI 工程师",
+      p1_date: "2025.06 – 至今",
+      p1_desc: "面向银行业务场景中大量结构化 / 半结构化指标数据（如财务指标、年报等），构建基于大语言模型的问答系统，实现“以自然语言提问，返回结构化指标答案”的智能交互体验。系统集成大模型问答、知识检索（RAG）、Prompt 优化、指标解析等关键能力，提升指标获取效率与理解精度，辅助用户高效决策。",
+      p1_tags: '<span class="tech-tag">LLM 问答</span><span class="tech-tag">RAG</span><span class="tech-tag">MCP 插件</span><span class="tech-tag">Skill 模块</span><span class="tech-tag">Prompt 工程</span><span class="tech-tag">Few-shot</span><span class="tech-tag">云容器化部署</span>',
+      p1_duties: '<li><b>主导核心问答链路架构</b>与端到端落地，打通“自然语言提问 → 结构化指标答案”全流程</li><li>自研 <span class="hl">Skill 模块与 MCP 插件体系</span>，实现能力可插拔扩展与多源工具调度</li><li>设计 <b>多轮对话状态机与上下文记忆机制</b>，显著提升连续提问的理解准确度与交互连贯性</li><li>沉淀 Prompt 模板库并落地 <span class="hl">Few-shot</span> 策略，有效抬高模型回答准确率与稳定性</li><li>主导云原生<span class="hl">容器化部署</span>（Docker/K8s），建立用户反馈闭环持续迭代，保障线上体验</li>',
+      p2_title: "专利知识问答",
+      badge_senior: "高级工程师",
+      p2_date: "2023.02 – 2024.02",
+      p2_desc: "聚焦医学与生物医药领域的专利知识问答系统。通过整合药物研发、医疗器械、诊疗方法等相关专利文献与法规，结合语义理解技术，提升专利检索、分类与问答的专业性与精准度。探索并验证大模型在医学专利文本解析、相似专利比对、临床应用场景知识抽取中的应用，辅助科研机构、制药企业与知识产权服务团队进行高效的专利分析与决策。",
+      p2_tags: '<span class="tech-tag">AI Agent</span><span class="tech-tag">语义检索</span><span class="tech-tag">相似度匹配</span><span class="tech-tag">提示词优化</span><span class="tech-tag">医学专利解析</span><span class="tech-tag">知识抽取</span>',
+      p2_duties: '<li><b>主导医学专利文献与法规的清洗、标准化与结构化建库</b>，构建高质量专业知识底座</li><li>核心研发 AI Agent <span class="hl">三大引擎：语义检索 + 相似度匹配 + 问答生成</span>，支撑专利精准检索与专业问答</li><li>创新<b>提示词优化策略</b>，提升大模型对医学专利文本的解析、分类与问答能力</li><li>搭建系统<b>测试与性能评估体系</b>，在药物研发、医疗器械、临床应用等多场景验证问答效果，赋能科研机构与药企高效专利决策</li>',
+      p3_title: "AI SaaS 全栈开发项目",
+      p3_date: "2022.02 – 2023.01",
+      p3_desc: "聚焦 AI SaaS 平台的全栈开发与落地，实现从前端交互到后端服务、再到 AI 模型推理与数据管理的全链路能力。项目涵盖大模型接入、用户权限管理、任务编排、监控模块。探索并验证微服务架构、容器化部署与多云适配方案，提升系统可扩展性与高可用性。",
+      p3_tags: '<span class="tech-tag">React</span><span class="tech-tag">FastAPI</span><span class="tech-tag">大模型推理 API</span><span class="tech-tag">流式输出</span><span class="tech-tag">微服务架构</span><span class="tech-tag">容器化</span><span class="tech-tag">CI/CD</span>',
+      p3_duties: '<li>从 0 到 1 <b>主导平台核心架构设计与全栈落地</b>，贯通前端交互 → 后端服务 → AI 模型推理 → 数据管理全链路</li><li>自研用户管理、权限控制与日志监控等 <span class="hl">SaaS 基建</span>，保障多租户隔离与系统可观测性</li><li>封装大模型推理 API 并实现<span class="hl">流式输出</span>，优化长文本场景下的响应延迟与用户体验</li><li><b>主导前端（React）与后端（FastAPI）集成开发</b>，保障前后端高效协同交付</li><li>设计<span class="hl">容器化与 CI/CD 自动化部署</span>流程，提升系统可扩展性与交付效率</li><li>负责系统功能测试与性能调优，保障<b>高可用与稳定运行</b></li>',
+      w1_name: "OCP 架构师、GenAI 证书",
+      w2_name: "全栈 Demo 展示（包含问答、监控等）",
+      w3_name: "AI Agent 量化挖掘全栈项目",
+      btn_export: "导出 PDF",
+      footer: "王家宾 · 资深 AI 架构师 · 15236272162 · jrwjb@sina.com"
+    },
+    en: {
+      title: "Jiabin Wang · Senior AI Architect",
+      name: "Jiabin Wang",
+      tagline: "Senior AI Architect | Smart system R&D & tech team building | Driving AI commercialization",
+      c_phone: "15236272162",
+      c_email: "jrwjb@sina.com",
+      c_exp: "11 yrs experience",
+      c_city: "Shanghai",
+      c_age: "36 yrs · Bachelor's",
+      s_personal: "Personal Info",
+      s_skills: "Skills",
+      s_edu: "Education",
+      s_work: "Work Experience",
+      s_interest: "Interests",
+      i_name_label: "Name", i_name_val: "Jiabin Wang",
+      i_age_label: "Age", i_age_val: "36 yrs",
+      i_city_label: "City", i_city_val: "Shanghai",
+      i_exp_label: "Exp", i_exp_val: "11 yrs",
+      i_edu_label: "Degree", i_edu_val: "Bachelor's",
+      i_phone_label: "Phone", i_email_label: "Email",
+      sk1: "AI App Development", sk2: "Backend Development", sk3: "Frontend Development",
+      sk4: "Model Deployment", sk5: "DevOps",
+      edu_school: "Henan University of Science and Technology",
+      edu_meta: "2010.09 – 2014.06 · Bachelor's · Agriculture",
+      t1_date: "2025.05 – Present", t1_company: "Suliang Info Tech", t1_role: "AI Engineer",
+      t2_date: "2022.02 – 2024.04", t2_company: "Shuyin Tech (AI Pharma)", t2_role: "Senior Engineer",
+      t3_date: "2020.09 – 2022.01", t3_company: "BGI Genomics", t3_role: "Intermediate Engineer",
+      t4_date: "2016.06 – 2020.08", t4_company: "Zhongke Xinshengming Tech", t4_role: "Software Engineer",
+      t5_date: "2014.07 – 2016.06", t5_company: "Shenzhen Bailebao Tech", t5_role: "Technical Support Engineer",
+      interest_text: 'Tech blog: <a href="https://shubihu.github.io" target="_blank">shubihu.github.io</a><br>Loves tinkering; built WeChat mini-programs and in-car Android apps in spare time.',
+      m_projects: "Project Experience",
+      m_works: "Portfolio",
+      m_gallery: "Screenshots",
+      sub_desc: "Description",
+      sub_duty: "My Role",
+      p1_title: "AI Agent Financial Analysis Platform (Banking)",
+      p1_badge: "AI Engineer",
+      p1_date: "2025.06 – Present",
+      p1_desc: "Built an LLM-based Q&A system for banking structured / semi-structured data (financial indicators, annual reports), enabling smart interaction — ask in natural language, get structured indicator answers. Integrates LLM Q&A, RAG retrieval, prompt optimization, and indicator parsing to boost indicator access efficiency and understanding accuracy, empowering efficient decision-making.",
+      p1_tags: '<span class="tech-tag">LLM Q&A</span><span class="tech-tag">RAG</span><span class="tech-tag">MCP Plugin</span><span class="tech-tag">Skill Module</span><span class="tech-tag">Prompt Eng.</span><span class="tech-tag">Few-shot</span><span class="tech-tag">Cloud Deployment</span>',
+      p1_duties: '<li><b>Architected the core Q&A pipeline</b> end-to-end, bridging “natural-language question → structured indicator answer”.</li><li>Built the <span class="hl">Skill module & MCP plugin system</span> for pluggable capability extension and multi-tool orchestration.</li><li>Designed a <b>multi-turn dialogue state machine with context memory</b>, markedly improving follow-up accuracy and conversational coherence.</li><li>Curated a prompt template library and applied <span class="hl">Few-shot</span> strategies to lift answer accuracy and stability.</li><li>Led <span class="hl">cloud-native containerized deployment</span> (Docker/K8s) and a user-feedback loop for continuous iteration.</li>',
+      p2_title: "Patent Knowledge Q&A",
+      badge_senior: "Senior Engineer",
+      p2_date: "2023.02 – 2024.02",
+      p2_desc: "A patent knowledge Q&A system for the medical & biomedical domain. Aggregates pharma, medical-device, and clinical-method patents and regulations, combined with semantic understanding to improve patent retrieval, classification, and Q&A precision. Explores LLMs for medical patent parsing, similar-patent comparison, and clinical knowledge extraction to help research institutes, pharma, and IP teams make efficient patent decisions.",
+      p2_tags: '<span class="tech-tag">AI Agent</span><span class="tech-tag">Semantic Search</span><span class="tech-tag">Similarity Matching</span><span class="tech-tag">Prompt Optimization</span><span class="tech-tag">Patent Parsing</span><span class="tech-tag">Knowledge Extraction</span>',
+      p2_duties: '<li><b>Led medical patent & regulation cleaning, normalization, and structured library building</b>, creating a high-quality knowledge base.</li><li>Core-developed AI Agent <span class="hl">three engines: semantic search + similarity matching + answer generation</span> for precise retrieval and professional Q&A.</li><li>Innovated <b>prompt-optimization strategies</b> to improve LLM parsing, classification, and Q&A on medical patents.</li><li>Set up a <b>testing & performance evaluation framework</b> across pharma, device, and clinical scenarios, empowering research and pharma patent decisions.</li>',
+      p3_title: "AI SaaS Full-Stack Project",
+      p3_date: "2022.02 – 2023.01",
+      p3_desc: "Full-stack delivery of an AI SaaS platform, covering the full chain from frontend interaction to backend services, AI model inference, and data management. Includes LLM integration, user permissions, task orchestration, and monitoring. Explores microservice architecture, containerized deployment, and multi-cloud adaptation to boost scalability and high availability.",
+      p3_tags: '<span class="tech-tag">React</span><span class="tech-tag">FastAPI</span><span class="tech-tag">LLM Inference API</span><span class="tech-tag">Streaming Output</span><span class="tech-tag">Microservices</span><span class="tech-tag">Containerization</span><span class="tech-tag">CI/CD</span>',
+      p3_duties: '<li>0-to-1 <b>architected the platform core and led full-stack delivery</b>, bridging frontend → backend → AI inference → data management.</li><li>Built user management, access control, and log monitoring as <span class="hl">SaaS infrastructure</span> for multi-tenant isolation and observability.</li><li>Wrapped the LLM inference API with <span class="hl">streaming output</span>, optimizing latency and UX for long-text scenarios.</li><li><b>Led frontend (React) & backend (FastAPI) integration</b> for efficient cross-team delivery.</li><li>Designed <span class="hl">containerized CI/CD pipelines</span> to lift scalability and delivery throughput.</li><li>Owned functional testing and performance tuning, ensuring <b>high availability & stable operation</b>.</li>',
+      w1_name: "OCP Architect & GenAI Certificates",
+      w2_name: "Full-Stack Demo (Q&A, monitoring, etc.)",
+      w3_name: "AI Agent Quant Mining Full-Stack Project",
+      btn_export: "Export PDF",
+      footer: "Jiabin Wang · Senior AI Architect · 15236272162 · jrwjb@sina.com"
+    }
+  };
+
+  function applyLang(lang) {
+    var dict = I18N[lang] || I18N.zh;
+    document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+    document.title = dict.title;
+    var nodes = document.querySelectorAll("[data-i18n]");
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      var key = el.getAttribute("data-i18n");
+      var val = dict[key];
+      if (val == null) continue;
+      el.textContent = val;
+    }
+    var htmlNodes = document.querySelectorAll("[data-i18n-html]");
+    for (var j = 0; j < htmlNodes.length; j++) {
+      var hEl = htmlNodes[j];
+      var hKey = hEl.getAttribute("data-i18n-html");
+      var hVal = dict[hKey];
+      if (hVal != null) hEl.innerHTML = hVal;
+    }
+    var label = document.getElementById("langLabel");
+    if (label) label.textContent = lang === "en" ? "中" : "EN";
+    try { localStorage.setItem("resume-lang", lang); } catch (e) {}
+  }
+
+  var current = "zh";
+  try { current = localStorage.getItem("resume-lang") || "zh"; } catch (e) {}
+  applyLang(current);
+
+  document.getElementById("langToggle").addEventListener("click", function () {
+    current = current === "zh" ? "en" : "zh";
+    applyLang(current);
+  });
+
+  // —— 灯箱：点击图片放大查看 ——
+  (function initLightbox() {
+    var lb = document.getElementById("lightbox");
+    var lbImg = document.getElementById("lightboxImg");
+    var lbClose = document.getElementById("lightboxClose");
+    if (!lb) return;
+    document.querySelectorAll(".gallery-item").forEach(function (item) {
+      item.addEventListener("click", function () {
+        var img = item.querySelector("img");
+        if (!img) return;
+        lbImg.src = img.src;
+        lb.classList.add("open");
+      });
+    });
+    function close() { lb.classList.remove("open"); lbImg.src = ""; }
+    if (lbClose) lbClose.addEventListener("click", close);
+    lb.addEventListener("click", function (e) { if (e.target === lb) close(); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && lb.classList.contains("open")) close();
+    });
+  })();
+
+  var exportBtn = document.getElementById("exportBtn");
+
+  // —— 精确把 footer 推到最后一页的纸张底部（只出现一次，不溢出新页）——
+  // 关键修复：测量前把 .page 临时压缩到 A4 宽度（210mm = 794px），
+  // 让文本换行、排版与打印态完全一致，避免屏幕宽→打印窄造成高度低估、
+  // spacer 过大导致 footer 被推到新空白页。
+  (function initPrintFooter() {
+    var A4_W = Math.round(210 / 25.4 * 96);   // 794 px
+    var A4_H = Math.round(297 / 25.4 * 96);   // 1123 px
+    var SAFETY = 48;                          // 宁少推 48px，绝不溢出新页
+    var saved = null;
+
+    function applyA4Layout() {
+      var page = document.querySelector(".page");
+      if (!page) return;
+      saved = {
+        maxW: page.style.maxWidth,
+        width: page.style.width,
+        shadow: page.style.boxShadow,
+        margin: page.style.margin,
+        radius: page.style.borderRadius
+      };
+      page.style.maxWidth = A4_W + "px";
+      page.style.width = A4_W + "px";
+      page.style.boxShadow = "none";
+      page.style.margin = "0 auto";
+      page.style.borderRadius = "0";
+      // 强制浏览器重排
+      void page.offsetHeight;
+    }
+    function restoreLayout() {
+      var page = document.querySelector(".page");
+      if (!page || !saved) return;
+      page.style.maxWidth = saved.maxW;
+      page.style.width = saved.width;
+      page.style.boxShadow = saved.shadow;
+      page.style.margin = saved.margin;
+      page.style.borderRadius = saved.radius;
+    }
+
+    window.pushFooterToLastPageBottom = function () {
+      try {
+        var spacer = document.getElementById("footerSpacer");
+        var footer = document.querySelector(".footer");
+        if (!spacer || !footer) return;
+        spacer.style.height = "0px";
+        applyA4Layout();
+        var footerRect = footer.getBoundingClientRect();
+        var scrollOff = window.pageYOffset || document.documentElement.scrollTop || 0;
+        var contentTopToFooter = footerRect.top + scrollOff;
+        var footerH = footer.offsetHeight || 52;
+        var pages = Math.ceil(contentTopToFooter / A4_H);
+        if (pages < 1) pages = 1;
+        var target = pages * A4_H;
+        var need = target - contentTopToFooter - footerH - SAFETY;
+        if (need < 0) need = 0;
+        spacer.style.height = need + "px";
+        // 注意：不在这里 restoreLayout——让 window.print() 渲染时仍使用 A4 宽，
+        // 保证测量环境与打印环境完全一致。afterprint 统一恢复。
+      } catch (e) {}
+    };
+
+    window.resetFooterSpacer = function () {
+      try {
+        var spacer = document.getElementById("footerSpacer");
+        if (spacer) spacer.style.height = "0px";
+      } catch (e) {}
+      restoreLayout();
+      saved = null;
+    };
+  })();
+
+  if (window.addEventListener) {
+    window.addEventListener("beforeprint", window.pushFooterToLastPageBottom, false);
+    window.addEventListener("afterprint", window.resetFooterSpacer, false);
+  }
+
+  if (exportBtn) {
+    exportBtn.addEventListener("click", function () {
+      window.pushFooterToLastPageBottom();
+      setTimeout(function () { window.print(); }, 80);
+    });
+  }
+})();
+</script>
+</body>
+</html>
